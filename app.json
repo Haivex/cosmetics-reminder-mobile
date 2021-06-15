@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "cosmetics-reminder-mobile",
-    "slug": "cosmetics-reminder-mobile",
+    "name": "Only You",
+    "slug": "Only-You",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#72c4d6"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -24,7 +24,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#72c4d6"
       }
     },
     "web": {
