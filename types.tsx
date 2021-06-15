@@ -9,7 +9,7 @@ export type RootStackParamList = {
 };
 
 export type BottomTabParamList = {
-  TabOne: undefined;
+  'Utwórz zadanie': undefined;
   TabTwo: undefined;
 };
 
