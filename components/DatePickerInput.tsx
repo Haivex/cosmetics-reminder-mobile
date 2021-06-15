@@ -23,7 +23,7 @@ export default function DatePickerInput() {
 
   return (
     <>
-      <TextInput onFocus={() => setOpen(true)} mode='outlined' placeholder='Wybierz datę'>
+      <TextInput onTouchEnd={() => setOpen(true)} mode='outlined' placeholder='Wybierz datę'>
         {date && format(date, 'dd-LL-uu')}
       </TextInput>
       <DatePickerModal
