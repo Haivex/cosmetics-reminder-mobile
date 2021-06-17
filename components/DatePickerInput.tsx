@@ -3,20 +3,26 @@ import 'intl/locale-data/jsonp/pl';
 import * as React from 'react';
 import { TextInput } from 'react-native-paper';
 import { DatePickerModal } from 'react-native-paper-dates';
-import { format } from 'date-fns'
+import { format } from 'date-fns';
 
-export default function DatePickerInput() {
+interface DatePickerInputProps {
+  onBlur: () => void; onChange: (...event: any[]) => void;
+}
+
+export default function DatePickerInput({onBlur, onChange}: DatePickerInputProps) {
   const [date, setDate] = React.useState<Date | undefined>(undefined);
   const [open, setOpen] = React.useState(false);
 
   const onDismissSingle = React.useCallback(() => {
     setOpen(false);
+    onBlur()
   }, [setOpen]);
 
   const onConfirmSingle = React.useCallback(
     (params) => {
       setOpen(false);
       setDate(params.date);
+      onChange(params)
     },
     [setOpen, setDate]
   );
