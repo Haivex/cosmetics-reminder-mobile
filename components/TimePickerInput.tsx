@@ -4,7 +4,11 @@ import 'intl/locale-data/jsonp/pl';
 import { TimePickerModal } from 'react-native-paper-dates';
 import { TextInput } from 'react-native-paper';
 
-export default function TimePickerInput() {
+interface TimePickerInputProps {
+  onBlur: () => void; onChange: (...event: any[]) => void;
+}
+
+export default function TimePickerInput({onChange, onBlur}: TimePickerInputProps) {
   const [visible, setVisible] = React.useState(false);
   const [time, setTime] = React.useState({
     hours: undefined,
@@ -12,12 +16,14 @@ export default function TimePickerInput() {
   });
   const onDismiss = React.useCallback(() => {
     setVisible(false);
+    onBlur()
   }, [setVisible]);
 
   const onConfirm = React.useCallback(
     ({ hours, minutes }) => {
       setVisible(false);
       setTime({ hours, minutes });
+      onChange({hours, minutes})
     },
     [setVisible]
   );
