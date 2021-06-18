@@ -25,7 +25,7 @@ export const initialState: AppState = {
       index: 1,
       title: 'Learn Redux',
       time: { hours: 13, minutes: 50 },
-      date: new Date(),
+      date: new Date(2021, 7, 20),
       completed: false,
     },
     {

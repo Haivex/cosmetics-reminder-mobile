@@ -1,13 +1,32 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { useReducer } from 'react';
+import { StyleSheet, ScrollView } from 'react-native';
 import { Text, View } from '../components/Themed';
+import appReducer, { initialState } from '../store/MainStore';
 
 export default function TabTwoScreen() {
+  const [state] = useReducer(appReducer, initialState);
+  const currentDate = new Date();
+
+  const getCurrentTasks = () => {
+    return state.todos.filter((task) => !task.completed && task.date <= currentDate)
+  }
+
+  const getIncomingTasks = () => {
+    return state.todos.filter((task) => !task.completed && task.date > currentDate)
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-    </View>
+    <ScrollView>
+      <Text style={styles.title}>Aktualne zadania</Text>
+      <View>
+        {getCurrentTasks().map(task => <Text>{task.title}</Text>)}
+      </View>
+      <Text style={styles.title}>Nadchodzące zadania</Text>
+      <View>
+      {getIncomingTasks().map(task => <Text>{task.title}</Text>)}
+      </View>
+    </ScrollView>
   );
 }
 
