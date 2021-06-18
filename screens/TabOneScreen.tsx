@@ -4,32 +4,36 @@ import { Button, TextInput, Text, HelperText } from 'react-native-paper';
 import DatePickerInput from '../components/DatePickerInput';
 import { View } from '../components/Themed';
 import TimePickerInput from '../components/TimePickerInput';
-import Constants from 'expo-constants';
 import { useForm, Controller } from 'react-hook-form';
+import { useReducer } from 'react';
+import appReducer, { initialState } from '../store/MainStore';
 
-type Time = {
+export type Time = {
   hours: number;
   minutes: number;
 };
 
-type FormData = {
+export type TaskData = {
   date: Date;
-  time: string;
-  title: Time;
+  time: Time;
+  title: string;
 };
 
 export default function TabOneScreen() {
+  const [state, dispatch] = useReducer(appReducer, initialState);
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
-  const onSubmit = (data: FormData) => console.log(data);
+  } = useForm<TaskData>();
+  const onSubmit = (data: TaskData) => {
+    dispatch({type: 'ADD_TODO', payload: data})
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tytuł: </Text>
-      <Controller<FormData>
+      <Controller<TaskData>
         control={control}
         rules={{
           required: true,
@@ -50,7 +54,7 @@ export default function TabOneScreen() {
       </HelperText>
 
       <Text style={styles.title}>Data rozpoczęcia: </Text>
-      <Controller<FormData>
+      <Controller<TaskData>
         control={control}
         rules={{
           required: true,
@@ -65,7 +69,7 @@ export default function TabOneScreen() {
       </HelperText>
 
       <Text style={styles.title}>Godzina rozpoczęcia: </Text>
-      <Controller<FormData>
+      <Controller<TaskData>
         control={control}
         rules={{
           required: true,
