@@ -6,7 +6,8 @@ import { View } from '../components/Themed';
 import TimePickerInput from '../components/TimePickerInput';
 import { useForm, Controller } from 'react-hook-form';
 import { useReducer } from 'react';
-import appReducer, { initialState } from '../store/MainStore';
+import appReducer, { globalState } from '../store/MainStore';
+import TodosContext from '../store/MainStore';
 
 export type Time = {
   hours: number;
@@ -20,14 +21,14 @@ export type TaskData = {
 };
 
 export default function TabOneScreen() {
-  const [state, dispatch] = useReducer(appReducer, initialState);
+  const todos = React.useContext(TodosContext);
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<TaskData>();
   const onSubmit = (data: TaskData) => {
-    dispatch({type: 'ADD_TODO', payload: data})
+    todos.add(data);
   };
 
   return (
