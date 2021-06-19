@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { useReducer } from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { CurrentTask } from '../components/CurrentTask';
-import appReducer, { initialState } from '../store/MainStore';
 import { IncomingTask } from '../components/IncomingTask';
+import TodosContext, { AppState } from '../store/MainStore';
 
 export default function TabTwoScreen() {
-  const [state] = useReducer(appReducer, initialState);
+  const state = React.useContext<AppState>(TodosContext);
   const currentDate = new Date();
 
   const getCurrentTasks = () => {
@@ -22,11 +21,11 @@ export default function TabTwoScreen() {
     <ScrollView>
       <Text style={styles.title}>Aktualne zadania</Text>
       <View>
-        {getCurrentTasks().map(task => <CurrentTask task={task} />)}
+        {getCurrentTasks().map(task => <CurrentTask key={task.index} task={task} />)}
       </View>
       <Text style={styles.title}>Nadchodzące zadania</Text>
       <View>
-      {getIncomingTasks().map(task => <IncomingTask task={task} />)}
+      {getIncomingTasks().map(task => <IncomingTask key={task.index} task={task} />)}
       </View>
     </ScrollView>
   );
