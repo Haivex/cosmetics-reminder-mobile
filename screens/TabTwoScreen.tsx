@@ -1,13 +1,33 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { Text, View } from '../components/Themed';
+import { CurrentTask } from '../components/CurrentTask';
+import { IncomingTask } from '../components/IncomingTask';
+import TodosContext, { AppState } from '../store/MainStore';
 
 export default function TabTwoScreen() {
+  const state = React.useContext<AppState>(TodosContext);
+  const currentDate = new Date();
+
+  const getCurrentTasks = () => {
+    return state.todos.filter((task) => !task.completed && task.date <= currentDate)
+  }
+
+  const getIncomingTasks = () => {
+    return state.todos.filter((task) => !task.completed && task.date > currentDate)
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-    </View>
+    <ScrollView>
+      <Text style={styles.title}>Aktualne zadania</Text>
+      <View>
+        {getCurrentTasks().map(task => <CurrentTask key={task.index} task={task} />)}
+      </View>
+      <Text style={styles.title}>Nadchodzące zadania</Text>
+      <View>
+      {getIncomingTasks().map(task => <IncomingTask key={task.index} task={task} />)}
+      </View>
+    </ScrollView>
   );
 }
 

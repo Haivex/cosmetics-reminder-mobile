@@ -1,6 +1,7 @@
+import * as React from 'react';
 import { TaskData, Time } from '../screens/TabOneScreen';
 
-type Task = {
+export type Task = {
   index: number;
   title: string;
   time: Time;
@@ -8,11 +9,13 @@ type Task = {
   completed: boolean;
 };
 
-type AppState = {
+export type AppState = {
   todos: Task[];
+  add(task: TaskData): void;
+  markCompleted(task: Task): void;
 };
 
-export const initialState: AppState = {
+export const globalState: AppState = {
   todos: [
     {
       index: 0,
@@ -25,38 +28,30 @@ export const initialState: AppState = {
       index: 1,
       title: 'Learn Redux',
       time: { hours: 13, minutes: 50 },
-      date: new Date(),
+      date: new Date(2022, 7, 20),
       completed: false,
     },
     {
       index: 2,
       title: 'Build something fun!',
       time: { hours: 14, minutes: 50 },
-      date: new Date(),
+      date: new Date(2021, 5, 13),
       completed: false,
     },
   ],
+  add(taskData: TaskData) {
+    this.todos.push({
+        index: this.todos[this.todos.length - 1].index + 1,
+        title: taskData.title,
+        date: taskData.date,
+        time: taskData.time,
+        completed: false,
+    })
+  },
+  markCompleted(task: Task) {
+    task.completed = true;
+  }
 };
 
-type Action = { type: 'ADD_TODO'; payload: TaskData };
-
-export default function appReducer(state: AppState, action: Action): AppState {
-  switch (action.type) {
-    case 'ADD_TODO':
-      return {
-        ...state,
-        todos: [
-          ...state.todos,
-          {
-            index: state.todos[state.todos.length - 1].index + 1,
-            title: action.payload.title,
-            date: action.payload.date,
-            time: action.payload.time,
-            completed: false,
-          },
-        ],
-      };
-    default:
-      throw new Error();
-  }
-}
+const TodosContext = React.createContext<AppState>(globalState);
+export default TodosContext;
