@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useReducer } from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import { Text, View } from '../components/Themed';
+import { CurrentTask } from '../components/CurrentTask';
 import appReducer, { initialState } from '../store/MainStore';
 
 export default function TabTwoScreen() {
@@ -20,7 +21,7 @@ export default function TabTwoScreen() {
     <ScrollView>
       <Text style={styles.title}>Aktualne zadania</Text>
       <View>
-        {getCurrentTasks().map(task => <Text>{task.title}</Text>)}
+        {getCurrentTasks().map(task => <CurrentTask task={task} />)}
       </View>
       <Text style={styles.title}>Nadchodzące zadania</Text>
       <View>

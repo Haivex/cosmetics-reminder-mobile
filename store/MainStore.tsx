@@ -1,6 +1,6 @@
 import { TaskData, Time } from '../screens/TabOneScreen';
 
-type Task = {
+export type Task = {
   index: number;
   title: string;
   time: Time;
