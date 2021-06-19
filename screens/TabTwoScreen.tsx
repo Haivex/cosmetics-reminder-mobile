@@ -4,6 +4,7 @@ import { StyleSheet, ScrollView } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { CurrentTask } from '../components/CurrentTask';
 import appReducer, { initialState } from '../store/MainStore';
+import { IncomingTask } from '../components/IncomingTask';
 
 export default function TabTwoScreen() {
   const [state] = useReducer(appReducer, initialState);
@@ -25,7 +26,7 @@ export default function TabTwoScreen() {
       </View>
       <Text style={styles.title}>Nadchodzące zadania</Text>
       <View>
-      {getIncomingTasks().map(task => <Text>{task.title}</Text>)}
+      {getIncomingTasks().map(task => <IncomingTask task={task} />)}
       </View>
     </ScrollView>
   );
