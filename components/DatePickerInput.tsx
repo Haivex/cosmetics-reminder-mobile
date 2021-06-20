@@ -22,7 +22,7 @@ export default function DatePickerInput({onBlur, onChange}: DatePickerInputProps
     (params) => {
       setOpen(false);
       setDate(params.date);
-      onChange(params)
+      onChange(params.date)
     },
     [setOpen, setDate]
   );

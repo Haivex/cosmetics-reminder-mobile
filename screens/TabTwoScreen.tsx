@@ -3,18 +3,19 @@ import { StyleSheet, ScrollView } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { CurrentTask } from '../components/CurrentTask';
 import { IncomingTask } from '../components/IncomingTask';
-import TodosContext, { AppState } from '../store/MainStore';
+import { RootState } from '../redux/MainStore';
+import { useSelector } from 'react-redux';
 
 export default function TabTwoScreen() {
-  const state = React.useContext<AppState>(TodosContext);
+  const { todos } = useSelector((state: RootState) => state.todos);
   const currentDate = new Date();
 
   const getCurrentTasks = () => {
-    return state.todos.filter((task) => !task.completed && task.date <= currentDate)
+    return todos.filter((task) => !task.completed && task.date <= currentDate)
   }
 
   const getIncomingTasks = () => {
-    return state.todos.filter((task) => !task.completed && task.date > currentDate)
+    return todos.filter((task) => !task.completed && task.date > currentDate)
   }
 
   return (
