@@ -7,7 +7,8 @@ import { darkTheme, lightTheme } from './constants/Theme';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
-import TodosContext, { globalState } from './store/MainStore';
+import { Provider } from 'react-redux';
+import { store } from './redux/MainStore';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -19,10 +20,10 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <PaperProvider theme={colorScheme === 'light' ? lightTheme : darkTheme}>
-        <TodosContext.Provider value={globalState}>
+        <Provider store={store}>
           <Navigation colorScheme={colorScheme} />
           <StatusBar />
-        </TodosContext.Provider>
+        </Provider>
         </PaperProvider>
       </SafeAreaProvider>
     );
