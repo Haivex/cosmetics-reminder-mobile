@@ -3,6 +3,7 @@ import 'intl';
 import 'intl/locale-data/jsonp/pl';
 import { TimePickerModal } from 'react-native-paper-dates';
 import { TextInput } from 'react-native-paper';
+import { format } from 'date-fns';
 
 interface TimePickerInputProps {
   onBlur: () => void; onChange: (...event: any[]) => void;
@@ -31,7 +32,7 @@ export default function TimePickerInput({onChange, onBlur}: TimePickerInputProps
   return (
     <>
     <TextInput onTouchEnd={() => setVisible(true)} mode='outlined' placeholder='Wybierz godzinę'>
-        {`${time.hours}:${time.minutes}`}
+        {time.hours && time.minutes ? `${format(new Date(1, 1, 2000, time.hours, time.minutes), 'HH:mm')}` : ''}
       </TextInput>
       <TimePickerModal
         visible={visible}
