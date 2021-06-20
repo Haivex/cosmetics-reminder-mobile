@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { TaskData, Time } from '../screens/TabOneScreen';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 export type Task = {
   index: number;
@@ -11,8 +12,6 @@ export type Task = {
 
 export type AppState = {
   todos: Task[];
-  add(task: TaskData): void;
-  markCompleted(task: Task): void;
 };
 
 export const globalState: AppState = {
@@ -39,19 +38,26 @@ export const globalState: AppState = {
       completed: false,
     },
   ],
-  add(taskData: TaskData) {
-    this.todos.push({
-        index: this.todos[this.todos.length - 1].index + 1,
-        title: taskData.title,
-        date: taskData.date,
-        time: taskData.time,
-        completed: false,
-    })
-  },
-  markCompleted(task: Task) {
-    task.completed = true;
-  }
 };
 
-const TodosContext = React.createContext<AppState>(globalState);
-export default TodosContext;
+const todosSlice = createSlice({
+  name: "todos",
+  initialState: globalState,
+  reducers: {
+    addTodo(state, action: PayloadAction<TaskData>) {
+      state.todos = [...state.todos, {
+        index: state.todos[state.todos.length - 1].index + 1,
+        title: action.payload.title,
+        date: new Date(action.payload.date as Date),
+        time: action.payload.time,
+        completed: false,
+    }]
+    },
+    markTodoCompleted(state, action: PayloadAction<Task>) {
+      action.payload.completed = true;
+    }
+  }
+})
+
+export const { addTodo, markTodoCompleted} = todosSlice.actions
+export default todosSlice.reducer

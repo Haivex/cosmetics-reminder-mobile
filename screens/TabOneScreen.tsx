@@ -5,9 +5,9 @@ import DatePickerInput from '../components/DatePickerInput';
 import { View } from '../components/Themed';
 import TimePickerInput from '../components/TimePickerInput';
 import { useForm, Controller } from 'react-hook-form';
-import { useReducer } from 'react';
-import appReducer, { globalState } from '../store/MainStore';
-import TodosContext from '../store/MainStore';
+import { addTodo } from '../redux/TodosReducer';
+import { useDispatch } from 'react-redux';
+import { CalendarDate } from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
 
 export type Time = {
   hours: number;
@@ -15,20 +15,20 @@ export type Time = {
 };
 
 export type TaskData = {
-  date: Date;
+  date: CalendarDate;
   time: Time;
   title: string;
 };
 
 export default function TabOneScreen() {
-  const todos = React.useContext(TodosContext);
+  const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<TaskData>();
   const onSubmit = (data: TaskData) => {
-    todos.add(data);
+    dispatch(addTodo(data));
   };
 
   return (
