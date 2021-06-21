@@ -4,11 +4,11 @@ import { Task } from '../redux/TodosReducer';
 import { formatRelative, set } from 'date-fns'
 import { pl } from 'date-fns/locale'
 
-type CurrentTaskProps = {
+type DoneTaskProps = {
     task: Task
 }
 
-export const IncomingTask = ({task}: CurrentTaskProps ) => {
+export const DoneTask = ({task}: DoneTaskProps ) => {
     return (
         <Card.Title
         title={task.title}

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Avatar, Card, IconButton } from 'react-native-paper';
-import { View } from 'react-native'
 import { Task } from '../redux/TodosReducer';
 import { formatRelative, set } from 'date-fns'
 import { pl } from 'date-fns/locale'
