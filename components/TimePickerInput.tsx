@@ -31,7 +31,7 @@ export default function TimePickerInput({onChange, onBlur}: TimePickerInputProps
 
   return (
     <>
-    <TextInput onTouchEnd={() => setVisible(true)} mode='outlined' placeholder='Wybierz godzinę'>
+    <TextInput right={<TextInput.Icon name='clock-outline' />} onTouchEnd={() => setVisible(true)} mode='outlined' placeholder='Wybierz godzinę'>
         {time.hours && time.minutes ? `${format(new Date(1, 1, 2000, time.hours, time.minutes), 'HH:mm')}` : ''}
       </TextInput>
       <TimePickerModal

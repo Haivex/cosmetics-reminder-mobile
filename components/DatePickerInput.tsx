@@ -4,6 +4,7 @@ import * as React from 'react';
 import { TextInput } from 'react-native-paper';
 import { DatePickerModal } from 'react-native-paper-dates';
 import { format } from 'date-fns';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface DatePickerInputProps {
   onBlur: () => void; onChange: (...event: any[]) => void;
@@ -29,7 +30,7 @@ export default function DatePickerInput({onBlur, onChange}: DatePickerInputProps
 
   return (
     <>
-      <TextInput onTouchEnd={() => setOpen(true)} mode='outlined' placeholder='Wybierz datę'>
+      <TextInput right={<TextInput.Icon name='calendar' />} onTouchEnd={() => setOpen(true)} mode='outlined' placeholder='Wybierz datę'>
         {date && format(date, 'dd-LL-uu')}
       </TextInput>
       <DatePickerModal
