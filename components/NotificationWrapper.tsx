@@ -107,13 +107,20 @@ async function registerForPushNotificationsAsync() {
   return token;
 }
 
-export async function schedulePushNotification() {
+type ScheduledNotificationOptions = {
+  title: string;
+  body: string;
+  data?: any;
+  scheduledDate: Date;
+}
+
+export async function schedulePushNotification({title, body, data, scheduledDate}: ScheduledNotificationOptions) {
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: "You've got mail! 📬",
-      body: 'Here is the notification body',
-      data: { data: 'goes here' },
+      title,
+      body,
+      data: { data: data },
     },
-    trigger: { seconds: 2 },
+    trigger: {date: scheduledDate, seconds: scheduledDate.getTime() - new Date().getTime()},
   });
 }
