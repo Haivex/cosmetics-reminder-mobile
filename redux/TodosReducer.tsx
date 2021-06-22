@@ -62,6 +62,10 @@ const todosSlice = createSlice({
       const index = state.todos.findIndex(todo => todo.index === action.payload.index);
       if (index !== -1) state.todos[index].completed = true;
     },
+    restoreTodo(state, action: PayloadAction<Task>) {
+      const index = state.todos.findIndex(todo => todo.index === action.payload.index);
+      if (index !== -1) state.todos[index].completed = false;
+    },
     renameTodo(state, action: PayloadAction<RenameTaskPayload>) {
       const index = state.todos.findIndex(todo => todo.index === action.payload.task.index);
       if (index !== -1) state.todos[index].title = action.payload.title;
@@ -72,5 +76,5 @@ const todosSlice = createSlice({
   }
 })
 
-export const { addTodo, markTodoCompleted, renameTodo, deleteTodo} = todosSlice.actions
+export const { addTodo, markTodoCompleted, restoreTodo, renameTodo, deleteTodo} = todosSlice.actions
 export default todosSlice.reducer
