@@ -3,12 +3,19 @@ import { Avatar, Card, IconButton, Menu } from 'react-native-paper';
 import { Task } from '../redux/TodosReducer';
 import { formatRelative, set } from 'date-fns';
 import { pl } from 'date-fns/locale';
+import {
+  deleteTodo,
+  markTodoCompleted,
+  renameTodo,
+} from '../redux/TodosReducer';
+import { useDispatch } from 'react-redux';
 
 type CurrentTaskProps = {
   task: Task;
 };
 
 export const CurrentTask = ({ task }: CurrentTaskProps) => {
+  const dispatch = useDispatch();
   const [visibleMenu, setVisibleMenu] = React.useState(false);
 
   const openMenu = () => setVisibleMenu(true);
@@ -36,9 +43,19 @@ export const CurrentTask = ({ task }: CurrentTaskProps) => {
             <IconButton {...props} icon='dots-vertical' onPress={openMenu} />
           }
         >
-          <Menu.Item onPress={() => {}} title='Zmień nazwę' />
-          <Menu.Item onPress={() => {}} title='Ukończ' />
-          <Menu.Item onPress={() => {}} title='Usuń' />
+          <Menu.Item
+            onPress={() => {
+              dispatch(renameTodo({ task, title: 'asd' }));
+            }}
+            title='Zmień nazwę'
+          />
+          <Menu.Item onPress={() => {dispatch(markTodoCompleted(task))}} title='Ukończ' />
+          <Menu.Item
+            onPress={() => {
+                dispatch(deleteTodo(task));
+            }}
+            title='Usuń'
+          />
         </Menu>
       )}
     />
