@@ -8,6 +8,8 @@ import { useForm, Controller } from 'react-hook-form';
 import { addTodo } from '../redux/TodosReducer';
 import { useDispatch } from 'react-redux';
 import { CalendarDate } from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
+import {schedulePushNotification} from '../components/NotificationWrapper';
+import { set } from 'date-fns';
 
 export type Time = {
   hours: number;
@@ -29,6 +31,14 @@ export default function TabOneScreen() {
   } = useForm<TaskData>();
   const onSubmit = (data: TaskData) => {
     dispatch(addTodo(data));
+    schedulePushNotification({
+      title: 'Only You',
+      body: data.title,
+      scheduledDate: set(data.date as Date, {
+        hours: data.time.hours,
+        minutes: data.time.minutes
+      })
+    })
   };
 
   return (

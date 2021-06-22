@@ -9,6 +9,7 @@ import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import { Provider } from 'react-redux';
 import { store } from './redux/MainStore';
+import NotificationWrapper from './components/NotificationWrapper';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -19,12 +20,16 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <PaperProvider theme={colorScheme === 'light' ? lightTheme : darkTheme}>
-        <Provider store={store}>
-          <Navigation colorScheme={colorScheme} />
-          <StatusBar />
-        </Provider>
-        </PaperProvider>
+        <NotificationWrapper>
+          <PaperProvider
+            theme={colorScheme === 'light' ? lightTheme : darkTheme}
+          >
+            <Provider store={store}>
+              <Navigation colorScheme={colorScheme} />
+              <StatusBar />
+            </Provider>
+          </PaperProvider>
+        </NotificationWrapper>
       </SafeAreaProvider>
     );
   }
