@@ -10,6 +10,11 @@ export type Task = {
   completed: boolean;
 };
 
+export type RenameTaskPayload = {
+  task: Task;
+  title: string;
+}
+
 export type AppState = {
   todos: Task[];
 };
@@ -54,10 +59,18 @@ const todosSlice = createSlice({
     }]
     },
     markTodoCompleted(state, action: PayloadAction<Task>) {
-      action.payload.completed = true;
-    }
+      const index = state.todos.findIndex(todo => todo.index === action.payload.index);
+      if (index !== -1) state.todos[index].completed = true;
+    },
+    renameTodo(state, action: PayloadAction<RenameTaskPayload>) {
+      const index = state.todos.findIndex(todo => todo.index === action.payload.task.index);
+      if (index !== -1) state.todos[index].title = action.payload.title;
+    },
+    deleteTodo(state, action: PayloadAction<Task>) {
+      state.todos = state.todos.filter((todo) => todo.index !== 2)
+    },
   }
 })
 
-export const { addTodo, markTodoCompleted} = todosSlice.actions
+export const { addTodo, markTodoCompleted, renameTodo, deleteTodo} = todosSlice.actions
 export default todosSlice.reducer
