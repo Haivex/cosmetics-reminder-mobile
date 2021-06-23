@@ -24,7 +24,13 @@
     "changeTitle": "Change title",
     "finishTask": "Done",
     "deleteTask": "Delete",
-    "restoreTask": "Restore"
+    "restoreTask": "Restore",
+    "renameInput": {
+        "title": "Give title",
+        "description": "Give a new title",
+        "cancelButton": "Cancel",
+        "changeButton": "Change"
+    }
 },
 "bottomNavigation": {
     "createTaskTitle": "Create task",

@@ -68,21 +68,21 @@ export const IncomingTask = ({ task }: CurrentTaskProps) => {
         )}
       />
       <Portal>
-          <Dialog visible={visibleDialog} onDismiss={hideDialog}>
-            <Dialog.Title>Podaj tytuł</Dialog.Title>
-            <Dialog.Content>
-              <Paragraph>Podaj nowy tytuł tego zadania</Paragraph>
-              <TextInput defaultValue={task.title} value={newTitle} onChangeText={(value) => setTitle(value)} autoFocus />
-            </Dialog.Content>
-            <Dialog.Actions>
-              <Button onPress={hideDialog}>Anuluj</Button>
-              <Button onPress={() => {
-                  dispatch(renameTodo({task, title: newTitle}))
-                  hideDialog()
-              }}>Zmień</Button>
-            </Dialog.Actions>
-          </Dialog>
-        </Portal>
+        <Dialog visible={visibleDialog} onDismiss={hideDialog}>
+          <Dialog.Title>{i18n.t('taskMenu.renameInput.title')}</Dialog.Title>
+          <Dialog.Content>
+            <Paragraph>{i18n.t('taskMenu.renameInput.description')}</Paragraph>
+            <TextInput defaultValue={task.title} value={newTitle} onChangeText={(value) => setTitle(value)} autoFocus />
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={hideDialog}>{i18n.t('taskMenu.renameInput.cancelButton')}</Button>
+            <Button onPress={() => {
+                dispatch(renameTodo({task, title: newTitle}))
+                hideDialog()
+            }}>{i18n.t('taskMenu.renameInput.changeButton')}</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
       </View>
     );
 };

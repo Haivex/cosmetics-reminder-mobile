@@ -25,7 +25,13 @@
         "changeTitle": "Zmień nazwę",
         "finishTask": "Ukończ",
         "deleteTask": "Usuń",
-        "restoreTask": "Przywróć"
+        "restoreTask": "Przywróć",
+        "renameInput": {
+            "title": "Podaj tytuł",
+            "description": "Podaj nowy tytuł tego zadania",
+            "cancelButton": "Anuluj",
+            "changeButton": "Zmień"
+        }
     },
     "bottomNavigation": {
         "createTaskTitle": "Utwórz zadanie",
