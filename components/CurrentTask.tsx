@@ -10,6 +10,7 @@ import {
 } from '../redux/TodosReducer';
 import { useDispatch } from 'react-redux';
 import { View } from 'react-native';
+import i18n from 'i18n-js';
 
 type CurrentTaskProps = {
   task: Task;
@@ -54,14 +55,14 @@ export const CurrentTask = ({ task }: CurrentTaskProps) => {
         >
           <Menu.Item
             onPress={() => {closeMenu(); showDialog()}}
-            title='Zmień nazwę'
+            title={i18n.t('taskMenu.changeTitle')}
           />
-          <Menu.Item onPress={() => {dispatch(markTodoCompleted(task))}} title='Ukończ' />
+          <Menu.Item onPress={() => {dispatch(markTodoCompleted(task))}} title={i18n.t('taskMenu.finishTask')} />
           <Menu.Item
             onPress={() => {
                 dispatch(deleteTodo(task));
             }}
-            title='Usuń'
+            title={i18n.t('taskMenu.deleteTask')}
           />
         </Menu>
       )}
