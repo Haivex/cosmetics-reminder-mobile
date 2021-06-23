@@ -1,0 +1,34 @@
+{
+  "createTaskScreen": {
+    "screenTitle": "Create task",
+    "titleInputPlaceholder": "Give title",
+    "dateInputPlaceholder": "Choose date",
+    "timeInputPlaceholder": "Choose time",
+    "createTaskButton": "Create",
+    "titleTitle": "Title",
+    "beginningDateTitle": "Beginning Date",
+    "beginningTimeTitle": "Beginning Time",
+    "titleHelperText": "Write title",
+        "dateHelperText": "Write date",
+        "timeHelperText": "Write time"
+  },
+  "currentTasksScreen": {
+    "screenTitle": "To-do",
+    "currentTasksTitle": "Current tasks",
+    "incomingTasksTitle": "Incoming tasks"
+  },
+  "finishedTasksScreen": {
+    "screenTitle": "Finished tasks"
+  },
+  "taskMenu": {
+    "changeTitle": "Change title",
+    "finishTask": "Done",
+    "deleteTask": "Delete",
+    "restoreTask": "Restore"
+},
+"bottomNavigation": {
+    "createTaskTitle": "Create task",
+    "currentTasks": "To-do",
+    "finishedTasks": "Finished tasks"
+}
+}
