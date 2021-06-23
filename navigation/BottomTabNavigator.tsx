@@ -14,6 +14,7 @@ import TabOneScreen from '../screens/TabOneScreen';
 import TabThreeScreen from '../screens/TabThreeScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { BottomTabParamList, TabOneParamList, TabThreeParamList, TabTwoParamList } from '../types';
+import i18n from 'i18n-js';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -29,7 +30,7 @@ export default function BottomTabNavigator() {
         component={TabOneNavigator}
         options={{
           tabBarIcon: ({ color }) => <Icon size={30} style={{ marginBottom: -3 }} name="file-plus" color={color} />,
-          title: 'Utwórz zadanie'
+          title: i18n.t('bottomNavigation.createTaskTitle')
         }}
       />
       <BottomTab.Screen
@@ -37,7 +38,7 @@ export default function BottomTabNavigator() {
         component={TabTwoNavigator}
         options={{
           tabBarIcon: ({ color }) => <Icon size={30} style={{ marginBottom: -3 }} name="file-clock" color={color} />,
-          title: 'Aktualne zadania'
+          title: i18n.t('bottomNavigation.currentTasks')
         }}
       />
       <BottomTab.Screen
@@ -45,7 +46,7 @@ export default function BottomTabNavigator() {
         component={TabThreeNavigator}
         options={{
           tabBarIcon: ({ color }) => <Icon size={30} style={{ marginBottom: -3 }} name="file-check" color={color} />,
-          title: 'Zakończone zadania'
+          title: i18n.t('bottomNavigation.finishedTasks')
         }}
       />
     </BottomTab.Navigator>
@@ -68,7 +69,7 @@ function TabOneNavigator() {
       <TabOneStack.Screen
         name="TabOneScreen"
         component={TabOneScreen}
-        options={{ headerTitle: 'Utwórz zadanie' }}
+        options={{ headerTitle: i18n.t('createTaskScreen.screenTitle') }}
       />
     </TabOneStack.Navigator>
   );
@@ -82,7 +83,7 @@ function TabTwoNavigator() {
       <TabTwoStack.Screen
         name="TabTwoScreen"
         component={TabTwoScreen}
-        options={{ headerTitle: 'Do zrobienia' }}
+        options={{ headerTitle: i18n.t('currentTasksScreen.screenTitle') }}
       />
     </TabTwoStack.Navigator>
   );
@@ -96,7 +97,7 @@ function TabThreeNavigator() {
       <TabThreeStack.Screen
         name="TabThreeScreen"
         component={TabThreeScreen}
-        options={{ headerTitle: 'Zakończone zadania' }}
+        options={{ headerTitle: i18n.t('finishedTasksScreen.screenTitle') } }
       />
     </TabThreeStack.Navigator>
   );
