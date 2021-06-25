@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Avatar, Button, Card, IconButton, Menu, Dialog, Portal, Paragraph, TextInput } from 'react-native-paper';
 import { Task } from '../redux/TodosReducer';
 import { formatRelative, set } from 'date-fns';
-import { pl } from 'date-fns/locale';
+import { pl, enUS, enGB, enIN } from 'date-fns/locale';
 import {
   deleteTodo,
   markTodoCompleted,
@@ -11,6 +11,8 @@ import {
 import { useDispatch } from 'react-redux';
 import { View } from 'react-native';
 import i18n from 'i18n-js';
+
+const localesMap = new Map<string, Locale>([['pl', pl], ['en-US', enUS], ['en-GB', enGB], ['en-IN', enIN]])
 
 type CurrentTaskProps = {
   task: Task;
@@ -36,7 +38,7 @@ export const IncomingTask = ({ task }: CurrentTaskProps) => {
         ...task.time,
       }),
       new Date(),
-      { locale: pl }
+      { locale: localesMap.get(i18n.currentLocale()) || enUS }
     );
   
     return (
