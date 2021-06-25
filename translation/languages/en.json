@@ -36,5 +36,14 @@
     "createTaskTitle": "Create task",
     "currentTasks": "To-do",
     "finishedTasks": "Finished tasks"
+},
+"datePicker": {
+    "label": "Choose date",
+    "acceptButton": "Accept"
+},
+"timePicker": {
+  "label": "Choose time",
+  "acceptButton": "Accept",
+  "cancelButton": "Cancel"
 }
 }

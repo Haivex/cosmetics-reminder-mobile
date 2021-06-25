@@ -8,7 +8,9 @@ const initTranslation = ():void => {
     en,
     pl,
   }
+  i18n.defaultLocale = 'en';
   i18n.locale = Localization.locale;
   i18n.fallbacks = true;
+  i18n.missingBehaviour = "guess";
 }
 export default initTranslation;

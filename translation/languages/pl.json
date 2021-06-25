@@ -37,5 +37,14 @@
         "createTaskTitle": "Utwórz zadanie",
         "currentTasks": "Aktualne zadania",
         "finishedTasks": "Zakończone zadania"
+    },
+    "datePicker": {
+        "label": "Wybierz datę",
+        "acceptButton": "Zatwierdź"
+    },
+    "timePicker": {
+        "label": "Wybierz godzinę",
+        "acceptButton": "Potwierdź",
+        "cancelButton": "Anuluj"
     }
 }
