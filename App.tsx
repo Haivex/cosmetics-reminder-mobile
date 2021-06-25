@@ -10,6 +10,9 @@ import Navigation from './navigation';
 import { Provider } from 'react-redux';
 import { store } from './redux/MainStore';
 import NotificationWrapper from './components/NotificationWrapper';
+import initTranslation from './translation/config';
+
+initTranslation()
 
 export default function App() {
   const isLoadingComplete = useCachedResources();

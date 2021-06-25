@@ -1,0 +1,50 @@
+{
+    "createTaskScreen": {
+        "screenTitle": "Utwórz zadanie",
+        "titleInputPlaceholder": "Podaj tytuł",
+        "dateInputPlaceholder": "Wybirz datę",
+        "timeInputPlaceholder": "Wybirz godzinę",
+        "createTaskButton": "Utwórz",
+        "titleTitle": "Tytuł",
+        "beginningDateTitle": "Data rozpoczęcia",
+        "beginningTimeTitle": "Godzina rozpoczęcia",
+        "titleHelperText": "Uzupełnij tytuł",
+        "dateHelperText": "Uzupełnij datę",
+        "timeHelperText": "Uzupełnij czas"
+        
+    },
+    "currentTasksScreen": {
+        "screenTitle": "Do zrobienia",
+        "currentTasksTitle": "Aktualne zadania",
+        "incomingTasksTitle": "Nadchodzące zadania"
+    },
+    "finishedTasksScreen": {
+        "screenTitle": "Zakończone zadania"
+    } ,
+    "taskMenu": {
+        "changeTitle": "Zmień nazwę",
+        "finishTask": "Ukończ",
+        "deleteTask": "Usuń",
+        "restoreTask": "Przywróć",
+        "renameInput": {
+            "title": "Podaj tytuł",
+            "description": "Podaj nowy tytuł tego zadania",
+            "cancelButton": "Anuluj",
+            "changeButton": "Zmień"
+        }
+    },
+    "bottomNavigation": {
+        "createTaskTitle": "Utwórz zadanie",
+        "currentTasks": "Aktualne zadania",
+        "finishedTasks": "Zakończone zadania"
+    },
+    "datePicker": {
+        "label": "Wybierz datę (DD-MM-YYYY)",
+        "acceptButton": "Zatwierdź"
+    },
+    "timePicker": {
+        "label": "Wybierz godzinę (HH:MM)",
+        "acceptButton": "Potwierdź",
+        "cancelButton": "Anuluj"
+    }
+}

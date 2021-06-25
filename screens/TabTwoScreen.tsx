@@ -5,6 +5,7 @@ import { CurrentTask } from '../components/CurrentTask';
 import { IncomingTask } from '../components/IncomingTask';
 import { RootState } from '../redux/MainStore';
 import { useSelector } from 'react-redux';
+import i18n from 'i18n-js';
 
 export default function TabTwoScreen() {
   const { todos } = useSelector((state: RootState) => state.todos);
@@ -20,11 +21,11 @@ export default function TabTwoScreen() {
 
   return (
     <ScrollView>
-      <Text style={styles.title}>Aktualne zadania</Text>
+      <Text style={styles.title}>{i18n.t('currentTasksScreen.currentTasksTitle')}</Text>
       <View>
         {getCurrentTasks().map(task => <CurrentTask key={task.index} task={task} />)}
       </View>
-      <Text style={styles.title}>Nadchodzące zadania</Text>
+      <Text style={styles.title}>{i18n.t('currentTasksScreen.incomingTasksTitle')}</Text>
       <View>
       {getIncomingTasks().map(task => <IncomingTask key={task.index} task={task} />)}
       </View>
