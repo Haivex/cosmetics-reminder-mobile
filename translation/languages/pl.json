@@ -39,11 +39,11 @@
         "finishedTasks": "Zakończone zadania"
     },
     "datePicker": {
-        "label": "Wybierz datę",
+        "label": "Wybierz datę (DD-MM-YYYY)",
         "acceptButton": "Zatwierdź"
     },
     "timePicker": {
-        "label": "Wybierz godzinę",
+        "label": "Wybierz godzinę (HH:MM)",
         "acceptButton": "Potwierdź",
         "cancelButton": "Anuluj"
     }

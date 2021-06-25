@@ -38,11 +38,11 @@
     "finishedTasks": "Finished tasks"
 },
 "datePicker": {
-    "label": "Choose date",
+    "label": "Choose date (DD-MM-YYYY)",
     "acceptButton": "Accept"
 },
 "timePicker": {
-  "label": "Choose time",
+  "label": "Choose time (HH:MM XM)",
   "acceptButton": "Accept",
   "cancelButton": "Cancel"
 }
