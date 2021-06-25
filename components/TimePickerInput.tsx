@@ -4,9 +4,16 @@ import 'intl/locale-data/jsonp/pl';
 import { TimePickerModal } from 'react-native-paper-dates';
 import { TextInput } from 'react-native-paper';
 import { format } from 'date-fns';
+import i18n from 'i18n-js';
 
 interface TimePickerInputProps {
   onBlur: () => void; onChange: (...event: any[]) => void;
+}
+
+function getTimePattern() {
+  const currentLocale = i18n.currentLocale();
+  if(currentLocale.startsWith('en')) return 'hh:mm aa'
+  return 'HH:mm'
 }
 
 export default function TimePickerInput({onChange, onBlur}: TimePickerInputProps) {
@@ -31,8 +38,8 @@ export default function TimePickerInput({onChange, onBlur}: TimePickerInputProps
 
   return (
     <>
-    <TextInput right={<TextInput.Icon name='clock-outline' />} onTouchEnd={() => setVisible(true)} mode='outlined' placeholder='Wybierz godzinę'>
-        {time.hours && time.minutes ? `${format(new Date(1, 1, 2000, time.hours, time.minutes), 'HH:mm')}` : ''}
+    <TextInput right={<TextInput.Icon name='clock-outline' />} onTouchEnd={() => setVisible(true)} mode='outlined' placeholder={i18n.t('timePicker.label')}>
+        {time.hours !== undefined && time.minutes !== undefined ? `${format(new Date(1, 1, 2000, time.hours, time.minutes), getTimePattern())}` : ''}
       </TextInput>
       <TimePickerModal
         visible={visible}
@@ -40,11 +47,11 @@ export default function TimePickerInput({onChange, onBlur}: TimePickerInputProps
         onConfirm={onConfirm}
         hours={time.hours}
         minutes={time.minutes}
-        label='Wybier godzinę'
-        cancelLabel='Anuluj'
-        confirmLabel='Potwierdź'
+        label={i18n.t('timePicker.label')}
+        cancelLabel={i18n.t('timePicker.cancelButton')}
+        confirmLabel={i18n.t('timePicker.acceptButton')}
         animationType='fade'
-        locale='pl'
+        locale={i18n.currentLocale()}
       />
     </>
   );

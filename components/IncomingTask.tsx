@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Avatar, Button, Card, IconButton, Menu, Dialog, Portal, Paragraph, TextInput } from 'react-native-paper';
 import { Task } from '../redux/TodosReducer';
 import { formatRelative, set } from 'date-fns';
-import { pl } from 'date-fns/locale';
+import { pl, enUS, enGB, enIN } from 'date-fns/locale';
 import {
   deleteTodo,
   markTodoCompleted,
@@ -10,6 +10,9 @@ import {
 } from '../redux/TodosReducer';
 import { useDispatch } from 'react-redux';
 import { View } from 'react-native';
+import i18n from 'i18n-js';
+
+const localesMap = new Map<string, Locale>([['pl', pl], ['en-US', enUS], ['en-GB', enGB], ['en-IN', enIN]])
 
 type CurrentTaskProps = {
   task: Task;
@@ -35,7 +38,7 @@ export const IncomingTask = ({ task }: CurrentTaskProps) => {
         ...task.time,
       }),
       new Date(),
-      { locale: pl }
+      { locale: localesMap.get(i18n.currentLocale()) || enUS }
     );
   
     return (
@@ -54,34 +57,34 @@ export const IncomingTask = ({ task }: CurrentTaskProps) => {
           >
             <Menu.Item
               onPress={() => {closeMenu(); showDialog()}}
-              title='Zmień nazwę'
+              title={i18n.t('taskMenu.changeTitle')}
             />
-            <Menu.Item onPress={() => {dispatch(markTodoCompleted(task))}} title='Ukończ' />
+            <Menu.Item onPress={() => {dispatch(markTodoCompleted(task))}} title={i18n.t('taskMenu.finishTask')} />
             <Menu.Item
               onPress={() => {
                   dispatch(deleteTodo(task));
               }}
-              title='Usuń'
+              title={i18n.t('taskMenu.deleteTask')}
             />
           </Menu>
         )}
       />
       <Portal>
-          <Dialog visible={visibleDialog} onDismiss={hideDialog}>
-            <Dialog.Title>Podaj tytuł</Dialog.Title>
-            <Dialog.Content>
-              <Paragraph>Podaj nowy tytuł tego zadania</Paragraph>
-              <TextInput defaultValue={task.title} value={newTitle} onChangeText={(value) => setTitle(value)} autoFocus />
-            </Dialog.Content>
-            <Dialog.Actions>
-              <Button onPress={hideDialog}>Anuluj</Button>
-              <Button onPress={() => {
-                  dispatch(renameTodo({task, title: newTitle}))
-                  hideDialog()
-              }}>Zmień</Button>
-            </Dialog.Actions>
-          </Dialog>
-        </Portal>
+        <Dialog visible={visibleDialog} onDismiss={hideDialog}>
+          <Dialog.Title>{i18n.t('taskMenu.renameInput.title')}</Dialog.Title>
+          <Dialog.Content>
+            <Paragraph>{i18n.t('taskMenu.renameInput.description')}</Paragraph>
+            <TextInput defaultValue={task.title} value={newTitle} onChangeText={(value) => setTitle(value)} autoFocus />
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={hideDialog}>{i18n.t('taskMenu.renameInput.cancelButton')}</Button>
+            <Button onPress={() => {
+                dispatch(renameTodo({task, title: newTitle}))
+                hideDialog()
+            }}>{i18n.t('taskMenu.renameInput.changeButton')}</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
       </View>
     );
 };

@@ -10,6 +10,8 @@ import { useDispatch } from 'react-redux';
 import { CalendarDate } from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
 import {schedulePushNotification} from '../components/NotificationWrapper';
 import { set } from 'date-fns';
+import '../translation/config';
+import i18n from 'i18n-js';
 
 export type Time = {
   hours: number;
@@ -43,7 +45,7 @@ export default function TabOneScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tytuł: </Text>
+      <Text style={styles.title}>{i18n.t('createTaskScreen.titleTitle')}: </Text>
       <Controller<TaskData>
         control={control}
         rules={{
@@ -55,16 +57,16 @@ export default function TabOneScreen() {
             onChangeText={(value) => onChange(value)}
             value={value as string}
             mode='outlined'
-            placeholder='Tytuł zadania'
+            placeholder={i18n.t('createTaskScreen.titleInputPlaceholder')}
           />
         )}
         name='title'
       />
       <HelperText type='error' visible={errors.title ? true : false}>
-        Uzupełnij tytuł
+        {i18n.t('createTaskScreen.titleHelperText')}
       </HelperText>
 
-      <Text style={styles.title}>Data rozpoczęcia: </Text>
+      <Text style={styles.title}>{i18n.t('createTaskScreen.beginningDateTitle')}: </Text>
       <Controller<TaskData>
         control={control}
         rules={{
@@ -76,10 +78,10 @@ export default function TabOneScreen() {
         name='date'
       />
       <HelperText type='error' visible={errors.date ? true : false}>
-        Uzupełnij datę
+      {i18n.t('createTaskScreen.dateHelperText')}
       </HelperText>
 
-      <Text style={styles.title}>Godzina rozpoczęcia: </Text>
+      <Text style={styles.title}>{i18n.t('createTaskScreen.beginningTimeTitle')}: </Text>
       <Controller<TaskData>
         control={control}
         rules={{
@@ -91,10 +93,10 @@ export default function TabOneScreen() {
         name='time'
       />
       <HelperText type='error' visible={errors.time ? true : false}>
-        Uzupełnij czas
+      {i18n.t('createTaskScreen.timeHelperText')}
       </HelperText>
       <Button onPress={handleSubmit(onSubmit)} mode='outlined'>
-        Ustaw
+        {i18n.t('createTaskScreen.createTaskButton')}
       </Button>
     </View>
   );
