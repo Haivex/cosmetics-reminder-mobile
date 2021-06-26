@@ -10,8 +10,8 @@
         "beginningTimeTitle": "Godzina rozpoczęcia",
         "titleHelperText": "Uzupełnij tytuł",
         "dateHelperText": "Uzupełnij datę",
-        "timeHelperText": "Uzupełnij czas"
-        
+        "timeHelperText": "Uzupełnij czas",
+        "cyclicQuestion": "Czy ustawić jako zadanie cykliczne?"
     },
     "currentTasksScreen": {
         "screenTitle": "Do zrobienia",

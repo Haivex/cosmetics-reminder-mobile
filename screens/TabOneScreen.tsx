@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
-import { Button, TextInput, Text, HelperText } from 'react-native-paper';
+import { Button, TextInput, Text, HelperText, Checkbox } from 'react-native-paper';
 import DatePickerInput from '../components/DatePickerInput';
 import { View } from '../components/Themed';
 import TimePickerInput from '../components/TimePickerInput';
@@ -25,12 +25,16 @@ export type TaskData = {
 };
 
 export default function TabOneScreen() {
+  const [isCyclic, setCyclic] = React.useState(false);
   const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors,  },
+    clearErrors,
+    reset
   } = useForm<TaskData>();
+
   const onSubmit = (data: TaskData) => {
     dispatch(addTodo(data));
     schedulePushNotification({
@@ -41,6 +45,8 @@ export default function TabOneScreen() {
         minutes: data.time.minutes
       })
     })
+    clearErrors(),
+    reset()
   };
 
   return (
@@ -95,6 +101,13 @@ export default function TabOneScreen() {
       <HelperText type='error' visible={errors.time ? true : false}>
       {i18n.t('createTaskScreen.timeHelperText')}
       </HelperText>
+      <Checkbox.Item
+      label={i18n.t('createTaskScreen.cyclicQuestion')}
+      status={isCyclic ? 'checked' : 'unchecked'}
+      onPress={() => {
+        setCyclic(!isCyclic);
+      }}
+      />
       <Button onPress={handleSubmit(onSubmit)} mode='outlined'>
         {i18n.t('createTaskScreen.createTaskButton')}
       </Button>
