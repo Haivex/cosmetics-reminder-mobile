@@ -11,6 +11,7 @@
         "titleHelperText": "Uzupełnij tytuł",
         "dateHelperText": "Uzupełnij datę",
         "timeHelperText": "Uzupełnij czas",
+        "cyclicHelperText": "Podaj prawidłowy interwał",
         "cyclicQuestion": "Czy ustawić jako zadanie cykliczne?",
         "cyclicInputs": {
             "days": "Dni",

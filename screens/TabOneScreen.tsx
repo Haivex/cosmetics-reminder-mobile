@@ -3,7 +3,7 @@ import { StyleSheet, ScrollView } from 'react-native';
 import { Button, TextInput, Text, HelperText, Checkbox } from 'react-native-paper';
 import DatePickerInput from '../components/DatePickerInput';
 import TimePickerInput from '../components/TimePickerInput';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, Validate } from 'react-hook-form';
 import { addTodo } from '../redux/TodosReducer';
 import { useDispatch } from 'react-redux';
 import { CalendarDate } from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
@@ -33,6 +33,10 @@ const defaultTaskData: TaskData = {
     minutes: undefined,
   },
   title: "",
+}
+
+const validateCyclicInterval = (value: CyclicInterval | undefined) => {
+  return (value && (value.days > 0 || value.hours > 0 || value.minutes > 0))
 }
 
 export default function TabOneScreen() {
@@ -122,16 +126,18 @@ export default function TabOneScreen() {
         setCyclic(!isCyclic);
       }}
       />
-      <Controller<TaskData>
+      {isCyclic && <Controller<TaskData>
         control={control}
         rules={{
-          
+          required: isCyclic,
+          validate: validateCyclicInterval as Validate<string | number | Time | CalendarDate | CyclicInterval>
         }}
         render={({ field: { onBlur, onChange} }) => (
           <CyclicTaskInputs onChange={onChange} onBlur={onBlur} />
         )}
         name='cyclicInterval'
-      />
+      />}
+      <HelperText type='error' visible={isCyclic && errors.cyclicInterval ? true : false}>{i18n.t('createTaskScreen.cyclicHelperText')}</HelperText>
       <Button onPress={handleSubmit(onSubmit)} mode='outlined'>
         {i18n.t('createTaskScreen.createTaskButton')}
       </Button>

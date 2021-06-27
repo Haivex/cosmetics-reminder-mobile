@@ -11,6 +11,7 @@
     "titleHelperText": "Write title",
     "dateHelperText": "Write date",
     "timeHelperText": "Write time",
+    "cyclicHelperText": "Please enter a valid interval",
     "cyclicQuestion": "Whether to set as a cyclic task?",
     "cyclicInputs": {
       "days": "Days",
