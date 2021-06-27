@@ -11,7 +11,12 @@
         "titleHelperText": "Uzupełnij tytuł",
         "dateHelperText": "Uzupełnij datę",
         "timeHelperText": "Uzupełnij czas",
-        "cyclicQuestion": "Czy ustawić jako zadanie cykliczne?"
+        "cyclicQuestion": "Czy ustawić jako zadanie cykliczne?",
+        "cyclicInputs": {
+            "days": "Dni",
+            "hours": "Godziny",
+            "minutes": "Minuty"
+          }
     },
     "currentTasksScreen": {
         "screenTitle": "Do zrobienia",

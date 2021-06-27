@@ -11,7 +11,12 @@
     "titleHelperText": "Write title",
     "dateHelperText": "Write date",
     "timeHelperText": "Write time",
-    "cyclicQuestion": "Whether to set as a cyclic task?"
+    "cyclicQuestion": "Whether to set as a cyclic task?",
+    "cyclicInputs": {
+      "days": "Days",
+      "hours": "Hours",
+      "minutes": "Minutes"
+    }
   },
   "currentTasksScreen": {
     "screenTitle": "To-do",

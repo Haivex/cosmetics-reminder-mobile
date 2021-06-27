@@ -26,7 +26,7 @@ const CyclicTaskInputs = ({
 
   return (
     <View>
-      <Text>Days</Text>
+      <Text>{i18n.t('createTaskScreen.cyclicInputs.days')}</Text>
       <TextInput
         keyboardType='numeric'
         onBlur={onBlur}
@@ -37,7 +37,7 @@ const CyclicTaskInputs = ({
         value={cyclicInterval.days.toString()}
         mode='outlined'
       />
-      <Text>Hours</Text>
+      <Text>{i18n.t('createTaskScreen.cyclicInputs.hours')}</Text>
       <TextInput
         keyboardType='numeric'
         onBlur={onBlur}
@@ -48,7 +48,7 @@ const CyclicTaskInputs = ({
         value={cyclicInterval.hours.toString()}
         mode='outlined'
       />
-      <Text>Minutes</Text>
+      <Text>{i18n.t('createTaskScreen.cyclicInputs.minutes')}</Text>
       <TextInput
         keyboardType='numeric'
         onBlur={onBlur}
