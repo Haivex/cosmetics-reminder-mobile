@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { TaskData, Time } from '../screens/TabOneScreen';
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { CyclicInterval } from '../components/CyclicTaskInputs';
 
 export type Task = {
   index: number;
@@ -8,6 +9,7 @@ export type Task = {
   time: Time;
   date: Date;
   completed: boolean;
+  cyclicInterval: CyclicInterval | undefined
 };
 
 export type RenameTaskPayload = {
@@ -27,6 +29,7 @@ export const globalState: AppState = {
       time: { hours: 12, minutes: 50 },
       date: new Date(),
       completed: true,
+      cyclicInterval: undefined,
     },
     {
       index: 1,
@@ -34,6 +37,7 @@ export const globalState: AppState = {
       time: { hours: 13, minutes: 50 },
       date: new Date(2022, 7, 20),
       completed: false,
+      cyclicInterval: undefined,
     },
     {
       index: 2,
@@ -41,6 +45,7 @@ export const globalState: AppState = {
       time: { hours: 14, minutes: 50 },
       date: new Date(2021, 5, 13),
       completed: false,
+      cyclicInterval: undefined,
     },
   ],
 };
@@ -56,6 +61,7 @@ const todosSlice = createSlice({
         date: new Date(action.payload.date as Date),
         time: action.payload.time,
         completed: false,
+        cyclicInterval: action.payload.cyclicInterval,
     }]
     },
     markTodoCompleted(state, action: PayloadAction<Task>) {

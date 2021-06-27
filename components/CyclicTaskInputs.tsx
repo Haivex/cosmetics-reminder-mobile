@@ -20,12 +20,6 @@ const CyclicTaskInputs = ({
   onBlur,
   value
 }: CyclicDataInputProps) => {
-//   const [cyclicInterval, setCylicInterval] = React.useState<CyclicInterval>({
-//     days: 0,
-//     hours: 0,
-//     minutes: 0,
-//   });
-
   return (
     <View>
       <Text>{i18n.t('createTaskScreen.cyclicInputs.days')}</Text>
@@ -34,7 +28,6 @@ const CyclicTaskInputs = ({
         onBlur={onBlur}
         onChangeText={(valueFromInputs: string) => {
           onChange({ ...value, days: Number(valueFromInputs) });
-          //setCylicInterval({ ...value, days: Number(valueFromInputs) });
         }}
         value={value?.days?.toString() || '0'}
         mode='outlined'
@@ -45,7 +38,6 @@ const CyclicTaskInputs = ({
         onBlur={onBlur}
         onChangeText={(valueFromInput: string) => {
           onChange({ ...value, hours: Number(valueFromInput) });
-          //setCylicInterval({ ...value, hours: Number(valueFromInput) });
         }}
         value={value?.hours?.toString() || '0'}
         mode='outlined'
@@ -56,7 +48,6 @@ const CyclicTaskInputs = ({
         onBlur={onBlur}
         onChangeText={(valueFromInput: string) => {
           onChange({ ...value, minutes: Number(valueFromInput) });
-         // setCylicInterval({ ...value, minutes: Number(valueFromInput) });
         }}
         value={value?.minutes?.toString() || '0'}
         mode='outlined'

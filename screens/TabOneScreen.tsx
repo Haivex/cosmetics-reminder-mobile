@@ -54,15 +54,15 @@ export default function TabOneScreen() {
 
   const onSubmit = (data: TaskData) => {
     console.log(data);
-    // dispatch(addTodo(data));
-    // schedulePushNotification({
-    //   title: 'Only You',
-    //   body: data.title,
-    //   scheduledDate: set(data.date as Date, {
-    //     hours: data.time.hours,
-    //     minutes: data.time.minutes
-    //   })
-    // })
+    dispatch(addTodo(data));
+    schedulePushNotification({
+      title: 'Only You',
+      body: data.title,
+      scheduledDate: set(data.date as Date, {
+        hours: data.time.hours,
+        minutes: data.time.minutes
+      })
+    })
     clearErrors(),
     reset(defaultTaskData)
   };
