@@ -5,9 +5,12 @@ import { TimePickerModal } from 'react-native-paper-dates';
 import { TextInput } from 'react-native-paper';
 import { format } from 'date-fns';
 import i18n from 'i18n-js';
+import { Time } from '../screens/TabOneScreen';
 
 interface TimePickerInputProps {
-  onBlur: () => void; onChange: (...event: any[]) => void;
+  onBlur: () => void; 
+  onChange: (...event: any[]) => void;
+  value: Time;
 }
 
 function getTimePattern() {
@@ -16,12 +19,12 @@ function getTimePattern() {
   return 'HH:mm'
 }
 
-export default function TimePickerInput({onChange, onBlur}: TimePickerInputProps) {
+export default function TimePickerInput({onChange, onBlur, value}: TimePickerInputProps) {
   const [visible, setVisible] = React.useState(false);
-  const [time, setTime] = React.useState({
-    hours: undefined,
-    minutes: undefined,
-  });
+  // const [time, setTime] = React.useState({
+  //   hours: undefined,
+  //   minutes: undefined,
+  // });
   const onDismiss = React.useCallback(() => {
     setVisible(false);
     onBlur()
@@ -30,7 +33,7 @@ export default function TimePickerInput({onChange, onBlur}: TimePickerInputProps
   const onConfirm = React.useCallback(
     ({ hours, minutes }) => {
       setVisible(false);
-      setTime({ hours, minutes });
+      //setTime({ hours, minutes });
       onChange({hours, minutes})
     },
     [setVisible]
@@ -39,14 +42,14 @@ export default function TimePickerInput({onChange, onBlur}: TimePickerInputProps
   return (
     <>
     <TextInput right={<TextInput.Icon name='clock-outline' />} onTouchEnd={() => setVisible(true)} mode='outlined' placeholder={i18n.t('timePicker.label')}>
-        {time.hours !== undefined && time.minutes !== undefined ? `${format(new Date(1, 1, 2000, time.hours, time.minutes), getTimePattern())}` : ''}
+        {value.hours !== undefined && value.minutes !== undefined ? `${format(new Date(1, 1, 2000, value.hours, value.minutes), getTimePattern())}` : ''}
       </TextInput>
       <TimePickerModal
         visible={visible}
         onDismiss={onDismiss}
         onConfirm={onConfirm}
-        hours={time.hours}
-        minutes={time.minutes}
+        hours={value.hours}
+        minutes={value.minutes}
         label={i18n.t('timePicker.label')}
         cancelLabel={i18n.t('timePicker.cancelButton')}
         confirmLabel={i18n.t('timePicker.acceptButton')}

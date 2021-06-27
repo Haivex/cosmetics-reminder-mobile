@@ -7,9 +7,11 @@ import { DatePickerModal } from 'react-native-paper-dates';
 import { format } from 'date-fns';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import i18n from 'i18n-js';
+import { CalendarDate } from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
 
 interface DatePickerInputProps {
   onBlur: () => void; onChange: (...event: any[]) => void;
+  value: CalendarDate
 }
 
 function getDatePattern() {
@@ -18,8 +20,7 @@ function getDatePattern() {
   return 'dd-LL-uu'
 }
 
-export default function DatePickerInput({onBlur, onChange}: DatePickerInputProps) {
-  const [date, setDate] = React.useState<Date | undefined>(undefined);
+export default function DatePickerInput({onBlur, onChange, value}: DatePickerInputProps) {
   const [open, setOpen] = React.useState(false);
 
   const onDismissSingle = React.useCallback(() => {
@@ -30,22 +31,22 @@ export default function DatePickerInput({onBlur, onChange}: DatePickerInputProps
   const onConfirmSingle = React.useCallback(
     (params) => {
       setOpen(false);
-      setDate(params.date);
+      //setDate(params.date);
       onChange(params.date)
     },
-    [setOpen, setDate]
+    [setOpen]
   );
   return (
     <>
       <TextInput right={<TextInput.Icon name='calendar' />} onTouchEnd={() => setOpen(true)} mode='outlined' placeholder={i18n.t('datePicker.label')}>
-        {date ? format(date, getDatePattern()) : ''} 
+        {value ? format(value, getDatePattern()) : ''} 
       </TextInput>
       <DatePickerModal
         locale={i18n.currentLocale()}
         mode='single'
         visible={open}
         onDismiss={onDismissSingle}
-        date={date}
+        date={value}
         onConfirm={onConfirmSingle}
         saveLabel={i18n.t('datePicker.acceptButton')}
         label={i18n.t('datePicker.label')}
