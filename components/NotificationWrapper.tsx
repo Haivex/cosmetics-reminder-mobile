@@ -36,6 +36,9 @@ export default function NotificationWrapper({ children }: ChildrenProp) {
     notificationListener.current =
       Notifications.addNotificationReceivedListener((notification) => {
         setNotification(notification);
+        if(notification.request.content.data) {
+          console.log('Cyclic Task!')
+        }
       });
 
     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
