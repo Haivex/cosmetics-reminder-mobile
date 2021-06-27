@@ -132,8 +132,8 @@ export default function TabOneScreen() {
           required: isCyclic,
           validate: validateCyclicInterval as Validate<string | number | Time | CalendarDate | CyclicInterval>
         }}
-        render={({ field: { onBlur, onChange} }) => (
-          <CyclicTaskInputs onChange={onChange} onBlur={onBlur} />
+        render={({ field: { onBlur, onChange, value} }) => (
+          <CyclicTaskInputs onChange={onChange} onBlur={onBlur} value={value as CyclicInterval} />
         )}
         name='cyclicInterval'
       />}

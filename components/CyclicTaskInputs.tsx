@@ -6,6 +6,7 @@ import { View, Text } from 'react-native';
 interface CyclicDataInputProps {
   onBlur: () => void;
   onChange: (...event: any[]) => void;
+  value: CyclicInterval;
 }
 
 export type CyclicInterval = {
@@ -17,12 +18,13 @@ export type CyclicInterval = {
 const CyclicTaskInputs = ({
   onChange,
   onBlur,
+  value
 }: CyclicDataInputProps) => {
-  const [cyclicInterval, setCylicInterval] = React.useState<CyclicInterval>({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-  });
+//   const [cyclicInterval, setCylicInterval] = React.useState<CyclicInterval>({
+//     days: 0,
+//     hours: 0,
+//     minutes: 0,
+//   });
 
   return (
     <View>
@@ -30,33 +32,33 @@ const CyclicTaskInputs = ({
       <TextInput
         keyboardType='numeric'
         onBlur={onBlur}
-        onChangeText={(value: string) => {
-          onChange({ ...cyclicInterval, days: Number(value) });
-          setCylicInterval({ ...cyclicInterval, days: Number(value) });
+        onChangeText={(valueFromInputs: string) => {
+          onChange({ ...value, days: Number(valueFromInputs) });
+          //setCylicInterval({ ...value, days: Number(valueFromInputs) });
         }}
-        value={cyclicInterval.days.toString()}
+        value={value?.days?.toString() || '0'}
         mode='outlined'
       />
       <Text>{i18n.t('createTaskScreen.cyclicInputs.hours')}</Text>
       <TextInput
         keyboardType='numeric'
         onBlur={onBlur}
-        onChangeText={(value: string) => {
-          onChange({ ...cyclicInterval, hours: Number(value) });
-          setCylicInterval({ ...cyclicInterval, hours: Number(value) });
+        onChangeText={(valueFromInput: string) => {
+          onChange({ ...value, hours: Number(valueFromInput) });
+          //setCylicInterval({ ...value, hours: Number(valueFromInput) });
         }}
-        value={cyclicInterval.hours.toString()}
+        value={value?.hours?.toString() || '0'}
         mode='outlined'
       />
       <Text>{i18n.t('createTaskScreen.cyclicInputs.minutes')}</Text>
       <TextInput
         keyboardType='numeric'
         onBlur={onBlur}
-        onChangeText={(value: string) => {
-          onChange({ ...cyclicInterval, minutes: Number(value) });
-          setCylicInterval({ ...cyclicInterval, minutes: Number(value) });
+        onChangeText={(valueFromInput: string) => {
+          onChange({ ...value, minutes: Number(valueFromInput) });
+         // setCylicInterval({ ...value, minutes: Number(valueFromInput) });
         }}
-        value={cyclicInterval.minutes.toString()}
+        value={value?.minutes?.toString() || '0'}
         mode='outlined'
       />
     </View>
