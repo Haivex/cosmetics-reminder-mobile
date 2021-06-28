@@ -12,6 +12,7 @@ import { set } from 'date-fns';
 import '../translation/config';
 import i18n from 'i18n-js';
 import CyclicTaskInputs, { CyclicInterval } from '../components/CyclicTaskInputs';
+import { v4 as uuidv4 } from 'uuid';
 
 export type Time = {
   hours: number | undefined;
@@ -25,6 +26,10 @@ export type TaskData = {
   cyclicInterval?: CyclicInterval
 };
 
+export interface SavedTask extends TaskData {
+  id: string;
+}
+
 const defaultTaskData: TaskData = {
   cyclicInterval: undefined,
   date: undefined,
@@ -34,6 +39,7 @@ const defaultTaskData: TaskData = {
   },
   title: "",
 }
+
 
 const validateCyclicInterval = (value: CyclicInterval | undefined) => {
   return (value && (value.days > 0 || value.hours > 0 || value.minutes > 0))
@@ -53,7 +59,7 @@ export default function TabOneScreen() {
   });
 
   const onSubmit = (data: TaskData) => {
-    dispatch(addTodo(data));
+    dispatch(addTodo({...data, id: uuidv4()}));
     schedulePushNotification({
       title: 'Only You',
       body: data.title,
