@@ -6,17 +6,29 @@ import { IncomingTask } from '../components/IncomingTask';
 import { RootState } from '../redux/MainStore';
 import { useSelector } from 'react-redux';
 import i18n from 'i18n-js';
+import { set } from 'date-fns';
 
 export default function TabTwoScreen() {
   const { todos } = useSelector((state: RootState) => state.todos);
   const currentDate = new Date();
 
   const getCurrentTasks = () => {
-    return todos.filter((task) => !task.completed && task.date <= currentDate)
+    return todos.filter((task) => {
+      const taskDateWithTime = set(task.date, {
+        hours: task.time.hours,
+        minutes: task.time.minutes
+      })
+      return !task.completed && taskDateWithTime <= currentDate
+    })
   }
 
   const getIncomingTasks = () => {
-    return todos.filter((task) => !task.completed && task.date > currentDate)
+    return todos.filter((task) => {
+      const taskDateWithTime = set(task.date, {
+        hours: task.time.hours,
+        minutes: task.time.minutes
+      })
+      return !task.completed && taskDateWithTime > currentDate})
   }
 
   return (
