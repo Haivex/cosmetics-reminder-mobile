@@ -40,7 +40,7 @@ export default function NotificationWrapper({ children }: ChildrenProp) {
       Notifications.addNotificationReceivedListener(async (notification) => {
         if(notification.request.content.data) {
           const {title, body } = notification.request.content;
-          const data = notification.request.content.data as unknown as SavedTask;
+          const data = notification.request.content.data.data as unknown as SavedTask;
           const interval = convertCyclicIntervalToSeconds(data.cyclicInterval as CyclicInterval);
 
           const notificationIdentifier = await Notifications.scheduleNotificationAsync({
