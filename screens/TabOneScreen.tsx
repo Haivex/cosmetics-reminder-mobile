@@ -12,6 +12,7 @@ import { set } from 'date-fns';
 import '../translation/config';
 import i18n from 'i18n-js';
 import CyclicTaskInputs, { CyclicInterval } from '../components/CyclicTaskInputs';
+import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 
 export type Time = {
