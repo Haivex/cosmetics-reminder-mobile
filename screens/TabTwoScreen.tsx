@@ -23,11 +23,11 @@ export default function TabTwoScreen() {
     <ScrollView>
       <Text style={styles.title}>{i18n.t('currentTasksScreen.currentTasksTitle')}</Text>
       <View>
-        {getCurrentTasks().map(task => <CurrentTask key={task.index} task={task} />)}
+        {getCurrentTasks().map(task => <CurrentTask key={task.id} task={task} />)}
       </View>
       <Text style={styles.title}>{i18n.t('currentTasksScreen.incomingTasksTitle')}</Text>
       <View>
-      {getIncomingTasks().map(task => <IncomingTask key={task.index} task={task} />)}
+      {getIncomingTasks().map(task => <IncomingTask key={task.id} task={task} />)}
       </View>
     </ScrollView>
   );
