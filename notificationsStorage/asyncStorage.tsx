@@ -8,9 +8,9 @@ type NotificationIdentifierWithTaskId = {
 export const storeNotifications = async (notifications: NotificationIdentifierWithTaskId[]) => {
     try {
       const jsonValue = JSON.stringify(notifications)
-      await AsyncStorage.setItem('notifiations', jsonValue)
+      await AsyncStorage.setItem('notifications', jsonValue)
     } catch (e) {
-      // saving error
+      console.log('saving notif in storage error');
     }
 }
 
@@ -19,7 +19,7 @@ export const getNotifications = async (): Promise<NotificationIdentifierWithTask
     const jsonValue = await AsyncStorage.getItem('notifications')
     return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch(e) {
-    // error reading value
+    console.log('reading notif from storage error');
     return null;
   }
 }
