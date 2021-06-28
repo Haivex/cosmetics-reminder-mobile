@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as Notifications from 'expo-notifications';
 import { Avatar, Button, Card, IconButton, Menu, Dialog, Portal, Paragraph, TextInput } from 'react-native-paper';
 import { Task } from '../redux/TodosReducer';
 import { formatRelative, set } from 'date-fns';
@@ -11,6 +12,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { View } from 'react-native';
 import i18n from 'i18n-js';
+import { getNotificationByTaskId } from '../notificationsStorage/asyncStorage';
 
 const localesMap = new Map<string, Locale>([['pl', pl], ['en-US', enUS], ['en-GB', enGB], ['en-IN', enIN]])
 
@@ -78,7 +80,11 @@ export const IncomingTask = ({ task }: CurrentTaskProps) => {
           </Dialog.Content>
           <Dialog.Actions>
             <Button onPress={hideDialog}>{i18n.t('taskMenu.renameInput.cancelButton')}</Button>
-            <Button onPress={() => {
+            <Button onPress={async () => {
+              const notification = await getNotificationByTaskId(task.id);
+              if(notification) {
+                Notifications.cancelScheduledNotificationAsync(notification.taskId)
+              }
                 dispatch(renameTodo({task, title: newTitle}))
                 hideDialog()
             }}>{i18n.t('taskMenu.renameInput.changeButton')}</Button>

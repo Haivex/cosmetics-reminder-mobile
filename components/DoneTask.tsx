@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as Notifications from 'expo-notifications';
 import { Avatar, Button, Card, IconButton, Menu, Dialog, Portal, Paragraph, TextInput } from 'react-native-paper';
 import { restoreTodo, Task } from '../redux/TodosReducer';
 import { formatRelative, set } from 'date-fns';
@@ -11,6 +12,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { View } from 'react-native';
 import i18n from 'i18n-js';
+import { getNotificationByTaskId } from '../notificationsStorage/asyncStorage';
 
 const localesMap = new Map<string, Locale>([['pl', pl], ['en-US', enUS], ['en-GB', enGB], ['en-IN', enIN]])
 
@@ -61,7 +63,11 @@ export const DoneTask = ({ task }: DoneTaskProps) => {
             />
             <Menu.Item onPress={() => {dispatch(restoreTodo(task))}} title={i18n.t('taskMenu.restoreTask')} />
             <Menu.Item
-              onPress={() => {
+              onPress={async () => {
+                const notification = await getNotificationByTaskId(task.id);
+                if(notification) {
+                  Notifications.cancelScheduledNotificationAsync(notification.taskId)
+                }
                   dispatch(deleteTodo(task));
               }}
               title={i18n.t('taskMenu.deleteTask')}

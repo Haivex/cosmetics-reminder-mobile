@@ -11,6 +11,8 @@ import {
 import { useDispatch } from 'react-redux';
 import { View } from 'react-native';
 import i18n from 'i18n-js';
+import * as Notifications from 'expo-notifications';
+import { getNotificationByTaskId } from '../notificationsStorage/asyncStorage';
 
 const localesMap = new Map<string, Locale>([['pl', pl], ['en-US', enUS], ['en-GB', enGB], ['en-IN', enIN]])
 
@@ -61,7 +63,11 @@ export const CurrentTask = ({ task }: CurrentTaskProps) => {
           />
           <Menu.Item onPress={() => {dispatch(markTodoCompleted(task))}} title={i18n.t('taskMenu.finishTask')} />
           <Menu.Item
-            onPress={() => {
+            onPress={async () => {
+                const notification = await getNotificationByTaskId(task.id);
+                if(notification) {
+                  Notifications.cancelScheduledNotificationAsync(notification.taskId)
+                }
                 dispatch(deleteTodo(task));
             }}
             title={i18n.t('taskMenu.deleteTask')}
