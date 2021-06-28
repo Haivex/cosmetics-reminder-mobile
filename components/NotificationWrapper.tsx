@@ -7,6 +7,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Button, View, Text, Platform } from 'react-native';
 import Constants from 'expo-constants';
 import { Subscription } from '@unimodules/core';
+import {SavedTask } from '../screens/TabOneScreen';
+import convertCyclicIntervalToSeconds from '../helpers/calculateInterval';
+import { CyclicInterval } from './CyclicTaskInputs';
+import { getNotifications, storeNotifications } from '../notificationsStorage/asyncStorage';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -23,7 +27,6 @@ type ChildrenProp = {
 
 export default function NotificationWrapper({ children }: ChildrenProp) {
   const [expoPushToken, setExpoPushToken] = useState('');
-  const [notification, setNotification] = useState<Notification | null>(null);
   const notificationListener = useRef<Subscription>(null!);
   const responseListener = useRef<Subscription>(null!)!;
 
@@ -34,10 +37,31 @@ export default function NotificationWrapper({ children }: ChildrenProp) {
 
     // This listener is fired whenever a notification is received while the app is foregrounded
     notificationListener.current =
-      Notifications.addNotificationReceivedListener((notification) => {
-        setNotification(notification);
+      Notifications.addNotificationReceivedListener(async (notification) => {
         if(notification.request.content.data) {
-          console.log('Cyclic Task!')
+          const {title, body } = notification.request.content;
+          const data = notification.request.content.data as unknown as SavedTask;
+          const interval = convertCyclicIntervalToSeconds(data.cyclicInterval as CyclicInterval);
+
+          const notificationIdentifier = await Notifications.scheduleNotificationAsync({
+            content: {
+              title: title as string,
+              body: body as string,
+            },
+            trigger: {
+              seconds: interval,
+              repeats: true,
+            }
+          });
+
+          const notifications = await getNotifications();
+          if(notifications) {
+            notifications.push({notificationIdentifier: notificationIdentifier, taskId: data.id})
+            storeNotifications(notifications);
+          }
+          else {
+            storeNotifications([{notificationIdentifier: notificationIdentifier, taskId: data.id}])
+          }
         }
       });
 
