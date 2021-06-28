@@ -53,8 +53,10 @@ export default function NotificationWrapper({ children }: ChildrenProp) {
               repeats: true,
             }
           });
+          console.log('identifier: ', notificationIdentifier)
 
           const notifications = await getNotifications();
+          console.log('notifications from storage', notifications);
           if(notifications) {
             notifications.push({notificationIdentifier: notificationIdentifier, taskId: data.id})
             storeNotifications(notifications);
