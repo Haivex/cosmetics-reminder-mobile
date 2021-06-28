@@ -60,15 +60,16 @@ export default function TabOneScreen() {
   });
 
   const onSubmit = (data: TaskData) => {
-    dispatch(addTodo({...data, id: uuidv4()}));
+    const savedTodo = {...data, id: uuidv4()}
+    dispatch(addTodo(savedTodo));
     schedulePushNotification({
       title: 'Only You',
-      body: data.title,
-      scheduledDate: set(data.date as Date, {
-        hours: data.time.hours,
-        minutes: data.time.minutes
+      body: savedTodo.title,
+      scheduledDate: set(savedTodo.date as Date, {
+        hours: savedTodo.time.hours,
+        minutes: savedTodo.time.minutes
       }),
-      data: data && data.cyclicInterval ? data : undefined
+      data: savedTodo && savedTodo.cyclicInterval ? savedTodo : undefined
     })
     clearErrors(),
     reset(defaultTaskData)
