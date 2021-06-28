@@ -24,5 +24,29 @@ export const getNotifications = async (): Promise<NotificationIdentifierWithTask
   }
 }
 
+export const getNotificationByTaskId = async (taskId: string) => {
+  try {
+    const notifications = await getNotifications()
+    if(notifications) {
+      const foundedNotification = notifications.find((notification) => notification.taskId == taskId);
+      return foundedNotification;
+    }
+  } catch (e) {
+    // saving error
+  }
+}
+
+
+export const removeNotificationByTaskId = async (taskId: string) => {
+  try {
+    const notifications = await getNotifications()
+    if(notifications) {
+      const updatedNotifications = notifications.filter((notification) => notification.taskId !== taskId);
+      storeNotifications(updatedNotifications);
+    }
+  } catch (e) {
+    // saving error
+  }
+}
 
 
