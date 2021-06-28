@@ -66,7 +66,7 @@ export const DoneTask = ({ task }: DoneTaskProps) => {
               onPress={async () => {
                 const notification = await getNotificationByTaskId(task.id);
                 if(notification) {
-                  Notifications.cancelScheduledNotificationAsync(notification.taskId)
+                  Notifications.cancelScheduledNotificationAsync(notification.notificationIdentifier)
                 }
                   dispatch(deleteTodo(task));
               }}
