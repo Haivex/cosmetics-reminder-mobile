@@ -12,6 +12,7 @@ import { store } from './redux/MainStore';
 import NotificationWrapper from './components/NotificationWrapper';
 import initTranslation from './translation/config';
 
+require('dotenv').config()
 initTranslation()
 
 export default function App() {
