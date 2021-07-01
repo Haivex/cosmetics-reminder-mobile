@@ -9,8 +9,15 @@
     "beginningDateTitle": "Beginning Date",
     "beginningTimeTitle": "Beginning Time",
     "titleHelperText": "Write title",
-        "dateHelperText": "Write date",
-        "timeHelperText": "Write time"
+    "dateHelperText": "Write date",
+    "timeHelperText": "Write time",
+    "cyclicHelperText": "Please enter a valid interval",
+    "cyclicQuestion": "Whether to set as a cyclic task?",
+    "cyclicInputs": {
+      "days": "Days",
+      "hours": "Hours",
+      "minutes": "Minutes"
+    }
   },
   "currentTasksScreen": {
     "screenTitle": "To-do",
@@ -26,24 +33,24 @@
     "deleteTask": "Delete",
     "restoreTask": "Restore",
     "renameInput": {
-        "title": "Give title",
-        "description": "Give a new title",
-        "cancelButton": "Cancel",
-        "changeButton": "Change"
+      "title": "Give title",
+      "description": "Give a new title",
+      "cancelButton": "Cancel",
+      "changeButton": "Change"
     }
-},
-"bottomNavigation": {
+  },
+  "bottomNavigation": {
     "createTaskTitle": "Create task",
     "currentTasks": "To-do",
     "finishedTasks": "Finished tasks"
-},
-"datePicker": {
+  },
+  "datePicker": {
     "label": "Choose date (DD-MM-YYYY)",
     "acceptButton": "Accept"
-},
-"timePicker": {
-  "label": "Choose time (HH:MM XM)",
-  "acceptButton": "Accept",
-  "cancelButton": "Cancel"
-}
+  },
+  "timePicker": {
+    "label": "Choose time (HH:MM XM)",
+    "acceptButton": "Accept",
+    "cancelButton": "Cancel"
+  }
 }
