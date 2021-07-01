@@ -88,16 +88,16 @@ export const DoneTask = ({ task }: DoneTaskProps) => {
             <Menu.Item
               onPress={async () => {
                 const notification = await getNotificationByTaskId(task.id);
-                console.log('gettednotif', notification);
+                
                 if (notification) {
                   Notifications.cancelScheduledNotificationAsync(
                     notification.notificationIdentifier
                   )
                     .then((notif) => {
-                      console.log('notifinmethod: ', notif);
+                      
                     })
                     .catch((err) => {
-                      console.log('notiferror', err);
+                      
                     });
                 }
                 dispatch(deleteTodo(task));

@@ -53,13 +53,11 @@ export default function NotificationWrapper({ children }: ChildrenProp) {
               repeats: true,
             }
           });
-          console.log('identifier: ', notificationIdentifier)
 
           const notifications = await getNotifications();
-          console.log('notifications from storage', notifications);
           if(notifications) {
-            notifications.push({notificationIdentifier: notificationIdentifier, taskId: data.id})
-            storeNotifications(notifications);
+            const newNotifications = [...notifications, {notificationIdentifier: notificationIdentifier, taskId: data.id}]
+            storeNotifications(newNotifications);
           }
           else {
             storeNotifications([{notificationIdentifier: notificationIdentifier, taskId: data.id}])
@@ -70,7 +68,6 @@ export default function NotificationWrapper({ children }: ChildrenProp) {
     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
       });
 
     return () => {
