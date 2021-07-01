@@ -13,7 +13,7 @@ export default function TabThreeScreen() {
 
     return (
         <ScrollView>
-            {getDoneTasks().map(task => <DoneTask key={task.index} task={task} />)}
+            {getDoneTasks().map(task => <DoneTask key={task.id} task={task} />)}
         </ScrollView>
     )
 }
