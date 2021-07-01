@@ -10,7 +10,7 @@ import { ChildrenProp } from '../components/NotificationWrapper';
 WebBrowser.maybeCompleteAuthSession();
 
 export default function Authentication({ children }: ChildrenProp) {
-  if (!process.env.EXPO_CLIENT_ID) {
+  if (process.env.EXPO_CLIENT_ID === undefined) {
     throw new Error('No EXPO_CLIENT_ID env');
   }
   const [isLogged, setLogged] = React.useState(false);
@@ -48,7 +48,7 @@ export default function Authentication({ children }: ChildrenProp) {
       const { authentication } = response;
       const storageValue = JSON.stringify(authentication);
 
-      if (!process.env.EXPO_AUTH_STATE_KEY) {
+      if (process.env.EXPO_AUTH_STATE_KEY === undefined) {
         throw new Error('No EXPO_AUTH_STATE_KEY env');
       }
 
