@@ -21,9 +21,9 @@ Notifications.setNotificationHandler({
   }),
 });
 
-xport type ChildrenProp = {
+export type ChildrenProp = {
   children: React.ReactChild | React.ReactChild[];
-};e
+};
 
 export default function NotificationWrapper({ children }: ChildrenProp) {
   const [expoPushToken, setExpoPushToken] = useState('');
