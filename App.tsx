@@ -11,6 +11,7 @@ import { Provider } from 'react-redux';
 import { store } from './redux/MainStore';
 import NotificationWrapper from './components/NotificationWrapper';
 import initTranslation from './translation/config';
+import Authentication from './authentication/Auhentication';
 
 initTranslation()
 
@@ -23,6 +24,7 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
+        <Authentication>
         <NotificationWrapper>
           <PaperProvider
             theme={colorScheme === 'light' ? lightTheme : darkTheme}
@@ -33,6 +35,7 @@ export default function App() {
             </Provider>
           </PaperProvider>
         </NotificationWrapper>
+        </Authentication>
       </SafeAreaProvider>
     );
   }

@@ -21,7 +21,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-type ChildrenProp = {
+export type ChildrenProp = {
   children: React.ReactChild | React.ReactChild[];
 };
 
