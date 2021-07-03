@@ -41,7 +41,7 @@ export default function TimePickerInput({onChange, onBlur, value}: TimePickerInp
 
   return (
     <>
-    <TextInput right={<TextInput.Icon name='clock-outline' />} onTouchEnd={() => setVisible(true)} mode='outlined' placeholder={i18n.t('timePicker.label')}>
+    <TextInput caretHidden right={<TextInput.Icon name='clock-outline' />} onTouchEnd={() => setVisible(true)} mode='outlined' placeholder={i18n.t('timePicker.label')}>
         {value.hours !== undefined && value.minutes !== undefined ? `${format(new Date(1, 1, 2000, value.hours, value.minutes), getTimePattern())}` : ''}
       </TextInput>
       <TimePickerModal

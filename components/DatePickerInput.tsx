@@ -38,7 +38,7 @@ export default function DatePickerInput({onBlur, onChange, value}: DatePickerInp
   );
   return (
     <>
-      <TextInput right={<TextInput.Icon name='calendar' />} onTouchEnd={() => setOpen(true)} mode='outlined' placeholder={i18n.t('datePicker.label')}>
+      <TextInput caretHidden right={<TextInput.Icon name='calendar' />} onTouchEnd={() => setOpen(true)} mode='outlined' placeholder={i18n.t('datePicker.label')}>
         {value ? format(value, getDatePattern()) : ''} 
       </TextInput>
       <DatePickerModal
