@@ -19,11 +19,11 @@ function getTimePattern() {
   return 'HH:mm';
 }
 
-export default function TimePickerInput({
+const TimePickerInput = React.forwardRef<TextInput, TimePickerInputProps>(({
   onChange,
   onBlur,
   value,
-}: TimePickerInputProps) {
+}: TimePickerInputProps, ref) => {
   const [visible, setVisible] = React.useState(false);
   // const [time, setTime] = React.useState({
   //   hours: undefined,
@@ -52,6 +52,7 @@ export default function TimePickerInput({
         onFocus={() => setVisible(true)}
         mode='outlined'
         placeholder={i18n.t('timePicker.label')}
+        ref={ref}
       >
         {value.hours !== undefined && value.minutes !== undefined
           ? `${format(
@@ -74,4 +75,6 @@ export default function TimePickerInput({
       />
     </>
   );
-}
+})
+
+export default TimePickerInput;

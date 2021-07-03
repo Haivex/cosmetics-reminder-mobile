@@ -109,7 +109,7 @@ export default function TabOneScreen() {
           required: true,
         }}
         render={({ field: { onBlur, onChange, value } }) => (
-          <DatePickerInput ref={dateRef} onBlur={onBlur} onChange={onChange} value={value as CalendarDate} />
+          <DatePickerInput ref={dateRef} onBlur={onBlur} onChange={(params) => {onChange(params); timeRef.current.focus()} } value={value as CalendarDate} />
         )}
         name='date'
       />
@@ -124,7 +124,7 @@ export default function TabOneScreen() {
           required: true,
         }}
         render={({ field: { onBlur, onChange, value } }) => (
-          <TimePickerInput onBlur={onBlur} onChange={onChange} value={value as Time} />
+          <TimePickerInput ref={timeRef} onBlur={onBlur} onChange={onChange} value={value as Time} />
         )}
         name='time'
       />
