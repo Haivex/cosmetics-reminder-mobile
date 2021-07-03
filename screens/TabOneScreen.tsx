@@ -91,7 +91,6 @@ export default function TabOneScreen() {
             mode='outlined'
             placeholder={i18n.t('createTaskScreen.titleInputPlaceholder')}
             autoFocus
-            
           />
         )}
         name='title'
