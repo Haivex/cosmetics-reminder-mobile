@@ -21,48 +21,49 @@ function getDatePattern() {
   return 'dd-LL-uu';
 }
 
-export default function DatePickerInput({
-  onBlur,
-  onChange,
-  value,
-}: DatePickerInputProps) {
-  const [open, setOpen] = React.useState(false);
+const DatePickerInput = React.forwardRef<TextInput, DatePickerInputProps>(
+  ({ onBlur, onChange, value }: DatePickerInputProps, ref) => {
+    const [open, setOpen] = React.useState(false);
 
-  const onDismissSingle = React.useCallback(() => {
-    setOpen(false);
-    onBlur();
-  }, [setOpen]);
-
-  const onConfirmSingle = React.useCallback(
-    (params) => {
+    const onDismissSingle = React.useCallback(() => {
       setOpen(false);
-      //setDate(params.date);
-      onChange(params.date);
-    },
-    [setOpen]
-  );
-  return (
-    <>
-      <TextInput
-        showSoftInputOnFocus={false}
-        caretHidden
-        right={<TextInput.Icon name='calendar' />}
-        onFocus={() => setOpen(true)}
-        mode='outlined'
-        placeholder={i18n.t('datePicker.label')}
-      >
-        {value ? format(value, getDatePattern()) : ''}
-      </TextInput>
-      <DatePickerModal
-        locale={i18n.currentLocale()}
-        mode='single'
-        visible={open}
-        onDismiss={onDismissSingle}
-        date={value}
-        onConfirm={onConfirmSingle}
-        saveLabel={i18n.t('datePicker.acceptButton')}
-        label={i18n.t('datePicker.label')}
-      />
-    </>
-  );
-}
+      onBlur();
+    }, [setOpen]);
+
+    const onConfirmSingle = React.useCallback(
+      (params) => {
+        setOpen(false);
+        //setDate(params.date);
+        onChange(params.date);
+      },
+      [setOpen]
+    );
+    return (
+      <>
+        <TextInput
+          showSoftInputOnFocus={false}
+          caretHidden
+          right={<TextInput.Icon name='calendar' />}
+          onFocus={() => setOpen(true)}
+          mode='outlined'
+          placeholder={i18n.t('datePicker.label')}
+          ref={ref}
+        >
+          {value ? format(value, getDatePattern()) : ''}
+        </TextInput>
+        <DatePickerModal
+          locale={i18n.currentLocale()}
+          mode='single'
+          visible={open}
+          onDismiss={onDismissSingle}
+          date={value}
+          onConfirm={onConfirmSingle}
+          saveLabel={i18n.t('datePicker.acceptButton')}
+          label={i18n.t('datePicker.label')}
+        />
+      </>
+    );
+  }
+);
+
+export default DatePickerInput;

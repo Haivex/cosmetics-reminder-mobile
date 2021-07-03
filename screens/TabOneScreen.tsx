@@ -48,6 +48,8 @@ const validateCyclicInterval = (value: CyclicInterval | undefined) => {
 
 export default function TabOneScreen() {
   const [isCyclic, setCyclic] = React.useState(false);
+  const dateRef = React.createRef();
+  const timeRef = React.createRef();
   const dispatch = useDispatch();
   const {
     control,
@@ -91,6 +93,7 @@ export default function TabOneScreen() {
             mode='outlined'
             placeholder={i18n.t('createTaskScreen.titleInputPlaceholder')}
             autoFocus
+            onSubmitEditing={() => dateRef.current.focus()}
           />
         )}
         name='title'
@@ -106,7 +109,7 @@ export default function TabOneScreen() {
           required: true,
         }}
         render={({ field: { onBlur, onChange, value } }) => (
-          <DatePickerInput onBlur={onBlur} onChange={onChange} value={value as CalendarDate} />
+          <DatePickerInput ref={dateRef} onBlur={onBlur} onChange={onChange} value={value as CalendarDate} />
         )}
         name='date'
       />
