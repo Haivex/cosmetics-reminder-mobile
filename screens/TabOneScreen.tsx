@@ -95,6 +95,10 @@ export default function TabOneScreen() {
             placeholder={i18n.t('createTaskScreen.titleInputPlaceholder')}
             autoFocus
             onSubmitEditing={() => !getValues().date && dateRef.current.focus()}
+            returnKeyType='go'
+            returnKeyLabel='go'
+            clearButtonMode='while-editing'
+            enablesReturnKeyAutomatically
           />
         )}
         name='title'
