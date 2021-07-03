@@ -56,7 +56,8 @@ export default function TabOneScreen() {
     handleSubmit,
     formState: { errors,  },
     clearErrors,
-    reset
+    reset,
+    getValues
   } = useForm<TaskData>({
     defaultValues: defaultTaskData
   });
@@ -93,7 +94,7 @@ export default function TabOneScreen() {
             mode='outlined'
             placeholder={i18n.t('createTaskScreen.titleInputPlaceholder')}
             autoFocus
-            onSubmitEditing={() => dateRef.current.focus()}
+            onSubmitEditing={() => !getValues().date && dateRef.current.focus()}
           />
         )}
         name='title'
@@ -109,7 +110,7 @@ export default function TabOneScreen() {
           required: true,
         }}
         render={({ field: { onBlur, onChange, value } }) => (
-          <DatePickerInput ref={dateRef} onBlur={onBlur} onChange={(params) => {onChange(params); timeRef.current.focus()} } value={value as CalendarDate} />
+          <DatePickerInput ref={dateRef} onBlur={onBlur} onChange={(params) => {onChange(params); !getValues().time.hours  && timeRef.current.focus()} } value={value as CalendarDate} />
         )}
         name='date'
       />
