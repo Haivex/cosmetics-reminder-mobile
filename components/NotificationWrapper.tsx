@@ -38,7 +38,7 @@ export default function NotificationWrapper({ children }: ChildrenProp) {
     // This listener is fired whenever a notification is received while the app is foregrounded
     notificationListener.current =
       Notifications.addNotificationReceivedListener(async (notification) => {
-        if(notification.request.content.data) {
+        if(notification.request.content.data && notification.request.content.data.data.cyclicInterval) {
           const {title, body } = notification.request.content;
           const data = notification.request.content.data.data as unknown as SavedTask;
           const interval = convertCyclicIntervalToSeconds(data.cyclicInterval as CyclicInterval);

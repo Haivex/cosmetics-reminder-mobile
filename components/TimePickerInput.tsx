@@ -8,18 +8,22 @@ import i18n from 'i18n-js';
 import { Time } from '../screens/TabOneScreen';
 
 interface TimePickerInputProps {
-  onBlur: () => void; 
+  onBlur: () => void;
   onChange: (...event: any[]) => void;
   value: Time;
 }
 
 function getTimePattern() {
   const currentLocale = i18n.currentLocale();
-  if(currentLocale.startsWith('en')) return 'hh:mm aa'
-  return 'HH:mm'
+  if (currentLocale.startsWith('en')) return 'hh:mm aa';
+  return 'HH:mm';
 }
 
-export default function TimePickerInput({onChange, onBlur, value}: TimePickerInputProps) {
+const TimePickerInput = React.forwardRef<TextInput, TimePickerInputProps>(({
+  onChange,
+  onBlur,
+  value,
+}: TimePickerInputProps, ref) => {
   const [visible, setVisible] = React.useState(false);
   // const [time, setTime] = React.useState({
   //   hours: undefined,
@@ -27,22 +31,35 @@ export default function TimePickerInput({onChange, onBlur, value}: TimePickerInp
   // });
   const onDismiss = React.useCallback(() => {
     setVisible(false);
-    onBlur()
+    onBlur();
   }, [setVisible]);
 
   const onConfirm = React.useCallback(
     ({ hours, minutes }) => {
       setVisible(false);
       //setTime({ hours, minutes });
-      onChange({hours, minutes})
+      onChange({ hours, minutes });
     },
     [setVisible]
   );
 
   return (
     <>
-    <TextInput right={<TextInput.Icon name='clock-outline' />} onTouchEnd={() => setVisible(true)} mode='outlined' placeholder={i18n.t('timePicker.label')}>
-        {value.hours !== undefined && value.minutes !== undefined ? `${format(new Date(1, 1, 2000, value.hours, value.minutes), getTimePattern())}` : ''}
+      <TextInput
+        showSoftInputOnFocus={false}
+        caretHidden
+        right={<TextInput.Icon name='clock-outline' />}
+        onFocus={() => setVisible(true)}
+        mode='outlined'
+        placeholder={i18n.t('timePicker.label')}
+        ref={ref}
+      >
+        {value.hours !== undefined && value.minutes !== undefined
+          ? `${format(
+              new Date(1, 1, 2000, value.hours, value.minutes),
+              getTimePattern()
+            )}`
+          : ''}
       </TextInput>
       <TimePickerModal
         visible={visible}
@@ -58,4 +75,6 @@ export default function TimePickerInput({onChange, onBlur, value}: TimePickerInp
       />
     </>
   );
-}
+})
+
+export default TimePickerInput;

@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "com.haivex.onlyyou",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -19,13 +19,18 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.haivex.OnlyYou",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#72c4d6"
-      }
+      },
+      "package": "com.haivex.OnlyYou",
+      "googleServicesFile": "./google-services.json",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
