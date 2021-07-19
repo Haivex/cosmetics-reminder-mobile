@@ -16,9 +16,9 @@ export default function Authentication({ children }: ChildrenProp) {
   const [isLogged, setLogged] = React.useState(false);
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId: process.env.EXPO_CLIENT_ID,
-    // iosClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-    // androidClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-    // webClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+    // iosClientId:
+    androidClientId: process.env.ANDROID_CLIENT_ID,
+    // webClientId:,
   });
 
   React.useEffect(() => {
@@ -54,6 +54,10 @@ export default function Authentication({ children }: ChildrenProp) {
 
       if (Platform.OS !== 'web') {
         SecureStore.setItemAsync(process.env.EXPO_AUTH_STATE_KEY, storageValue);
+      }
+
+      if (Platform.OS === 'web') {
+        WebBrowser.maybeCompleteAuthSession();
       }
 
       setLogged(true);
