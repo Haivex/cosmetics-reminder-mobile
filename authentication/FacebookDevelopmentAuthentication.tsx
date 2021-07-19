@@ -6,7 +6,7 @@ import { Button } from 'react-native';
 
 WebBrowser.maybeCompleteAuthSession();
 
-export default function App() {
+export default function FacebookDevelopmentAuthentication() {
   const [request, response, promptAsync] = Facebook.useAuthRequest({
     expoClientId: process.env.FACEBOOK_EXPO_CLIENT_ID,
     //androidClientId: process.env.FACEBOOK_EXPO_CLIENT_ID,
