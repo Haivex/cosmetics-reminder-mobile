@@ -14,6 +14,8 @@ import i18n from 'i18n-js';
 import CyclicTaskInputs, { CyclicInterval } from '../components/CyclicTaskInputs';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
+import { NavigationProp, ParamListBase } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 export type Time = {
   hours: number | undefined;
@@ -46,15 +48,20 @@ const validateCyclicInterval = (value: CyclicInterval | undefined) => {
   return (value && (value.days > 0 || value.hours > 0 || value.minutes > 0))
 }
 
+
 export default function TabOneScreen() {
+  const navigation = useNavigation();
   const [isCyclic, setCyclic] = React.useState(false);
+  const dateRef = React.createRef();
+  const timeRef = React.createRef();
   const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
     formState: { errors,  },
     clearErrors,
-    reset
+    reset,
+    getValues
   } = useForm<TaskData>({
     defaultValues: defaultTaskData
   });
@@ -73,6 +80,7 @@ export default function TabOneScreen() {
     })
     clearErrors(),
     reset(defaultTaskData)
+    navigation.navigate('TabTwo')
   };
 
   return (
@@ -90,6 +98,12 @@ export default function TabOneScreen() {
             value={value as string}
             mode='outlined'
             placeholder={i18n.t('createTaskScreen.titleInputPlaceholder')}
+            autoFocus
+            onSubmitEditing={() => !getValues().date && dateRef?.current?.focus()}
+            returnKeyType='go'
+            returnKeyLabel='go'
+            clearButtonMode='while-editing'
+            enablesReturnKeyAutomatically
           />
         )}
         name='title'
@@ -105,7 +119,7 @@ export default function TabOneScreen() {
           required: true,
         }}
         render={({ field: { onBlur, onChange, value } }) => (
-          <DatePickerInput onBlur={onBlur} onChange={onChange} value={value as CalendarDate} />
+          <DatePickerInput ref={dateRef} onBlur={onBlur} onChange={(params) => {onChange(params); !getValues().time.hours  && timeRef?.current?.focus()} } value={value as CalendarDate} />
         )}
         name='date'
       />
@@ -120,7 +134,7 @@ export default function TabOneScreen() {
           required: true,
         }}
         render={({ field: { onBlur, onChange, value } }) => (
-          <TimePickerInput onBlur={onBlur} onChange={onChange} value={value as Time} />
+          <TimePickerInput ref={timeRef} onBlur={onBlur} onChange={onChange} value={value as Time} />
         )}
         name='time'
       />
