@@ -19,6 +19,16 @@ export default function TabTwoScreen() {
         minutes: task.time.minutes
       })
       return !task.completed && taskDateWithTime <= currentDate
+    }).sort((previousTask, currentTask) => {
+      const previousTaskDateWithTime = set(previousTask.date, {
+        hours: previousTask.time.hours,
+        minutes: previousTask.time.minutes
+      })
+      const currentTaskDateWithTime = set(currentTask.date, {
+        hours: currentTask.time.hours,
+        minutes: currentTask.time.minutes
+      })
+      return currentTaskDateWithTime.getTime() - previousTaskDateWithTime.getTime()
     })
   }
 
@@ -28,7 +38,17 @@ export default function TabTwoScreen() {
         hours: task.time.hours,
         minutes: task.time.minutes
       })
-      return !task.completed && taskDateWithTime > currentDate})
+      return !task.completed && taskDateWithTime > currentDate}).sort((previousTask, currentTask) => {
+        const previousTaskDateWithTime = set(previousTask.date, {
+          hours: previousTask.time.hours,
+          minutes: previousTask.time.minutes
+        })
+        const currentTaskDateWithTime = set(currentTask.date, {
+          hours: currentTask.time.hours,
+          minutes: currentTask.time.minutes
+        })
+        return previousTaskDateWithTime.getTime() - currentTaskDateWithTime.getTime()
+      })
   }
 
   return (
