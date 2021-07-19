@@ -8,7 +8,7 @@ import * as SecureStore from 'expo-secure-store';
 import { ChildrenProp } from '../components/NotificationWrapper';
 
 WebBrowser.maybeCompleteAuthSession();
-
+//Google development Authentication
 export default function Authentication({ children }: ChildrenProp) {
   if (process.env.EXPO_CLIENT_ID === undefined) {
     throw new Error('No EXPO_CLIENT_ID env');
