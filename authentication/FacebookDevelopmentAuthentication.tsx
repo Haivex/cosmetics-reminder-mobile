@@ -1,4 +1,4 @@
-import       * as React from 'react';
+import * as React from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import * as Facebook from 'expo-auth-session/providers/facebook';
 import { ResponseType } from 'expo-auth-session';

@@ -21,7 +21,8 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.haivex.OnlyYou",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.0",
+      "usesAppleSignIn": true
     },
     "android": {
       "adaptiveIcon": {
