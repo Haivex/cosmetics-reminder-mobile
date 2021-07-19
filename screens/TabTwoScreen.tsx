@@ -7,10 +7,12 @@ import { RootState } from '../redux/MainStore';
 import { useSelector } from 'react-redux';
 import i18n from 'i18n-js';
 import { set } from 'date-fns';
+import { InteractionManager } from 'react-native';
 
 export default function TabTwoScreen() {
   const { todos } = useSelector((state: RootState) => state.todos);
   const currentDate = new Date();
+  const [ignored, forceUpdate] = React.useReducer(x => x + 1, 0);
 
   const getCurrentTasks = () => {
     return todos.filter((task) => {
@@ -50,6 +52,12 @@ export default function TabTwoScreen() {
         return previousTaskDateWithTime.getTime() - currentTaskDateWithTime.getTime()
       })
   }
+
+  React.useEffect(() => {
+   setTimeout(() => {
+    forceUpdate()
+   }, 60000)
+  })
 
   return (
     <ScrollView>
