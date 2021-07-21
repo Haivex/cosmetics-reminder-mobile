@@ -22,7 +22,12 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.haivex.OnlyYou",
       "buildNumber": "1.0.0",
-      "usesAppleSignIn": true
+      "usesAppleSignIn": true,
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "123456"
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {
