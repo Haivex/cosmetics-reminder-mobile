@@ -5,11 +5,10 @@ import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import { Button, Platform } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
-import { ChildrenProp } from '../components/NotificationWrapper';
 
 WebBrowser.maybeCompleteAuthSession();
-//Google development Authentication
-export default function Authentication({ children }: ChildrenProp) {
+
+export default function GoogleDevelopmentAuthentication() {
   if (process.env.EXPO_CLIENT_ID === undefined) {
     throw new Error('No EXPO_CLIENT_ID env');
   }
@@ -22,20 +21,7 @@ export default function Authentication({ children }: ChildrenProp) {
   });
 
   React.useEffect(() => {
-    const checkIfLogged = async () => {
-      if (!process.env.EXPO_AUTH_STATE_KEY) {
-        throw new Error('No EXPO_AUTH_STATE_KEY env');
-      }
-
-      const secretAuthKey = await SecureStore.getItemAsync(
-        process.env.EXPO_AUTH_STATE_KEY
-      );
-      if (secretAuthKey) {
-        setLogged(true);
-      }
-    };
-
-    checkIfLogged();
+    
     WebBrowser.warmUpAsync();
 
     return () => {
@@ -68,18 +54,12 @@ export default function Authentication({ children }: ChildrenProp) {
   }, [response]);
 
   return (
-    <>
-      {isLogged ? (
-        children
-      ) : (
-        <Button
-          disabled={!request}
-          title='Login'
-          onPress={() => {
-            promptAsync();
-          }}
-        />
-      )}
-    </>
+    <Button
+      disabled={!request}
+      title='Login'
+      onPress={() => {
+        promptAsync();
+      }}
+    />
   );
 }
