@@ -35,6 +35,13 @@
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
-    }
+    },
+    "facebookScheme": "fb123456",
+    "facebookAppId": "123",
+    "facebookDisplayName": "Only-You",
+    "facebookAutoLogAppEventsEnabled": true,
+    "facebookAdvertiserIDCollectionEnabled": true
+
+
   }
 }
