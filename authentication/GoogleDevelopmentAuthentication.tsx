@@ -56,7 +56,7 @@ export default function GoogleDevelopmentAuthentication() {
   return (
     <Button
       disabled={!request}
-      title='Login'
+      title='Login with Google'
       onPress={() => {
         promptAsync();
       }}

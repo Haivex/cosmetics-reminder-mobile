@@ -38,7 +38,7 @@ export default function FacebookDevelopmentAuthentication() {
   return (
     <Button
       disabled={!request}
-      title="Login"
+      title="Login with Facebook"
       onPress={() => {
         promptAsync();
       }}
