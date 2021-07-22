@@ -2,9 +2,12 @@ import * as React from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { Button } from 'react-native';
 import * as GoogleSignIn from 'expo-google-sign-in';
+import { AuthInfo, logIn } from '../redux/LoginReducer';
+import { useDispatch } from 'react-redux';
 
  const GoogleAuthentication = () => {
     const [user, setUser] = React.useState<GoogleSignIn.GoogleUser | null>(null);
+    const dispatch = useDispatch();
 
     const _syncUserWithStateAsync = async () => {
         const user = await GoogleSignIn.signInSilentlyAsync();
@@ -13,15 +16,18 @@ import * as GoogleSignIn from 'expo-google-sign-in';
         if (process.env.EXPO_AUTH_STATE_KEY === undefined) {
             throw new Error('No EXPO_AUTH_STATE_KEY env');
           }
+
+          const loginInfo: AuthInfo = {
+            authProvider: 'GOOGLE',
+            authData: {
+                user,
+            }
+        }
   
-          const storageValue = JSON.stringify({
-              authProvider: 'GOOGLE',
-              authData: {
-                  user,
-              }
-          })
+          const storageValue = JSON.stringify(loginInfo)
   
           SecureStore.setItemAsync(process.env.EXPO_AUTH_STATE_KEY, storageValue);
+          dispatch(logIn(loginInfo));
       };
 
     const initAsync = async () => {

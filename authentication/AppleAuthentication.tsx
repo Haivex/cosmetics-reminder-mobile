@@ -1,8 +1,11 @@
 import * as React from 'react';
 import * as ExpoAppleAuthentication from 'expo-apple-authentication';
 import * as SecureStore from 'expo-secure-store';
+import { useDispatch } from 'react-redux';
+import { AuthInfo, logIn } from '../redux/LoginReducer';
 
 export default function AppleAuthentication() {
+  const dispatch = useDispatch();
   return (
     <ExpoAppleAuthentication.AppleAuthenticationButton
       buttonType={ExpoAppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
@@ -23,15 +26,18 @@ export default function AppleAuthentication() {
           if (process.env.EXPO_AUTH_STATE_KEY === undefined) {
             throw new Error('No EXPO_AUTH_STATE_KEY env');
           }
+
+          const loginInfo: AuthInfo = {
+            authProvider: 'APPLE',
+            authData: {
+                credential,
+            }
+        }
   
-          const storageValue = JSON.stringify({
-              authProvider: 'APPLE',
-              authData: {
-                  credential,
-              }
-          })
+          const storageValue = JSON.stringify(loginInfo)
   
           SecureStore.setItemAsync(process.env.EXPO_AUTH_STATE_KEY, storageValue);
+          dispatch(logIn(loginInfo))
 
         } catch (e) {
           if (e.code === 'ERR_CANCELED') {

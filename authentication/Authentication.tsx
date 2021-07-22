@@ -2,10 +2,14 @@ import * as React from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { ChildrenProp } from '../components/NotificationWrapper';
 import AuthButtons from './AuthButtons';
+import { useDispatch, useSelector } from 'react-redux';
+import { logIn } from '../redux/LoginReducer';
+import { RootState } from '../redux/MainStore';
 
 //Google development Authentication
 export default function Authentication({ children }: ChildrenProp) {
-  const [isLogged, setLogged] = React.useState(false);
+  const dispatch = useDispatch();
+  const loginInfo = useSelector((state: RootState) => state.login)
 
   const checkIfLogged = async () => {
     if (!process.env.EXPO_AUTH_STATE_KEY) {
@@ -16,7 +20,7 @@ export default function Authentication({ children }: ChildrenProp) {
       process.env.EXPO_AUTH_STATE_KEY
     );
     if (secretAuthKey) {
-      setLogged(true);
+      dispatch(logIn(JSON.parse(secretAuthKey)))
     }
   };
 
@@ -24,5 +28,5 @@ export default function Authentication({ children }: ChildrenProp) {
     checkIfLogged();
   }, [])
   
-  return <>{isLogged ? children : <AuthButtons />}</>;
+  return <>{loginInfo.isLogged ? children : <AuthButtons />}</>;
 }

@@ -2,9 +2,12 @@ import * as Facebook from 'expo-facebook';
 import * as React from 'react';
 import { Button } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
+import { useDispatch } from 'react-redux';
+import { AuthInfo, logIn } from '../redux/LoginReducer';
 
 const FacebookAuthentication = () => {
-  async function logIn() {
+  const dispatch = useDispatch();
+  async function facebookLogIn() {
     try {
       await Facebook.initializeAsync({
         appId: process.env.FACEBOOK_APP_ID,
@@ -30,15 +33,18 @@ const FacebookAuthentication = () => {
           throw new Error('No EXPO_AUTH_STATE_KEY env');
         }
 
-        const storageValue = JSON.stringify({
-            authProvider: 'FACEBOOK',
-            authData: {
-                token,
-                userId,
-            }
-        })
+        const loginInfo: AuthInfo = {
+          authProvider: 'FACEBOOK',
+          authData: {
+              token,
+              userId,
+          }
+      }
+
+        const storageValue = JSON.stringify(loginInfo)
 
         SecureStore.setItemAsync(process.env.EXPO_AUTH_STATE_KEY, storageValue);
+        dispatch(logIn(loginInfo))
 
       } else {
         // type === 'cancel'
@@ -52,7 +58,7 @@ const FacebookAuthentication = () => {
     <Button
       title='Login with facebook'
       onPress={() => {
-        logIn();
+        facebookLogIn();
       }}
     />
   );

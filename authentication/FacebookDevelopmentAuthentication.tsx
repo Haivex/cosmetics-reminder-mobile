@@ -4,10 +4,13 @@ import * as Facebook from 'expo-auth-session/providers/facebook';
 import { ResponseType } from 'expo-auth-session';
 import { Button } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
+import { AuthInfo, logIn } from '../redux/LoginReducer';
+import { useDispatch } from 'react-redux';
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function FacebookDevelopmentAuthentication() {
+  const dispatch = useDispatch();
   const [request, response, promptAsync] = Facebook.useAuthRequest({
     expoClientId: process.env.FACEBOOK_EXPO_CLIENT_ID,
     //androidClientId: process.env.FACEBOOK_EXPO_CLIENT_ID,
@@ -23,14 +26,17 @@ export default function FacebookDevelopmentAuthentication() {
         throw new Error('No EXPO_AUTH_STATE_KEY env');
       }
 
-      const storageValue = JSON.stringify({
-          authProvider: 'FACEBOOK',
-          authData: {
-              code
-          }
-      })
+      const loginInfo: AuthInfo = {
+        authProvider: 'FACEBOOK',
+        authData: {
+            code
+        }
+    }
+
+      const storageValue = JSON.stringify(loginInfo)
 
       SecureStore.setItemAsync(process.env.EXPO_AUTH_STATE_KEY, storageValue);
+      dispatch(logIn(loginInfo));
 
     }
   }, [response]);
