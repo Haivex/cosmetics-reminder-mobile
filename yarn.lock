@@ -1173,7 +1173,7 @@
   dependencies:
     "@types/hammerjs" "^2.0.36"
 
-"@expo/config-plugins@1.0.33", "@expo/config-plugins@^1.0.18":
+"@expo/config-plugins@1.0.33", "@expo/config-plugins@^1.0.18", "@expo/config-plugins@^1.0.22":
   version "1.0.33"
   resolved "https://registry.npmjs.org/@expo/config-plugins/-/config-plugins-1.0.33.tgz"
   integrity sha512-YQJop0c69LKD/6ZJJto7klS7TDmzgs44TI0Z5RBqesOjYlDwNFcQk2Rl2BaA1wlAYkH+rRrhN2+WjjSyD9HiPg==
@@ -4396,6 +4396,14 @@ expo-error-recovery@~2.1.0:
   resolved "https://registry.npmjs.org/expo-error-recovery/-/expo-error-recovery-2.1.0.tgz"
   integrity sha512-N5g2QKtdNntUNGQVnB/tG1jHdtJP1+kLMWDS+7ZKRcKfulm3JX/M3l460fsEtqg84n/latxPkBT0yfKw2DSq+Q==
 
+expo-facebook@~11.0.5:
+  version "11.0.5"
+  resolved "https://registry.yarnpkg.com/expo-facebook/-/expo-facebook-11.0.5.tgz#0524f4a379f83fe55e12c2d63ed5bdd8603c3903"
+  integrity sha512-+2BRgqFQocfauT7zEHX4frVWlUfYx4L7qZXMEuDj9oJvY2lkJiymWDEHjHLdeufS4gHLyr5FLFF4hYtmfM2Xww==
+  dependencies:
+    "@expo/config-plugins" "^1.0.22"
+    unimodules-permissions-interface "~6.1.0"
+
 expo-file-system@~11.0.2:
   version "11.0.2"
   resolved "https://registry.npmjs.org/expo-file-system/-/expo-file-system-11.0.2.tgz"
@@ -4410,6 +4418,13 @@ expo-font@~9.1.0:
   integrity sha512-owzbbfrQet7mawTGKMXpVCIA9k56MGhtriO41AW4Zo65dd2Ikm4LoymuHKp2ZlHuIFjRnjECKWz7RXgy/C1yAg==
   dependencies:
     fontfaceobserver "^2.1.0"
+
+expo-google-sign-in@~9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/expo-google-sign-in/-/expo-google-sign-in-9.1.0.tgz#9d52c8eaf8ab78bd3c579dea5c730b33026b22f8"
+  integrity sha512-IxbTU3R6bfgiIhiFIP2n52iRNtv7IE22pZVQCVVo3xMTMj5kmafh25daPYOEqkBB3G2AQofY8hCxD4gCLW7GnQ==
+  dependencies:
+    invariant "^2.2.4"
 
 expo-keep-awake@~9.1.2:
   version "9.1.2"

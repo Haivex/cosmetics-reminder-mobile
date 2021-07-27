@@ -11,9 +11,9 @@ import { Provider } from 'react-redux';
 import { store } from './redux/MainStore';
 import NotificationWrapper from './components/NotificationWrapper';
 import initTranslation from './translation/config';
-import Authentication from './authentication/Auhentication';
+import Authentication from './authentication/Authentication';
 
-initTranslation()
+initTranslation();
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -24,18 +24,18 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <Authentication>
-        <NotificationWrapper>
-          <PaperProvider
-            theme={colorScheme === 'light' ? lightTheme : darkTheme}
-          >
-            <Provider store={store}>
-              <Navigation colorScheme={colorScheme} />
-              <StatusBar />
-            </Provider>
-          </PaperProvider>
-        </NotificationWrapper>
-        </Authentication>
+        <Provider store={store}>
+          <Authentication>
+            <NotificationWrapper>
+              <PaperProvider
+                theme={colorScheme === 'light' ? lightTheme : darkTheme}
+              >
+                <Navigation colorScheme={colorScheme} />
+                <StatusBar />
+              </PaperProvider>
+            </NotificationWrapper>
+          </Authentication>
+        </Provider>
       </SafeAreaProvider>
     );
   }

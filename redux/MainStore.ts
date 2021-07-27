@@ -1,9 +1,11 @@
 import { configureStore} from '@reduxjs/toolkit';
-import todosReducer from './TodosReducer';
+import LoginReducer from './LoginReducer';
+import TodosReducer from './TodosReducer';
 
 export const store = configureStore({
   reducer: {
-    todos: todosReducer
+    todos: TodosReducer,
+    login: LoginReducer
   },
   middleware: (getDefaultMiddleware) => 
     getDefaultMiddleware({
