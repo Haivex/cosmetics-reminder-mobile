@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logIn } from '../redux/LoginReducer';
 import { RootState } from '../redux/MainStore';
 
-//Google development Authentication
 export default function Authentication({ children }: ChildrenProp) {
   const dispatch = useDispatch();
   const loginInfo = useSelector((state: RootState) => state.login)
