@@ -50,8 +50,8 @@ const defaultTaskData: TaskData = {
 export default function TaskCreationScreen() {
   const navigation = useNavigation();
   const [isCyclicCheckboxChecked, setCyclic] = React.useState(false);
-  const dateRef = React.createRef();
-  const timeRef = React.createRef();
+  const dateRef = React.createRef<HTMLElement>();
+  const timeRef = React.createRef<HTMLElement>();
   const dispatch = useDispatch();
   const {
     control,
