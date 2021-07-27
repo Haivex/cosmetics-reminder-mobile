@@ -21,7 +21,13 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.haivex.OnlyYou",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.0",
+      "usesAppleSignIn": true,
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "123456"
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -34,6 +40,13 @@
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
-    }
+    },
+    "facebookScheme": "fb123456",
+    "facebookAppId": "123",
+    "facebookDisplayName": "Only-You",
+    "facebookAutoLogAppEventsEnabled": true,
+    "facebookAdvertiserIDCollectionEnabled": true
+
+
   }
 }
