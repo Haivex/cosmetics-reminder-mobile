@@ -7,10 +7,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Button, View, Text, Platform } from 'react-native';
 import Constants from 'expo-constants';
 import { Subscription } from '@unimodules/core';
-import {SavedTask } from '../screens/TabOneScreen';
+import { SavedTask } from '../screens/TabOneScreen';
 import convertCyclicIntervalToSeconds from '../helpers/calculateInterval';
 import { CyclicInterval } from './CyclicTaskInputs';
-import { getNotifications, storeNotifications } from '../notificationsStorage/asyncStorage';
+import {
+  getNotifications,
+  storeNotifications,
+} from '../notificationsStorage/asyncStorage';
 import { ChildrenProp } from '../types';
 
 type ScheduledNotificationOptions = {
@@ -18,7 +21,7 @@ type ScheduledNotificationOptions = {
   body: string;
   data?: any;
   scheduledDate: Date;
-}
+};
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -42,37 +45,15 @@ export default function NotificationWrapper({ children }: ChildrenProp) {
     // This listener is fired whenever a notification is received while the app is foregrounded
     notificationListener.current =
       Notifications.addNotificationReceivedListener(async (notification) => {
-        if(notification.request.content.data && notification.request.content.data.data.cyclicInterval) {
-          const {title, body } = notification.request.content;
-          const data = notification.request.content.data.data as unknown as SavedTask;
-          const interval = convertCyclicIntervalToSeconds(data.cyclicInterval as CyclicInterval);
-
-          const notificationIdentifier = await Notifications.scheduleNotificationAsync({
-            content: {
-              title: title as string,
-              body: body as string,
-            },
-            trigger: {
-              seconds: interval,
-              repeats: true,
-            }
-          });
-
-          const notifications = await getNotifications();
-          if(notifications) {
-            const newNotifications = [...notifications, {notificationIdentifier: notificationIdentifier, taskId: data.id}]
-            storeNotifications(newNotifications);
-          }
-          else {
-            storeNotifications([{notificationIdentifier: notificationIdentifier, taskId: data.id}])
-          }
+        const createdTask = notification.request.content.data.data as SavedTask;
+        if(createdTask.cyclicInterval) {
+          setCyclicNotifications(notification);
         }
       });
 
     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
     responseListener.current =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-      });
+      Notifications.addNotificationResponseReceivedListener((response) => {});
 
     return () => {
       Notifications.removeNotificationSubscription(
@@ -83,6 +64,41 @@ export default function NotificationWrapper({ children }: ChildrenProp) {
   }, []);
 
   return <>{children}</>;
+}
+
+async function setCyclicNotifications(
+  givenNotification: Notifications.Notification
+) {
+  const { title, body } = givenNotification.request.content;
+  const createdTask = givenNotification.request.content.data
+    .data as unknown as SavedTask;
+  const interval = convertCyclicIntervalToSeconds(
+    createdTask.cyclicInterval as CyclicInterval
+  );
+
+  const notificationIdentifier = await Notifications.scheduleNotificationAsync({
+    content: {
+      title: title as string,
+      body: body as string,
+    },
+    trigger: {
+      seconds: interval,
+      repeats: true,
+    },
+  });
+
+  const notifications = await getNotifications();
+  if (notifications) {
+    const newNotifications = [
+      ...notifications,
+      { notificationIdentifier: notificationIdentifier, taskId: createdTask.id },
+    ];
+    storeNotifications(newNotifications);
+  } else {
+    storeNotifications([
+      { notificationIdentifier: notificationIdentifier, taskId: createdTask.id },
+    ]);
+  }
 }
 
 async function sendPushNotification(expoPushToken: string) {
@@ -137,13 +153,21 @@ async function registerForPushNotificationsAsync() {
   return token;
 }
 
-export async function schedulePushNotification({title, body, data, scheduledDate}: ScheduledNotificationOptions) {
+export async function schedulePushNotification({
+  title,
+  body,
+  data,
+  scheduledDate,
+}: ScheduledNotificationOptions) {
   await Notifications.scheduleNotificationAsync({
     content: {
       title,
       body,
       data: { data: data },
     },
-    trigger: {date: scheduledDate, seconds: scheduledDate.getTime() - new Date().getTime()},
+    trigger: {
+      date: scheduledDate,
+      seconds: scheduledDate.getTime() - new Date().getTime(),
+    },
   });
 }
