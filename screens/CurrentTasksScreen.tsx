@@ -9,7 +9,7 @@ import i18n from 'i18n-js';
 import { set } from 'date-fns';
 import { InteractionManager } from 'react-native';
 
-export default function TabTwoScreen() {
+export default function CurrentTasksScreen() {
   const { todos } = useSelector((state: RootState) => state.todos);
   const currentDate = new Date();
   const [ignored, forceUpdate] = React.useReducer(x => x + 1, 0);

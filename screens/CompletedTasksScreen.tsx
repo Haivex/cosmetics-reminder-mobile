@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { DoneTask } from '../components/DoneTask';
 import { set } from 'date-fns';
 
-export default function TabThreeScreen() {
+export default function CompletedTasksScreen() {
     const { todos } = useSelector((state: RootState) => state.todos);
 
     const getDoneTasks = () => {
