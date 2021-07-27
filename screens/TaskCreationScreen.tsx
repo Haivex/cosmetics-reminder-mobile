@@ -52,7 +52,7 @@ const defaultTaskData: TaskData = {
   title: '',
 };
 
-export default function TabOneScreen() {
+export default function TaskCreationScreen() {
   const navigation = useNavigation();
   const [isCyclicCheckboxChecked, setCyclic] = React.useState(false);
   const dateRef = React.createRef();

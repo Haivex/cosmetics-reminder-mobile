@@ -7,7 +7,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Button, View, Text, Platform } from 'react-native';
 import Constants from 'expo-constants';
 import { Subscription } from '@unimodules/core';
-import { SavedTask } from '../screens/TabOneScreen';
+import { SavedTask } from '../screens/TaskCreationScreen';
 import { convertCyclicIntervalToSeconds } from '../helpers/intervalHelpers';
 import { CyclicInterval } from './CyclicTaskInputs';
 import {

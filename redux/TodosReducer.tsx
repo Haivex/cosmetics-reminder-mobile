@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SavedTask, Time } from '../screens/TabOneScreen';
+import { SavedTask, Time } from '../screens/TaskCreationScreen';
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { CyclicInterval } from '../components/CyclicTaskInputs';
 import { getNotifications } from '../notificationsStorage/asyncStorage';
