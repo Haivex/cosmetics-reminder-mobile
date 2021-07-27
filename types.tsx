@@ -1,3 +1,4 @@
+import * as React from 'react';
 /**
  * Learn more about using TypeScript with React Navigation:
  * https://reactnavigation.org/docs/typescript/
@@ -24,4 +25,8 @@ export type TabTwoParamList = {
 
 export type TabThreeParamList = {
   TabThreeScreen: undefined;
+};
+
+export type ChildrenProp = {
+  children: React.ReactChild | React.ReactChild[];
 };

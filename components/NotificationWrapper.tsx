@@ -11,6 +11,14 @@ import {SavedTask } from '../screens/TabOneScreen';
 import convertCyclicIntervalToSeconds from '../helpers/calculateInterval';
 import { CyclicInterval } from './CyclicTaskInputs';
 import { getNotifications, storeNotifications } from '../notificationsStorage/asyncStorage';
+import { ChildrenProp } from '../types';
+
+type ScheduledNotificationOptions = {
+  title: string;
+  body: string;
+  data?: any;
+  scheduledDate: Date;
+}
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -20,10 +28,6 @@ Notifications.setNotificationHandler({
     priority: AndroidNotificationPriority.MAX,
   }),
 });
-
-export type ChildrenProp = {
-  children: React.ReactChild | React.ReactChild[];
-};
 
 export default function NotificationWrapper({ children }: ChildrenProp) {
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -131,13 +135,6 @@ async function registerForPushNotificationsAsync() {
   }
 
   return token;
-}
-
-type ScheduledNotificationOptions = {
-  title: string;
-  body: string;
-  data?: any;
-  scheduledDate: Date;
 }
 
 export async function schedulePushNotification({title, body, data, scheduledDate}: ScheduledNotificationOptions) {
