@@ -5,7 +5,11 @@ import { TimePickerModal } from 'react-native-paper-dates';
 import { TextInput } from 'react-native-paper';
 import { format } from 'date-fns';
 import i18n from 'i18n-js';
-import { Time } from '../screens/TaskCreationScreen';
+
+export type Time = {
+  hours: number | undefined;
+  minutes: number | undefined;
+};
 
 interface TimePickerInputProps {
   onBlur: () => void;

@@ -8,7 +8,7 @@ import {
   Checkbox,
 } from 'react-native-paper';
 import DatePickerInput from '../components/DatePickerInput';
-import TimePickerInput from '../components/TimePickerInput';
+import TimePickerInput, { Time } from '../components/TimePickerInput';
 import { useForm, Controller, Validate } from 'react-hook-form';
 import { addTodo } from '../redux/TodosReducer';
 import { useDispatch } from 'react-redux';
@@ -25,11 +25,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { NavigationProp, ParamListBase } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { checkIfCyclicInterval } from '../helpers/intervalHelpers';
-
-export type Time = {
-  hours: number | undefined;
-  minutes: number | undefined;
-};
 
 export type TaskData = {
   date: CalendarDate;

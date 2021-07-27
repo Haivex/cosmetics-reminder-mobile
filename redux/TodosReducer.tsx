@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { SavedTask, Time } from '../screens/TaskCreationScreen';
+import { SavedTask } from '../screens/TaskCreationScreen';
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { CyclicInterval } from '../components/CyclicTaskInputs';
 import { getNotifications } from '../notificationsStorage/asyncStorage';
+import { Time } from '../components/TimePickerInput';
 
 export type Task = {
   id: string;
