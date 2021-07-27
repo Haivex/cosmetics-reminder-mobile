@@ -33,7 +33,6 @@ const DatePickerInput = React.forwardRef<TextInput, DatePickerInputProps>(
     const onConfirmSingle = React.useCallback(
       (params) => {
         setOpen(false);
-        //setDate(params.date);
         onChange(params.date);
       },
       [setOpen]

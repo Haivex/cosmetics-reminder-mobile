@@ -25,10 +25,6 @@ const TimePickerInput = React.forwardRef<TextInput, TimePickerInputProps>(({
   value,
 }: TimePickerInputProps, ref) => {
   const [visible, setVisible] = React.useState(false);
-  // const [time, setTime] = React.useState({
-  //   hours: undefined,
-  //   minutes: undefined,
-  // });
   const onDismiss = React.useCallback(() => {
     setVisible(false);
     onBlur();
@@ -37,7 +33,6 @@ const TimePickerInput = React.forwardRef<TextInput, TimePickerInputProps>(({
   const onConfirm = React.useCallback(
     ({ hours, minutes }) => {
       setVisible(false);
-      //setTime({ hours, minutes });
       onChange({ hours, minutes });
     },
     [setVisible]
