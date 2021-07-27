@@ -11,8 +11,8 @@ import * as React from 'react';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import TaskCreationScreen from '../screens/TaskCreationScreen';
-import TabThreeScreen from '../screens/TabThreeScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
+import TabThreeScreen from '../screens/CompletedTasksScreen';
+import TabTwoScreen from '../screens/CurrentTasksScreen';
 import { BottomTabParamList, TabOneParamList, TabThreeParamList, TabTwoParamList } from '../types';
 import i18n from 'i18n-js';
 
