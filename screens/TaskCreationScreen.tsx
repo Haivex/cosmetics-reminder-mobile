@@ -14,7 +14,7 @@ import { addTodo } from '../redux/TodosReducer';
 import { useDispatch } from 'react-redux';
 import { CalendarDate } from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
 import { schedulePushNotification } from '../components/NotificationWrapper';
-import { set } from 'date-fns';
+import { set as updateDate } from 'date-fns';
 import '../translation/config';
 import i18n from 'i18n-js';
 import CyclicTaskInputs, {
@@ -70,7 +70,7 @@ export default function TaskCreationScreen() {
     schedulePushNotification({
       title: 'Only You',
       body: savedTodo.title,
-      scheduledDate: set(savedTodo.date as Date, {
+      scheduledDate: updateDate(savedTodo.date as Date, {
         hours: savedTodo.time.hours,
         minutes: savedTodo.time.minutes,
       }),
