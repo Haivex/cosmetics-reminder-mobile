@@ -8,7 +8,7 @@ import { Button, View, Text, Platform } from 'react-native';
 import Constants from 'expo-constants';
 import { Subscription } from '@unimodules/core';
 import { SavedTask } from '../screens/TabOneScreen';
-import convertCyclicIntervalToSeconds from '../helpers/calculateInterval';
+import { convertCyclicIntervalToSeconds } from '../helpers/intervalHelpers';
 import { CyclicInterval } from './CyclicTaskInputs';
 import {
   getNotifications,
