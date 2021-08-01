@@ -15,12 +15,12 @@ export default function FacebookDevelopmentAuthentication() {
     expoClientId: process.env.FACEBOOK_EXPO_CLIENT_ID,
     //androidClientId: process.env.FACEBOOK_EXPO_CLIENT_ID,
     //clientId: process.env.FACEBOOK_EXPO_CLIENT_ID,
-    responseType: ResponseType.Code,
+    responseType: ResponseType.Token,
   });
 
   React.useEffect(() => {
     if (response?.type === 'success') {
-      const { code } = response.params;
+      const { access_token } = response.params;
 
       if (process.env.EXPO_AUTH_STATE_KEY === undefined) {
         throw new Error('No EXPO_AUTH_STATE_KEY env');
@@ -29,7 +29,7 @@ export default function FacebookDevelopmentAuthentication() {
       const loginInfo: UserInfo = {
         authProvider: 'FACEBOOK',
         authData: {
-            code
+          credential: access_token
         }
     }
 
