@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import * as React from 'react';
 
-export type AuthInfo = {
+export type UserInfo = {
     authProvider: 'APPLE' | 'GOOGLE' | 'FACEBOOK',
     authData: Record<string, any>
 }
 
 export type LoginInfo = {
     isLogged: boolean;
-    userInfo: AuthInfo | null
+    userInfo: UserInfo | null
 
 }
 
@@ -21,7 +21,7 @@ const loginSlice = createSlice({
     name: 'loginInfo',
     initialState: initialState,
     reducers: {
-        logIn(state, action: PayloadAction<AuthInfo>) {
+        logIn(state, action: PayloadAction<UserInfo>) {
             state.isLogged = true;
             state.userInfo = action.payload;
         },
