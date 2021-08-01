@@ -5,7 +5,11 @@ import { TimePickerModal } from 'react-native-paper-dates';
 import { TextInput } from 'react-native-paper';
 import { format } from 'date-fns';
 import i18n from 'i18n-js';
-import { Time } from '../screens/TabOneScreen';
+
+export type Time = {
+  hours: number | undefined;
+  minutes: number | undefined;
+};
 
 interface TimePickerInputProps {
   onBlur: () => void;
@@ -25,10 +29,6 @@ const TimePickerInput = React.forwardRef<TextInput, TimePickerInputProps>(({
   value,
 }: TimePickerInputProps, ref) => {
   const [visible, setVisible] = React.useState(false);
-  // const [time, setTime] = React.useState({
-  //   hours: undefined,
-  //   minutes: undefined,
-  // });
   const onDismiss = React.useCallback(() => {
     setVisible(false);
     onBlur();
@@ -37,7 +37,6 @@ const TimePickerInput = React.forwardRef<TextInput, TimePickerInputProps>(({
   const onConfirm = React.useCallback(
     ({ hours, minutes }) => {
       setVisible(false);
-      //setTime({ hours, minutes });
       onChange({ hours, minutes });
     },
     [setVisible]

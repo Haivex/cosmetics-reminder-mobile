@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { Button } from 'react-native';
 import * as GoogleSignIn from 'expo-google-sign-in';
-import { AuthInfo, logIn } from '../redux/LoginReducer';
+import { UserInfo, logIn } from '../redux/LoginReducer';
 import { useDispatch } from 'react-redux';
 
  const GoogleAuthentication = () => {
@@ -17,7 +17,7 @@ import { useDispatch } from 'react-redux';
             throw new Error('No EXPO_AUTH_STATE_KEY env');
           }
 
-          const loginInfo: AuthInfo = {
+          const loginInfo: UserInfo = {
             authProvider: 'GOOGLE',
             authData: {
                 user,

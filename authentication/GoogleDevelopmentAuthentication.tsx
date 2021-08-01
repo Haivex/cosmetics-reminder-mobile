@@ -6,7 +6,7 @@ import * as Google from 'expo-auth-session/providers/google';
 import { Button, Platform } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux';
-import { AuthInfo, logIn } from '../redux/LoginReducer';
+import { UserInfo, logIn } from '../redux/LoginReducer';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -35,7 +35,7 @@ export default function GoogleDevelopmentAuthentication() {
     if (response && response.type === 'success') {
       const { authentication } = response;
 
-      const loginInfo: AuthInfo = {
+      const loginInfo: UserInfo = {
         authProvider: 'GOOGLE',
         authData: {
           authentication,

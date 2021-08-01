@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ExpoAppleAuthentication from 'expo-apple-authentication';
 import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux';
-import { AuthInfo, logIn } from '../redux/LoginReducer';
+import { UserInfo, logIn } from '../redux/LoginReducer';
 
 export default function AppleAuthentication() {
   const dispatch = useDispatch();
@@ -27,18 +27,20 @@ export default function AppleAuthentication() {
             throw new Error('No EXPO_AUTH_STATE_KEY env');
           }
 
-          const loginInfo: AuthInfo = {
+          const loginInfo: UserInfo = {
             authProvider: 'APPLE',
             authData: {
-                credential,
-            }
-        }
-  
-          const storageValue = JSON.stringify(loginInfo)
-  
-          SecureStore.setItemAsync(process.env.EXPO_AUTH_STATE_KEY, storageValue);
-          dispatch(logIn(loginInfo))
+              credential,
+            },
+          };
 
+          const storageValue = JSON.stringify(loginInfo);
+
+          SecureStore.setItemAsync(
+            process.env.EXPO_AUTH_STATE_KEY,
+            storageValue
+          );
+          dispatch(logIn(loginInfo));
         } catch (e) {
           if (e.code === 'ERR_CANCELED') {
             // handle that the user canceled the sign-in flow
