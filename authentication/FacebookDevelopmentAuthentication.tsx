@@ -6,6 +6,8 @@ import { Button } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { UserInfo, logIn } from '../redux/LoginReducer';
 import { useDispatch } from 'react-redux';
+import { registration } from '../database/registration';
+import firebase from 'firebase';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -37,6 +39,14 @@ export default function FacebookDevelopmentAuthentication() {
 
       SecureStore.setItemAsync(process.env.EXPO_AUTH_STATE_KEY, storageValue);
       dispatch(logIn(loginInfo));
+
+      if(/*!account*/null) {
+        registration(loginInfo)
+      } else {
+      const credential = firebase.auth.FacebookAuthProvider.credential(access_token);
+      // Sign in with the credential from the Facebook user.
+      firebase.auth().signInWithCredential(credential);
+      }
 
     }
   }, [response]);

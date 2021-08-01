@@ -7,6 +7,8 @@ import { Button, Platform } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux';
 import { UserInfo, logIn } from '../redux/LoginReducer';
+import { registration } from '../database/registration';
+import firebase from 'firebase';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -50,6 +52,14 @@ export default function GoogleDevelopmentAuthentication() {
 
       SecureStore.setItemAsync(process.env.EXPO_AUTH_STATE_KEY, storageValue);
       dispatch(logIn(loginInfo))
+
+      if(/*!account */null) {
+        registration(loginInfo)
+      }
+      else {
+        const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
+        firebase.auth().signInWithCredential(credential);
+      }
 
       if (Platform.OS === 'web') {
         WebBrowser.maybeCompleteAuthSession();
