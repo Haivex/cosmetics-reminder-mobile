@@ -12,7 +12,7 @@ import {
   TextInput,
 } from 'react-native-paper';
 import { restoreTodo, Task } from '../redux/TodosReducer';
-import { formatRelative, set } from 'date-fns';
+import { formatRelative, set as updateDate } from 'date-fns';
 import { pl, enUS, enGB, enIN } from 'date-fns/locale';
 import {
   deleteTodo,
@@ -51,7 +51,7 @@ export const DoneTask = ({ task }: DoneTaskProps) => {
   const closeMenu = () => setVisibleMenu(false);
 
   const formattedTime = formatRelative(
-    set(task.date, {
+    updateDate(task.date, {
       ...task.time,
     }),
     new Date(),

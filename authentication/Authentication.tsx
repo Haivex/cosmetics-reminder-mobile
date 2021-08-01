@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as SecureStore from 'expo-secure-store';
-import { ChildrenProp } from '../components/NotificationWrapper';
+import { ChildrenProp } from '../types';
 import AuthButtons from './AuthButtons';
 import { useDispatch, useSelector } from 'react-redux';
 import { logIn } from '../redux/LoginReducer';

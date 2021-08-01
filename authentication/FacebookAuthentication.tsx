@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Button } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux';
-import { AuthInfo, logIn } from '../redux/LoginReducer';
+import { UserInfo, logIn } from '../redux/LoginReducer';
 
 const FacebookAuthentication = () => {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const FacebookAuthentication = () => {
           throw new Error('No EXPO_AUTH_STATE_KEY env');
         }
 
-        const loginInfo: AuthInfo = {
+        const loginInfo: UserInfo = {
           authProvider: 'FACEBOOK',
           authData: {
               token,

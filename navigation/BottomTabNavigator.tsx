@@ -10,9 +10,9 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabThreeScreen from '../screens/TabThreeScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
+import TaskCreationScreen from '../screens/TaskCreationScreen';
+import CompletedTasksScreen from '../screens/CompletedTasksScreen';
+import CurrentTasksScreen from '../screens/CurrentTasksScreen';
 import { BottomTabParamList, TabOneParamList, TabThreeParamList, TabTwoParamList } from '../types';
 import i18n from 'i18n-js';
 
@@ -68,7 +68,7 @@ function TabOneNavigator() {
     <TabOneStack.Navigator>
       <TabOneStack.Screen
         name="TabOneScreen"
-        component={TabOneScreen}
+        component={TaskCreationScreen}
         options={{ headerTitle: i18n.t('createTaskScreen.screenTitle') }}
       />
     </TabOneStack.Navigator>
@@ -82,7 +82,7 @@ function TabTwoNavigator() {
     <TabTwoStack.Navigator>
       <TabTwoStack.Screen
         name="TabTwoScreen"
-        component={TabTwoScreen}
+        component={CurrentTasksScreen}
         options={{ headerTitle: i18n.t('currentTasksScreen.screenTitle') }}
       />
     </TabTwoStack.Navigator>
@@ -96,7 +96,7 @@ function TabThreeNavigator() {
     <TabThreeStack.Navigator>
       <TabThreeStack.Screen
         name="TabThreeScreen"
-        component={TabThreeScreen}
+        component={CompletedTasksScreen}
         options={{ headerTitle: i18n.t('finishedTasksScreen.screenTitle') } }
       />
     </TabThreeStack.Navigator>

@@ -4,7 +4,7 @@ import * as Facebook from 'expo-auth-session/providers/facebook';
 import { ResponseType } from 'expo-auth-session';
 import { Button } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
-import { AuthInfo, logIn } from '../redux/LoginReducer';
+import { UserInfo, logIn } from '../redux/LoginReducer';
 import { useDispatch } from 'react-redux';
 
 WebBrowser.maybeCompleteAuthSession();
@@ -26,7 +26,7 @@ export default function FacebookDevelopmentAuthentication() {
         throw new Error('No EXPO_AUTH_STATE_KEY env');
       }
 
-      const loginInfo: AuthInfo = {
+      const loginInfo: UserInfo = {
         authProvider: 'FACEBOOK',
         authData: {
             code
