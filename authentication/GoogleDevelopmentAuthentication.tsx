@@ -15,7 +15,7 @@ export default function GoogleDevelopmentAuthentication() {
   if (process.env.EXPO_CLIENT_ID === undefined) {
     throw new Error('No EXPO_CLIENT_ID env');
   }
-  const [request, response, promptAsync] = Google.useAuthRequest({
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
     expoClientId: process.env.EXPO_CLIENT_ID,
     // iosClientId:
     androidClientId: process.env.ANDROID_CLIENT_ID,
@@ -33,12 +33,12 @@ export default function GoogleDevelopmentAuthentication() {
 
   React.useEffect(() => {
     if (response && response.type === 'success') {
-      const { authentication } = response;
+      const { id_token } = response.params;
 
       const loginInfo: UserInfo = {
         authProvider: 'GOOGLE',
         authData: {
-          authentication,
+          credential: id_token,
         },
       }
 
