@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { UserInfo, logIn } from '../redux/LoginReducer';
 import firebase from 'firebase';
 import { registration } from '../firebase/registration';
+import doesUserExist from '../firebase/doesUserExist';
 
 export default function AppleAuthentication() {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ export default function AppleAuthentication() {
         firebase
           .auth()
           .signInWithPopup(provider)
-          .then((result) => {
+          .then(async (result) => {
             /** @type {firebase.auth.OAuthCredential} */
             var credential = result.credential;
 
@@ -47,6 +48,11 @@ export default function AppleAuthentication() {
               },
             };
 
+            const isUserRegistred = await doesUserExist(user?.email as string)
+
+            if (!isUserRegistred) {
+              registration(user as firebase.User);
+            }
               const storageValue = JSON.stringify(loginInfo);
 
               SecureStore.setItemAsync(
@@ -54,12 +60,6 @@ export default function AppleAuthentication() {
                 storageValue
               );
               dispatch(logIn(loginInfo));
-
-            if (/*!account*/ null) {
-              registration(loginInfo);
-            } else {
-              firebase.auth().signInWithRedirect(provider);
-            }
           });
 
         // try {

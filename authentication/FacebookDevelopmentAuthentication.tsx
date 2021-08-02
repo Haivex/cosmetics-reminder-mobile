@@ -8,6 +8,7 @@ import { UserInfo, logIn } from '../redux/LoginReducer';
 import { useDispatch } from 'react-redux';
 import { registration } from '../firebase/registration';
 import firebase from 'firebase';
+import doesUserExist from '../firebase/doesUserExist';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -31,30 +32,38 @@ export default function FacebookDevelopmentAuthentication() {
       const loginInfo: UserInfo = {
         authProvider: 'FACEBOOK',
         authData: {
-          credential: access_token
-        }
-    }
+          credential: access_token,
+        },
+      };
 
-      const storageValue = JSON.stringify(loginInfo)
+      const storageValue = JSON.stringify(loginInfo);
 
       SecureStore.setItemAsync(process.env.EXPO_AUTH_STATE_KEY, storageValue);
       dispatch(logIn(loginInfo));
 
-      if(/*!account*/null) {
-        registration(loginInfo)
-      } else {
-      const credential = firebase.auth.FacebookAuthProvider.credential(access_token);
-      // Sign in with the credential from the Facebook user.
-      firebase.auth().signInWithCredential(credential);
-      }
+      const firebaseLogin = async () => {
+        const credential =
+          firebase.auth.FacebookAuthProvider.credential(access_token);
+        await firebase.auth().signInWithCredential(credential);
 
+        const currentUser = firebase.auth().currentUser;
+
+        const isUserRegistred = await doesUserExist(
+          currentUser?.email as string
+        );
+
+        if (!isUserRegistred) {
+          registration(currentUser as firebase.User);
+        }
+      };
+      firebaseLogin();
     }
   }, [response]);
 
   return (
     <Button
       disabled={!request}
-      title="Login with Facebook"
+      title='Login with Facebook'
       onPress={() => {
         promptAsync();
       }}

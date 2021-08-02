@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { UserInfo, logIn } from '../redux/LoginReducer';
 import { registration } from '../firebase/registration';
 import firebase from 'firebase';
+import doesUserExist from '../firebase/doesUserExist';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -25,7 +26,6 @@ export default function GoogleDevelopmentAuthentication() {
   });
 
   React.useEffect(() => {
-    
     WebBrowser.warmUpAsync();
 
     return () => {
@@ -42,7 +42,7 @@ export default function GoogleDevelopmentAuthentication() {
         authData: {
           credential: id_token,
         },
-      }
+      };
 
       const storageValue = JSON.stringify(loginInfo);
 
@@ -51,15 +51,24 @@ export default function GoogleDevelopmentAuthentication() {
       }
 
       SecureStore.setItemAsync(process.env.EXPO_AUTH_STATE_KEY, storageValue);
-      dispatch(logIn(loginInfo))
+      dispatch(logIn(loginInfo));
 
-      if(/*!account */null) {
-        registration(loginInfo)
-      }
-      else {
-        const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
-        firebase.auth().signInWithCredential(credential);
-      }
+      const firebaseLogin = async () => {
+        await firebase
+          .auth()
+          .signInWithCredential(loginInfo.authData.credential);
+        const currentUser = firebase.auth().currentUser;
+
+        const isUserRegistred = await doesUserExist(
+          currentUser?.email as string
+        );
+
+        if (!isUserRegistred) {
+          registration(currentUser as firebase.User);
+        }
+      };
+
+      firebaseLogin();
 
       if (Platform.OS === 'web') {
         WebBrowser.maybeCompleteAuthSession();
