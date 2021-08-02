@@ -4,7 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux';
 import { UserInfo, logIn } from '../redux/LoginReducer';
 import firebase from 'firebase';
-import { registration } from '../database/registration';
+import { registration } from '../firebase/registration';
 
 export default function AppleAuthentication() {
   const dispatch = useDispatch();

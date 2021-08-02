@@ -6,7 +6,7 @@ import { Button } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { UserInfo, logIn } from '../redux/LoginReducer';
 import { useDispatch } from 'react-redux';
-import { registration } from '../database/registration';
+import { registration } from '../firebase/registration';
 import firebase from 'firebase';
 
 WebBrowser.maybeCompleteAuthSession();
