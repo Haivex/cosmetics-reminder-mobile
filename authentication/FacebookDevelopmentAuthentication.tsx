@@ -8,8 +8,8 @@ import { UserInfo, logIn } from '../redux/LoginReducer';
 import { useDispatch } from 'react-redux';
 import { registration } from '../firebase/registration';
 import firebase from 'firebase/app';
-import "firebase/auth";
-import "firebase/firestore";
+import 'firebase/auth';
+import 'firebase/firestore';
 import doesUserExist from '../firebase/doesUserExist';
 
 WebBrowser.maybeCompleteAuthSession();
