@@ -3,7 +3,9 @@ import * as ExpoAppleAuthentication from 'expo-apple-authentication';
 import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux';
 import { UserInfo, logIn } from '../redux/LoginReducer';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import "firebase/auth";
+import "firebase/firestore";
 import { registration } from '../firebase/registration';
 import doesUserExist from '../firebase/doesUserExist';
 
