@@ -36,6 +36,7 @@ export default function GoogleDevelopmentAuthentication() {
   }, []);
 
   React.useEffect(() => {
+    let componentMounted = true;
     if (response && response.type === 'success') {
       const firebaseLogin = async () => {
 
@@ -74,6 +75,9 @@ export default function GoogleDevelopmentAuthentication() {
 
       };
       firebaseLogin();
+    }
+    return () => {
+      componentMounted = false;
     }
   }, [response]);
 

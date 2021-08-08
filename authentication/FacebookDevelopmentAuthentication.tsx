@@ -24,8 +24,11 @@ export default function FacebookDevelopmentAuthentication() {
   });
 
   React.useEffect(() => {
+    let componentMounted = true;
     if (response?.type === 'success') {
-      const { access_token } = response.params;
+      const firebaseLogin = async () => {
+
+        const { access_token } = response.params;
 
       if (process.env.EXPO_AUTH_STATE_KEY === undefined) {
         throw new Error('No EXPO_AUTH_STATE_KEY env');
@@ -40,10 +43,9 @@ export default function FacebookDevelopmentAuthentication() {
 
       const storageValue = JSON.stringify(loginInfo);
 
-      SecureStore.setItemAsync(process.env.EXPO_AUTH_STATE_KEY, storageValue);
+      await SecureStore.setItemAsync(process.env.EXPO_AUTH_STATE_KEY, storageValue);
       dispatch(logIn(loginInfo));
 
-      const firebaseLogin = async () => {
         const credential =
           firebase.auth.FacebookAuthProvider.credential(access_token);
         await firebase.auth().signInWithCredential(credential);
@@ -59,6 +61,9 @@ export default function FacebookDevelopmentAuthentication() {
         }
       };
       firebaseLogin();
+    }
+    return () => {
+      componentMounted = false;
     }
   }, [response]);
 
