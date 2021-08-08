@@ -45,11 +45,9 @@ export default function AppleAuthentication() {
             if (process.env.EXPO_AUTH_STATE_KEY === undefined) {
               throw new Error('No EXPO_AUTH_STATE_KEY env');
             }
-
             const loginInfo: UserInfo = {
               authProvider: 'APPLE',
               authData: {
-                credential,
                 user,
               },
             };

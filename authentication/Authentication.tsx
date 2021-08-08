@@ -22,14 +22,8 @@ export default function Authentication({ children }: ChildrenProp) {
       process.env.EXPO_AUTH_STATE_KEY
     );
     if (secretAuthKey) {
-      try {
-        const userInfo: UserInfo = JSON.parse(secretAuthKey);
-        await firebase.auth().signInWithCredential(userInfo.authData.credential);
-        dispatch(logIn(userInfo))
-      }
-      catch {
-        Alert.alert('Login error.');
-      }
+      const userInfo: UserInfo = JSON.parse(secretAuthKey);
+      dispatch(logIn(userInfo))
     }
   };
 

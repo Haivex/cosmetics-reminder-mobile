@@ -36,7 +36,6 @@ const FacebookAuthentication = () => {
         const loginInfo: UserInfo = {
           authProvider: 'FACEBOOK',
           authData: {
-              token,
               userId,
           }
       }

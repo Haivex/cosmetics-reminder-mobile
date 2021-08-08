@@ -41,9 +41,7 @@ export default function FacebookDevelopmentAuthentication() {
 
       const loginInfo: UserInfo = {
         authProvider: 'FACEBOOK',
-        authData: {
-          credential: credential,
-        },
+        authData: {},
       };
 
       const storageValue = JSON.stringify(loginInfo);
@@ -63,8 +61,9 @@ export default function FacebookDevelopmentAuthentication() {
           registration(currentUser as firebase.User);
         }
       }
-      catch {
-        Alert.alert('Login error.');
+      catch(message) {
+        Alert.alert(`Facebook Login Error: ${message}`);
+        console.log(message);
       }
       };
       firebaseLogin();

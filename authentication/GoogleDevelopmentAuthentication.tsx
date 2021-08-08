@@ -49,9 +49,7 @@ export default function GoogleDevelopmentAuthentication() {
 
         const loginInfo: UserInfo = {
           authProvider: 'GOOGLE',
-          authData: {
-            credential: credential,
-          },
+          authData: {},
         };
   
         const storageValue = JSON.stringify(loginInfo);
@@ -78,8 +76,9 @@ export default function GoogleDevelopmentAuthentication() {
 
         dispatch(logIn(loginInfo));
 
-      } catch {
-        Alert.alert('Login error.');
+      } catch(message) {
+        Alert.alert(`Google Login Error: ${message}`);
+        console.log(message);
       }
 
       };
