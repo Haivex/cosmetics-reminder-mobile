@@ -17,7 +17,7 @@ WebBrowser.maybeCompleteAuthSession();
 export default function FacebookDevelopmentAuthentication() {
   const dispatch = useDispatch();
   const [request, response, promptAsync] = Facebook.useAuthRequest({
-    expoClientId: process.env.FACEBOOK_EXPO_CLIENT_ID,
+    clientId: process.env.FACEBOOK_EXPO_CLIENT_ID,
     //androidClientId: process.env.FACEBOOK_EXPO_CLIENT_ID,
     //clientId: process.env.FACEBOOK_EXPO_CLIENT_ID,
     responseType: ResponseType.Token,

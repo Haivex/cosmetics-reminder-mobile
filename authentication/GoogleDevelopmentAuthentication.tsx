@@ -21,10 +21,7 @@ export default function GoogleDevelopmentAuthentication() {
     throw new Error('No EXPO_CLIENT_ID env');
   }
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-    expoClientId: process.env.EXPO_CLIENT_ID,
-    // iosClientId:
-    androidClientId: process.env.ANDROID_CLIENT_ID,
-    // webClientId:,
+    clientId: process.env.EXPO_CLIENT_ID,
   });
 
   React.useEffect(() => {

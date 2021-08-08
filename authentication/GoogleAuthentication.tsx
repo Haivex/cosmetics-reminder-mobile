@@ -33,6 +33,7 @@ import { useDispatch } from 'react-redux';
     const initAsync = async () => {
         await GoogleSignIn.initAsync({
           clientId: process.env.GOOGLE_IOS_CLIENT_ID,
+          
         });
         _syncUserWithStateAsync();
       };
