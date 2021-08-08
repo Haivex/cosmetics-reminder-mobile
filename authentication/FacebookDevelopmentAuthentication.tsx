@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import * as Facebook from 'expo-auth-session/providers/facebook';
 import { ResponseType } from 'expo-auth-session';
-import { Button } from 'react-native';
+import { Alert, Button } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { UserInfo, logIn } from '../redux/LoginReducer';
 import { useDispatch } from 'react-redux';
@@ -28,16 +28,21 @@ export default function FacebookDevelopmentAuthentication() {
     if (response?.type === 'success') {
       const firebaseLogin = async () => {
 
+        try {
+
         const { access_token } = response.params;
 
       if (process.env.EXPO_AUTH_STATE_KEY === undefined) {
         throw new Error('No EXPO_AUTH_STATE_KEY env');
       }
 
+      const credential =
+          firebase.auth.FacebookAuthProvider.credential(access_token);
+
       const loginInfo: UserInfo = {
         authProvider: 'FACEBOOK',
         authData: {
-          credential: access_token,
+          credential: credential,
         },
       };
 
@@ -46,8 +51,6 @@ export default function FacebookDevelopmentAuthentication() {
       await SecureStore.setItemAsync(process.env.EXPO_AUTH_STATE_KEY, storageValue);
       dispatch(logIn(loginInfo));
 
-        const credential =
-          firebase.auth.FacebookAuthProvider.credential(access_token);
         await firebase.auth().signInWithCredential(credential);
 
         const currentUser = firebase.auth().currentUser;
@@ -59,6 +62,10 @@ export default function FacebookDevelopmentAuthentication() {
         if (!isUserRegistred) {
           registration(currentUser as firebase.User);
         }
+      }
+      catch {
+        Alert.alert('Login error.');
+      }
       };
       firebaseLogin();
     }

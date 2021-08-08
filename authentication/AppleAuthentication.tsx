@@ -8,6 +8,7 @@ import "firebase/auth";
 import "firebase/firestore";
 import { registration } from '../firebase/registration';
 import doesUserExist from '../firebase/doesUserExist';
+import { Alert } from 'react-native';
 
 export default function AppleAuthentication() {
   const dispatch = useDispatch();
@@ -18,6 +19,9 @@ export default function AppleAuthentication() {
       cornerRadius={5}
       style={{ width: 200, height: 44 }}
       onPress={async () => {
+
+        try {
+
         let provider = new firebase.auth.OAuthProvider('apple.com');
 
         provider.addScope('email');
@@ -63,6 +67,9 @@ export default function AppleAuthentication() {
               );
               dispatch(logIn(loginInfo));
           });
+        } catch {
+          Alert.alert('Login error.');
+        }
 
         // try {
         //   const credential = await ExpoAppleAuthentication.signInAsync({

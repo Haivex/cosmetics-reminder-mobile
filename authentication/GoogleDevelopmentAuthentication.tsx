@@ -3,7 +3,7 @@
 import * as React from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
-import { Button, Platform } from 'react-native';
+import { Alert, Button, Platform } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux';
 import { UserInfo, logIn } from '../redux/LoginReducer';
@@ -40,12 +40,17 @@ export default function GoogleDevelopmentAuthentication() {
     if (response && response.type === 'success') {
       const firebaseLogin = async () => {
 
+        try {
+
+
         const { id_token } = response.params;
+
+        const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
 
         const loginInfo: UserInfo = {
           authProvider: 'GOOGLE',
           authData: {
-            credential: id_token,
+            credential: credential,
           },
         };
   
@@ -57,7 +62,7 @@ export default function GoogleDevelopmentAuthentication() {
   
         await SecureStore.setItemAsync(process.env.EXPO_AUTH_STATE_KEY, storageValue);
 
-        const credential = firebase.auth.GoogleAuthProvider.credential(loginInfo.authData.credential);
+        
         await firebase
           .auth()
           .signInWithCredential(credential);
@@ -72,6 +77,10 @@ export default function GoogleDevelopmentAuthentication() {
         }
 
         dispatch(logIn(loginInfo));
+
+      } catch {
+        Alert.alert('Login error.');
+      }
 
       };
       firebaseLogin();

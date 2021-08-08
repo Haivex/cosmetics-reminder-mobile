@@ -1,6 +1,6 @@
 import * as Facebook from 'expo-facebook';
 import * as React from 'react';
-import { Button } from 'react-native';
+import { Alert, Button } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux';
 import { UserInfo, logIn } from '../redux/LoginReducer';
@@ -50,7 +50,7 @@ const FacebookAuthentication = () => {
         // type === 'cancel'
       }
     } catch ({ message }) {
-      alert(`Facebook Login Error: ${message}`);
+      Alert.alert(`Facebook Login Error: ${message}`);
     }
   }
 
