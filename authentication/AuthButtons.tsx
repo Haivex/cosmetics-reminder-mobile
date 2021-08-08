@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import AppleAuthentication from './AppleAuthentication';
 import FacebookAuthentication from './FacebookAuthentication';
 import FacebookDevelopmentAuthentication from './FacebookDevelopmentAuthentication';
@@ -11,13 +11,13 @@ const AuthButtons = () => {
     <>
       {process.env.IS_DEV ? (
         <View style={styles.container}>
-            <AppleAuthentication />
+            {Platform.OS === 'ios' && <AppleAuthentication />}
             <FacebookDevelopmentAuthentication />
             <GoogleDevelopmentAuthentication />
         </View>
       ) : (
         <View style={styles.container}> 
-          <AppleAuthentication />
+          {Platform.OS === 'ios' && <AppleAuthentication />}
           <FacebookAuthentication />
           <GoogleAuthentication />
         </View>
