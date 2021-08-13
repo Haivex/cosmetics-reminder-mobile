@@ -5,6 +5,9 @@ import AuthButtons from './AuthButtons';
 import { useDispatch, useSelector } from 'react-redux';
 import { logIn } from '../redux/LoginReducer';
 import { RootState } from '../redux/MainStore';
+import firebase from 'firebase';
+import { UserInfo } from '../redux/LoginReducer';
+import { Alert } from 'react-native';
 
 export default function Authentication({ children }: ChildrenProp) {
   const dispatch = useDispatch();
@@ -19,7 +22,8 @@ export default function Authentication({ children }: ChildrenProp) {
       process.env.EXPO_AUTH_STATE_KEY
     );
     if (secretAuthKey) {
-      dispatch(logIn(JSON.parse(secretAuthKey)))
+      const userInfo: UserInfo = JSON.parse(secretAuthKey);
+      dispatch(logIn(userInfo))
     }
   };
 

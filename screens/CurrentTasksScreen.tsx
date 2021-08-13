@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, RefreshControl } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { CurrentTask } from '../components/CurrentTask';
 import { IncomingTask } from '../components/IncomingTask';
@@ -53,14 +53,8 @@ export default function CurrentTasksScreen() {
       })
   }
 
-  React.useEffect(() => {
-   setTimeout(() => {
-    forceUpdate()
-   }, 60000)
-  })
-
   return (
-    <ScrollView>
+    <ScrollView refreshControl={<RefreshControl refreshing={false} onRefresh={() => forceUpdate()} />}>
       <Text style={styles.title}>{i18n.t('currentTasksScreen.currentTasksTitle')}</Text>
       <View>
         {getCurrentTasks().map(task => <CurrentTask key={task.id} task={task} />)}

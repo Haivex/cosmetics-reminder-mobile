@@ -12,12 +12,21 @@ import { store } from './redux/MainStore';
 import NotificationWrapper from './components/NotificationWrapper';
 import initTranslation from './translation/config';
 import Authentication from './authentication/Authentication';
+import firebase from 'firebase/app';
+import "firebase/auth";
+import "firebase/firestore";
+import config from './firebase/config';
 
 initTranslation();
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
+
+  if (!firebase.apps.length) {
+    console.log('Connected with Firebase')
+    firebase.initializeApp(config.firebaseConfig);
+  }
 
   if (!isLoadingComplete) {
     return null;
