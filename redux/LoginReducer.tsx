@@ -9,7 +9,6 @@ export type UserInfo = {
 export type LoginInfo = {
     isLogged: boolean;
     userInfo: UserInfo | null
-
 }
 
 const initialState: LoginInfo = {
