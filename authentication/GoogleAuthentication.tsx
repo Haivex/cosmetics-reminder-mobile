@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as SecureStore from 'expo-secure-store';
-import { Button } from 'react-native';
+import { Alert, Button } from 'react-native';
 import * as GoogleSignIn from 'expo-google-sign-in';
 import { UserInfo, logIn } from '../redux/LoginReducer';
 import { useDispatch } from 'react-redux';
@@ -33,6 +33,7 @@ import { useDispatch } from 'react-redux';
     const initAsync = async () => {
         await GoogleSignIn.initAsync({
           clientId: process.env.GOOGLE_IOS_CLIENT_ID,
+          
         });
         _syncUserWithStateAsync();
       };
@@ -60,7 +61,7 @@ import { useDispatch } from 'react-redux';
         _syncUserWithStateAsync();
       }
     } catch ({ message }) {
-      alert('login: Error:' + message);
+      Alert.alert('login: Error:' + message);
     }
   };
 

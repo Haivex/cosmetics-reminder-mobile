@@ -13,8 +13,14 @@ import useColorScheme from '../hooks/useColorScheme';
 import TaskCreationScreen from '../screens/TaskCreationScreen';
 import CompletedTasksScreen from '../screens/CompletedTasksScreen';
 import CurrentTasksScreen from '../screens/CurrentTasksScreen';
-import { BottomTabParamList, TabOneParamList, TabThreeParamList, TabTwoParamList } from '../types';
+import {
+  BottomTabParamList,
+  TabOneParamList,
+  TabThreeParamList,
+  TabTwoParamList,
+} from '../types';
 import i18n from 'i18n-js';
+import AppSettings from '../components/AppSettings';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -23,30 +29,52 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabTwo"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+      initialRouteName='TabTwo'
+      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
+    >
       <BottomTab.Screen
-        name="TabOne"
+        name='TabOne'
         component={TabOneNavigator}
         options={{
-          tabBarIcon: ({ color }) => <Icon size={30} style={{ marginBottom: -3 }} name="file-plus" color={color} />,
-          title: i18n.t('bottomNavigation.createTaskTitle')
+          tabBarIcon: ({ color }) => (
+            <Icon
+              size={30}
+              style={{ marginBottom: -3 }}
+              name='file-plus'
+              color={color}
+            />
+          ),
+          title: i18n.t('bottomNavigation.createTaskTitle'),
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
+        name='TabTwo'
         component={TabTwoNavigator}
         options={{
-          tabBarIcon: ({ color }) => <Icon size={30} style={{ marginBottom: -3 }} name="file-clock" color={color} />,
-          title: i18n.t('bottomNavigation.currentTasks')
+          tabBarIcon: ({ color }) => (
+            <Icon
+              size={30}
+              style={{ marginBottom: -3 }}
+              name='file-clock'
+              color={color}
+            />
+          ),
+          title: i18n.t('bottomNavigation.currentTasks'),
         }}
       />
       <BottomTab.Screen
-        name="TabThree"
+        name='TabThree'
         component={TabThreeNavigator}
         options={{
-          tabBarIcon: ({ color }) => <Icon size={30} style={{ marginBottom: -3 }} name="file-check" color={color} />,
-          title: i18n.t('bottomNavigation.finishedTasks')
+          tabBarIcon: ({ color }) => (
+            <Icon
+              size={30}
+              style={{ marginBottom: -3 }}
+              name='file-check'
+              color={color}
+            />
+          ),
+          title: i18n.t('bottomNavigation.finishedTasks'),
         }}
       />
     </BottomTab.Navigator>
@@ -67,9 +95,12 @@ function TabOneNavigator() {
   return (
     <TabOneStack.Navigator>
       <TabOneStack.Screen
-        name="TabOneScreen"
+        name='TabOneScreen'
         component={TaskCreationScreen}
-        options={{ headerTitle: i18n.t('createTaskScreen.screenTitle') }}
+        options={{
+          headerRight: () => <AppSettings />,
+          headerTitle: i18n.t('createTaskScreen.screenTitle'),
+        }}
       />
     </TabOneStack.Navigator>
   );
@@ -81,9 +112,12 @@ function TabTwoNavigator() {
   return (
     <TabTwoStack.Navigator>
       <TabTwoStack.Screen
-        name="TabTwoScreen"
+        name='TabTwoScreen'
         component={CurrentTasksScreen}
-        options={{ headerTitle: i18n.t('currentTasksScreen.screenTitle') }}
+        options={{
+          headerRight: () => <AppSettings />,
+          headerTitle: i18n.t('currentTasksScreen.screenTitle'),
+        }}
       />
     </TabTwoStack.Navigator>
   );
@@ -95,9 +129,12 @@ function TabThreeNavigator() {
   return (
     <TabThreeStack.Navigator>
       <TabThreeStack.Screen
-        name="TabThreeScreen"
+        name='TabThreeScreen'
         component={CompletedTasksScreen}
-        options={{ headerTitle: i18n.t('finishedTasksScreen.screenTitle') } }
+        options={{
+          headerRight: () => <AppSettings />,
+          headerTitle: i18n.t('finishedTasksScreen.screenTitle'),
+        }}
       />
     </TabThreeStack.Navigator>
   );
