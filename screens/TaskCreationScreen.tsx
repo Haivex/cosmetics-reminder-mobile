@@ -25,6 +25,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { NavigationProp, ParamListBase } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { checkIfCyclicInterval } from '../helpers/intervalHelpers';
+import { getNotifications, storeNotifications } from '../notificationsStorage/asyncStorage';
 
 export type TaskData = {
   date: CalendarDate;
@@ -75,6 +76,25 @@ export default function TaskCreationScreen() {
         minutes: savedTodo.time.minutes,
       }),
       data: savedTodo && savedTodo.cyclicInterval ? savedTodo : undefined,
+    }).then(async (notificationIdentifier) => {
+      const notifications = await getNotifications();
+      if (notifications) {
+        const newNotifications = [
+          ...notifications,
+          {
+            notificationIdentifier: notificationIdentifier,
+            taskId: savedTodo.id,
+          },
+        ];
+        storeNotifications(newNotifications);
+      } else {
+        storeNotifications([
+          {
+            notificationIdentifier: notificationIdentifier,
+            taskId: savedTodo.id,
+          },
+        ]);
+      }
     });
     clearErrors(), reset(defaultTaskData);
     navigation.navigate('TabTwo');
