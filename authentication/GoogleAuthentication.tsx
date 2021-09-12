@@ -76,7 +76,7 @@ import config from '../firebase/config';
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
-    ...config.firebaseConfig
+    ...config.firebaseWebConfig
   });
 }
 
