@@ -84,7 +84,13 @@ WebBrowser.maybeCompleteAuthSession();
 
 const GoogleAuthentication = () => {
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-    clientId: process.env.FIREBASE_WEB_CLIENT_ID,
+    //clientId: process.env.FIREBASE_WEB_CLIENT_ID,
+    androidClientId: process.env.ANDROID_CLIENT_ID,
+    //iosClientId: process.env.IOS_CLIENT_ID,
+    //expoClientId: process.env.EXPO_CLIENT_ID
+    //webClientId: process.env.WEB_CLIENT_ID,
+    clientSecret: process.env.FIREBASE_WEB_CLIENT_SECRET,
+    //redirectUri
   });
   const dispatch = useDispatch();
 
