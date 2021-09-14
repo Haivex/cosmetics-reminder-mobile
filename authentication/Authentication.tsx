@@ -14,16 +14,21 @@ export default function Authentication({ children }: ChildrenProp) {
   const loginInfo = useSelector((state: RootState) => state.login)
 
   const checkIfLogged = async () => {
-    if (!process.env.EXPO_AUTH_STATE_KEY) {
-      throw new Error('No EXPO_AUTH_STATE_KEY env');
+    try {
+      if (!process.env.EXPO_AUTH_STATE_KEY) {
+        throw new Error('No EXPO_AUTH_STATE_KEY env');
+      }
+  
+      const secretAuthKey = await SecureStore.getItemAsync(
+        process.env.EXPO_AUTH_STATE_KEY
+      );
+      if (secretAuthKey) {
+        const userInfo: UserInfo = JSON.parse(secretAuthKey);
+        dispatch(logIn(userInfo))
+      }
     }
-
-    const secretAuthKey = await SecureStore.getItemAsync(
-      process.env.EXPO_AUTH_STATE_KEY
-    );
-    if (secretAuthKey) {
-      const userInfo: UserInfo = JSON.parse(secretAuthKey);
-      dispatch(logIn(userInfo))
+    catch(message) {
+      console.log(message);
     }
   };
 
