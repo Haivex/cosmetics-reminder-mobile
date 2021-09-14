@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import doesUserExist from '../firebase/doesUserExist';
 import { registration } from '../firebase/registration';
 import config from '../firebase/config';
-
+import * as constants from 'expo-constants';
 //  const GoogleAuthentication = () => {
 //     const [user, setUser] = React.useState<GoogleSignIn.GoogleUser | null>(null);
 //     const dispatch = useDispatch();
@@ -74,9 +74,11 @@ import config from '../firebase/config';
 //     return (<Button title="Login with Google" onPress={signInAsync} />)
 // }
 
+const configToUse = constants.default.platform?.android ? config.firebaseAndroidConfig : config.firebaseWebConfig;
+
 if (!firebase.apps.length) {
   firebase.initializeApp({
-    ...config.firebaseWebConfig
+    ...configToUse
   });
 }
 

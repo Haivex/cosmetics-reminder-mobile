@@ -16,7 +16,7 @@ export default {
     firebaseAndroidConfig: {
       ...sharedConfig,
       apiKey: process.env.FIREBASE_ANDROID_API_KEY,
-      databaseURL: process.env.FIREBASE_ANDROID_DATABASE_URL,
+      databaseURL: process.env.FIREBASE_WEB_DATABASE_URL,
       appId: process.env.FIREBASE_ANDROID_APP_ID,
     },
     firebaseIosConfig: {
