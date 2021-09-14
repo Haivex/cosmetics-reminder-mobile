@@ -10,8 +10,8 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll",
-    "build:ios": "eas device:create",
-    "build:android": "eas build --profile development --platform android"
+    "build:ios": "expo build:ios",
+    "build:android": "expo build:android"
   },
   "jest": {
     "preset": "jest-expo"
