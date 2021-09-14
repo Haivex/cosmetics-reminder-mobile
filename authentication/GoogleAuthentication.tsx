@@ -86,6 +86,7 @@ const GoogleAuthentication = () => {
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
     clientId: process.env.FIREBASE_WEB_CLIENT_ID,
   });
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     let componentMounted = true;
