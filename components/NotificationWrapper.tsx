@@ -45,10 +45,10 @@ export default function NotificationWrapper({ children }: ChildrenProp) {
     // This listener is fired whenever a notification is received while the app is foregrounded
     notificationListener.current =
       Notifications.addNotificationReceivedListener(async (notification) => {
-        const createdTask = notification.request.content.data.data as SavedTask;
-        if(createdTask.cyclicInterval) {
-          await setCyclicNotifications(notification);
-        }
+        // const createdTask = notification.request.content.data.data as SavedTask;
+        // if(createdTask.cyclicInterval) {
+        //   await setCyclicNotifications(notification);
+        // }
       });
 
     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
@@ -66,40 +66,40 @@ export default function NotificationWrapper({ children }: ChildrenProp) {
   return <>{children}</>;
 }
 
-async function setCyclicNotifications(
-  givenNotification: Notifications.Notification
-) {
-  const { title, body } = givenNotification.request.content;
-  const createdTask = givenNotification.request.content.data
-    .data as unknown as SavedTask;
-  const interval = convertCyclicIntervalToSeconds(
-    createdTask.cyclicInterval as CyclicInterval
-  );
+// async function setCyclicNotifications(
+//   givenNotification: Notifications.Notification
+// ) {
+//   const { title, body } = givenNotification.request.content;
+//   const createdTask = givenNotification.request.content.data
+//     .data as unknown as SavedTask;
+//   const interval = convertCyclicIntervalToSeconds(
+//     createdTask.cyclicInterval as CyclicInterval
+//   );
 
-  const notificationIdentifier = await Notifications.scheduleNotificationAsync({
-    content: {
-      title: title as string,
-      body: body as string,
-    },
-    trigger: {
-      seconds: interval,
-      repeats: true,
-    },
-  });
+//   const notificationIdentifier = await Notifications.scheduleNotificationAsync({
+//     content: {
+//       title: title as string,
+//       body: body as string,
+//     },
+//     trigger: {
+//       seconds: interval,
+//       repeats: true,
+//     },
+//   });
 
-  const notifications = await getNotifications();
-  if (notifications) {
-    const newNotifications = [
-      ...notifications,
-      { notificationIdentifier: notificationIdentifier, taskId: createdTask.id },
-    ];
-    storeNotifications(newNotifications);
-  } else {
-    storeNotifications([
-      { notificationIdentifier: notificationIdentifier, taskId: createdTask.id },
-    ]);
-  }
-}
+//   const notifications = await getNotifications();
+//   if (notifications) {
+//     const newNotifications = [
+//       ...notifications,
+//       { notificationIdentifier: notificationIdentifier, taskId: createdTask.id },
+//     ];
+//     storeNotifications(newNotifications);
+//   } else {
+//     storeNotifications([
+//       { notificationIdentifier: notificationIdentifier, taskId: createdTask.id },
+//     ]);
+//   }
+// }
 
 async function sendPushNotification(expoPushToken: string) {
   const message = {
@@ -159,15 +159,19 @@ export async function schedulePushNotification({
   data,
   scheduledDate,
 }: ScheduledNotificationOptions) {
-  await Notifications.scheduleNotificationAsync({
+  const interval = convertCyclicIntervalToSeconds(
+       data.cyclicInterval as CyclicInterval
+       );
+  return await Notifications.scheduleNotificationAsync({
     content: {
       title,
       body,
       data: { data: data },
     },
     trigger: {
-      date: scheduledDate,
-      seconds: scheduledDate.getTime() - new Date().getTime(),
-    },
+      ...scheduledDate, 
+      repeats: data.cyclicInterval ? true : false,
+      seconds: data.cyclicInterval ? interval: undefined, 
+    }
   });
 }
