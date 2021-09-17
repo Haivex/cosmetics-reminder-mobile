@@ -1,4 +1,3 @@
-import 'expo-dev-client';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import 'react-native-gesture-handler';
@@ -10,9 +9,7 @@ import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import { Provider } from 'react-redux';
 import { store } from './redux/MainStore';
-import NotificationWrapper from './components/NotificationWrapper';
 import initTranslation from './translation/config';
-import Authentication from './authentication/Authentication';
 import firebase from 'firebase/app';
 import "firebase/auth";
 import "firebase/firestore";
@@ -35,16 +32,12 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <Provider store={store}>
-          <Authentication>
-            <NotificationWrapper>
               <PaperProvider
                 theme={colorScheme === 'light' ? lightTheme : darkTheme}
               >
                 <Navigation colorScheme={colorScheme} />
                 <StatusBar />
               </PaperProvider>
-            </NotificationWrapper>
-          </Authentication>
         </Provider>
       </SafeAreaProvider>
     );
