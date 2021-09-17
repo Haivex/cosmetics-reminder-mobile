@@ -1,8 +1,9 @@
-package com.haivex.OnlyYou;
+package com.haivex.onlyyou;
 import expo.modules.devmenu.react.DevMenuAwareReactActivity;
 import expo.modules.devlauncher.DevLauncherController;
 import android.content.res.Configuration;
 import android.content.Intent;
+import com.haivex.onlyyou.R;
 
 import android.os.Bundle;
 
@@ -13,7 +14,6 @@ import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 
 import expo.modules.splashscreen.singletons.SplashScreen;
 import expo.modules.splashscreen.SplashScreenImageResizeMode;
-
 
 public class MainActivity extends DevMenuAwareReactActivity {
 
