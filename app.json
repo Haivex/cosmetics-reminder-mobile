@@ -20,7 +20,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.haivex.OnlyYou",
+      "bundleIdentifier": "com.haivex.onlyyou",
       "buildNumber": "1.0.0",
       "usesAppleSignIn": true,
       "config": {
@@ -34,7 +34,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#72c4d6"
       },
-      "package": "com.haivex.OnlyYou",
+      "package": "com.haivex.onlyyou",
       "googleServicesFile": "./google-services.json",
       "versionCode": 1
     },
