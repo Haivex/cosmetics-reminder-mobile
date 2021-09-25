@@ -5,7 +5,6 @@ import {DefaultTheme} from 'react-native-paper';
 //       interface ThemeColors {
 //         myOwnColor: string;
 //       }
-
 //       interface Theme {
 //         myOwnProperty: boolean;
 //       }
