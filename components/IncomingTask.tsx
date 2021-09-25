@@ -1,28 +1,26 @@
+import {formatRelative, set as updateDate} from 'date-fns';
+import {enGB, enIN, enUS, pl} from 'date-fns/locale';
+import i18n from 'i18n-js';
 import * as React from 'react';
-import * as Notifications from 'expo-notifications';
+import {View} from 'react-native';
 import {
   Avatar,
   Button,
   Card,
+  Dialog,
   IconButton,
   Menu,
-  Dialog,
-  Portal,
   Paragraph,
+  Portal,
   TextInput,
 } from 'react-native-paper';
-import { Task } from '../redux/TodosReducer';
-import { formatRelative, set as updateDate } from 'date-fns';
-import { pl, enUS, enGB, enIN } from 'date-fns/locale';
+import {useDispatch} from 'react-redux';
 import {
   deleteTodo,
   markTodoCompleted,
   renameTodo,
+  Task,
 } from '../redux/TodosReducer';
-import { useDispatch } from 'react-redux';
-import { View } from 'react-native';
-import i18n from 'i18n-js';
-import { getNotificationByTaskId } from '../notificationsStorage/asyncStorage';
 
 const localesMap = new Map<string, Locale>([
   ['pl', pl],
@@ -35,7 +33,7 @@ type CurrentTaskProps = {
   task: Task;
 };
 
-export const IncomingTask = ({ task }: CurrentTaskProps) => {
+export const IncomingTask = ({task}: CurrentTaskProps) => {
   const dispatch = useDispatch();
   const [visibleMenu, setVisibleMenu] = React.useState(false);
   const [visibleDialog, setVisibleDialog] = React.useState(false);
@@ -55,7 +53,7 @@ export const IncomingTask = ({ task }: CurrentTaskProps) => {
       ...task.time,
     }),
     new Date(),
-    { locale: localesMap.get(i18n.currentLocale()) || enUS }
+    {locale: localesMap.get(i18n.currentLocale()) || enUS},
   );
 
   return (
@@ -63,15 +61,14 @@ export const IncomingTask = ({ task }: CurrentTaskProps) => {
       <Card.Title
         title={task.title}
         subtitle={formattedTime}
-        left={(props) => <Avatar.Icon {...props} icon='folder' />}
-        right={(props) => (
+        left={props => <Avatar.Icon {...props} icon="folder" />}
+        right={props => (
           <Menu
             visible={visibleMenu}
             onDismiss={closeMenu}
             anchor={
-              <IconButton {...props} icon='dots-vertical' onPress={openMenu} />
-            }
-          >
+              <IconButton {...props} icon="dots-vertical" onPress={openMenu} />
+            }>
             <Menu.Item
               onPress={() => {
                 closeMenu();
@@ -88,16 +85,16 @@ export const IncomingTask = ({ task }: CurrentTaskProps) => {
             <Menu.Item
               onPress={async () => {
                 // const notification = await getNotificationByTaskId(task.id);
-  
+
                 // if (notification) {
                 //   Notifications.cancelScheduledNotificationAsync(
                 //     notification.notificationIdentifier
                 //   )
                 //     .then((notif) => {
-                      
+
                 //     })
                 //     .catch((err) => {
-                      
+
                 //     });
                 // }
                 dispatch(deleteTodo(task));
@@ -115,7 +112,7 @@ export const IncomingTask = ({ task }: CurrentTaskProps) => {
             <TextInput
               defaultValue={task.title}
               value={newTitle}
-              onChangeText={(value) => setTitle(value)}
+              onChangeText={value => setTitle(value)}
               autoFocus
             />
           </Dialog.Content>
@@ -125,10 +122,9 @@ export const IncomingTask = ({ task }: CurrentTaskProps) => {
             </Button>
             <Button
               onPress={() => {
-                dispatch(renameTodo({ task, title: newTitle }));
+                dispatch(renameTodo({task, title: newTitle}));
                 hideDialog();
-              }}
-            >
+              }}>
               {i18n.t('taskMenu.renameInput.changeButton')}
             </Button>
           </Dialog.Actions>
