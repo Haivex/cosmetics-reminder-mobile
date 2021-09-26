@@ -13,6 +13,7 @@ import React from 'react';
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 //import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Provider} from 'react-redux';
+import Authentication from './authentication/Authentication';
 import Navigation from './navigation/index';
 import {store} from './redux/MainStore';
 import initTranslation from './translation/config';
@@ -38,7 +39,9 @@ const App = () => {
     // <SafeAreaView style={backgroundStyle}>
     <Provider store={store}>
       <PaperProvider theme={theme}>
-        <Navigation colorScheme="light" />
+        <Authentication>
+          <Navigation colorScheme="light" />
+        </Authentication>
         {/* <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} /> */}
       </PaperProvider>
     </Provider>
