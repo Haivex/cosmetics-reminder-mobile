@@ -1,6 +1,6 @@
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import React, {useEffect, useState} from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../redux/MainStore';
 import {logIn} from '../redux/UserReducer';
@@ -38,11 +38,6 @@ function Authentication({children}: ChildrenProp) {
     );
   }
 
-  return (
-    <View>
-      <Text>Welcome {user.displayName}</Text>
-      {children}
-    </View>
-  );
+  return <>{children}</>;
 }
 export default Authentication;

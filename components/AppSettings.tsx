@@ -1,3 +1,4 @@
+import auth from '@react-native-firebase/auth';
 import i18n from 'i18n-js';
 import * as React from 'react';
 import {IconButton, Menu} from 'react-native-paper';
@@ -20,7 +21,9 @@ const AppSettings = () => {
         visible={visibleMenu}>
         <Menu.Item
           onPress={() => {
-            dispatch(logOut());
+            auth()
+              .signOut()
+              .then(() => dispatch(logOut()));
           }}
           title={i18n.t('appSettings.logOut')}
         />
