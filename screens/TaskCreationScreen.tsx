@@ -1,6 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
 import i18n from 'i18n-js';
-import 'react-native-get-random-values';
 import * as React from 'react';
 import {Controller, useForm, Validate} from 'react-hook-form';
 import {ScrollView, StyleSheet} from 'react-native';
@@ -14,10 +13,10 @@ import {
 } from 'react-native-paper';
 import {CalendarDate} from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
 import {useDispatch} from 'react-redux';
-import {v4 as uuidv4} from 'uuid';
 import CyclicTaskInputs, {CyclicInterval} from '../components/CyclicTaskInputs';
 import DatePickerInput from '../components/DatePickerInput';
 import TimePickerInput, {Time} from '../components/TimePickerInput';
+import {saveTask} from '../firebase/saveTask';
 import {checkIfCyclicInterval} from '../helpers/intervalHelpers';
 import {addTodo} from '../redux/TodosReducer';
 import '../translation/config';
@@ -62,8 +61,24 @@ export default function TaskCreationScreen() {
   });
 
   const onSubmit = (data: TaskData) => {
-    const savedTodo = {...data, id: uuidv4()};
-    dispatch(addTodo(savedTodo));
+    saveTask(data)
+      .then(savedTask => {
+        const id = savedTask.id;
+        const dataFromDb = savedTask.data();
+        //console.log(data);
+        dispatch(
+          addTodo({
+            ...dataFromDb,
+            date: dataFromDb?.date.seconds,
+            id,
+          } as SavedTask),
+        );
+      })
+      .then(() => {
+        clearErrors();
+        reset(defaultTaskData);
+        navigation.navigate('TabTwo');
+      });
     // schedulePushNotification({
     //   title: 'Only You',
     //   body: savedTodo.title,
@@ -92,9 +107,6 @@ export default function TaskCreationScreen() {
     //     ]);
     //   }
     // });
-    clearErrors();
-    reset(defaultTaskData);
-    navigation.navigate('TabTwo');
   };
 
   return (
