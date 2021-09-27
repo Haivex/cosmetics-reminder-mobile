@@ -15,6 +15,7 @@ import {
   TextInput,
 } from 'react-native-paper';
 import {useDispatch} from 'react-redux';
+import { updateTaskCompletion } from '../firebase/updateTaskCompletion';
 import {
   deleteTodo,
   markTodoCompleted,
@@ -78,7 +79,9 @@ export const IncomingTask = ({task}: CurrentTaskProps) => {
             />
             <Menu.Item
               onPress={() => {
-                dispatch(markTodoCompleted(task));
+                updateTaskCompletion(task.id, true).then(() =>
+                  dispatch(markTodoCompleted(task)),
+                );
               }}
               title={i18n.t('taskMenu.finishTask')}
             />

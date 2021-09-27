@@ -1,5 +1,6 @@
 import {formatRelative, set} from 'date-fns';
 import {enGB, enIN, enUS, pl} from 'date-fns/locale';
+import i18n from 'i18n-js';
 import * as React from 'react';
 import {View} from 'react-native';
 import {
@@ -14,13 +15,13 @@ import {
   TextInput,
 } from 'react-native-paper';
 import {useDispatch} from 'react-redux';
+import {updateTaskCompletion} from '../firebase/updateTaskCompletion';
 import {
   deleteTodo,
   markTodoCompleted,
   renameTodo,
   Task,
 } from '../redux/TodosReducer';
-import i18n from 'i18n-js';
 //import * as Notifications from 'expo-notifications';
 //import { getNotificationByTaskId } from '../notificationsStorage/asyncStorage';
 
@@ -80,7 +81,9 @@ export const CurrentTask = ({task}: CurrentTaskProps) => {
             />
             <Menu.Item
               onPress={() => {
-                dispatch(markTodoCompleted(task));
+                updateTaskCompletion(task.id, true).then(() =>
+                  dispatch(markTodoCompleted(task)),
+                );
               }}
               title={i18n.t('taskMenu.finishTask')}
             />

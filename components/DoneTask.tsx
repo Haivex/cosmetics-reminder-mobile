@@ -16,6 +16,7 @@ import {
   TextInput,
 } from 'react-native-paper';
 import {useDispatch} from 'react-redux';
+import {updateTaskCompletion} from '../firebase/updateTaskCompletion';
 import {deleteTodo, renameTodo, restoreTodo, Task} from '../redux/TodosReducer';
 //import { getNotificationByTaskId } from '../notificationsStorage/asyncStorage';
 
@@ -75,7 +76,9 @@ export const DoneTask = ({task}: DoneTaskProps) => {
             />
             <Menu.Item
               onPress={() => {
-                dispatch(restoreTodo(task));
+                updateTaskCompletion(task.id, false).then(() =>
+                  dispatch(restoreTodo(task)),
+                );
               }}
               title={i18n.t('taskMenu.restoreTask')}
             />
