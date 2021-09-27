@@ -2,7 +2,7 @@ import i18n from 'i18n-js';
 import * as React from 'react';
 import {IconButton, Menu} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
-import {logOut} from '../redux/LoginReducer';
+import {logOut} from '../redux/UserReducer';
 
 const AppSettings = () => {
   const dispatch = useDispatch();

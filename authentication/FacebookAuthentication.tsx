@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Alert, Button } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux';
-import { UserInfo, logIn } from '../redux/LoginReducer';
+import { UserInfo, logIn } from '../redux/UserReducer';
 
 const FacebookAuthentication = () => {
   const dispatch = useDispatch();

@@ -165,7 +165,8 @@ import React from 'react';
 import {Button} from 'react-native';
 
 GoogleSignin.configure({
-  webClientId: '',
+  webClientId:
+    '231511460067-mdt6l95v5id047d7dhngmo8lprmelpah.apps.googleusercontent.com',
 });
 
 async function onGoogleButtonPress() {

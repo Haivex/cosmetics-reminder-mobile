@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ExpoAppleAuthentication from 'expo-apple-authentication';
 import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux';
-import { UserInfo, logIn } from '../redux/LoginReducer';
+import { UserInfo, logIn } from '../redux/UserReducer';
 import firebase from 'firebase/app';
 import "firebase/auth";
 import "firebase/firestore";
