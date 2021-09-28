@@ -8,6 +8,8 @@ import {logIn} from '../redux/UserReducer';
 import {ChildrenProp} from '../types';
 import GoogleSignInButton from './GoogleAuthentication';
 
+let isCalledOnce = false;
+
 function Authentication({children}: ChildrenProp) {
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
@@ -17,7 +19,10 @@ function Authentication({children}: ChildrenProp) {
   // Handle user state changes
   function onAuthStateChanged(userOrNull: FirebaseAuthTypes.User | null) {
     dispatch(logIn(userOrNull));
-    dispatch(fetchUserTasks());
+    if (userOrNull && !isCalledOnce) {
+      dispatch(fetchUserTasks());
+      isCalledOnce = true;
+    }
     if (initializing) {
       setInitializing(false);
     }
