@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../redux/MainStore';
+import { fetchUserTasks } from '../redux/TodosReducer';
 import {logIn} from '../redux/UserReducer';
 import {ChildrenProp} from '../types';
 import GoogleSignInButton from './GoogleAuthentication';
@@ -16,6 +17,7 @@ function Authentication({children}: ChildrenProp) {
   // Handle user state changes
   function onAuthStateChanged(userOrNull: FirebaseAuthTypes.User | null) {
     dispatch(logIn(userOrNull));
+    dispatch(fetchUserTasks());
     if (initializing) {
       setInitializing(false);
     }

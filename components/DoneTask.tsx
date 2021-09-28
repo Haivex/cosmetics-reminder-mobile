@@ -47,9 +47,7 @@ export const DoneTask = ({task}: DoneTaskProps) => {
   const closeMenu = () => setVisibleMenu(false);
 
   const formattedTime = formatRelative(
-    updateDate(task.date, {
-      ...task.time,
-    }),
+    updateDate(new Date(task.date.seconds || task.date), task.time),
     new Date(),
     {locale: localesMap.get(i18n.currentLocale()) || enUS},
   );

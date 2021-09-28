@@ -1,6 +1,7 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {CyclicInterval} from '../components/CyclicTaskInputs';
 import {Time} from '../components/TimePickerInput';
+import {getCurrentTasks} from '../firebase/getCurrentTasks';
 import {SavedTask} from '../screens/TaskCreationScreen';
 
 export type Task = {
@@ -50,6 +51,11 @@ export const globalState: AppState = {
   ],
 };
 
+export const fetchUserTasks = createAsyncThunk(
+  'fetchUserTasks',
+  getCurrentTasks,
+);
+
 const todosSlice = createSlice({
   name: 'todos',
   initialState: globalState,
@@ -94,6 +100,12 @@ const todosSlice = createSlice({
     deleteTodo(state, action: PayloadAction<Task>) {
       state.todos = state.todos.filter(todo => todo.id !== action.payload.id);
     },
+  },
+  extraReducers: builder => {
+    builder.addCase(fetchUserTasks.fulfilled, (state, action) => {
+      const fetchedTasks = action.payload as unknown as Task[];
+      state.todos = [...state.todos, ...fetchedTasks];
+    });
   },
 });
 
