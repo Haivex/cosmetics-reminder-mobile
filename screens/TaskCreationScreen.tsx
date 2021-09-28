@@ -1,4 +1,7 @@
+//import { getNotifications, storeNotifications } from '../notificationsStorage/asyncStorage';
+import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
+import {set} from 'date-fns';
 import i18n from 'i18n-js';
 import * as React from 'react';
 import {Controller, useForm, Validate} from 'react-hook-form';
@@ -16,11 +19,11 @@ import {useDispatch} from 'react-redux';
 import CyclicTaskInputs, {CyclicInterval} from '../components/CyclicTaskInputs';
 import DatePickerInput from '../components/DatePickerInput';
 import TimePickerInput, {Time} from '../components/TimePickerInput';
+import {TaskDocument} from '../firebase/firestoreTypes';
 import {saveTask} from '../firebase/saveTask';
 import {checkIfCyclicInterval} from '../helpers/intervalHelpers';
-import {addTodo} from '../redux/TodosReducer';
+import {addTodo, Task} from '../redux/TodosReducer';
 import '../translation/config';
-//import { getNotifications, storeNotifications } from '../notificationsStorage/asyncStorage';
 
 export type TaskData = {
   date: CalendarDate;
@@ -29,7 +32,7 @@ export type TaskData = {
   cyclicInterval?: CyclicInterval;
 };
 
-export interface SavedTask extends TaskData {
+export interface SavedTask extends Task {
   id: string;
 }
 
@@ -61,15 +64,24 @@ export default function TaskCreationScreen() {
   });
 
   const onSubmit = (data: TaskData) => {
-    saveTask(data)
+    const mergedDateAndTime = set(data.date as Date, data.time);
+    const taskDataWithoutTime = {
+      ...data,
+      date: mergedDateAndTime,
+      time: undefined,
+    };
+    saveTask(taskDataWithoutTime)
       .then(savedTask => {
         const id = savedTask.id;
-        const dataFromDb = savedTask.data();
+        const dataFromDb = savedTask.data() as TaskDocument;
         //console.log(data);
         dispatch(
           addTodo({
             ...dataFromDb,
-            date: dataFromDb?.date.seconds,
+            date: new firestore.Timestamp(
+              dataFromDb.date.seconds,
+              dataFromDb.date.nanoseconds,
+            ).toDate(),
             id,
           } as SavedTask),
         );

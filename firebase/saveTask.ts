@@ -3,7 +3,7 @@ import firestore from '@react-native-firebase/firestore';
 import removeUndefinedKeys from '../helpers/removeUndefinedKeys';
 import {TaskData} from '../screens/TaskCreationScreen';
 
-export async function saveTask(task: TaskData) {
+export async function saveTask(task: Partial<TaskData>) {
   const userUID = await auth().currentUser?.uid;
 
   if (userUID) {

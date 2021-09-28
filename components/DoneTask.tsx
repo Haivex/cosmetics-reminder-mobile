@@ -1,4 +1,4 @@
-import {formatRelative, set as updateDate} from 'date-fns';
+import {formatRelative} from 'date-fns';
 import {enGB, enIN, enUS, pl} from 'date-fns/locale';
 import i18n from 'i18n-js';
 import * as React from 'react';
@@ -46,11 +46,9 @@ export const DoneTask = ({task}: DoneTaskProps) => {
 
   const closeMenu = () => setVisibleMenu(false);
 
-  const formattedTime = formatRelative(
-    updateDate(new Date(task.date.seconds || task.date), task.time),
-    new Date(),
-    {locale: localesMap.get(i18n.currentLocale()) || enUS},
-  );
+  const formattedTime = formatRelative(task.date, new Date(), {
+    locale: localesMap.get(i18n.currentLocale()) || enUS,
+  });
 
   return (
     <View>

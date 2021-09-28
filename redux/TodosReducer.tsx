@@ -1,13 +1,11 @@
+import firestore from '@react-native-firebase/firestore';
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {CyclicInterval} from '../components/CyclicTaskInputs';
-import {Time} from '../components/TimePickerInput';
 import {getCurrentTasks} from '../firebase/getCurrentTasks';
 import {SavedTask} from '../screens/TaskCreationScreen';
-
 export type Task = {
   id: string;
   title: string;
-  time: Time;
   date: Date;
   completed: boolean;
   cyclicInterval: CyclicInterval | undefined;
@@ -27,7 +25,6 @@ export const globalState: AppState = {
     {
       id: '0',
       title: 'Learn React',
-      time: {hours: 12, minutes: 50},
       date: new Date(),
       completed: true,
       cyclicInterval: undefined,
@@ -35,16 +32,14 @@ export const globalState: AppState = {
     {
       id: '1',
       title: 'Learn Redux',
-      time: {hours: 13, minutes: 50},
-      date: new Date(2022, 7, 20),
+      date: new Date(2022, 7, 20, 13, 50),
       completed: false,
       cyclicInterval: undefined,
     },
     {
       id: '2',
       title: 'Build something fun!',
-      time: {hours: 14, minutes: 50},
-      date: new Date(2021, 5, 13),
+      date: new Date(2021, 5, 13, 14, 50),
       completed: false,
       cyclicInterval: undefined,
     },
@@ -67,7 +62,6 @@ const todosSlice = createSlice({
           id: action.payload.id,
           title: action.payload.title,
           date: new Date(action.payload.date as Date),
-          time: action.payload.time,
           completed: false,
           cyclicInterval: action.payload.cyclicInterval,
         },
@@ -103,8 +97,15 @@ const todosSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(fetchUserTasks.fulfilled, (state, action) => {
-      const fetchedTasks = action.payload as unknown as Task[];
-      state.todos = [...state.todos, ...fetchedTasks];
+      const fetchedTasks = action.payload;
+      const tasksWithJavascriptDate = fetchedTasks.map(task => ({
+        ...task,
+        date: new firestore.Timestamp(
+          task.date.seconds,
+          task.date.nanoseconds,
+        ).toDate(),
+      }));
+      state.todos = [...state.todos, ...tasksWithJavascriptDate];
     });
   },
 });

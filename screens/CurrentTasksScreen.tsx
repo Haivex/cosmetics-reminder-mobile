@@ -1,4 +1,3 @@
-import {set as updateDate} from 'date-fns';
 import i18n from 'i18n-js';
 import * as React from 'react';
 import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
@@ -15,48 +14,20 @@ export default function CurrentTasksScreen() {
   const getCurrentTasks = () => {
     return todos
       .filter(task => {
-        const taskDateWithTime = updateDate(task.date, {
-          hours: task.time.hours,
-          minutes: task.time.minutes,
-        });
-        return !task.completed && taskDateWithTime <= currentDate;
+        return !task.completed && task.date <= currentDate;
       })
       .sort((previousTask, currentTask) => {
-        const previousTaskDateWithTime = updateDate(previousTask.date, {
-          hours: previousTask.time.hours,
-          minutes: previousTask.time.minutes,
-        });
-        const currentTaskDateWithTime = updateDate(currentTask.date, {
-          hours: currentTask.time.hours,
-          minutes: currentTask.time.minutes,
-        });
-        return (
-          currentTaskDateWithTime.getTime() - previousTaskDateWithTime.getTime()
-        );
+        return currentTask.date.getTime() - previousTask.date.getTime();
       });
   };
 
   const getIncomingTasks = () => {
     return todos
       .filter(task => {
-        const taskDateWithTime = updateDate(task.date, {
-          hours: task.time.hours,
-          minutes: task.time.minutes,
-        });
-        return !task.completed && taskDateWithTime > currentDate;
+        return !task.completed && task.date > currentDate;
       })
       .sort((previousTask, currentTask) => {
-        const previousTaskDateWithTime = updateDate(previousTask.date, {
-          hours: previousTask.time.hours,
-          minutes: previousTask.time.minutes,
-        });
-        const currentTaskDateWithTime = updateDate(currentTask.date, {
-          hours: currentTask.time.hours,
-          minutes: currentTask.time.minutes,
-        });
-        return (
-          previousTaskDateWithTime.getTime() - currentTaskDateWithTime.getTime()
-        );
+        return previousTask.date.getTime() - currentTask.date.getTime();
       });
   };
 
