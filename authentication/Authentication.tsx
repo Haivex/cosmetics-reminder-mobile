@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../redux/MainStore';
-import { fetchUserTasks } from '../redux/TodosReducer';
+import {fetchUserTasks} from '../redux/TodosReducer';
 import {logIn} from '../redux/UserReducer';
 import {ChildrenProp} from '../types';
 import GoogleSignInButton from './GoogleAuthentication';
