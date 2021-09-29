@@ -4,6 +4,7 @@ import * as React from 'react';
 import {IconButton, Menu} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
 import {logOut} from '../redux/UserReducer';
+import PushNotification from 'react-native-push-notification';
 
 const AppSettings = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,15 @@ const AppSettings = () => {
               .then(() => dispatch(logOut()));
           }}
           title={i18n.t('appSettings.logOut')}
+        />
+        <Menu.Item
+          onPress={() => {
+            PushNotification.localNotification({
+              channelId: 'main',
+              message: 'test',
+            });
+          }}
+          title="Test notif"
         />
       </Menu>
     </>

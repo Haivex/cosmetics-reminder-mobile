@@ -11,6 +11,7 @@
 import React from 'react';
 //import {useColorScheme} from 'react-native';
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
+import PushNotification from 'react-native-push-notification';
 //import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Provider} from 'react-redux';
 import Authentication from './authentication/Authentication';
@@ -25,6 +26,35 @@ const theme = {
     accent: 'yellow',
   },
 };
+
+PushNotification.configure({
+  onRegister: function (token) {
+    console.log('TOKEN:', token);
+  },
+  onNotification: function (notification) {
+    console.log('NOTIFICATION:', notification);
+
+    // process the notification
+
+    // (required) Called when a remote is received or opened, or local notification is opened
+    notification.finish('');
+  },
+  onAction: function (notification) {
+    console.log('ACTION:', notification.action);
+    console.log('NOTIFICATION:', notification);
+
+    // process the action
+  },
+});
+
+PushNotification.createChannel(
+  {
+    channelId: 'main', // (required)
+    channelName: 'Main', // (required)
+    channelDescription: 'Main channel for notifications', // (optional) default: undefined.
+  },
+  created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+);
 
 initTranslation();
 
