@@ -56,5 +56,8 @@
   "appSettings": {
     "logOut": "Log out",
     "notificationsSettings": "Manage notifications"
+  },
+  "notificationsSettings": {
+    "notificationsStatus": "Turn on/off notifications"
   }
 }

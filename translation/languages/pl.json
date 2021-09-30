@@ -56,5 +56,8 @@
     "appSettings": {
         "logOut": "Wyloguj się",
         "notificationsSettings": "Zarządzaj powiadomieniami"
-      }
+    },
+    "notificationsSettings": {
+        "notificationsStatus": "Włącz/Wyłącz powiadomienia"
+    }
 }

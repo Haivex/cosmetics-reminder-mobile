@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../redux/MainStore';
+import {checkPermissions} from '../redux/NotificationsReducer';
 import {fetchUserTasks} from '../redux/TodosReducer';
 import {logIn} from '../redux/UserReducer';
 import {ChildrenProp} from '../types';
@@ -21,6 +22,7 @@ function Authentication({children}: ChildrenProp) {
     dispatch(logIn(userOrNull));
     if (userOrNull && !isCalledOnce) {
       dispatch(fetchUserTasks());
+      dispatch(checkPermissions());
       isCalledOnce = true;
     }
     if (initializing) {
