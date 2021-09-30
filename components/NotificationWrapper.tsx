@@ -1,12 +1,7 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {Platform} from 'react-native';
-import {convertCyclicIntervalToSeconds} from '../helpers/intervalHelpers';
 // import {
 //   getNotifications,
 //   storeNotifications,
 // } from '../notificationsStorage/asyncStorage';
-import {ChildrenProp} from '../types';
-import {CyclicInterval} from './CyclicTaskInputs';
 
 type ScheduledNotificationOptions = {
   title: string;
@@ -15,18 +10,18 @@ type ScheduledNotificationOptions = {
   scheduledDate: Date;
 };
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: true,
-    priority: AndroidNotificationPriority.MAX,
-  }),
-});
+// Notifications.setNotificationHandler({
+//   handleNotification: async () => ({
+//     shouldShowAlert: true,
+//     shouldPlaySound: true,
+//     shouldSetBadge: true,
+//     priority: AndroidNotificationPriority.MAX,
+//   }),
+// });
 
-export default function NotificationWrapper({children}: ChildrenProp) {
-  return <>{children}</>;
-}
+// export default function NotificationWrapper({children}: ChildrenProp) {
+//   return <>{children}</>;
+// }
 
 // async function setCyclicNotifications(
 //   givenNotification: Notifications.Notification

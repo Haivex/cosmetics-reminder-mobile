@@ -52,5 +52,9 @@
         "label": "Wybierz godzinę (HH:MM)",
         "acceptButton": "Potwierdź",
         "cancelButton": "Anuluj"
-    }
+    },
+    "appSettings": {
+        "logOut": "Wyloguj się",
+        "notificationsSettings": "Zarządzaj powiadomieniami"
+      }
 }

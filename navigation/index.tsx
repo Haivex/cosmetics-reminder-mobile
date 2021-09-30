@@ -8,10 +8,12 @@ import {
   DefaultTheme,
   NavigationContainer,
 } from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {CardStyleInterpolators, createStackNavigator} from '@react-navigation/stack';
+import i18n from 'i18n-js';
 import * as React from 'react';
 import {ColorSchemeName} from 'react-native';
 import NotFoundScreen from '../screens/NotFoundScreen';
+import NotificationsSettings from '../screens/NotificationsSettings';
 import {RootStackParamList} from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 //import LinkingConfiguration from './LinkingConfiguration';
@@ -42,6 +44,17 @@ function RootNavigator() {
         name="NotFound"
         component={NotFoundScreen}
         options={{title: 'Oops!'}}
+      />
+      <Stack.Screen
+        name="NotificationsSettings"
+        component={NotificationsSettings}
+        options={{
+          title: i18n.t('appSettings.notificationsSettings'),
+          headerShown: true,
+          gestureEnabled: true,
+          gestureDirection: 'horizontal',
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
       />
     </Stack.Navigator>
   );

@@ -52,5 +52,9 @@
     "label": "Choose time (HH:MM XM)",
     "acceptButton": "Accept",
     "cancelButton": "Cancel"
+  },
+  "appSettings": {
+    "logOut": "Log out",
+    "notificationsSettings": "Manage notifications"
   }
 }
