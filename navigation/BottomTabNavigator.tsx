@@ -40,7 +40,7 @@ export default function BottomTabNavigator() {
         header: () => null,
       }}>
       <BottomTab.Screen
-        name="TabOne"
+        name='TabOne'
         component={TabOneNavigator}
         options={{
           tabBarIcon: ({color}) => (
@@ -52,11 +52,10 @@ export default function BottomTabNavigator() {
             />
           ),
           title: i18n.t('bottomNavigation.createTaskTitle'),
-
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
+        name='TabTwo'
         component={TabTwoNavigator}
         options={{
           tabBarIcon: ({color}) => (
