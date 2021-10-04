@@ -32,11 +32,19 @@ const NotificationsSettings = () => {
             message: 'Scheduled message',
             date: new Date(Date.now() + 10 * 1000),
             allowWhileIdle: false,
+            repeatType: 'minute',
             repeatTime: 1,
           });
         }}
         mode="outlined">
         Scheduled notif
+      </Button>
+      <Button
+        onPress={() => {
+          Notifications.cancelAllLocalNotifications();
+        }}
+        mode="outlined">
+        Cancel notifications
       </Button>
     </ScrollView>
   );
