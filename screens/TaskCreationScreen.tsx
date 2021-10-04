@@ -21,9 +21,13 @@ import DatePickerInput from '../components/DatePickerInput';
 import TimePickerInput, {Time} from '../components/TimePickerInput';
 import {TaskDocument} from '../firebase/firestoreTypes';
 import {saveTask} from '../firebase/saveTask';
-import {checkIfCyclicInterval} from '../helpers/intervalHelpers';
+import {
+  checkIfCyclicInterval,
+  convertCyclicIntervalToSeconds,
+} from '../helpers/intervalHelpers';
 import {addTodo, Task} from '../redux/TodosReducer';
 import '../translation/config';
+import Notifications from 'react-native-push-notification';
 
 export type TaskData = {
   date: CalendarDate;
@@ -85,6 +89,16 @@ export default function TaskCreationScreen() {
             id,
           } as SavedTask),
         );
+        // Notifications.scheduleLocalNotification({
+        //   channelId: 'main',
+        //   title: 'Only You',
+        //   message: dataFromDb.title,
+        //   date: dataFromDb.date.toDate(),
+        //   repeatType: dataFromDb.cyclicInterval ? 'time' : undefined,
+        //   repeatTime: dataFromDb.cyclicInterval
+        //     ? convertCyclicIntervalToSeconds(dataFromDb.cyclicInterval) * 1000
+        //     : undefined,
+        // });
       })
       .then(() => {
         clearErrors();
