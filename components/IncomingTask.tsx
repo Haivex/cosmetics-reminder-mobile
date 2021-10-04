@@ -15,6 +15,7 @@ import {
   TextInput,
 } from 'react-native-paper';
 import {useDispatch} from 'react-redux';
+import { deleteTask } from '../firebase/deleteTask';
 import { updateTaskCompletion } from '../firebase/updateTaskCompletion';
 import {
   deleteTodo,
@@ -100,7 +101,7 @@ export const IncomingTask = ({task}: CurrentTaskProps) => {
 
                 //     });
                 // }
-                dispatch(deleteTodo(task));
+                deleteTask(task.id).then(() => dispatch(deleteTodo(task)));
               }}
               title={i18n.t('taskMenu.deleteTask')}
             />

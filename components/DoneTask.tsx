@@ -16,6 +16,7 @@ import {
   TextInput,
 } from 'react-native-paper';
 import {useDispatch} from 'react-redux';
+import { deleteTask } from '../firebase/deleteTask';
 import {updateTaskCompletion} from '../firebase/updateTaskCompletion';
 import {deleteTodo, renameTodo, restoreTodo, Task} from '../redux/TodosReducer';
 //import { getNotificationByTaskId } from '../notificationsStorage/asyncStorage';
@@ -93,7 +94,7 @@ export const DoneTask = ({task}: DoneTaskProps) => {
 
                 //     });
                 // }
-                dispatch(deleteTodo(task));
+                deleteTask(task.id).then(() => dispatch(deleteTodo(task)));
               }}
               title={i18n.t('taskMenu.deleteTask')}
             />
