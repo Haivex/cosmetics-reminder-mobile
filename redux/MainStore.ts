@@ -1,16 +1,18 @@
-import { configureStore} from '@reduxjs/toolkit';
-import LoginReducer from './LoginReducer';
+import {configureStore} from '@reduxjs/toolkit';
+import NotificationsReducer from './NotificationsReducer';
 import TodosReducer from './TodosReducer';
+import UserReducer from './UserReducer';
 
 export const store = configureStore({
   reducer: {
     todos: TodosReducer,
-    login: LoginReducer
+    currentUser: UserReducer,
+    notifications: NotificationsReducer,
   },
-  middleware: (getDefaultMiddleware) => 
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
-        serializableCheck: false,
-    })
+      serializableCheck: false,
+    }),
 });
 
 export type AppDispatch = typeof store.dispatch;

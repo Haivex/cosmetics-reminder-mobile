@@ -1,31 +1,33 @@
+//import { getNotifications, storeNotifications } from '../notificationsStorage/asyncStorage';
+import firestore from '@react-native-firebase/firestore';
+import {useNavigation} from '@react-navigation/native';
+import {set} from 'date-fns';
+import i18n from 'i18n-js';
 import * as React from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import {Controller, useForm, Validate} from 'react-hook-form';
+import {ScrollView, StyleSheet} from 'react-native';
+import 'react-native-get-random-values';
 import {
   Button,
-  TextInput,
-  Text,
-  HelperText,
   Checkbox,
+  HelperText,
+  Text,
+  TextInput,
 } from 'react-native-paper';
+import {CalendarDate} from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
+import {useDispatch} from 'react-redux';
+import CyclicTaskInputs, {CyclicInterval} from '../components/CyclicTaskInputs';
 import DatePickerInput from '../components/DatePickerInput';
-import TimePickerInput, { Time } from '../components/TimePickerInput';
-import { useForm, Controller, Validate } from 'react-hook-form';
-import { addTodo } from '../redux/TodosReducer';
-import { useDispatch } from 'react-redux';
-import { CalendarDate } from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
-import { schedulePushNotification } from '../components/NotificationWrapper';
-import { set as updateDate } from 'date-fns';
+import TimePickerInput, {Time} from '../components/TimePickerInput';
+import {TaskDocument} from '../firebase/firestoreTypes';
+import {saveTask} from '../firebase/saveTask';
+import {
+  checkIfCyclicInterval,
+  convertCyclicIntervalToSeconds,
+} from '../helpers/intervalHelpers';
+import {addTodo, Task} from '../redux/TodosReducer';
 import '../translation/config';
-import i18n from 'i18n-js';
-import CyclicTaskInputs, {
-  CyclicInterval,
-} from '../components/CyclicTaskInputs';
-import 'react-native-get-random-values';
-import { v4 as uuidv4 } from 'uuid';
-import { NavigationProp, ParamListBase } from '@react-navigation/native';
-import { useNavigation } from '@react-navigation/native';
-import { checkIfCyclicInterval } from '../helpers/intervalHelpers';
-import { getNotifications, storeNotifications } from '../notificationsStorage/asyncStorage';
+import Notifications from 'react-native-push-notification';
 
 export type TaskData = {
   date: CalendarDate;
@@ -34,7 +36,7 @@ export type TaskData = {
   cyclicInterval?: CyclicInterval;
 };
 
-export interface SavedTask extends TaskData {
+export interface SavedTask extends Task {
   id: string;
 }
 
@@ -57,7 +59,7 @@ export default function TaskCreationScreen() {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: {errors},
     clearErrors,
     reset,
     getValues,
@@ -66,38 +68,71 @@ export default function TaskCreationScreen() {
   });
 
   const onSubmit = (data: TaskData) => {
-    const savedTodo = { ...data, id: uuidv4() };
-    dispatch(addTodo(savedTodo));
-    schedulePushNotification({
-      title: 'Only You',
-      body: savedTodo.title,
-      scheduledDate: updateDate(savedTodo.date as Date, {
-        hours: savedTodo.time.hours,
-        minutes: savedTodo.time.minutes,
-      }),
-      data: savedTodo && savedTodo.cyclicInterval ? savedTodo : undefined,
-    }).then(async (notificationIdentifier) => {
-      const notifications = await getNotifications();
-      if (notifications) {
-        const newNotifications = [
-          ...notifications,
-          {
-            notificationIdentifier: notificationIdentifier,
-            taskId: savedTodo.id,
-          },
-        ];
-        storeNotifications(newNotifications);
-      } else {
-        storeNotifications([
-          {
-            notificationIdentifier: notificationIdentifier,
-            taskId: savedTodo.id,
-          },
-        ]);
-      }
-    });
-    clearErrors(), reset(defaultTaskData);
-    navigation.navigate('TabTwo');
+    const mergedDateAndTime = set(data.date as Date, data.time);
+    const taskDataWithoutTime = {
+      ...data,
+      date: mergedDateAndTime,
+      time: undefined,
+    };
+    saveTask(taskDataWithoutTime)
+      .then(savedTask => {
+        const id = savedTask.id;
+        const dataFromDb = savedTask.data() as TaskDocument;
+        //console.log(data);
+        dispatch(
+          addTodo({
+            ...dataFromDb,
+            date: new firestore.Timestamp(
+              dataFromDb.date.seconds,
+              dataFromDb.date.nanoseconds,
+            ).toDate(),
+            id,
+          } as SavedTask),
+        );
+        // Notifications.scheduleLocalNotification({
+        //   channelId: 'main',
+        //   title: 'Only You',
+        //   message: dataFromDb.title,
+        //   date: dataFromDb.date.toDate(),
+        //   repeatType: dataFromDb.cyclicInterval ? 'time' : undefined,
+        //   repeatTime: dataFromDb.cyclicInterval
+        //     ? convertCyclicIntervalToSeconds(dataFromDb.cyclicInterval) * 1000
+        //     : undefined,
+        // });
+      })
+      .then(() => {
+        clearErrors();
+        reset(defaultTaskData);
+        navigation.navigate('TabTwo');
+      });
+    // schedulePushNotification({
+    //   title: 'Only You',
+    //   body: savedTodo.title,
+    //   scheduledDate: updateDate(savedTodo.date as Date, {
+    //     hours: savedTodo.time.hours,
+    //     minutes: savedTodo.time.minutes,
+    //   }),
+    //   data: savedTodo && savedTodo.cyclicInterval ? savedTodo : undefined,
+    // }).then(async (notificationIdentifier) => {
+    //   const notifications = await getNotifications();
+    //   if (notifications) {
+    //     const newNotifications = [
+    //       ...notifications,
+    //       {
+    //         notificationIdentifier: notificationIdentifier,
+    //         taskId: savedTodo.id,
+    //       },
+    //     ];
+    //     storeNotifications(newNotifications);
+    //   } else {
+    //     storeNotifications([
+    //       {
+    //         notificationIdentifier: notificationIdentifier,
+    //         taskId: savedTodo.id,
+    //       },
+    //     ]);
+    //   }
+    // });
   };
 
   return (
@@ -110,26 +145,26 @@ export default function TaskCreationScreen() {
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
+        render={({field: {onChange, onBlur, value}}) => (
           <TextInput
             onBlur={onBlur}
-            onChangeText={(textValue) => onChange(textValue)}
+            onChangeText={textValue => onChange(textValue)}
             value={value as string}
-            mode='outlined'
+            mode="outlined"
             placeholder={i18n.t('createTaskScreen.titleInputPlaceholder')}
-            autoFocus
+            // autoFocus
             onSubmitEditing={() =>
               !getValues().date && dateRef?.current?.focus()
             }
-            returnKeyType='go'
-            returnKeyLabel='go'
-            clearButtonMode='while-editing'
+            returnKeyType="go"
+            returnKeyLabel="go"
+            clearButtonMode="while-editing"
             enablesReturnKeyAutomatically
           />
         )}
-        name='title'
+        name="title"
       />
-      <HelperText type='error' visible={errors.title ? true : false}>
+      <HelperText type="error" visible={errors.title ? true : false}>
         {i18n.t('createTaskScreen.titleHelperText')}
       </HelperText>
 
@@ -141,20 +176,20 @@ export default function TaskCreationScreen() {
         rules={{
           required: true,
         }}
-        render={({ field: { onBlur, onChange, value } }) => (
+        render={({field: {onBlur, onChange, value}}) => (
           <DatePickerInput
             ref={dateRef}
             onBlur={onBlur}
-            onChange={(params) => {
+            onChange={params => {
               onChange(params);
               !getValues().time.hours && timeRef?.current?.focus();
             }}
             value={value as CalendarDate}
           />
         )}
-        name='date'
+        name="date"
       />
-      <HelperText type='error' visible={errors.date ? true : false}>
+      <HelperText type="error" visible={errors.date ? true : false}>
         {i18n.t('createTaskScreen.dateHelperText')}
       </HelperText>
 
@@ -166,7 +201,7 @@ export default function TaskCreationScreen() {
         rules={{
           required: true,
         }}
-        render={({ field: { onBlur, onChange, value } }) => (
+        render={({field: {onBlur, onChange, value}}) => (
           <TimePickerInput
             ref={timeRef}
             onBlur={onBlur}
@@ -174,9 +209,9 @@ export default function TaskCreationScreen() {
             value={value as Time}
           />
         )}
-        name='time'
+        name="time"
       />
-      <HelperText type='error' visible={errors.time ? true : false}>
+      <HelperText type="error" visible={errors.time ? true : false}>
         {i18n.t('createTaskScreen.timeHelperText')}
       </HelperText>
       <Checkbox.Item
@@ -195,25 +230,24 @@ export default function TaskCreationScreen() {
               string | number | Time | CalendarDate | CyclicInterval
             >,
           }}
-          render={({ field: { onBlur, onChange, value } }) => (
+          render={({field: {onBlur, onChange, value}}) => (
             <CyclicTaskInputs
               onChange={onChange}
               onBlur={onBlur}
               value={value as CyclicInterval}
             />
           )}
-          name='cyclicInterval'
+          name="cyclicInterval"
         />
       )}
       <HelperText
-        type='error'
+        type="error"
         visible={
           isCyclicCheckboxChecked && errors.cyclicInterval ? true : false
-        }
-      >
+        }>
         {i18n.t('createTaskScreen.cyclicHelperText')}
       </HelperText>
-      <Button onPress={handleSubmit(onSubmit)} mode='outlined'>
+      <Button onPress={handleSubmit(onSubmit)} mode="outlined">
         {i18n.t('createTaskScreen.createTaskButton')}
       </Button>
     </ScrollView>

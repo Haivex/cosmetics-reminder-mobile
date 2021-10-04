@@ -1,13 +1,15 @@
-import * as React from 'react';
-import { Menu, IconButton } from 'react-native-paper';
-import { useDispatch } from 'react-redux';
+import auth from '@react-native-firebase/auth';
+import { useNavigation } from '@react-navigation/core';
 import i18n from 'i18n-js';
-import { logOut } from '../redux/LoginReducer';
-import firebase from 'firebase/app';
-import "firebase/auth";
-import "firebase/firestore";
+import * as React from 'react';
+import {IconButton, Menu} from 'react-native-paper';
+import PushNotification from 'react-native-push-notification';
+import {useDispatch} from 'react-redux';
+import Navigation from '../navigation';
+import {logOut} from '../redux/UserReducer';
 
 const AppSettings = () => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const [visibleMenu, setVisibleMenu] = React.useState(false);
 
@@ -18,16 +20,26 @@ const AppSettings = () => {
   return (
     <>
       <Menu
-        anchor={<IconButton icon='dots-vertical' onPress={openMenu} />}
+        anchor={<IconButton icon="cog-outline" onPress={openMenu} />}
         onDismiss={closeMenu}
-        visible={visibleMenu}
-      >
+        visible={visibleMenu}>
         <Menu.Item
           onPress={() => {
-            firebase.auth().signOut();
-            dispatch(logOut());
+            closeMenu();
+            auth()
+              .signOut()
+              .then(() => dispatch(logOut()));
           }}
           title={i18n.t('appSettings.logOut')}
+          icon="logout"
+        />
+        <Menu.Item
+          onPress={() => {
+            closeMenu();
+            navigation.navigate('NotificationsSettings');
+          }}
+          title={i18n.t('appSettings.notificationsSettings')}
+          icon="bell"
         />
       </Menu>
     </>

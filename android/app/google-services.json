@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "231511460067",
+    "firebase_url": "https://only-you-325811-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "only-you-325811",
+    "storage_bucket": "only-you-325811.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231511460067:android:b44a22d9bd7f1cafc9ddd6",
+        "android_client_info": {
+          "package_name": "com.cosmeticsremindermobileclear"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "231511460067-1o06c3m60pom9ha9lre03kgv0qae2a7p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cosmeticsremindermobileclear",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "231511460067-mdt6l95v5id047d7dhngmo8lprmelpah.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_JGznTLAdqx9E-whIdW0xVCsee5lsxQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "231511460067-mdt6l95v5id047d7dhngmo8lprmelpah.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "231511460067-td9o06gar790473eusb9dbdhsto7dreo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.haivex.OnlyYou"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

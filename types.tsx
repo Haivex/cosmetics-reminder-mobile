@@ -7,6 +7,7 @@ import * as React from 'react';
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
+  NotificationsSettings: undefined;
 };
 
 export type BottomTabParamList = {
