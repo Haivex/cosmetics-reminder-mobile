@@ -1,13 +1,12 @@
-import 'intl';
-import 'intl/locale-data/jsonp/pl';
-import 'intl/locale-data/jsonp/en';
-import * as React from 'react';
-import { TextInput } from 'react-native-paper';
-import { DatePickerModal } from 'react-native-paper-dates';
-import { format } from 'date-fns';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {format} from 'date-fns';
 import i18n from 'i18n-js';
-import { CalendarDate } from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
+import 'intl';
+import 'intl/locale-data/jsonp/en';
+import 'intl/locale-data/jsonp/pl';
+import * as React from 'react';
+import {TextInput} from 'react-native-paper';
+import {DatePickerModal} from 'react-native-paper-dates';
+import {CalendarDate} from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
 
 interface DatePickerInputProps {
   onBlur: () => void;
@@ -17,12 +16,14 @@ interface DatePickerInputProps {
 
 function getDatePattern() {
   const currentLocale = i18n.currentLocale();
-  if (currentLocale === 'en-US') return 'LL-dd-uu';
+  if (currentLocale === 'en-US') {
+    return 'LL-dd-uu';
+  }
   return 'dd-LL-uu';
 }
 
 const DatePickerInput = React.forwardRef<TextInput, DatePickerInputProps>(
-  ({ onBlur, onChange, value }: DatePickerInputProps, ref) => {
+  ({onBlur, onChange, value}: DatePickerInputProps, ref) => {
     const [open, setOpen] = React.useState(false);
 
     const onDismissSingle = React.useCallback(() => {
@@ -31,28 +32,27 @@ const DatePickerInput = React.forwardRef<TextInput, DatePickerInputProps>(
     }, [setOpen]);
 
     const onConfirmSingle = React.useCallback(
-      (params) => {
+      params => {
         setOpen(false);
         onChange(params.date);
       },
-      [setOpen]
+      [setOpen],
     );
     return (
       <>
         <TextInput
           showSoftInputOnFocus={false}
           caretHidden
-          right={<TextInput.Icon name='calendar' />}
+          right={<TextInput.Icon name="calendar" />}
           onFocus={() => setOpen(true)}
-          mode='outlined'
+          mode="outlined"
           placeholder={i18n.t('datePicker.label')}
-          ref={ref}
-        >
+          ref={ref}>
           {value ? format(value, getDatePattern()) : ''}
         </TextInput>
         <DatePickerModal
           locale={i18n.currentLocale()}
-          mode='single'
+          mode="single"
           visible={open}
           onDismiss={onDismissSingle}
           date={value}
@@ -62,7 +62,7 @@ const DatePickerInput = React.forwardRef<TextInput, DatePickerInputProps>(
         />
       </>
     );
-  }
+  },
 );
 
 export default DatePickerInput;

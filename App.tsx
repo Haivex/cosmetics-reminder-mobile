@@ -1,52 +1,82 @@
-import 'expo-dev-client';
-import { StatusBar } from 'expo-status-bar';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * Generated with the TypeScript template
+ * https://github.com/react-native-community/react-native-template-typescript
+ *
+ * @format
+ */
+
 import React from 'react';
-import 'react-native-gesture-handler';
-import { Provider as PaperProvider } from 'react-native-paper';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { darkTheme, lightTheme } from './constants/Theme';
-import useCachedResources from './hooks/useCachedResources';
-import useColorScheme from './hooks/useColorScheme';
-import Navigation from './navigation';
-import { Provider } from 'react-redux';
-import { store } from './redux/MainStore';
-import NotificationWrapper from './components/NotificationWrapper';
-import initTranslation from './translation/config';
+//import {useColorScheme} from 'react-native';
+import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
+import PushNotification from 'react-native-push-notification';
+//import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {Provider} from 'react-redux';
 import Authentication from './authentication/Authentication';
-import firebase from 'firebase/app';
-import "firebase/auth";
-import "firebase/firestore";
-import config from './firebase/config';
+import Navigation from './navigation/index';
+import {store} from './redux/MainStore';
+import initTranslation from './translation/config';
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'tomato',
+    accent: 'yellow',
+  },
+};
+
+PushNotification.configure({
+  onRegister: function (token) {
+    console.log('TOKEN:', token);
+  },
+  onNotification: function (notification) {
+    console.log('NOTIFICATION:', notification);
+
+    // process the notification
+
+    // (required) Called when a remote is received or opened, or local notification is opened
+    notification.finish('');
+  },
+  onAction: function (notification) {
+    console.log('ACTION:', notification.action);
+    console.log('NOTIFICATION:', notification);
+
+    // process the action
+  },
+});
+
+PushNotification.createChannel(
+  {
+    channelId: 'main', // (required)
+    channelName: 'Main', // (required)
+    channelDescription: 'Main channel for notifications', // (optional) default: undefined.
+  },
+  created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+);
 
 initTranslation();
 
-export default function App() {
-  const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
+const App = () => {
+  // const isDarkMode = useColorScheme() === 'dark';
 
-  if (!firebase.apps.length) {
-    console.log('Connected with Firebase')
-    firebase.initializeApp(config.firebaseWebConfig);
-  }
+  // const backgroundStyle = {
+  //   backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  // };
 
-  if (!isLoadingComplete) {
-    return null;
-  } else {
-    return (
-      <SafeAreaProvider>
-        <Provider store={store}>
-          <Authentication>
-            <NotificationWrapper>
-              <PaperProvider
-                theme={colorScheme === 'light' ? lightTheme : darkTheme}
-              >
-                <Navigation colorScheme={colorScheme} />
-                <StatusBar />
-              </PaperProvider>
-            </NotificationWrapper>
-          </Authentication>
-        </Provider>
-      </SafeAreaProvider>
-    );
-  }
-}
+  return (
+    // <SafeAreaView style={backgroundStyle}>
+    <Provider store={store}>
+      <PaperProvider theme={theme}>
+        <Authentication>
+          <Navigation colorScheme="light" />
+        </Authentication>
+        {/* <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} /> */}
+      </PaperProvider>
+    </Provider>
+    // </SafeAreaView>
+  );
+};
+
+export default App;

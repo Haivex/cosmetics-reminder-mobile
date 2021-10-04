@@ -4,7 +4,7 @@ import * as Facebook from 'expo-auth-session/providers/facebook';
 import { ResponseType } from 'expo-auth-session';
 import { Alert, Button } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
-import { UserInfo, logIn } from '../redux/LoginReducer';
+import { UserInfo, logIn } from '../redux/UserReducer';
 import { useDispatch } from 'react-redux';
 import { registration } from '../firebase/registration';
 import firebase from 'firebase/app';

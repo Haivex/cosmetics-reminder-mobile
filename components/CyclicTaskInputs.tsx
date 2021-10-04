@@ -1,7 +1,7 @@
-import * as React from 'react';
 import i18n from 'i18n-js';
-import { TextInput } from 'react-native-paper';
-import { View, Text } from 'react-native';
+import * as React from 'react';
+import {Text, View} from 'react-native';
+import {TextInput} from 'react-native-paper';
 
 interface CyclicDataInputProps {
   onBlur: () => void;
@@ -15,42 +15,38 @@ export type CyclicInterval = {
   minutes: number;
 };
 
-const CyclicTaskInputs = ({
-  onChange,
-  onBlur,
-  value
-}: CyclicDataInputProps) => {
+const CyclicTaskInputs = ({onChange, onBlur, value}: CyclicDataInputProps) => {
   return (
     <View>
       <Text>{i18n.t('createTaskScreen.cyclicInputs.days')}</Text>
       <TextInput
-        keyboardType='numeric'
+        keyboardType="numeric"
         onBlur={onBlur}
         onChangeText={(valueFromInputs: string) => {
-          onChange({ ...value, days: Number(valueFromInputs) });
+          onChange({...value, days: Number(valueFromInputs)});
         }}
         value={value?.days?.toString() || '0'}
-        mode='outlined'
+        mode="outlined"
       />
       <Text>{i18n.t('createTaskScreen.cyclicInputs.hours')}</Text>
       <TextInput
-        keyboardType='numeric'
+        keyboardType="numeric"
         onBlur={onBlur}
         onChangeText={(valueFromInput: string) => {
-          onChange({ ...value, hours: Number(valueFromInput) });
+          onChange({...value, hours: Number(valueFromInput)});
         }}
         value={value?.hours?.toString() || '0'}
-        mode='outlined'
+        mode="outlined"
       />
       <Text>{i18n.t('createTaskScreen.cyclicInputs.minutes')}</Text>
       <TextInput
-        keyboardType='numeric'
+        keyboardType="numeric"
         onBlur={onBlur}
         onChangeText={(valueFromInput: string) => {
-          onChange({ ...value, minutes: Number(valueFromInput) });
+          onChange({...value, minutes: Number(valueFromInput)});
         }}
         value={value?.minutes?.toString() || '0'}
-        mode='outlined'
+        mode="outlined"
       />
     </View>
   );

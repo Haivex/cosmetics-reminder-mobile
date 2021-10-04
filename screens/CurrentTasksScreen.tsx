@@ -1,67 +1,56 @@
-import * as React from 'react';
-import { StyleSheet, ScrollView, RefreshControl } from 'react-native';
-import { Text, View } from '../components/Themed';
-import { CurrentTask } from '../components/CurrentTask';
-import { IncomingTask } from '../components/IncomingTask';
-import { RootState } from '../redux/MainStore';
-import { useSelector } from 'react-redux';
 import i18n from 'i18n-js';
-import { set as updateDate } from 'date-fns';
-import { InteractionManager } from 'react-native';
+import * as React from 'react';
+import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {useSelector} from 'react-redux';
+import {CurrentTask} from '../components/CurrentTask';
+import {IncomingTask} from '../components/IncomingTask';
+import {RootState} from '../redux/MainStore';
 
 export default function CurrentTasksScreen() {
-  const { todos } = useSelector((state: RootState) => state.todos);
+  const {todos} = useSelector((state: RootState) => state.todos);
   const currentDate = new Date();
   const [ignored, forceUpdate] = React.useReducer(x => x + 1, 0);
 
   const getCurrentTasks = () => {
-    return todos.filter((task) => {
-      const taskDateWithTime = updateDate(task.date, {
-        hours: task.time.hours,
-        minutes: task.time.minutes
+    return todos
+      .filter(task => {
+        return !task.completed && task.date <= currentDate;
       })
-      return !task.completed && taskDateWithTime <= currentDate
-    }).sort((previousTask, currentTask) => {
-      const previousTaskDateWithTime = updateDate(previousTask.date, {
-        hours: previousTask.time.hours,
-        minutes: previousTask.time.minutes
-      })
-      const currentTaskDateWithTime = updateDate(currentTask.date, {
-        hours: currentTask.time.hours,
-        minutes: currentTask.time.minutes
-      })
-      return currentTaskDateWithTime.getTime() - previousTaskDateWithTime.getTime()
-    })
-  }
+      .sort((previousTask, currentTask) => {
+        return currentTask.date.getTime() - previousTask.date.getTime();
+      });
+  };
 
   const getIncomingTasks = () => {
-    return todos.filter((task) => {
-      const taskDateWithTime = updateDate(task.date, {
-        hours: task.time.hours,
-        minutes: task.time.minutes
+    return todos
+      .filter(task => {
+        return !task.completed && task.date > currentDate;
       })
-      return !task.completed && taskDateWithTime > currentDate}).sort((previousTask, currentTask) => {
-        const previousTaskDateWithTime = updateDate(previousTask.date, {
-          hours: previousTask.time.hours,
-          minutes: previousTask.time.minutes
-        })
-        const currentTaskDateWithTime = updateDate(currentTask.date, {
-          hours: currentTask.time.hours,
-          minutes: currentTask.time.minutes
-        })
-        return previousTaskDateWithTime.getTime() - currentTaskDateWithTime.getTime()
-      })
-  }
+      .sort((previousTask, currentTask) => {
+        return previousTask.date.getTime() - currentTask.date.getTime();
+      });
+  };
 
   return (
-    <ScrollView refreshControl={<RefreshControl refreshing={false} onRefresh={() => forceUpdate()} />}>
-      <Text style={styles.title}>{i18n.t('currentTasksScreen.currentTasksTitle')}</Text>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={false} onRefresh={() => forceUpdate()} />
+      }>
+      <Text style={styles.title}>
+        {i18n.t('currentTasksScreen.currentTasksTitle')}
+      </Text>
       <View>
-        {getCurrentTasks().map(task => <CurrentTask key={task.id} task={task} />)}
+        {getCurrentTasks().map(task => (
+          <CurrentTask key={task.id} task={task} />
+        ))}
       </View>
-      <Text style={styles.title}>{i18n.t('currentTasksScreen.incomingTasksTitle')}</Text>
+      <Text style={styles.title}>
+        {i18n.t('currentTasksScreen.incomingTasksTitle')}
+      </Text>
       <View>
-      {getIncomingTasks().map(task => <IncomingTask key={task.id} task={task} />)}
+        {getIncomingTasks().map(task => (
+          <IncomingTask key={task.id} task={task} />
+        ))}
       </View>
     </ScrollView>
   );
