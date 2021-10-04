@@ -17,6 +17,7 @@ import {
 } from 'react-native-paper';
 import {useDispatch} from 'react-redux';
 import { deleteTask } from '../firebase/deleteTask';
+import { renameTask } from '../firebase/renameTask';
 import {updateTaskCompletion} from '../firebase/updateTaskCompletion';
 import {deleteTodo, renameTodo, restoreTodo, Task} from '../redux/TodosReducer';
 //import { getNotificationByTaskId } from '../notificationsStorage/asyncStorage';
@@ -119,7 +120,9 @@ export const DoneTask = ({task}: DoneTaskProps) => {
             </Button>
             <Button
               onPress={() => {
-                dispatch(renameTodo({task, title: newTitle}));
+                renameTask(task.id, newTitle).then(() =>
+                  dispatch(renameTodo({task, title: newTitle})),
+                );
                 hideDialog();
               }}>
               {i18n.t('taskMenu.renameInput.changeButton')}
