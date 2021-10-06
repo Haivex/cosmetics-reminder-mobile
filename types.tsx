@@ -1,4 +1,6 @@
 import * as React from 'react';
+import {Task} from './redux/TodosReducer';
+import {StackScreenProps} from '@react-navigation/stack';
 /**
  * Learn more about using TypeScript with React Navigation:
  * https://reactnavigation.org/docs/typescript/
@@ -8,6 +10,7 @@ export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
   NotificationsSettings: undefined;
+  TaskEdition: Task;
 };
 
 export type BottomTabParamList = {
@@ -31,3 +34,8 @@ export type TabThreeParamList = {
 export type ChildrenProp = {
   children: React.ReactChild | React.ReactChild[];
 };
+
+export type NavigationProps = StackScreenProps<
+  RootStackParamList,
+  'TaskEdition'
+>;

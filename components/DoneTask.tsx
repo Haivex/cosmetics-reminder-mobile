@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/core';
 import {formatRelative} from 'date-fns';
 import {enGB, enIN, enUS, pl} from 'date-fns/locale';
 import i18n from 'i18n-js';
@@ -16,9 +17,10 @@ import {
   TextInput,
 } from 'react-native-paper';
 import {useDispatch} from 'react-redux';
-import { deleteTask } from '../firebase/deleteTask';
-import { renameTask } from '../firebase/renameTask';
+import {deleteTask} from '../firebase/deleteTask';
+import {renameTask} from '../firebase/renameTask';
 import {updateTaskCompletion} from '../firebase/updateTaskCompletion';
+import Navigation from '../navigation';
 import {deleteTodo, renameTodo, restoreTodo, Task} from '../redux/TodosReducer';
 //import { getNotificationByTaskId } from '../notificationsStorage/asyncStorage';
 
@@ -34,6 +36,7 @@ type DoneTaskProps = {
 };
 
 export const DoneTask = ({task}: DoneTaskProps) => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const [visibleMenu, setVisibleMenu] = React.useState(false);
   const [visibleDialog, setVisibleDialog] = React.useState(false);
@@ -98,6 +101,13 @@ export const DoneTask = ({task}: DoneTaskProps) => {
                 deleteTask(task.id).then(() => dispatch(deleteTodo(task)));
               }}
               title={i18n.t('taskMenu.deleteTask')}
+            />
+            <Menu.Item
+              onPress={() => {
+                closeMenu();
+                navigation.navigate('TaskEdition', task);
+              }}
+              title={i18n.t('taskMenu.editTask')}
             />
           </Menu>
         )}
