@@ -37,7 +37,8 @@
             "description": "Podaj nowy tytuł tego zadania",
             "cancelButton": "Anuluj",
             "changeButton": "Zmień"
-        }
+        },
+        "editTask": "Edytuj zadanie"
     },
     "bottomNavigation": {
         "createTaskTitle": "Utwórz zadanie",
@@ -59,5 +60,9 @@
     },
     "notificationsSettings": {
         "notificationsStatus": "Włącz/Wyłącz powiadomienia"
+    },
+    "editTaskScreen": {
+        "confirmButton": "Zatwierdź",
+        "title": "Edytuj zadanie"
     }
 }
