@@ -55,6 +55,9 @@ export default function TaskEditionScreen({
   });
 
   const onSubmit = (data: TaskData) => {
+    data.cyclicInterval = isCyclicCheckboxChecked
+      ? data.cyclicInterval
+      : undefined;
     console.log(data);
     const mergedDateAndTime = set(data.date as Date, data.time);
     const taskDataWithoutTime = {
@@ -64,7 +67,13 @@ export default function TaskEditionScreen({
     };
     editTask(task.id, taskDataWithoutTime)
       .then(() => {
-        dispatch(editTodo({...task, ...taskDataWithoutTime}));
+        dispatch(
+          editTodo({
+            id: task.id,
+            completed: task.completed,
+            ...taskDataWithoutTime,
+          }),
+        );
       })
       .then(() => {
         clearErrors();
