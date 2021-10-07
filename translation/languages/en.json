@@ -37,7 +37,8 @@
       "description": "Give a new title",
       "cancelButton": "Cancel",
       "changeButton": "Change"
-    }
+    },
+    "editTask": "Edit task"
   },
   "bottomNavigation": {
     "createTaskTitle": "Create task",
@@ -59,5 +60,9 @@
   },
   "notificationsSettings": {
     "notificationsStatus": "Turn on/off notifications"
+  },
+  "editTaskScreen": {
+    "confirmButton": "Confirm",
+    "title": "Edit task"
   }
 }

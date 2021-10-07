@@ -8,7 +8,7 @@ export type Task = {
   title: string;
   date: Date;
   completed: boolean;
-  cyclicInterval: CyclicInterval | undefined;
+  cyclicInterval?: CyclicInterval | undefined;
 };
 
 export type RenameTaskPayload = {
@@ -94,6 +94,14 @@ const todosSlice = createSlice({
     deleteTodo(state, action: PayloadAction<Task>) {
       state.todos = state.todos.filter(todo => todo.id !== action.payload.id);
     },
+    editTodo(state, action: PayloadAction<Task>) {
+      const index = state.todos.findIndex(
+        todo => todo.id === action.payload.id,
+      );
+      if (index !== -1) {
+        state.todos[index] = action.payload;
+      }
+    },
   },
   extraReducers: builder => {
     builder.addCase(fetchUserTasks.fulfilled, (state, action) => {
@@ -110,6 +118,12 @@ const todosSlice = createSlice({
   },
 });
 
-export const {addTodo, markTodoCompleted, restoreTodo, renameTodo, deleteTodo} =
-  todosSlice.actions;
+export const {
+  addTodo,
+  markTodoCompleted,
+  restoreTodo,
+  renameTodo,
+  deleteTodo,
+  editTodo,
+} = todosSlice.actions;
 export default todosSlice.reducer;

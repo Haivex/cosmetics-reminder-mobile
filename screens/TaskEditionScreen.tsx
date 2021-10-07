@@ -1,6 +1,3 @@
-//import { getNotifications, storeNotifications } from '../notificationsStorage/asyncStorage';
-import firestore from '@react-native-firebase/firestore';
-import {useNavigation} from '@react-navigation/native';
 import {set} from 'date-fns';
 import i18n from 'i18n-js';
 import * as React from 'react';
@@ -19,40 +16,30 @@ import {useDispatch} from 'react-redux';
 import CyclicTaskInputs, {CyclicInterval} from '../components/CyclicTaskInputs';
 import DatePickerInput from '../components/DatePickerInput';
 import TimePickerInput, {Time} from '../components/TimePickerInput';
-import {TaskDocument} from '../firebase/firestoreTypes';
-import {saveTask} from '../firebase/saveTask';
-import {
-  checkIfCyclicInterval,
-  convertCyclicIntervalToSeconds,
-} from '../helpers/intervalHelpers';
-import {addTodo, Task} from '../redux/TodosReducer';
+import {editTask} from '../firebase/editTask';
+import {checkIfCyclicInterval} from '../helpers/intervalHelpers';
+import {editTodo} from '../redux/TodosReducer';
 import '../translation/config';
-import Notifications from 'react-native-push-notification';
+import {NavigationProps} from '../types';
+import {TaskData} from './TaskCreationScreen';
 
-export type TaskData = {
-  date: CalendarDate;
-  time: Time;
-  title: string;
-  cyclicInterval?: CyclicInterval;
-};
-
-export interface SavedTask extends Task {
-  id: string;
-}
-
-const defaultTaskData: TaskData = {
-  cyclicInterval: undefined,
-  date: undefined,
-  time: {
-    hours: undefined,
-    minutes: undefined,
-  },
-  title: '',
-};
-
-export default function TaskCreationScreen() {
-  const navigation = useNavigation();
-  const [isCyclicCheckboxChecked, setCyclic] = React.useState(false);
+export default function TaskEditionScreen({
+  route,
+  navigation,
+}: NavigationProps) {
+  const task = route.params;
+  const defaultTaskData: TaskData = {
+    cyclicInterval: task.cyclicInterval,
+    date: task.date,
+    time: {
+      hours: task.date.getHours(),
+      minutes: task.date.getMinutes(),
+    },
+    title: task.title,
+  };
+  const [isCyclicCheckboxChecked, setCyclic] = React.useState(
+    task.cyclicInterval ? true : false,
+  );
   const dateRef = React.createRef<HTMLElement>();
   const timeRef = React.createRef<HTMLElement>();
   const dispatch = useDispatch();
@@ -78,65 +65,21 @@ export default function TaskCreationScreen() {
       date: mergedDateAndTime,
       time: undefined,
     };
-    saveTask(taskDataWithoutTime)
-      .then(savedTask => {
-        const id = savedTask.id;
-        const dataFromDb = savedTask.data() as TaskDocument;
-        //console.log(data);
+    editTask(task.id, taskDataWithoutTime)
+      .then(() => {
         dispatch(
-          addTodo({
-            ...dataFromDb,
-            date: new firestore.Timestamp(
-              dataFromDb.date.seconds,
-              dataFromDb.date.nanoseconds,
-            ).toDate(),
-            id,
-          } as SavedTask),
+          editTodo({
+            id: task.id,
+            completed: task.completed,
+            ...taskDataWithoutTime,
+          }),
         );
-        // Notifications.scheduleLocalNotification({
-        //   channelId: 'main',
-        //   title: 'Only You',
-        //   message: dataFromDb.title,
-        //   date: dataFromDb.date.toDate(),
-        //   repeatType: dataFromDb.cyclicInterval ? 'time' : undefined,
-        //   repeatTime: dataFromDb.cyclicInterval
-        //     ? convertCyclicIntervalToSeconds(dataFromDb.cyclicInterval) * 1000
-        //     : undefined,
-        // });
       })
       .then(() => {
         clearErrors();
         reset(defaultTaskData);
-        navigation.navigate('TabTwo');
+        navigation.goBack();
       });
-    // schedulePushNotification({
-    //   title: 'Only You',
-    //   body: savedTodo.title,
-    //   scheduledDate: updateDate(savedTodo.date as Date, {
-    //     hours: savedTodo.time.hours,
-    //     minutes: savedTodo.time.minutes,
-    //   }),
-    //   data: savedTodo && savedTodo.cyclicInterval ? savedTodo : undefined,
-    // }).then(async (notificationIdentifier) => {
-    //   const notifications = await getNotifications();
-    //   if (notifications) {
-    //     const newNotifications = [
-    //       ...notifications,
-    //       {
-    //         notificationIdentifier: notificationIdentifier,
-    //         taskId: savedTodo.id,
-    //       },
-    //     ];
-    //     storeNotifications(newNotifications);
-    //   } else {
-    //     storeNotifications([
-    //       {
-    //         notificationIdentifier: notificationIdentifier,
-    //         taskId: savedTodo.id,
-    //       },
-    //     ]);
-    //   }
-    // });
   };
 
   return (
@@ -252,7 +195,7 @@ export default function TaskCreationScreen() {
         {i18n.t('createTaskScreen.cyclicHelperText')}
       </HelperText>
       <Button onPress={handleSubmit(onSubmit)} mode="outlined">
-        {i18n.t('createTaskScreen.createTaskButton')}
+        {i18n.t('editTaskScreen.confirmButton')}
       </Button>
     </ScrollView>
   );

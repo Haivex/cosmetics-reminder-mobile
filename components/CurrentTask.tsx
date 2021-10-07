@@ -15,6 +15,8 @@ import {
   TextInput,
 } from 'react-native-paper';
 import {useDispatch} from 'react-redux';
+import {deleteTask} from '../firebase/deleteTask';
+import {renameTask} from '../firebase/renameTask';
 import {updateTaskCompletion} from '../firebase/updateTaskCompletion';
 import {
   deleteTodo,
@@ -97,7 +99,7 @@ export const CurrentTask = ({task}: CurrentTaskProps) => {
 
                 //     });
                 // }
-                dispatch(deleteTodo(task));
+                deleteTask(task.id).then(() => dispatch(deleteTodo(task)));
               }}
               title={i18n.t('taskMenu.deleteTask')}
             />
@@ -122,7 +124,9 @@ export const CurrentTask = ({task}: CurrentTaskProps) => {
             </Button>
             <Button
               onPress={() => {
-                dispatch(renameTodo({task, title: newTitle}));
+                renameTask(task.id, newTitle).then(() =>
+                  dispatch(renameTodo({task, title: newTitle})),
+                );
                 hideDialog();
               }}>
               {i18n.t('taskMenu.renameInput.changeButton')}
