@@ -15,6 +15,7 @@ import {
   TextInput,
 } from 'react-native-paper';
 import {CalendarDate} from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
+import Notifications from 'react-native-push-notification';
 import {useDispatch} from 'react-redux';
 import CyclicTaskInputs, {CyclicInterval} from '../components/CyclicTaskInputs';
 import DatePickerInput from '../components/DatePickerInput';
@@ -27,7 +28,6 @@ import {
 } from '../helpers/intervalHelpers';
 import {addTodo, Task} from '../redux/TodosReducer';
 import '../translation/config';
-import Notifications from 'react-native-push-notification';
 
 export type TaskData = {
   date: CalendarDate;
@@ -71,7 +71,6 @@ export default function TaskCreationScreen() {
     data.cyclicInterval = isCyclicCheckboxChecked
       ? data.cyclicInterval
       : undefined;
-    console.log(data);
     const mergedDateAndTime = set(data.date as Date, data.time);
     const taskDataWithoutTime = {
       ...data,
@@ -93,16 +92,19 @@ export default function TaskCreationScreen() {
             id,
           } as SavedTask),
         );
-        // Notifications.scheduleLocalNotification({
-        //   channelId: 'main',
-        //   title: 'Only You',
-        //   message: dataFromDb.title,
-        //   date: dataFromDb.date.toDate(),
-        //   repeatType: dataFromDb.cyclicInterval ? 'time' : undefined,
-        //   repeatTime: dataFromDb.cyclicInterval
-        //     ? convertCyclicIntervalToSeconds(dataFromDb.cyclicInterval) * 1000
-        //     : undefined,
-        // });
+        const notificationCreationTimestamp = Date.now();
+        Notifications.localNotificationSchedule({
+          channelId: 'main',
+          id: notificationCreationTimestamp,
+          title: 'Only You',
+          message: dataFromDb.title,
+          date: dataFromDb.date.toDate(),
+          allowWhileIdle: false,
+          repeatType: dataFromDb.cyclicInterval ? 'time' : undefined,
+          repeatTime: dataFromDb.cyclicInterval
+            ? convertCyclicIntervalToSeconds(dataFromDb.cyclicInterval) * 1000
+            : 1,
+        });
       })
       .then(() => {
         clearErrors();
