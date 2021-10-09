@@ -52,7 +52,7 @@ export const DoneTask = ({task}: DoneTaskProps) => {
 
   const closeMenu = () => setVisibleMenu(false);
 
-  const formattedTime = formatRelative(task.date, new Date(), {
+  const formattedTime = formatRelative(task.timestamp, new Date(), {
     locale: localesMap.get(i18n.currentLocale()) || enUS,
   });
 

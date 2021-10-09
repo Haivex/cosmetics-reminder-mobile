@@ -49,7 +49,7 @@ export const IncomingTask = ({task}: CurrentTaskProps) => {
   const closeMenu = () => setVisibleMenu(false);
 
   const formattedTime = formatRelative(
-    updateDate(task.date, {
+    updateDate(task.timestamp, {
       ...task.time,
     }),
     new Date(),

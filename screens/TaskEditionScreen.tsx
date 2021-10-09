@@ -30,10 +30,10 @@ export default function TaskEditionScreen({
   const task = route.params;
   const defaultTaskData: TaskData = {
     cyclicInterval: task.cyclicInterval,
-    date: task.date,
+    date: task.timestamp,
     time: {
-      hours: task.date.getHours(),
-      minutes: task.date.getMinutes(),
+      hours: task.timestamp.getHours(),
+      minutes: task.timestamp.getMinutes(),
     },
     title: task.title,
   };

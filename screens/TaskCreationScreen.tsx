@@ -85,10 +85,10 @@ export default function TaskCreationScreen() {
         dispatch(
           addTodo({
             ...dataFromDb,
-            date: new firestore.Timestamp(
+            timestamp: new firestore.Timestamp(
               dataFromDb.date.seconds,
               dataFromDb.date.nanoseconds,
-            ).toDate(),
+            ).toMillis(),
             id,
           } as SavedTask),
         );

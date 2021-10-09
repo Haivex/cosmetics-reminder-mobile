@@ -8,26 +8,26 @@ import {RootState} from '../redux/MainStore';
 
 export default function CurrentTasksScreen() {
   const {todos} = useSelector((state: RootState) => state.todos);
-  const currentDate = new Date();
+  const currentTimestamp = Date.now();
   const [ignored, forceUpdate] = React.useReducer(x => x + 1, 0);
 
   const getCurrentTasks = () => {
     return todos
       .filter(task => {
-        return !task.completed && task.date <= currentDate;
+        return !task.completed && task.timestamp <= currentTimestamp;
       })
       .sort((previousTask, currentTask) => {
-        return currentTask.date.getTime() - previousTask.date.getTime();
+        return currentTask.timestamp - previousTask.timestamp;
       });
   };
 
   const getIncomingTasks = () => {
     return todos
       .filter(task => {
-        return !task.completed && task.date > currentDate;
+        return !task.completed && task.timestamp > currentTimestamp;
       })
       .sort((previousTask, currentTask) => {
-        return previousTask.date.getTime() - currentTask.date.getTime();
+        return previousTask.timestamp - currentTask.timestamp;
       });
   };
 

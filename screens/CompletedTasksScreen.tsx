@@ -11,7 +11,7 @@ export default function CompletedTasksScreen() {
     return todos
       .filter(task => task.completed)
       .sort((previousTask, currentTask) => {
-        return currentTask.date.getTime() - previousTask.date.getTime();
+        return currentTask.timestamp - previousTask.timestamp;
       });
   };
 

@@ -53,13 +53,9 @@ export const IncomingTask = ({task}: CurrentTaskProps) => {
 
   const closeMenu = () => setVisibleMenu(false);
 
-  const formattedTime = formatRelative(
-    updateDate(task.date, {
-      ...task.time,
-    }),
-    new Date(),
-    {locale: localesMap.get(i18n.currentLocale()) || enUS},
-  );
+  const formattedTime = formatRelative(task.timestamp, new Date(), {
+    locale: localesMap.get(i18n.currentLocale()) || enUS,
+  });
 
   return (
     <View>
