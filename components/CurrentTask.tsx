@@ -24,7 +24,8 @@ import {
   renameTodo,
   Task,
 } from '../redux/TodosReducer';
-//import * as Notifications from 'expo-notifications';
+import Notifications from 'react-native-push-notification';
+import {storage} from '../App';
 //import { getNotificationByTaskId } from '../notificationsStorage/asyncStorage';
 
 const localesMap = new Map<string, Locale>([
@@ -87,19 +88,19 @@ export const CurrentTask = ({task}: CurrentTaskProps) => {
             />
             <Menu.Item
               onPress={async () => {
-                // const notification = await getNotificationByTaskId(task.id);
-                // if (notification) {
-                //   Notifications.cancelScheduledNotificationAsync(
-                //     notification.notificationIdentifier
-                //   )
-                //     .then((notif) => {
-
-                //     })
-                //     .catch((err) => {
-
-                //     });
-                // }
-                deleteTask(task.id).then(() => dispatch(deleteTodo(task)));
+                deleteTask(task.id).then(() => {
+                  dispatch(deleteTodo(task));
+                  const storedNotifications = JSON.parse(
+                    storage.getString('notifications') as string,
+                  ).notifications as [];
+                  const currentNotification = storedNotifications.find(
+                    el => el.taskId === task.id,
+                  );
+                  console.log(currentNotification);
+                  Notifications.cancelLocalNotification(
+                    currentNotification.notificationId.toString(),
+                  );
+                });
               }}
               title={i18n.t('taskMenu.deleteTask')}
             />

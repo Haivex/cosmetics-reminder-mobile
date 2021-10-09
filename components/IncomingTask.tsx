@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {formatRelative, set as updateDate} from 'date-fns';
 import {enGB, enIN, enUS, pl} from 'date-fns/locale';
 import i18n from 'i18n-js';
@@ -15,6 +15,7 @@ import {
   Portal,
   TextInput,
 } from 'react-native-paper';
+import Notifications from 'react-native-push-notification';
 import {useDispatch} from 'react-redux';
 import {deleteTask} from '../firebase/deleteTask';
 import {renameTask} from '../firebase/renameTask';
@@ -25,7 +26,6 @@ import {
   renameTodo,
   Task,
 } from '../redux/TodosReducer';
-
 const localesMap = new Map<string, Locale>([
   ['pl', pl],
   ['en-US', enUS],
@@ -104,7 +104,10 @@ export const IncomingTask = ({task}: CurrentTaskProps) => {
 
                 //     });
                 // }
-                deleteTask(task.id).then(() => dispatch(deleteTodo(task)));
+                deleteTask(task.id).then(() => {
+                  dispatch(deleteTodo(task));
+                  Notifications.cancelLocalNotification(Number(1).toString());
+                });
               }}
               title={i18n.t('taskMenu.deleteTask')}
             />

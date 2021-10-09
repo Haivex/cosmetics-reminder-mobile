@@ -28,7 +28,7 @@ import {
 } from '../helpers/intervalHelpers';
 import {addTodo, Task} from '../redux/TodosReducer';
 import '../translation/config';
-
+import {storage} from '../App';
 export type TaskData = {
   date: CalendarDate;
   time: Time;
@@ -105,6 +105,16 @@ export default function TaskCreationScreen() {
             ? convertCyclicIntervalToSeconds(dataFromDb.cyclicInterval) * 1000
             : 1,
         });
+        storage.clearAll();
+        storage.set('notifications', JSON.stringify({notifications: []}));
+        const storedNotifications = JSON.parse(
+          storage.getString('notifications') || '',
+        );
+        storedNotifications.notifications.push({
+          taskId: id,
+          notificationId: notificationCreationTimestamp,
+        });
+        storage.set('notifications', JSON.stringify(storedNotifications));
       })
       .then(() => {
         clearErrors();
