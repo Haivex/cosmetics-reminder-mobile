@@ -26,9 +26,9 @@ import {
   checkIfCyclicInterval,
   convertCyclicIntervalToSeconds,
 } from '../helpers/intervalHelpers';
+import {addNotification} from '../redux/NotificationsReducer';
 import {addTodo, Task} from '../redux/TodosReducer';
 import '../translation/config';
-import {storage} from '../App';
 export type TaskData = {
   date: CalendarDate;
   time: Time;
@@ -81,7 +81,6 @@ export default function TaskCreationScreen() {
       .then(savedTask => {
         const id = savedTask.id;
         const dataFromDb = savedTask.data() as TaskDocument;
-        //console.log(data);
         dispatch(
           addTodo({
             ...dataFromDb,
@@ -105,16 +104,11 @@ export default function TaskCreationScreen() {
             ? convertCyclicIntervalToSeconds(dataFromDb.cyclicInterval) * 1000
             : 1,
         });
-        storage.clearAll();
-        storage.set('notifications', JSON.stringify({notifications: []}));
-        const storedNotifications = JSON.parse(
-          storage.getString('notifications') || '',
-        );
-        storedNotifications.notifications.push({
+        const notificationToStore = {
           taskId: id,
           notificationId: notificationCreationTimestamp,
-        });
-        storage.set('notifications', JSON.stringify(storedNotifications));
+        };
+        dispatch(addNotification(notificationToStore));
       })
       .then(() => {
         clearErrors();
