@@ -27,7 +27,7 @@ const FacebookAuthentication = () => {
         const response = await fetch(
           `https://graph.facebook.com/me?access_token=${token}`
         );
-        //console.log('Logged in!', `Hi ${(await response.json()).name}!`);
+        
 
         if (process.env.EXPO_AUTH_STATE_KEY === undefined) {
           throw new Error('No EXPO_AUTH_STATE_KEY env');

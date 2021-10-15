@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/core';
+import {useNavigation} from '@react-navigation/core';
 import {formatRelative} from 'date-fns';
 import {enGB, enIN, enUS, pl} from 'date-fns/locale';
 import i18n from 'i18n-js';
@@ -16,13 +16,15 @@ import {
   Portal,
   TextInput,
 } from 'react-native-paper';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {deleteTask} from '../firebase/deleteTask';
 import {renameTask} from '../firebase/renameTask';
 import {updateTaskCompletion} from '../firebase/updateTaskCompletion';
 import Navigation from '../navigation';
 import {deleteTodo, renameTodo, restoreTodo, Task} from '../redux/TodosReducer';
 //import { getNotificationByTaskId } from '../notificationsStorage/asyncStorage';
+import Notifications from 'react-native-push-notification';
+import { RootState } from '../redux/MainStore';
 
 const localesMap = new Map<string, Locale>([
   ['pl', pl],
@@ -38,6 +40,12 @@ type DoneTaskProps = {
 export const DoneTask = ({task}: DoneTaskProps) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const {storedNotifications} = useSelector(
+    (state: RootState) => state.notifications,
+  );
+  const storedNotification = storedNotifications.find(
+    notification => notification.taskId === task.id,
+  );
   const [visibleMenu, setVisibleMenu] = React.useState(false);
   const [visibleDialog, setVisibleDialog] = React.useState(false);
 
@@ -51,7 +59,7 @@ export const DoneTask = ({task}: DoneTaskProps) => {
 
   const closeMenu = () => setVisibleMenu(false);
 
-  const formattedTime = formatRelative(task.date, new Date(), {
+  const formattedTime = formatRelative(task.timestamp, new Date(), {
     locale: localesMap.get(i18n.currentLocale()) || enUS,
   });
 
@@ -98,7 +106,12 @@ export const DoneTask = ({task}: DoneTaskProps) => {
 
                 //     });
                 // }
-                deleteTask(task.id).then(() => dispatch(deleteTodo(task)));
+                deleteTask(task.id).then(() => {
+                  dispatch(deleteTodo(task));
+                  Notifications.cancelLocalNotification(
+                    storedNotification?.notificationId.toString() || '',
+                  );
+                });
               }}
               title={i18n.t('taskMenu.deleteTask')}
             />

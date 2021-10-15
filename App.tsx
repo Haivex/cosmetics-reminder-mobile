@@ -16,8 +16,10 @@ import PushNotification from 'react-native-push-notification';
 import {Provider} from 'react-redux';
 import Authentication from './authentication/Authentication';
 import Navigation from './navigation/index';
-import {store} from './redux/MainStore';
+import {persistor, store} from './redux/MainStore';
 import initTranslation from './translation/config';
+import {MMKV} from 'react-native-mmkv';
+import {PersistGate} from 'redux-persist/integration/react';
 const theme = {
   ...DefaultTheme,
   colors: {
@@ -56,6 +58,8 @@ PushNotification.createChannel(
   created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
 );
 
+export const storage = new MMKV();
+
 initTranslation();
 
 const App = () => {
@@ -68,12 +72,14 @@ const App = () => {
   return (
     // <SafeAreaView style={backgroundStyle}>
     <Provider store={store}>
-      <PaperProvider theme={theme}>
-        <Authentication>
-          <Navigation colorScheme="light" />
-        </Authentication>
-        {/* <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} /> */}
-      </PaperProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <PaperProvider theme={theme}>
+          <Authentication>
+            <Navigation colorScheme="light" />
+          </Authentication>
+          {/* <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} /> */}
+        </PaperProvider>
+      </PersistGate>
     </Provider>
     // </SafeAreaView>
   );

@@ -15,6 +15,7 @@ import {
   TextInput,
 } from 'react-native-paper';
 import {CalendarDate} from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
+import Notifications from 'react-native-push-notification';
 import {useDispatch} from 'react-redux';
 import CyclicTaskInputs, {CyclicInterval} from '../components/CyclicTaskInputs';
 import DatePickerInput from '../components/DatePickerInput';
@@ -25,10 +26,9 @@ import {
   checkIfCyclicInterval,
   convertCyclicIntervalToSeconds,
 } from '../helpers/intervalHelpers';
+import {addNotification} from '../redux/NotificationsReducer';
 import {addTodo, Task} from '../redux/TodosReducer';
 import '../translation/config';
-import Notifications from 'react-native-push-notification';
-
 export type TaskData = {
   date: CalendarDate;
   time: Time;
@@ -71,7 +71,6 @@ export default function TaskCreationScreen() {
     data.cyclicInterval = isCyclicCheckboxChecked
       ? data.cyclicInterval
       : undefined;
-    console.log(data);
     const mergedDateAndTime = set(data.date as Date, data.time);
     const taskDataWithoutTime = {
       ...data,
@@ -82,27 +81,34 @@ export default function TaskCreationScreen() {
       .then(savedTask => {
         const id = savedTask.id;
         const dataFromDb = savedTask.data() as TaskDocument;
-        //console.log(data);
         dispatch(
           addTodo({
             ...dataFromDb,
-            date: new firestore.Timestamp(
+            timestamp: new firestore.Timestamp(
               dataFromDb.date.seconds,
               dataFromDb.date.nanoseconds,
-            ).toDate(),
+            ).toMillis(),
             id,
           } as SavedTask),
         );
-        // Notifications.scheduleLocalNotification({
-        //   channelId: 'main',
-        //   title: 'Only You',
-        //   message: dataFromDb.title,
-        //   date: dataFromDb.date.toDate(),
-        //   repeatType: dataFromDb.cyclicInterval ? 'time' : undefined,
-        //   repeatTime: dataFromDb.cyclicInterval
-        //     ? convertCyclicIntervalToSeconds(dataFromDb.cyclicInterval) * 1000
-        //     : undefined,
-        // });
+        const notificationCreationTimestamp = Date.now();
+        Notifications.localNotificationSchedule({
+          channelId: 'main',
+          id: notificationCreationTimestamp,
+          title: 'Only You',
+          message: dataFromDb.title,
+          date: dataFromDb.date.toDate(),
+          allowWhileIdle: false,
+          repeatType: dataFromDb.cyclicInterval ? 'time' : undefined,
+          repeatTime: dataFromDb.cyclicInterval
+            ? convertCyclicIntervalToSeconds(dataFromDb.cyclicInterval) * 1000
+            : 1,
+        });
+        const notificationToStore = {
+          taskId: id,
+          notificationId: notificationCreationTimestamp,
+        };
+        dispatch(addNotification(notificationToStore));
       })
       .then(() => {
         clearErrors();

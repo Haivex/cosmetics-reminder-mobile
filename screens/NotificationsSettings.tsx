@@ -3,6 +3,7 @@ import React from 'react';
 import {ScrollView} from 'react-native';
 import {Button, List} from 'react-native-paper';
 import Notifications from 'react-native-push-notification';
+import {storage} from '../App';
 import NotificationsStatus from '../components/NotificationsStatus';
 const NotificationsSettings = () => {
   return (
@@ -45,6 +46,14 @@ const NotificationsSettings = () => {
         }}
         mode="outlined">
         Cancel notifications
+      </Button>
+      <Button
+        mode="outlined"
+        onPress={() => {
+          storage.clearAll();
+          console.log('Storage cleared');
+        }}>
+        Clear storage
       </Button>
     </ScrollView>
   );
