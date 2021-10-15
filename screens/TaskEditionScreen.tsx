@@ -58,7 +58,6 @@ export default function TaskEditionScreen({
     data.cyclicInterval = isCyclicCheckboxChecked
       ? data.cyclicInterval
       : undefined;
-    console.log(data);
     const mergedDateAndTime = set(data.date as Date, data.time);
     const taskDataWithoutTime = {
       ...data,

@@ -21,29 +21,7 @@ export type AppState = {
 };
 
 export const globalState: AppState = {
-  todos: [
-    {
-      id: '0',
-      title: 'Learn React',
-      timestamp: new Date().getTime(),
-      completed: true,
-      cyclicInterval: undefined,
-    },
-    {
-      id: '1',
-      title: 'Learn Redux',
-      timestamp: new Date(2022, 7, 20, 13, 50).getTime(),
-      completed: false,
-      cyclicInterval: undefined,
-    },
-    {
-      id: '2',
-      title: 'Build something fun!',
-      timestamp: new Date(2021, 5, 13, 14, 50).getTime(),
-      completed: false,
-      cyclicInterval: undefined,
-    },
-  ],
+  todos: [],
 };
 
 export const fetchUserTasks = createAsyncThunk(
