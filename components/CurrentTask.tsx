@@ -24,9 +24,9 @@ import {
   renameTodo,
   Task,
 } from '../redux/TodosReducer';
+import {RootState} from '../redux/MainStore';
 import Notifications from 'react-native-push-notification';
-import {storage} from '../App';
-//import { getNotificationByTaskId } from '../notificationsStorage/asyncStorage';
+import {useSelector} from 'react-redux';
 
 const localesMap = new Map<string, Locale>([
   ['pl', pl],
@@ -41,6 +41,12 @@ type CurrentTaskProps = {
 
 export const CurrentTask = ({task}: CurrentTaskProps) => {
   const dispatch = useDispatch();
+  const {storedNotifications} = useSelector(
+    (state: RootState) => state.notifications,
+  );
+  const storedNotification = storedNotifications.find(
+    notification => notification.taskId === task.id,
+  );
   const [visibleMenu, setVisibleMenu] = React.useState(false);
   const [visibleDialog, setVisibleDialog] = React.useState(false);
 
@@ -90,15 +96,8 @@ export const CurrentTask = ({task}: CurrentTaskProps) => {
               onPress={async () => {
                 deleteTask(task.id).then(() => {
                   dispatch(deleteTodo(task));
-                  const storedNotifications = JSON.parse(
-                    storage.getString('notifications') as string,
-                  ).notifications as [];
-                  const currentNotification = storedNotifications.find(
-                    el => el.taskId === task.id,
-                  );
-                  console.log(currentNotification);
                   Notifications.cancelLocalNotification(
-                    currentNotification.notificationId.toString(),
+                    storedNotification?.notificationId.toString() || '',
                   );
                 });
               }}

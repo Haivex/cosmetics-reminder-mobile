@@ -16,10 +16,11 @@ import {
   TextInput,
 } from 'react-native-paper';
 import Notifications from 'react-native-push-notification';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {deleteTask} from '../firebase/deleteTask';
 import {renameTask} from '../firebase/renameTask';
 import {updateTaskCompletion} from '../firebase/updateTaskCompletion';
+import { RootState } from '../redux/MainStore';
 import {
   deleteTodo,
   markTodoCompleted,
@@ -40,6 +41,15 @@ type CurrentTaskProps = {
 export const IncomingTask = ({task}: CurrentTaskProps) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const globalState = useSelector((state: RootState) => state);
+  console.log(globalState);
+  const {storedNotifications} = useSelector(
+    (state: RootState) => state.notifications,
+  );
+  console.log(storedNotifications);
+  const storedNotification = storedNotifications.find(
+    notification => notification.taskId === task.id,
+  );
   const [visibleMenu, setVisibleMenu] = React.useState(false);
   const [visibleDialog, setVisibleDialog] = React.useState(false);
 
@@ -87,22 +97,11 @@ export const IncomingTask = ({task}: CurrentTaskProps) => {
             />
             <Menu.Item
               onPress={async () => {
-                // const notification = await getNotificationByTaskId(task.id);
-
-                // if (notification) {
-                //   Notifications.cancelScheduledNotificationAsync(
-                //     notification.notificationIdentifier
-                //   )
-                //     .then((notif) => {
-
-                //     })
-                //     .catch((err) => {
-
-                //     });
-                // }
                 deleteTask(task.id).then(() => {
                   dispatch(deleteTodo(task));
-                  Notifications.cancelLocalNotification(Number(1).toString());
+                  Notifications.cancelLocalNotification(
+                    storedNotification?.notificationId.toString() || '',
+                  );
                 });
               }}
               title={i18n.t('taskMenu.deleteTask')}
