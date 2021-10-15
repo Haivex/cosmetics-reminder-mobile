@@ -42,11 +42,9 @@ export const IncomingTask = ({task}: CurrentTaskProps) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const globalState = useSelector((state: RootState) => state);
-  console.log(globalState);
   const {storedNotifications} = useSelector(
     (state: RootState) => state.notifications,
   );
-  console.log(storedNotifications);
   const storedNotification = storedNotifications.find(
     notification => notification.taskId === task.id,
   );
