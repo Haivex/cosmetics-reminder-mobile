@@ -6,7 +6,7 @@ import {SavedTask} from '../screens/TaskCreationScreen';
 export type Task = {
   id: string;
   title: string;
-  date: Date;
+  timestamp: number;
   completed: boolean;
   cyclicInterval?: CyclicInterval | undefined;
 };
@@ -21,29 +21,7 @@ export type AppState = {
 };
 
 export const globalState: AppState = {
-  todos: [
-    {
-      id: '0',
-      title: 'Learn React',
-      date: new Date(),
-      completed: true,
-      cyclicInterval: undefined,
-    },
-    {
-      id: '1',
-      title: 'Learn Redux',
-      date: new Date(2022, 7, 20, 13, 50),
-      completed: false,
-      cyclicInterval: undefined,
-    },
-    {
-      id: '2',
-      title: 'Build something fun!',
-      date: new Date(2021, 5, 13, 14, 50),
-      completed: false,
-      cyclicInterval: undefined,
-    },
-  ],
+  todos: [],
 };
 
 export const fetchUserTasks = createAsyncThunk(
@@ -61,7 +39,7 @@ const todosSlice = createSlice({
         {
           id: action.payload.id,
           title: action.payload.title,
-          date: new Date(action.payload.date as Date),
+          timestamp: action.payload.timestamp,
           completed: false,
           cyclicInterval: action.payload.cyclicInterval,
         },
@@ -108,10 +86,10 @@ const todosSlice = createSlice({
       const fetchedTasks = action.payload;
       const tasksWithJavascriptDate = fetchedTasks.map(task => ({
         ...task,
-        date: new firestore.Timestamp(
+        timestamp: new firestore.Timestamp(
           task.date.seconds,
           task.date.nanoseconds,
-        ).toDate(),
+        ).toMillis(),
       }));
       state.todos = [...state.todos, ...tasksWithJavascriptDate];
     });

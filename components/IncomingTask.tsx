@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {formatRelative, set as updateDate} from 'date-fns';
 import {enGB, enIN, enUS, pl} from 'date-fns/locale';
 import i18n from 'i18n-js';
@@ -15,17 +15,18 @@ import {
   Portal,
   TextInput,
 } from 'react-native-paper';
-import {useDispatch} from 'react-redux';
+import Notifications from 'react-native-push-notification';
+import {useDispatch, useSelector} from 'react-redux';
 import {deleteTask} from '../firebase/deleteTask';
 import {renameTask} from '../firebase/renameTask';
 import {updateTaskCompletion} from '../firebase/updateTaskCompletion';
+import { RootState } from '../redux/MainStore';
 import {
   deleteTodo,
   markTodoCompleted,
   renameTodo,
   Task,
 } from '../redux/TodosReducer';
-
 const localesMap = new Map<string, Locale>([
   ['pl', pl],
   ['en-US', enUS],
@@ -40,6 +41,15 @@ type CurrentTaskProps = {
 export const IncomingTask = ({task}: CurrentTaskProps) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const globalState = useSelector((state: RootState) => state);
+  console.log(globalState);
+  const {storedNotifications} = useSelector(
+    (state: RootState) => state.notifications,
+  );
+  console.log(storedNotifications);
+  const storedNotification = storedNotifications.find(
+    notification => notification.taskId === task.id,
+  );
   const [visibleMenu, setVisibleMenu] = React.useState(false);
   const [visibleDialog, setVisibleDialog] = React.useState(false);
 
@@ -53,13 +63,9 @@ export const IncomingTask = ({task}: CurrentTaskProps) => {
 
   const closeMenu = () => setVisibleMenu(false);
 
-  const formattedTime = formatRelative(
-    updateDate(task.date, {
-      ...task.time,
-    }),
-    new Date(),
-    {locale: localesMap.get(i18n.currentLocale()) || enUS},
-  );
+  const formattedTime = formatRelative(task.timestamp, new Date(), {
+    locale: localesMap.get(i18n.currentLocale()) || enUS,
+  });
 
   return (
     <View>
@@ -91,20 +97,12 @@ export const IncomingTask = ({task}: CurrentTaskProps) => {
             />
             <Menu.Item
               onPress={async () => {
-                // const notification = await getNotificationByTaskId(task.id);
-
-                // if (notification) {
-                //   Notifications.cancelScheduledNotificationAsync(
-                //     notification.notificationIdentifier
-                //   )
-                //     .then((notif) => {
-
-                //     })
-                //     .catch((err) => {
-
-                //     });
-                // }
-                deleteTask(task.id).then(() => dispatch(deleteTodo(task)));
+                deleteTask(task.id).then(() => {
+                  dispatch(deleteTodo(task));
+                  Notifications.cancelLocalNotification(
+                    storedNotification?.notificationId.toString() || '',
+                  );
+                });
               }}
               title={i18n.t('taskMenu.deleteTask')}
             />

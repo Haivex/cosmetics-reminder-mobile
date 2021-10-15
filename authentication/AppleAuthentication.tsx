@@ -77,7 +77,7 @@ export default function AppleAuthentication() {
         //     ],
         //   });
         //   // signed in
-        //   //console.log('Successful logged: ', credential.user);
+        //   
 
         //   if (process.env.EXPO_AUTH_STATE_KEY === undefined) {
         //     throw new Error('No EXPO_AUTH_STATE_KEY env');

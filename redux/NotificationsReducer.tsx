@@ -1,8 +1,19 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import Notifications from 'react-native-push-notification';
-import firebase from '@react-native-firebase/app';
-const initialState = {
+
+interface StoredNotification {
+  notificationId: number;
+  taskId: string;
+}
+
+interface NotificationState {
+  notificationsStatus: boolean;
+  storedNotifications: StoredNotification[];
+}
+
+const initialState: NotificationState = {
   notificationsStatus: false,
+  storedNotifications: [{notificationId: 1, taskId: '1'}],
 };
 
 export const toggleNotificationsStatus = createAsyncThunk(
@@ -34,16 +45,21 @@ const notificationsSlice = createSlice({
   initialState: initialState,
   name: 'notifications',
   reducers: {
-    togglePermission: (state, action: PayloadAction<boolean>) => {
+    togglePermission(state, action: PayloadAction<boolean>) {
       state.notificationsStatus = action.payload;
+    },
+    addNotification(state, action: PayloadAction<StoredNotification>) {
+      state.storedNotifications = [
+        ...state.storedNotifications,
+        action.payload,
+      ];
     },
   },
   extraReducers: builder => {
     builder.addCase(toggleNotificationsStatus.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.notificationsStatus = action.payload;
     });
   },
 });
-export const {togglePermission} = notificationsSlice.actions;
+export const {togglePermission, addNotification} = notificationsSlice.actions;
 export default notificationsSlice.reducer;

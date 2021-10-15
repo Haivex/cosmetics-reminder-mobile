@@ -24,8 +24,9 @@ import {
   renameTodo,
   Task,
 } from '../redux/TodosReducer';
-//import * as Notifications from 'expo-notifications';
-//import { getNotificationByTaskId } from '../notificationsStorage/asyncStorage';
+import {RootState} from '../redux/MainStore';
+import Notifications from 'react-native-push-notification';
+import {useSelector} from 'react-redux';
 
 const localesMap = new Map<string, Locale>([
   ['pl', pl],
@@ -40,6 +41,12 @@ type CurrentTaskProps = {
 
 export const CurrentTask = ({task}: CurrentTaskProps) => {
   const dispatch = useDispatch();
+  const {storedNotifications} = useSelector(
+    (state: RootState) => state.notifications,
+  );
+  const storedNotification = storedNotifications.find(
+    notification => notification.taskId === task.id,
+  );
   const [visibleMenu, setVisibleMenu] = React.useState(false);
   const [visibleDialog, setVisibleDialog] = React.useState(false);
 
@@ -53,7 +60,7 @@ export const CurrentTask = ({task}: CurrentTaskProps) => {
 
   const closeMenu = () => setVisibleMenu(false);
 
-  const formattedTime = formatRelative(task.date, new Date(), {
+  const formattedTime = formatRelative(task.timestamp, new Date(), {
     locale: localesMap.get(i18n.currentLocale()) || enUS,
   });
 
@@ -87,19 +94,12 @@ export const CurrentTask = ({task}: CurrentTaskProps) => {
             />
             <Menu.Item
               onPress={async () => {
-                // const notification = await getNotificationByTaskId(task.id);
-                // if (notification) {
-                //   Notifications.cancelScheduledNotificationAsync(
-                //     notification.notificationIdentifier
-                //   )
-                //     .then((notif) => {
-
-                //     })
-                //     .catch((err) => {
-
-                //     });
-                // }
-                deleteTask(task.id).then(() => dispatch(deleteTodo(task)));
+                deleteTask(task.id).then(() => {
+                  dispatch(deleteTodo(task));
+                  Notifications.cancelLocalNotification(
+                    storedNotification?.notificationId.toString() || '',
+                  );
+                });
               }}
               title={i18n.t('taskMenu.deleteTask')}
             />
