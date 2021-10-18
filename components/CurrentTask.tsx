@@ -28,6 +28,7 @@ import {RootState} from '../redux/RootReducer';
 import Notifications from 'react-native-push-notification';
 import {useSelector} from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
+import {TaskDocument} from '../firebase/firestoreTypes';
 
 const localesMap = new Map<string, Locale>([
   ['pl', pl],
@@ -37,7 +38,7 @@ const localesMap = new Map<string, Locale>([
 ]);
 
 type CurrentTaskProps = {
-  task: Task;
+  task: TaskDocument;
 };
 
 export const CurrentTask = ({task}: CurrentTaskProps) => {

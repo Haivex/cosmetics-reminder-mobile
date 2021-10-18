@@ -2,7 +2,7 @@ import i18n from 'i18n-js';
 import * as React from 'react';
 import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
-import {useFirebase, useFirestoreConnect} from 'react-redux-firebase';
+import {useFirestoreConnect} from 'react-redux-firebase';
 import {CurrentTask} from '../components/CurrentTask';
 import {IncomingTask} from '../components/IncomingTask';
 import {RootState} from '../redux/RootReducer';
@@ -38,7 +38,8 @@ export default function CurrentTasksScreen() {
           new firestore.Timestamp(
             currentTask.date.seconds,
             currentTask.date.nanoseconds,
-          ).toMillis() - new firestore.Timestamp(
+          ).toMillis() -
+          new firestore.Timestamp(
             previousTask.date.seconds,
             previousTask.date.nanoseconds,
           ).toMillis()
@@ -62,7 +63,8 @@ export default function CurrentTasksScreen() {
           new firestore.Timestamp(
             currentTask.date.seconds,
             currentTask.date.nanoseconds,
-          ).toMillis() - new firestore.Timestamp(
+          ).toMillis() -
+          new firestore.Timestamp(
             previousTask.date.seconds,
             previousTask.date.nanoseconds,
           ).toMillis()

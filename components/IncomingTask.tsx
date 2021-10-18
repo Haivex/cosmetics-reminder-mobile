@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import {formatRelative, set as updateDate} from 'date-fns';
+import {formatRelative} from 'date-fns';
 import {enGB, enIN, enUS, pl} from 'date-fns/locale';
 import i18n from 'i18n-js';
 import * as React from 'react';
@@ -27,6 +27,7 @@ import {
   renameTodo,
   Task,
 } from '../redux/TodosReducer';
+import firestore from '@react-native-firebase/firestore';
 const localesMap = new Map<string, Locale>([
   ['pl', pl],
   ['en-US', enUS],
@@ -41,7 +42,6 @@ type CurrentTaskProps = {
 export const IncomingTask = ({task}: CurrentTaskProps) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const globalState = useSelector((state: RootState) => state);
   const {storedNotifications} = useSelector(
     (state: RootState) => state.notifications,
   );
@@ -61,9 +61,16 @@ export const IncomingTask = ({task}: CurrentTaskProps) => {
 
   const closeMenu = () => setVisibleMenu(false);
 
-  const formattedTime = formatRelative(task.timestamp, new Date(), {
-    locale: localesMap.get(i18n.currentLocale()) || enUS,
-  });
+  const formattedTime = formatRelative(
+    new firestore.Timestamp(
+      task.date.seconds,
+      task.date.nanoseconds,
+    ).toMillis(),
+    new Date(),
+    {
+      locale: localesMap.get(i18n.currentLocale()) || enUS,
+    },
+  );
 
   return (
     <View>

@@ -20,11 +20,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import {deleteTask} from '../firebase/deleteTask';
 import {renameTask} from '../firebase/renameTask';
 import {updateTaskCompletion} from '../firebase/updateTaskCompletion';
-import Navigation from '../navigation';
 import {deleteTodo, renameTodo, restoreTodo, Task} from '../redux/TodosReducer';
 //import { getNotificationByTaskId } from '../notificationsStorage/asyncStorage';
 import Notifications from 'react-native-push-notification';
 import {RootState} from '../redux/RootReducer';
+import firestore from '@react-native-firebase/firestore';
 
 const localesMap = new Map<string, Locale>([
   ['pl', pl],
@@ -59,9 +59,16 @@ export const DoneTask = ({task}: DoneTaskProps) => {
 
   const closeMenu = () => setVisibleMenu(false);
 
-  const formattedTime = formatRelative(task.timestamp, new Date(), {
-    locale: localesMap.get(i18n.currentLocale()) || enUS,
-  });
+  const formattedTime = formatRelative(
+    new firestore.Timestamp(
+      task.date.seconds,
+      task.date.nanoseconds,
+    ).toMillis(),
+    new Date(),
+    {
+      locale: localesMap.get(i18n.currentLocale()) || enUS,
+    },
+  );
 
   return (
     <View>
