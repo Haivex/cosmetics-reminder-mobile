@@ -20,6 +20,9 @@ import {persistor, store} from './redux/MainStore';
 import initTranslation from './translation/config';
 import {MMKV} from 'react-native-mmkv';
 import {PersistGate} from 'redux-persist/integration/react';
+import firebase from '@react-native-firebase/app';
+import {createFirestoreInstance} from 'redux-firestore';
+import {ReactReduxFirebaseProvider} from 'react-redux-firebase';
 const theme = {
   ...DefaultTheme,
   colors: {
@@ -60,6 +63,19 @@ PushNotification.createChannel(
 
 export const storage = new MMKV();
 
+const rrfConfig = {
+  userProfile: 'users',
+  useFirestoreForProfile: true, // Firestore for Profile instead of Realtime DB
+  // enableClaims: true // Get custom claims along with the profile
+};
+
+const rrfProps = {
+  firebase,
+  config: rrfConfig,
+  dispatch: store.dispatch,
+  createFirestoreInstance, // <- needed if using firestore
+};
+
 initTranslation();
 
 const App = () => {
@@ -72,14 +88,16 @@ const App = () => {
   return (
     // <SafeAreaView style={backgroundStyle}>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <PaperProvider theme={theme}>
-          <Authentication>
-            <Navigation colorScheme="light" />
-          </Authentication>
-          {/* <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} /> */}
-        </PaperProvider>
-      </PersistGate>
+      <ReactReduxFirebaseProvider {...rrfProps}>
+        <PersistGate loading={null} persistor={persistor}>
+          <PaperProvider theme={theme}>
+            <Authentication>
+              <Navigation colorScheme="light" />
+            </Authentication>
+            {/* <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} /> */}
+          </PaperProvider>
+        </PersistGate>
+      </ReactReduxFirebaseProvider>
     </Provider>
     // </SafeAreaView>
   );
