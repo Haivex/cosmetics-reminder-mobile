@@ -27,6 +27,7 @@ import {
 import {RootState} from '../redux/RootReducer';
 import Notifications from 'react-native-push-notification';
 import {useSelector} from 'react-redux';
+import firestore from '@react-native-firebase/firestore';
 
 const localesMap = new Map<string, Locale>([
   ['pl', pl],
@@ -60,9 +61,16 @@ export const CurrentTask = ({task}: CurrentTaskProps) => {
 
   const closeMenu = () => setVisibleMenu(false);
 
-  const formattedTime = formatRelative(task.timestamp, new Date(), {
-    locale: localesMap.get(i18n.currentLocale()) || enUS,
-  });
+  const formattedTime = formatRelative(
+    new firestore.Timestamp(
+      task.date.seconds,
+      task.date.nanoseconds,
+    ).toMillis(),
+    new Date(),
+    {
+      locale: localesMap.get(i18n.currentLocale()) || enUS,
+    },
+  );
 
   return (
     <View>

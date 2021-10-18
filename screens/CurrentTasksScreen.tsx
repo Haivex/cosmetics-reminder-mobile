@@ -2,32 +2,71 @@ import i18n from 'i18n-js';
 import * as React from 'react';
 import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
+import {useFirebase, useFirestoreConnect} from 'react-redux-firebase';
 import {CurrentTask} from '../components/CurrentTask';
 import {IncomingTask} from '../components/IncomingTask';
 import {RootState} from '../redux/RootReducer';
+import firestore from '@react-native-firebase/firestore';
 
 export default function CurrentTasksScreen() {
-  const {todos} = useSelector((state: RootState) => state.todos);
+  const user = useSelector((state: RootState) => state.currentUser.data);
+  useFirestoreConnect([
+    {
+      collection: 'tasks',
+      where: ['userUID', '==', user?.uid],
+    },
+  ]);
+  const {tasks: todos} = useSelector(
+    (state: RootState) => state.firestore.ordered,
+  );
   const currentTimestamp = Date.now();
   const [ignored, forceUpdate] = React.useReducer(x => x + 1, 0);
 
   const getCurrentTasks = () => {
     return todos
       .filter(task => {
-        return !task.completed && task.timestamp <= currentTimestamp;
+        return (
+          !task.completed &&
+          new firestore.Timestamp(
+            task.date.seconds,
+            task.date.nanoseconds,
+          ).toMillis() <= currentTimestamp
+        );
       })
       .sort((previousTask, currentTask) => {
-        return currentTask.timestamp - previousTask.timestamp;
+        return (
+          new firestore.Timestamp(
+            currentTask.date.seconds,
+            currentTask.date.nanoseconds,
+          ).toMillis() - new firestore.Timestamp(
+            previousTask.date.seconds,
+            previousTask.date.nanoseconds,
+          ).toMillis()
+        );
       });
   };
 
   const getIncomingTasks = () => {
     return todos
       .filter(task => {
-        return !task.completed && task.timestamp > currentTimestamp;
+        return (
+          !task.completed &&
+          new firestore.Timestamp(
+            task.date.seconds,
+            task.date.nanoseconds,
+          ).toMillis() > currentTimestamp
+        );
       })
       .sort((previousTask, currentTask) => {
-        return previousTask.timestamp - currentTask.timestamp;
+        return (
+          new firestore.Timestamp(
+            currentTask.date.seconds,
+            currentTask.date.nanoseconds,
+          ).toMillis() - new firestore.Timestamp(
+            previousTask.date.seconds,
+            previousTask.date.nanoseconds,
+          ).toMillis()
+        );
       });
   };
 
@@ -40,17 +79,19 @@ export default function CurrentTasksScreen() {
         {i18n.t('currentTasksScreen.currentTasksTitle')}
       </Text>
       <View>
-        {getCurrentTasks().map(task => (
-          <CurrentTask key={task.id} task={task} />
-        ))}
+        {todos &&
+          getCurrentTasks().map(task => (
+            <CurrentTask key={task.id} task={task} />
+          ))}
       </View>
       <Text style={styles.title}>
         {i18n.t('currentTasksScreen.incomingTasksTitle')}
       </Text>
       <View>
-        {getIncomingTasks().map(task => (
-          <IncomingTask key={task.id} task={task} />
-        ))}
+        {todos &&
+          getIncomingTasks().map(task => (
+            <IncomingTask key={task.id} task={task} />
+          ))}
       </View>
     </ScrollView>
   );

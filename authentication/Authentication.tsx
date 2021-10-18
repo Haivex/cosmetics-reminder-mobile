@@ -21,7 +21,6 @@ function Authentication({children}: ChildrenProp) {
   function onAuthStateChanged(userOrNull: FirebaseAuthTypes.User | null) {
     dispatch(logIn(userOrNull));
     if (userOrNull && !isCalledOnce) {
-      dispatch(fetchUserTasks());
       dispatch(checkPermissions());
       isCalledOnce = true;
     }
