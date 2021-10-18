@@ -81,16 +81,16 @@ export default function TaskCreationScreen() {
       .then(savedTask => {
         const id = savedTask.id;
         const dataFromDb = savedTask.data() as TaskDocument;
-        dispatch(
-          addTodo({
-            ...dataFromDb,
-            timestamp: new firestore.Timestamp(
-              dataFromDb.date.seconds,
-              dataFromDb.date.nanoseconds,
-            ).toMillis(),
-            id,
-          } as SavedTask),
-        );
+        // dispatch(
+        //   addTodo({
+        //     ...dataFromDb,
+        //     timestamp: new firestore.Timestamp(
+        //       dataFromDb.date.seconds,
+        //       dataFromDb.date.nanoseconds,
+        //     ).toMillis(),
+        //     id,
+        //   } as SavedTask),
+        // );
         const notificationCreationTimestamp = Date.now();
         Notifications.localNotificationSchedule({
           channelId: 'main',
