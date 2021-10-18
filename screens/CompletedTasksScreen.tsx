@@ -2,7 +2,7 @@ import * as React from 'react';
 import {ScrollView} from 'react-native';
 import {useSelector} from 'react-redux';
 import {DoneTask} from '../components/DoneTask';
-import {RootState} from '../redux/MainStore';
+import {RootState} from '../redux/RootReducer';
 
 export default function CompletedTasksScreen() {
   const {todos} = useSelector((state: RootState) => state.todos);

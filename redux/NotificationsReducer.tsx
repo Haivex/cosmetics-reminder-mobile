@@ -6,7 +6,7 @@ interface StoredNotification {
   taskId: string;
 }
 
-interface NotificationState {
+export interface NotificationState {
   notificationsStatus: boolean;
   storedNotifications: StoredNotification[];
 }

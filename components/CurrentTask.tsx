@@ -24,7 +24,7 @@ import {
   renameTodo,
   Task,
 } from '../redux/TodosReducer';
-import {RootState} from '../redux/MainStore';
+import {RootState} from '../redux/RootReducer';
 import Notifications from 'react-native-push-notification';
 import {useSelector} from 'react-redux';
 

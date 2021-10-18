@@ -24,7 +24,7 @@ import Navigation from '../navigation';
 import {deleteTodo, renameTodo, restoreTodo, Task} from '../redux/TodosReducer';
 //import { getNotificationByTaskId } from '../notificationsStorage/asyncStorage';
 import Notifications from 'react-native-push-notification';
-import { RootState } from '../redux/MainStore';
+import {RootState} from '../redux/RootReducer';
 
 const localesMap = new Map<string, Locale>([
   ['pl', pl],

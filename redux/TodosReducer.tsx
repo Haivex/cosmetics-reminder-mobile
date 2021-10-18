@@ -16,11 +16,11 @@ export type RenameTaskPayload = {
   title: string;
 };
 
-export type AppState = {
+export type TodosState = {
   todos: Task[];
 };
 
-export const globalState: AppState = {
+export const globalState: TodosState = {
   todos: [],
 };
 

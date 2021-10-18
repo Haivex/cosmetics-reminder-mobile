@@ -4,7 +4,7 @@ import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {CurrentTask} from '../components/CurrentTask';
 import {IncomingTask} from '../components/IncomingTask';
-import {RootState} from '../redux/MainStore';
+import {RootState} from '../redux/RootReducer';
 
 export default function CurrentTasksScreen() {
   const {todos} = useSelector((state: RootState) => state.todos);

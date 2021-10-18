@@ -20,7 +20,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {deleteTask} from '../firebase/deleteTask';
 import {renameTask} from '../firebase/renameTask';
 import {updateTaskCompletion} from '../firebase/updateTaskCompletion';
-import { RootState } from '../redux/MainStore';
+import {RootState} from '../redux/RootReducer';
 import {
   deleteTodo,
   markTodoCompleted,

@@ -2,7 +2,7 @@ import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../redux/MainStore';
+import {RootState} from '../redux/RootReducer';
 import {checkPermissions} from '../redux/NotificationsReducer';
 import {fetchUserTasks} from '../redux/TodosReducer';
 import {logIn} from '../redux/UserReducer';
