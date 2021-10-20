@@ -7,6 +7,7 @@ import {CurrentTask} from '../components/CurrentTask';
 import {IncomingTask} from '../components/IncomingTask';
 import {RootState} from '../redux/RootReducer';
 import firestore from '@react-native-firebase/firestore';
+import {Task} from '../redux/TodosReducer';
 
 export default function CurrentTasksScreen() {
   const user = useSelector((state: RootState) => state.currentUser.data);
@@ -83,7 +84,7 @@ export default function CurrentTasksScreen() {
       <View>
         {todos &&
           getCurrentTasks().map(task => (
-            <CurrentTask key={task.id} task={task} />
+            <CurrentTask key={task.id} task={task as Task} />
           ))}
       </View>
       <Text style={styles.title}>
@@ -92,7 +93,7 @@ export default function CurrentTasksScreen() {
       <View>
         {todos &&
           getIncomingTasks().map(task => (
-            <IncomingTask key={task.id} task={task} />
+            <IncomingTask key={task.id} task={task as Task} />
           ))}
       </View>
     </ScrollView>

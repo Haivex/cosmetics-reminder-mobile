@@ -1,5 +1,3 @@
-//import { getNotifications, storeNotifications } from '../notificationsStorage/asyncStorage';
-import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
 import {set} from 'date-fns';
 import i18n from 'i18n-js';
@@ -27,7 +25,7 @@ import {
   convertCyclicIntervalToSeconds,
 } from '../helpers/intervalHelpers';
 import {addNotification} from '../redux/NotificationsReducer';
-import {addTodo, Task} from '../redux/TodosReducer';
+import {Task} from '../redux/TodosReducer';
 import '../translation/config';
 export type TaskData = {
   date: CalendarDate;
@@ -115,34 +113,6 @@ export default function TaskCreationScreen() {
         reset(defaultTaskData);
         navigation.navigate('TabTwo');
       });
-    // schedulePushNotification({
-    //   title: 'Only You',
-    //   body: savedTodo.title,
-    //   scheduledDate: updateDate(savedTodo.date as Date, {
-    //     hours: savedTodo.time.hours,
-    //     minutes: savedTodo.time.minutes,
-    //   }),
-    //   data: savedTodo && savedTodo.cyclicInterval ? savedTodo : undefined,
-    // }).then(async (notificationIdentifier) => {
-    //   const notifications = await getNotifications();
-    //   if (notifications) {
-    //     const newNotifications = [
-    //       ...notifications,
-    //       {
-    //         notificationIdentifier: notificationIdentifier,
-    //         taskId: savedTodo.id,
-    //       },
-    //     ];
-    //     storeNotifications(newNotifications);
-    //   } else {
-    //     storeNotifications([
-    //       {
-    //         notificationIdentifier: notificationIdentifier,
-    //         taskId: savedTodo.id,
-    //       },
-    //     ]);
-    //   }
-    // });
   };
 
   return (
