@@ -1,4 +1,4 @@
-import i18n from 'i18n-js';
+import firestore from '@react-native-firebase/firestore';
 import * as React from 'react';
 import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
@@ -6,7 +6,7 @@ import {useFirestoreConnect} from 'react-redux-firebase';
 import {CurrentTask} from '../components/CurrentTask';
 import {IncomingTask} from '../components/IncomingTask';
 import {RootState} from '../redux/RootReducer';
-import firestore from '@react-native-firebase/firestore';
+import {translate} from '../translation/config';
 import {Task} from '../types';
 
 export default function CurrentTasksScreen() {
@@ -79,7 +79,7 @@ export default function CurrentTasksScreen() {
         <RefreshControl refreshing={false} onRefresh={() => forceUpdate()} />
       }>
       <Text style={styles.title}>
-        {i18n.t('currentTasksScreen.currentTasksTitle')}
+        {translate('currentTasksScreen.currentTasksTitle')}
       </Text>
       <View>
         {todos &&
@@ -88,7 +88,7 @@ export default function CurrentTasksScreen() {
           ))}
       </View>
       <Text style={styles.title}>
-        {i18n.t('currentTasksScreen.incomingTasksTitle')}
+        {translate('currentTasksScreen.incomingTasksTitle')}
       </Text>
       <View>
         {todos &&

@@ -1,3 +1,4 @@
+import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
 import {formatRelative} from 'date-fns';
 import {enGB, enIN, enUS, pl} from 'date-fns/locale';
@@ -22,8 +23,8 @@ import {renameTask} from '../firebase/renameTask';
 import {updateTaskCompletion} from '../firebase/updateTaskCompletion';
 import {RootState} from '../redux/RootReducer';
 import {deleteTodo, markTodoCompleted, renameTodo} from '../redux/TodosReducer';
+import {translate} from '../translation/config';
 import {Task} from '../types';
-import firestore from '@react-native-firebase/firestore';
 const localesMap = new Map<string, Locale>([
   ['pl', pl],
   ['en-US', enUS],
@@ -86,7 +87,7 @@ export const IncomingTask = ({task}: CurrentTaskProps) => {
                 closeMenu();
                 showDialog();
               }}
-              title={i18n.t('taskMenu.changeTitle')}
+              title={translate('taskMenu.changeTitle')}
             />
             <Menu.Item
               onPress={() => {
@@ -94,7 +95,7 @@ export const IncomingTask = ({task}: CurrentTaskProps) => {
                   dispatch(markTodoCompleted(task)),
                 );
               }}
-              title={i18n.t('taskMenu.finishTask')}
+              title={translate('taskMenu.finishTask')}
             />
             <Menu.Item
               onPress={async () => {
@@ -105,23 +106,25 @@ export const IncomingTask = ({task}: CurrentTaskProps) => {
                   );
                 });
               }}
-              title={i18n.t('taskMenu.deleteTask')}
+              title={translate('taskMenu.deleteTask')}
             />
             <Menu.Item
               onPress={() => {
                 closeMenu();
                 navigation.navigate('TaskEdition', task);
               }}
-              title={i18n.t('taskMenu.editTask')}
+              title={translate('taskMenu.editTask')}
             />
           </Menu>
         )}
       />
       <Portal>
         <Dialog visible={visibleDialog} onDismiss={hideDialog}>
-          <Dialog.Title>{i18n.t('taskMenu.renameInput.title')}</Dialog.Title>
+          <Dialog.Title>{translate('taskMenu.renameInput.title')}</Dialog.Title>
           <Dialog.Content>
-            <Paragraph>{i18n.t('taskMenu.renameInput.description')}</Paragraph>
+            <Paragraph>
+              {translate('taskMenu.renameInput.description')}
+            </Paragraph>
             <TextInput
               defaultValue={task.title}
               value={newTitle}
@@ -131,7 +134,7 @@ export const IncomingTask = ({task}: CurrentTaskProps) => {
           </Dialog.Content>
           <Dialog.Actions>
             <Button onPress={hideDialog}>
-              {i18n.t('taskMenu.renameInput.cancelButton')}
+              {translate('taskMenu.renameInput.cancelButton')}
             </Button>
             <Button
               onPress={() => {
@@ -140,7 +143,7 @@ export const IncomingTask = ({task}: CurrentTaskProps) => {
                 );
                 hideDialog();
               }}>
-              {i18n.t('taskMenu.renameInput.changeButton')}
+              {translate('taskMenu.renameInput.changeButton')}
             </Button>
           </Dialog.Actions>
         </Dialog>

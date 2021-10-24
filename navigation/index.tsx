@@ -12,12 +12,12 @@ import {
   CardStyleInterpolators,
   createStackNavigator,
 } from '@react-navigation/stack';
-import i18n from 'i18n-js';
 import * as React from 'react';
 import {ColorSchemeName} from 'react-native';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import NotificationsSettings from '../screens/NotificationsSettings';
 import TaskEditionScreen from '../screens/TaskEditionScreen';
+import {translate} from '../translation/config';
 import {RootStackParamList} from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 //import LinkingConfiguration from './LinkingConfiguration';
@@ -53,7 +53,7 @@ function RootNavigator() {
         name="NotificationsSettings"
         component={NotificationsSettings}
         options={{
-          title: i18n.t('appSettings.notificationsSettings'),
+          title: translate('appSettings.notificationsSettings'),
           headerShown: true,
           gestureEnabled: true,
           gestureDirection: 'horizontal',
@@ -64,7 +64,7 @@ function RootNavigator() {
         name="TaskEdition"
         component={TaskEditionScreen}
         options={{
-          title: i18n.t('editTaskScreen.title'),
+          title: translate('editTaskScreen.title'),
           headerShown: true,
           gestureEnabled: true,
           gestureDirection: 'horizontal',

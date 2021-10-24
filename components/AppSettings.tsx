@@ -1,11 +1,9 @@
-import auth from '@react-native-firebase/auth';
-import { useNavigation } from '@react-navigation/core';
-import i18n from 'i18n-js';
 import * as React from 'react';
+import auth from '@react-native-firebase/auth';
+import {useNavigation} from '@react-navigation/core';
+import {translate} from '../translation/config';
 import {IconButton, Menu} from 'react-native-paper';
-import PushNotification from 'react-native-push-notification';
 import {useDispatch} from 'react-redux';
-import Navigation from '../navigation';
 import {logOut} from '../redux/UserReducer';
 
 const AppSettings = () => {
@@ -30,7 +28,7 @@ const AppSettings = () => {
               .signOut()
               .then(() => dispatch(logOut()));
           }}
-          title={i18n.t('appSettings.logOut')}
+          title={translate('appSettings.logOut')}
           icon="logout"
         />
         <Menu.Item
@@ -38,7 +36,7 @@ const AppSettings = () => {
             closeMenu();
             navigation.navigate('NotificationsSettings');
           }}
-          title={i18n.t('appSettings.notificationsSettings')}
+          title={translate('appSettings.notificationsSettings')}
           icon="bell"
         />
       </Menu>

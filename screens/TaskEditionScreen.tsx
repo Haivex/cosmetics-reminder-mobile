@@ -1,5 +1,4 @@
 import {set} from 'date-fns';
-import i18n from 'i18n-js';
 import * as React from 'react';
 import {Controller, useForm, Validate} from 'react-hook-form';
 import {ScrollView, StyleSheet} from 'react-native';
@@ -18,6 +17,7 @@ import TimePickerInput, {Time} from '../components/TimePickerInput';
 import {editTask} from '../firebase/editTask';
 import {checkIfCyclicInterval} from '../helpers/intervalHelpers';
 import '../translation/config';
+import {translate} from '../translation/config';
 import {NavigationProps} from '../types';
 import {TaskData} from './TaskCreationScreen';
 export default function TaskEditionScreen({
@@ -70,7 +70,7 @@ export default function TaskEditionScreen({
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>
-        {i18n.t('createTaskScreen.titleTitle')}:{' '}
+        {translate('createTaskScreen.titleTitle')}:{' '}
       </Text>
       <Controller<TaskData>
         control={control}
@@ -83,7 +83,7 @@ export default function TaskEditionScreen({
             onChangeText={textValue => onChange(textValue)}
             value={value as string}
             mode="outlined"
-            placeholder={i18n.t('createTaskScreen.titleInputPlaceholder')}
+            placeholder={translate('createTaskScreen.titleInputPlaceholder')}
             // autoFocus
             onSubmitEditing={() =>
               !getValues().date && dateRef?.current?.focus()
@@ -97,11 +97,11 @@ export default function TaskEditionScreen({
         name="title"
       />
       <HelperText type="error" visible={errors.title ? true : false}>
-        {i18n.t('createTaskScreen.titleHelperText')}
+        {translate('createTaskScreen.titleHelperText')}
       </HelperText>
 
       <Text style={styles.title}>
-        {i18n.t('createTaskScreen.beginningDateTitle')}:{' '}
+        {translate('createTaskScreen.beginningDateTitle')}:{' '}
       </Text>
       <Controller<TaskData>
         control={control}
@@ -122,11 +122,11 @@ export default function TaskEditionScreen({
         name="date"
       />
       <HelperText type="error" visible={errors.date ? true : false}>
-        {i18n.t('createTaskScreen.dateHelperText')}
+        {translate('createTaskScreen.dateHelperText')}
       </HelperText>
 
       <Text style={styles.title}>
-        {i18n.t('createTaskScreen.beginningTimeTitle')}:{' '}
+        {translate('createTaskScreen.beginningTimeTitle')}:{' '}
       </Text>
       <Controller<TaskData>
         control={control}
@@ -144,10 +144,10 @@ export default function TaskEditionScreen({
         name="time"
       />
       <HelperText type="error" visible={errors.time ? true : false}>
-        {i18n.t('createTaskScreen.timeHelperText')}
+        {translate('createTaskScreen.timeHelperText')}
       </HelperText>
       <Checkbox.Item
-        label={i18n.t('createTaskScreen.cyclicQuestion')}
+        label={translate('createTaskScreen.cyclicQuestion')}
         status={isCyclicCheckboxChecked ? 'checked' : 'unchecked'}
         onPress={() => {
           setCyclic(!isCyclicCheckboxChecked);
@@ -177,10 +177,10 @@ export default function TaskEditionScreen({
         visible={
           isCyclicCheckboxChecked && errors.cyclicInterval ? true : false
         }>
-        {i18n.t('createTaskScreen.cyclicHelperText')}
+        {translate('createTaskScreen.cyclicHelperText')}
       </HelperText>
       <Button onPress={handleSubmit(onSubmit)} mode="outlined">
-        {i18n.t('editTaskScreen.confirmButton')}
+        {translate('editTaskScreen.confirmButton')}
       </Button>
     </ScrollView>
   );

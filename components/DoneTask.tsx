@@ -1,3 +1,4 @@
+import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/core';
 import {formatRelative} from 'date-fns';
 import {enGB, enIN, enUS, pl} from 'date-fns/locale';
@@ -16,15 +17,15 @@ import {
   Portal,
   TextInput,
 } from 'react-native-paper';
+//import { getNotificationByTaskId } from '../notificationsStorage/asyncStorage';
+import Notifications from 'react-native-push-notification';
 import {useDispatch, useSelector} from 'react-redux';
 import {deleteTask} from '../firebase/deleteTask';
 import {renameTask} from '../firebase/renameTask';
 import {updateTaskCompletion} from '../firebase/updateTaskCompletion';
-import {deleteTodo, renameTodo, restoreTodo} from '../redux/TodosReducer';
-//import { getNotificationByTaskId } from '../notificationsStorage/asyncStorage';
-import Notifications from 'react-native-push-notification';
 import {RootState} from '../redux/RootReducer';
-import firestore from '@react-native-firebase/firestore';
+import {deleteTodo, renameTodo, restoreTodo} from '../redux/TodosReducer';
+import {translate} from '../translation/config';
 import {Task} from '../types';
 
 const localesMap = new Map<string, Locale>([
@@ -89,7 +90,7 @@ export const DoneTask = ({task}: DoneTaskProps) => {
                 closeMenu();
                 showDialog();
               }}
-              title={i18n.t('taskMenu.changeTitle')}
+              title={translate('taskMenu.changeTitle')}
             />
             <Menu.Item
               onPress={() => {
@@ -97,7 +98,7 @@ export const DoneTask = ({task}: DoneTaskProps) => {
                   dispatch(restoreTodo(task)),
                 );
               }}
-              title={i18n.t('taskMenu.restoreTask')}
+              title={translate('taskMenu.restoreTask')}
             />
             <Menu.Item
               onPress={async () => {
@@ -121,23 +122,25 @@ export const DoneTask = ({task}: DoneTaskProps) => {
                   );
                 });
               }}
-              title={i18n.t('taskMenu.deleteTask')}
+              title={translate('taskMenu.deleteTask')}
             />
             <Menu.Item
               onPress={() => {
                 closeMenu();
                 navigation.navigate('TaskEdition', task);
               }}
-              title={i18n.t('taskMenu.editTask')}
+              title={translate('taskMenu.editTask')}
             />
           </Menu>
         )}
       />
       <Portal>
         <Dialog visible={visibleDialog} onDismiss={hideDialog}>
-          <Dialog.Title>{i18n.t('taskMenu.renameInput.title')}</Dialog.Title>
+          <Dialog.Title>{translate('taskMenu.renameInput.title')}</Dialog.Title>
           <Dialog.Content>
-            <Paragraph>{i18n.t('taskMenu.renameInput.description')}</Paragraph>
+            <Paragraph>
+              {translate('taskMenu.renameInput.description')}
+            </Paragraph>
             <TextInput
               defaultValue={task.title}
               value={newTitle}
@@ -147,7 +150,7 @@ export const DoneTask = ({task}: DoneTaskProps) => {
           </Dialog.Content>
           <Dialog.Actions>
             <Button onPress={hideDialog}>
-              {i18n.t('taskMenu.renameInput.cancelButton')}
+              {translate('taskMenu.renameInput.cancelButton')}
             </Button>
             <Button
               onPress={() => {
@@ -156,7 +159,7 @@ export const DoneTask = ({task}: DoneTaskProps) => {
                 );
                 hideDialog();
               }}>
-              {i18n.t('taskMenu.renameInput.changeButton')}
+              {translate('taskMenu.renameInput.changeButton')}
             </Button>
           </Dialog.Actions>
         </Dialog>

@@ -5,6 +5,7 @@ import 'intl/locale-data/jsonp/pl';
 import * as React from 'react';
 import {TextInput} from 'react-native-paper';
 import {TimePickerModal} from 'react-native-paper-dates';
+import {translate} from '../translation/config';
 
 export type Time = {
   hours: number | undefined;
@@ -49,7 +50,7 @@ const TimePickerInput = React.forwardRef<TextInput, TimePickerInputProps>(
           right={<TextInput.Icon name="clock-outline" />}
           onFocus={() => setVisible(true)}
           mode="outlined"
-          placeholder={i18n.t('timePicker.label')}
+          placeholder={translate('timePicker.label')}
           ref={ref}>
           {value.hours !== undefined && value.minutes !== undefined
             ? `${format(
@@ -64,9 +65,9 @@ const TimePickerInput = React.forwardRef<TextInput, TimePickerInputProps>(
           onConfirm={onConfirm}
           hours={value.hours}
           minutes={value.minutes}
-          label={i18n.t('timePicker.label')}
-          cancelLabel={i18n.t('timePicker.cancelButton')}
-          confirmLabel={i18n.t('timePicker.acceptButton')}
+          label={translate('timePicker.label')}
+          cancelLabel={translate('timePicker.cancelButton')}
+          confirmLabel={translate('timePicker.acceptButton')}
           animationType="fade"
           locale={i18n.currentLocale()}
         />

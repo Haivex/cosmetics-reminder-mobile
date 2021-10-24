@@ -1,5 +1,6 @@
 import {format} from 'date-fns';
 import i18n from 'i18n-js';
+import {translate} from '../translation/config';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 import 'intl/locale-data/jsonp/pl';
@@ -46,7 +47,7 @@ const DatePickerInput = React.forwardRef<TextInput, DatePickerInputProps>(
           right={<TextInput.Icon name="calendar" />}
           onFocus={() => setOpen(true)}
           mode="outlined"
-          placeholder={i18n.t('datePicker.label')}
+          placeholder={translate('datePicker.label')}
           ref={ref}>
           {value ? format(value, getDatePattern()) : ''}
         </TextInput>
@@ -57,8 +58,8 @@ const DatePickerInput = React.forwardRef<TextInput, DatePickerInputProps>(
           onDismiss={onDismissSingle}
           date={value}
           onConfirm={onConfirmSingle}
-          saveLabel={i18n.t('datePicker.acceptButton')}
-          label={i18n.t('datePicker.label')}
+          saveLabel={translate('datePicker.acceptButton')}
+          label={translate('datePicker.label')}
         />
       </>
     );

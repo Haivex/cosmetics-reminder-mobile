@@ -1,5 +1,5 @@
-import i18n from 'i18n-js';
 import * as React from 'react';
+import {translate} from '../translation/config';
 import {Text, View} from 'react-native';
 import {TextInput} from 'react-native-paper';
 
@@ -18,7 +18,7 @@ export type CyclicInterval = {
 const CyclicTaskInputs = ({onChange, onBlur, value}: CyclicDataInputProps) => {
   return (
     <View>
-      <Text>{i18n.t('createTaskScreen.cyclicInputs.days')}</Text>
+      <Text>{translate('createTaskScreen.cyclicInputs.days')}</Text>
       <TextInput
         keyboardType="numeric"
         onBlur={onBlur}
@@ -28,7 +28,7 @@ const CyclicTaskInputs = ({onChange, onBlur, value}: CyclicDataInputProps) => {
         value={value?.days?.toString() || '0'}
         mode="outlined"
       />
-      <Text>{i18n.t('createTaskScreen.cyclicInputs.hours')}</Text>
+      <Text>{translate('createTaskScreen.cyclicInputs.hours')}</Text>
       <TextInput
         keyboardType="numeric"
         onBlur={onBlur}
@@ -38,7 +38,7 @@ const CyclicTaskInputs = ({onChange, onBlur, value}: CyclicDataInputProps) => {
         value={value?.hours?.toString() || '0'}
         mode="outlined"
       />
-      <Text>{i18n.t('createTaskScreen.cyclicInputs.minutes')}</Text>
+      <Text>{translate('createTaskScreen.cyclicInputs.minutes')}</Text>
       <TextInput
         keyboardType="numeric"
         onBlur={onBlur}

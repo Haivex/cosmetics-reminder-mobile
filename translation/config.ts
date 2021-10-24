@@ -18,14 +18,14 @@ const initTranslation = (): void => {
 
 //IntelliSense show current keys
 export const translate = <P extends string>(
-  p: DeepKeysLighweight<AppTranslation, P>,
-): GetDictValue<string, AppTranslation> => {
-  return i18n.translate(p) as unknown as GetDictValue<string, AppTranslation>;
+  scope: DeepKeysLighweight<AppTranslation, P>,
+): GetDictValue<P, AppTranslation> => {
+  return i18n.translate(scope) as unknown as GetDictValue<P, AppTranslation>;
 };
 
 //IntelliSense show all object keys(with nested keys)
-export const translateHeavy = <P extends DeepKeys<AppTranslation>>(p: P) => {
-  return i18n.translate(p) as unknown as GetDictValue<string, AppTranslation>;
+export const translateHeavy = <P extends DeepKeys<AppTranslation>>(scope: P) => {
+  return i18n.translate(scope) as unknown as GetDictValue<P, AppTranslation>;
 };
 
 export default initTranslation;
