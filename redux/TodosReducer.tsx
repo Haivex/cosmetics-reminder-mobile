@@ -3,10 +3,12 @@ import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {CyclicInterval} from '../components/CyclicTaskInputs';
 import {getCurrentTasks} from '../firebase/getCurrentTasks';
 import {SavedTask} from '../screens/TaskCreationScreen';
+import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
+
 export type Task = {
   id: string;
   title: string;
-  timestamp: number;
+  date: FirebaseFirestoreTypes.Timestamp;
   completed: boolean;
   cyclicInterval?: CyclicInterval | undefined;
 };
@@ -16,11 +18,11 @@ export type RenameTaskPayload = {
   title: string;
 };
 
-export type AppState = {
+export type TodosState = {
   todos: Task[];
 };
 
-export const globalState: AppState = {
+export const globalState: TodosState = {
   todos: [],
 };
 
@@ -39,7 +41,7 @@ const todosSlice = createSlice({
         {
           id: action.payload.id,
           title: action.payload.title,
-          timestamp: action.payload.timestamp,
+          date: action.payload.date,
           completed: false,
           cyclicInterval: action.payload.cyclicInterval,
         },

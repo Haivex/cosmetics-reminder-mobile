@@ -1,5 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit';
 import {persistStore, persistReducer, Storage} from 'redux-persist';
+import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 import {storage} from '../App';
 import rootReducer from './RootReducer';
 
@@ -22,6 +23,7 @@ const persistConfig = {
   key: 'root',
   version: 1,
   storage: reduxStorage,
+  stateReconciler: autoMergeLevel2,
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -37,4 +39,3 @@ export const store = configureStore({
 export const persistor = persistStore(store);
 
 export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;

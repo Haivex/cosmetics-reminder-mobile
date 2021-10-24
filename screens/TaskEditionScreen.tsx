@@ -12,17 +12,14 @@ import {
   TextInput,
 } from 'react-native-paper';
 import {CalendarDate} from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
-import {useDispatch} from 'react-redux';
 import CyclicTaskInputs, {CyclicInterval} from '../components/CyclicTaskInputs';
 import DatePickerInput from '../components/DatePickerInput';
 import TimePickerInput, {Time} from '../components/TimePickerInput';
 import {editTask} from '../firebase/editTask';
 import {checkIfCyclicInterval} from '../helpers/intervalHelpers';
-import {editTodo} from '../redux/TodosReducer';
 import '../translation/config';
 import {NavigationProps} from '../types';
 import {TaskData} from './TaskCreationScreen';
-
 export default function TaskEditionScreen({
   route,
   navigation,
@@ -30,10 +27,10 @@ export default function TaskEditionScreen({
   const task = route.params;
   const defaultTaskData: TaskData = {
     cyclicInterval: task.cyclicInterval,
-    date: task.timestamp,
+    date: task.date.toDate(),
     time: {
-      hours: task.timestamp.getHours(),
-      minutes: task.timestamp.getMinutes(),
+      hours: task.date.toDate().getHours(),
+      minutes: task.date.toDate().getMinutes(),
     },
     title: task.title,
   };
@@ -42,7 +39,6 @@ export default function TaskEditionScreen({
   );
   const dateRef = React.createRef<HTMLElement>();
   const timeRef = React.createRef<HTMLElement>();
-  const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
@@ -64,21 +60,11 @@ export default function TaskEditionScreen({
       date: mergedDateAndTime,
       time: undefined,
     };
-    editTask(task.id, taskDataWithoutTime)
-      .then(() => {
-        dispatch(
-          editTodo({
-            id: task.id,
-            completed: task.completed,
-            ...taskDataWithoutTime,
-          }),
-        );
-      })
-      .then(() => {
-        clearErrors();
-        reset(defaultTaskData);
-        navigation.goBack();
-      });
+    editTask(task.id, taskDataWithoutTime).then(() => {
+      clearErrors();
+      reset(defaultTaskData);
+      navigation.goBack();
+    });
   };
 
   return (
