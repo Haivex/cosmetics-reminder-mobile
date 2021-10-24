@@ -1,7 +1,7 @@
 import React from 'react';
 import {Switch} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../redux/MainStore';
+import {RootState} from '../redux/RootReducer';
 import {toggleNotificationsStatus} from '../redux/NotificationsReducer';
 
 const NotificationsStatus = () => {
