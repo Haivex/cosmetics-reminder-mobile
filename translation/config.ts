@@ -1,7 +1,7 @@
 import i18n from 'i18n-js';
-import enUS from './languages/en-US.json';
-import en from './languages/en.json';
-import pl from './languages/pl.json';
+import enUS from './languages/enUS';
+import en from './languages/en';
+import pl from './languages/pl';
 
 const initTranslation = (): void => {
   i18n.translations = {
