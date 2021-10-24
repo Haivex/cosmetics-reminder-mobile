@@ -1,4 +1,6 @@
-const pl = {
+import {AppTranslation} from './en';
+
+const pl: AppTranslation = {
   createTaskScreen: {
     screenTitle: 'Utwórz zadanie',
     titleInputPlaceholder: 'Podaj tytuł',

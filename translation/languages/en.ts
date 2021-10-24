@@ -67,3 +67,4 @@ const en = {
   },
 };
 export default en;
+export type AppTranslation = typeof en;
