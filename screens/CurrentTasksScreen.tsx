@@ -7,7 +7,7 @@ import {CurrentTask} from '../components/CurrentTask';
 import {IncomingTask} from '../components/IncomingTask';
 import {RootState} from '../redux/RootReducer';
 import firestore from '@react-native-firebase/firestore';
-import {Task} from '../redux/TodosReducer';
+import {Task} from '../types';
 
 export default function CurrentTasksScreen() {
   const user = useSelector((state: RootState) => state.currentUser.data);

@@ -1,28 +1,13 @@
 import firestore from '@react-native-firebase/firestore';
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {CyclicInterval} from '../components/CyclicTaskInputs';
 import {getCurrentTasks} from '../firebase/getCurrentTasks';
 import {SavedTask} from '../screens/TaskCreationScreen';
-import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 
-export type Task = {
-  id: string;
-  title: string;
-  date: FirebaseFirestoreTypes.Timestamp;
-  completed: boolean;
-  cyclicInterval?: CyclicInterval | undefined;
-};
+// export type TodosState = {
+//   todos: Task[];
+// };
 
-export type RenameTaskPayload = {
-  task: Task;
-  title: string;
-};
-
-export type TodosState = {
-  todos: Task[];
-};
-
-export const globalState: TodosState = {
+export const globalState = {
   todos: [],
 };
 

@@ -1,6 +1,7 @@
 import * as React from 'react';
-import {Task} from './redux/TodosReducer';
 import {StackScreenProps} from '@react-navigation/stack';
+import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
+import {CyclicInterval} from './components/CyclicTaskInputs';
 /**
  * Learn more about using TypeScript with React Navigation:
  * https://reactnavigation.org/docs/typescript/
@@ -39,3 +40,16 @@ export type NavigationProps = StackScreenProps<
   RootStackParamList,
   'TaskEdition'
 >;
+
+export type Task = {
+  id: string;
+  title: string;
+  date: FirebaseFirestoreTypes.Timestamp;
+  completed: boolean;
+  cyclicInterval?: CyclicInterval | undefined;
+};
+
+export type RenameTaskPayload = {
+  task: Task;
+  title: string;
+};

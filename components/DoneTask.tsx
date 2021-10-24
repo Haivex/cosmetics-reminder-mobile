@@ -20,11 +20,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {deleteTask} from '../firebase/deleteTask';
 import {renameTask} from '../firebase/renameTask';
 import {updateTaskCompletion} from '../firebase/updateTaskCompletion';
-import {deleteTodo, renameTodo, restoreTodo, Task} from '../redux/TodosReducer';
+import {deleteTodo, renameTodo, restoreTodo} from '../redux/TodosReducer';
 //import { getNotificationByTaskId } from '../notificationsStorage/asyncStorage';
 import Notifications from 'react-native-push-notification';
 import {RootState} from '../redux/RootReducer';
 import firestore from '@react-native-firebase/firestore';
+import {Task} from '../types';
 
 const localesMap = new Map<string, Locale>([
   ['pl', pl],

@@ -25,7 +25,7 @@ import {
   convertCyclicIntervalToSeconds,
 } from '../helpers/intervalHelpers';
 import {addNotification} from '../redux/NotificationsReducer';
-import {Task} from '../redux/TodosReducer';
+import {Task} from '../types';
 import '../translation/config';
 export type TaskData = {
   date: CalendarDate;

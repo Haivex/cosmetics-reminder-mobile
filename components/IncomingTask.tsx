@@ -21,12 +21,8 @@ import {deleteTask} from '../firebase/deleteTask';
 import {renameTask} from '../firebase/renameTask';
 import {updateTaskCompletion} from '../firebase/updateTaskCompletion';
 import {RootState} from '../redux/RootReducer';
-import {
-  deleteTodo,
-  markTodoCompleted,
-  renameTodo,
-  Task,
-} from '../redux/TodosReducer';
+import {deleteTodo, markTodoCompleted, renameTodo} from '../redux/TodosReducer';
+import {Task} from '../types';
 import firestore from '@react-native-firebase/firestore';
 const localesMap = new Map<string, Locale>([
   ['pl', pl],

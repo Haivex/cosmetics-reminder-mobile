@@ -1,7 +1,6 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import removeUndefinedKeys from '../helpers/removeUndefinedKeys';
-import {Task} from '../redux/TodosReducer';
 import {TaskData} from '../screens/TaskCreationScreen';
 
 export async function editTask(taskId: string, taskData: Partial<TaskData>) {
