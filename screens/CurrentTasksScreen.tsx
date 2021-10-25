@@ -21,7 +21,7 @@ export default function CurrentTasksScreen() {
     (state: RootState) => state.firestore.ordered,
   );
   const currentTimestamp = Date.now();
-  const [ignored, forceUpdate] = React.useReducer(x => x + 1, 0);
+  const [, forceUpdate] = React.useReducer(x => x + 1, 0);
 
   const getCurrentTasks = () => {
     return todos
