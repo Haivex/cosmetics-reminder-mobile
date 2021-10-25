@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {StackScreenProps} from '@react-navigation/stack';
+import {StackNavigationProp, StackScreenProps} from '@react-navigation/stack';
 import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 import {CyclicInterval} from './components/CyclicTaskInputs';
 /**
@@ -12,6 +12,7 @@ export type RootStackParamList = {
   NotFound: undefined;
   NotificationsSettings: undefined;
   TaskEdition: Task;
+  TabTwo: undefined;
 };
 
 export type BottomTabParamList = {
@@ -40,6 +41,8 @@ export type NavigationProps = StackScreenProps<
   RootStackParamList,
   'TaskEdition'
 >;
+
+export type NavigationProp = StackNavigationProp<RootStackParamList, "TaskEdition" | 'TabTwo'>
 
 export type Task = {
   id: string;

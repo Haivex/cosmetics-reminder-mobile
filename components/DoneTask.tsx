@@ -23,7 +23,7 @@ import {renameTask} from '../firebase/renameTask';
 import {updateTaskCompletion} from '../firebase/updateTaskCompletion';
 import {RootState} from '../redux/RootReducer';
 import {translate} from '../translation/config';
-import {Task} from '../types';
+import {NavigationProp, Task} from '../types';
 
 const localesMap = new Map<string, Locale>([
   ['pl', pl],
@@ -37,7 +37,7 @@ type DoneTaskProps = {
 };
 
 export const DoneTask = ({task}: DoneTaskProps) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
   const {storedNotifications} = useSelector(
     (state: RootState) => state.notifications,
   );

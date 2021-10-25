@@ -21,6 +21,8 @@ import {
   TabTwoParamList,
 } from '../types';
 
+/* eslint-disable react-native/no-inline-styles */
+
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {

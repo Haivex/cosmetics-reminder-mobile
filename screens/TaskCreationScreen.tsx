@@ -26,7 +26,7 @@ import {
 import {addNotification} from '../redux/NotificationsReducer';
 import '../translation/config';
 import {translate} from '../translation/config';
-import {Task} from '../types';
+import {NavigationProp, Task} from '../types';
 export type TaskData = {
   date: CalendarDate;
   time: Time;
@@ -49,7 +49,7 @@ const defaultTaskData: TaskData = {
 };
 
 export default function TaskCreationScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
   const [isCyclicCheckboxChecked, setCyclic] = React.useState(false);
   const dateRef = React.createRef<TextInputType>();
   const timeRef = React.createRef<TextInputType>();

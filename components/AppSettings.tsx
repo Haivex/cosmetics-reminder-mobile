@@ -5,9 +5,10 @@ import {translate} from '../translation/config';
 import {IconButton, Menu} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
 import {logOut} from '../redux/UserReducer';
+import {NavigationProp} from '../types';
 
 const AppSettings = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
   const dispatch = useDispatch();
   const [visibleMenu, setVisibleMenu] = React.useState(false);
 
