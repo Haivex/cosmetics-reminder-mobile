@@ -5,7 +5,6 @@ import {enGB, enIN, enUS, pl} from 'date-fns/locale';
 import i18n from 'i18n-js';
 import * as React from 'react';
 import {View} from 'react-native';
-//import * as Notifications from 'expo-notifications';
 import {
   Avatar,
   Button,
@@ -17,14 +16,12 @@ import {
   Portal,
   TextInput,
 } from 'react-native-paper';
-//import { getNotificationByTaskId } from '../notificationsStorage/asyncStorage';
 import Notifications from 'react-native-push-notification';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {deleteTask} from '../firebase/deleteTask';
 import {renameTask} from '../firebase/renameTask';
 import {updateTaskCompletion} from '../firebase/updateTaskCompletion';
 import {RootState} from '../redux/RootReducer';
-import {deleteTodo, renameTodo, restoreTodo} from '../redux/TodosReducer';
 import {translate} from '../translation/config';
 import {Task} from '../types';
 
@@ -41,7 +38,6 @@ type DoneTaskProps = {
 
 export const DoneTask = ({task}: DoneTaskProps) => {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
   const {storedNotifications} = useSelector(
     (state: RootState) => state.notifications,
   );
@@ -94,9 +90,7 @@ export const DoneTask = ({task}: DoneTaskProps) => {
             />
             <Menu.Item
               onPress={() => {
-                updateTaskCompletion(task.id, false).then(() =>
-                  dispatch(restoreTodo(task)),
-                );
+                updateTaskCompletion(task.id, false);
               }}
               title={translate('taskMenu.restoreTask')}
             />
@@ -116,7 +110,6 @@ export const DoneTask = ({task}: DoneTaskProps) => {
                 //     });
                 // }
                 deleteTask(task.id).then(() => {
-                  dispatch(deleteTodo(task));
                   Notifications.cancelLocalNotification(
                     storedNotification?.notificationId.toString() || '',
                   );
@@ -154,9 +147,7 @@ export const DoneTask = ({task}: DoneTaskProps) => {
             </Button>
             <Button
               onPress={() => {
-                renameTask(task.id, newTitle).then(() =>
-                  dispatch(renameTodo({task, title: newTitle})),
-                );
+                renameTask(task.id, newTitle);
                 hideDialog();
               }}>
               {translate('taskMenu.renameInput.changeButton')}

@@ -17,12 +17,11 @@ import {
   TextInput,
 } from 'react-native-paper';
 import Notifications from 'react-native-push-notification';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {deleteTask} from '../firebase/deleteTask';
 import {renameTask} from '../firebase/renameTask';
 import {updateTaskCompletion} from '../firebase/updateTaskCompletion';
 import {RootState} from '../redux/RootReducer';
-import {deleteTodo, markTodoCompleted, renameTodo} from '../redux/TodosReducer';
 import {translate} from '../translation/config';
 import {Task} from '../types';
 const localesMap = new Map<string, Locale>([
@@ -38,7 +37,6 @@ type CurrentTaskProps = {
 
 export const IncomingTask = ({task}: CurrentTaskProps) => {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
   const {storedNotifications} = useSelector(
     (state: RootState) => state.notifications,
   );
@@ -91,16 +89,13 @@ export const IncomingTask = ({task}: CurrentTaskProps) => {
             />
             <Menu.Item
               onPress={() => {
-                updateTaskCompletion(task.id, true).then(() =>
-                  dispatch(markTodoCompleted(task)),
-                );
+                updateTaskCompletion(task.id, true);
               }}
               title={translate('taskMenu.finishTask')}
             />
             <Menu.Item
               onPress={async () => {
                 deleteTask(task.id).then(() => {
-                  dispatch(deleteTodo(task));
                   Notifications.cancelLocalNotification(
                     storedNotification?.notificationId.toString() || '',
                   );
@@ -138,9 +133,7 @@ export const IncomingTask = ({task}: CurrentTaskProps) => {
             </Button>
             <Button
               onPress={() => {
-                renameTask(task.id, newTitle).then(() =>
-                  dispatch(renameTodo({task, title: newTitle})),
-                );
+                renameTask(task.id, newTitle);
                 hideDialog();
               }}>
               {translate('taskMenu.renameInput.changeButton')}
