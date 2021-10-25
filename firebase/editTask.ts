@@ -4,7 +4,7 @@ import removeUndefinedKeys from '../helpers/removeUndefinedKeys';
 import {TaskData} from '../screens/TaskCreationScreen';
 
 export async function editTask(taskId: string, taskData: Partial<TaskData>) {
-  const userUID = await auth().currentUser?.uid;
+  const userUID = auth().currentUser?.uid;
 
   if (userUID) {
     const taskWithoutUndefinedKeys = removeUndefinedKeys(taskData);

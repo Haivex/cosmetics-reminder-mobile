@@ -2,7 +2,7 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 export async function renameTask(taskId: string, newTitle: string) {
-  const userUID = await auth().currentUser?.uid;
+  const userUID = auth().currentUser?.uid;
 
   if (userUID) {
     const database = firestore();
