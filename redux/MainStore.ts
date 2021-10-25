@@ -1,8 +1,10 @@
 import {configureStore} from '@reduxjs/toolkit';
 import {persistStore, persistReducer, Storage} from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
-import {storage} from '../App';
 import rootReducer from './RootReducer';
+import {MMKV} from 'react-native-mmkv';
+
+export const storage = new MMKV();
 
 const reduxStorage: Storage = {
   setItem: (key, value) => {

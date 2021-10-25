@@ -2,7 +2,7 @@ import React from 'react';
 import {ScrollView} from 'react-native';
 import {Button, List} from 'react-native-paper';
 import Notifications from 'react-native-push-notification';
-import {storage} from '../App';
+import {storage} from '../redux/MainStore';
 import NotificationsStatus from '../components/NotificationsStatus';
 import {translate} from '../translation/config';
 const NotificationsSettings = () => {
