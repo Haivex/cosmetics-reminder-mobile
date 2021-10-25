@@ -5,6 +5,7 @@ import 'intl';
 import 'intl/locale-data/jsonp/en';
 import 'intl/locale-data/jsonp/pl';
 import * as React from 'react';
+import {TextInput as TextInputType} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {DatePickerModal} from 'react-native-paper-dates';
 import {CalendarDate} from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
@@ -23,21 +24,21 @@ function getDatePattern() {
   return 'dd-LL-uu';
 }
 
-const DatePickerInput = React.forwardRef<TextInput, DatePickerInputProps>(
+const DatePickerInput = React.forwardRef<TextInputType, DatePickerInputProps>(
   ({onBlur, onChange, value}: DatePickerInputProps, ref) => {
     const [open, setOpen] = React.useState(false);
 
     const onDismissSingle = React.useCallback(() => {
       setOpen(false);
       onBlur();
-    }, [setOpen]);
+    }, [setOpen, onBlur]);
 
     const onConfirmSingle = React.useCallback(
       params => {
         setOpen(false);
         onChange(params.date);
       },
-      [setOpen],
+      [setOpen, onChange],
     );
     return (
       <>

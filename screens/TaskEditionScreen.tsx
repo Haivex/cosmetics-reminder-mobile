@@ -1,7 +1,7 @@
 import {set} from 'date-fns';
 import * as React from 'react';
 import {Controller, useForm, Validate} from 'react-hook-form';
-import {ScrollView, StyleSheet} from 'react-native';
+import {ScrollView, StyleSheet, TextInput as TextInputType} from 'react-native';
 import 'react-native-get-random-values';
 import {
   Button,
@@ -37,8 +37,8 @@ export default function TaskEditionScreen({
   const [isCyclicCheckboxChecked, setCyclic] = React.useState(
     task.cyclicInterval ? true : false,
   );
-  const dateRef = React.createRef<HTMLElement>();
-  const timeRef = React.createRef<HTMLElement>();
+  const dateRef = React.createRef<TextInputType>();
+  const timeRef = React.createRef<TextInputType>();
   const {
     control,
     handleSubmit,

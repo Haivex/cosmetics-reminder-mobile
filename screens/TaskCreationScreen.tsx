@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import {set} from 'date-fns';
 import * as React from 'react';
 import {Controller, useForm, Validate} from 'react-hook-form';
-import {ScrollView, StyleSheet} from 'react-native';
+import {ScrollView, StyleSheet, TextInput as TextInputType} from 'react-native';
 import 'react-native-get-random-values';
 import {
   Button,
@@ -51,8 +51,8 @@ const defaultTaskData: TaskData = {
 export default function TaskCreationScreen() {
   const navigation = useNavigation();
   const [isCyclicCheckboxChecked, setCyclic] = React.useState(false);
-  const dateRef = React.createRef<HTMLElement>();
-  const timeRef = React.createRef<HTMLElement>();
+  const dateRef = React.createRef<TextInputType>();
+  const timeRef = React.createRef<TextInputType>();
   const dispatch = useDispatch();
   const {
     control,
