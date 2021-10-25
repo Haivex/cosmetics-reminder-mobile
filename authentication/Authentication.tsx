@@ -1,5 +1,5 @@
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../redux/RootReducer';
@@ -17,7 +17,9 @@ function Authentication({children}: ChildrenProp) {
   const dispatch = useDispatch();
 
   // Handle user state changes
-  function onAuthStateChanged(userOrNull: FirebaseAuthTypes.User | null) {
+  function onAuthStateChangedCallback(
+    userOrNull: FirebaseAuthTypes.User | null,
+  ) {
     dispatch(logIn(userOrNull));
     if (userOrNull && !isCalledOnce) {
       dispatch(checkPermissions());
@@ -28,10 +30,15 @@ function Authentication({children}: ChildrenProp) {
     }
   }
 
+  const onAuthStateChanged = useCallback(onAuthStateChangedCallback, [
+    dispatch,
+    initializing,
+  ]);
+
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
-  }, []);
+  }, [onAuthStateChanged]);
 
   if (initializing) {
     return null;
