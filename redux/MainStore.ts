@@ -1,4 +1,4 @@
-import {configureStore} from '@reduxjs/toolkit';
+import {AnyAction, configureStore, Reducer} from '@reduxjs/toolkit';
 import {persistStore, persistReducer, Storage} from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 import rootReducer from './RootReducer';
@@ -28,7 +28,10 @@ const persistConfig = {
   stateReconciler: autoMergeLevel2,
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(
+  persistConfig,
+  rootReducer as Reducer<unknown, AnyAction>,
+);
 
 export const store = configureStore({
   reducer: persistedReducer,
