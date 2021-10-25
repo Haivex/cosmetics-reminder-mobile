@@ -5,6 +5,7 @@ import {useFirestoreConnect} from 'react-redux-firebase';
 import {DoneTask} from '../components/DoneTask';
 import {RootState} from '../redux/RootReducer';
 import firestore from '@react-native-firebase/firestore';
+import {Task} from '../types';
 
 export default function CompletedTasksScreen() {
   const user = useSelector((state: RootState) => state.currentUser.data);
@@ -42,7 +43,9 @@ export default function CompletedTasksScreen() {
   return (
     <ScrollView>
       {todos &&
-        getDoneTasks().map(task => <DoneTask key={task.id} task={task} />)}
+        getDoneTasks().map(task => (
+          <DoneTask key={task.id} task={task as Task} />
+        ))}
     </ScrollView>
   );
 }
