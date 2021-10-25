@@ -206,9 +206,7 @@ export default function TaskCreationScreen() {
           control={control}
           rules={{
             required: isCyclicCheckboxChecked,
-            validate: checkIfCyclicInterval as Validate<
-              string | number | Time | CalendarDate | CyclicInterval
-            >,
+            validate: checkIfCyclicInterval as Validate<unknown>,
           }}
           render={({field: {onBlur, onChange, value}}) => (
             <CyclicTaskInputs
