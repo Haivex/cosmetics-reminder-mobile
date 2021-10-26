@@ -64,6 +64,7 @@
     "typescript": "^3.8.3"
   },
   "resolutions": {
-    "@types/react": "^17"
+    "@types/react": "^17",
+    "**/ua-parser-js": "0.7.28"
   }
 }
