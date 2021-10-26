@@ -7,6 +7,7 @@ import {
   DarkTheme,
   DefaultTheme,
   NavigationContainer,
+  NavigationContainerRef,
 } from '@react-navigation/native';
 import {
   CardStyleInterpolators,
@@ -22,6 +23,9 @@ import {RootStackParamList} from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 //import LinkingConfiguration from './LinkingConfiguration';
 
+export const navigationRef =
+  React.createRef<NavigationContainerRef<RootStackParamList>>();
+
 export default function Navigation({
   colorScheme,
 }: {
@@ -29,6 +33,7 @@ export default function Navigation({
 }) {
   return (
     <NavigationContainer
+      ref={navigationRef}
       //linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <RootNavigator />

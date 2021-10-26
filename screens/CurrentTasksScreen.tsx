@@ -7,6 +7,7 @@ import {useFirestoreConnect} from 'react-redux-firebase';
 import {IncomingTask} from '../components/IncomingTask';
 import {Task} from '../components/Task';
 import currentTaskActions from '../components/taskMenuActions/currentTaskActions';
+import incomingTaskActions from '../components/taskMenuActions/incomingTaskActions';
 import {RootState} from '../redux/RootReducer';
 import {translate} from '../translation/config';
 import {Task as TaskType} from '../types';
@@ -99,7 +100,11 @@ export default function CurrentTasksScreen() {
       <View>
         {todos &&
           getIncomingTasks().map(task => (
-            <IncomingTask key={task.id} task={task as TaskType} />
+            <Task
+              key={task.id}
+              task={task as TaskType}
+              menuActions={incomingTaskActions}
+            />
           ))}
       </View>
     </ScrollView>

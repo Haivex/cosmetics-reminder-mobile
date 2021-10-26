@@ -47,6 +47,6 @@ export const editAction: SingleAction = {
   title: translate('taskMenu.editTask'),
   callback: (task, appState) => {
     console.log('Task edition' + task);
-    appState?.navigation.navigate('TaskEdition', task);
+    appState?.navigation.current?.navigate('TaskEdition', task);
   },
 };
