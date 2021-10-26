@@ -2,11 +2,11 @@ import {NavigationContainerRef} from '@react-navigation/core';
 import * as React from 'react';
 import {IconButton, Menu} from 'react-native-paper';
 import {RootState} from '../redux/RootReducer';
-import {NavigationProp, Task} from '../types';
+import {RootStackParamList, Task} from '../types';
 import TaskMenuItem from './TaskMenuItem';
 
 type AppState = {
-  navigation: NavigationContainerRef;
+  navigation: React.RefObject<NavigationContainerRef<RootStackParamList>>;
   globalState: RootState;
 };
 

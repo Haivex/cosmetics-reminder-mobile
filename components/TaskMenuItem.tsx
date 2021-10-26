@@ -1,7 +1,9 @@
 import {NavigationContainerRefContext} from '@react-navigation/core';
+import {NavigationContainerRef} from '@react-navigation/native';
 import * as React from 'react';
 import {Menu} from 'react-native-paper';
 import {useSelector} from 'react-redux';
+import {navigationRef} from '../navigation';
 import {RootState} from '../redux/RootReducer';
 import {Task} from '../types';
 import {SingleAction} from './TaskMenu';
@@ -17,7 +19,7 @@ const TaskMenuItem = ({
   title,
   callback,
 }: TaskMenuItemProps) => {
-  const navigation = React.useContext(NavigationContainerRefContext);
+  const navigation = navigationRef;
   const globalState = useSelector((givenState: RootState) => givenState);
   const appState = {navigation, globalState};
   return (
