@@ -3,11 +3,13 @@ import * as React from 'react';
 import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useFirestoreConnect} from 'react-redux-firebase';
-import {CurrentTask} from '../components/CurrentTask';
+//import {CurrentTask} from '../components/CurrentTask';
 import {IncomingTask} from '../components/IncomingTask';
+import {Task} from '../components/Task';
+import currentTaskActions from '../components/taskMenuActions/currentTaskActions';
 import {RootState} from '../redux/RootReducer';
 import {translate} from '../translation/config';
-import {Task} from '../types';
+import {Task as TaskType} from '../types';
 
 export default function CurrentTasksScreen() {
   const user = useSelector((state: RootState) => state.currentUser.data);
@@ -84,7 +86,11 @@ export default function CurrentTasksScreen() {
       <View>
         {todos &&
           getCurrentTasks().map(task => (
-            <CurrentTask key={task.id} task={task as Task} />
+            <Task
+              key={task.id}
+              task={task as TaskType}
+              menuActions={currentTaskActions}
+            />
           ))}
       </View>
       <Text style={styles.title}>
@@ -93,7 +99,7 @@ export default function CurrentTasksScreen() {
       <View>
         {todos &&
           getIncomingTasks().map(task => (
-            <IncomingTask key={task.id} task={task as Task} />
+            <IncomingTask key={task.id} task={task as TaskType} />
           ))}
       </View>
     </ScrollView>
