@@ -3,8 +3,6 @@ import * as React from 'react';
 import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useFirestoreConnect} from 'react-redux-firebase';
-//import {CurrentTask} from '../components/CurrentTask';
-import {IncomingTask} from '../components/IncomingTask';
 import {Task} from '../components/Task';
 import currentTaskActions from '../components/taskMenuActions/currentTaskActions';
 import incomingTaskActions from '../components/taskMenuActions/incomingTaskActions';

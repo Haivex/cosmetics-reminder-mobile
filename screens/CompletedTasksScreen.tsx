@@ -2,10 +2,11 @@ import * as React from 'react';
 import {ScrollView} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useFirestoreConnect} from 'react-redux-firebase';
-import {DoneTask} from '../components/DoneTask';
 import {RootState} from '../redux/RootReducer';
 import firestore from '@react-native-firebase/firestore';
-import {Task} from '../types';
+import {Task as TaskType} from '../types';
+import {Task} from '../components/Task';
+import completedTaskActions from '../components/taskMenuActions/completedTaskActions';
 
 export default function CompletedTasksScreen() {
   const user = useSelector((state: RootState) => state.currentUser.data);
@@ -44,7 +45,11 @@ export default function CompletedTasksScreen() {
     <ScrollView>
       {todos &&
         getDoneTasks().map(task => (
-          <DoneTask key={task.id} task={task as Task} />
+          <Task
+            key={task.id}
+            task={task as TaskType}
+            menuActions={completedTaskActions}
+          />
         ))}
     </ScrollView>
   );
