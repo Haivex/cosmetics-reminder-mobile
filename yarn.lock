@@ -5921,6 +5921,11 @@ react-native-screens@^3.7.2:
   dependencies:
     warn-once "^0.1.0"
 
+react-native-social-buttons@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-social-buttons/-/react-native-social-buttons-1.2.0.tgz#70500b3506f3fe565bf500af59485dfdcc7ac450"
+  integrity sha512-/yLVsCflrBdVBjHhKXmPCrHCyX2FMEZcpO2EMlMDvSBopu8WRJBxaXLXkiDeJZC6EMRmwRM1fn9uEnmkMXshMg==
+
 react-native-vector-icons@^8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-8.1.0.tgz#e8ee2b17bc4d9f636da1c6f67feee8e2a850c3d8"
@@ -7032,7 +7037,7 @@ typescript@^3.8.3:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.10.tgz#70f3910ac7a51ed6bef79da7800690b19bf778b8"
   integrity sha512-w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q==
 
-ua-parser-js@^0.7.18:
+ua-parser-js@0.7.28, ua-parser-js@^0.7.18:
   version "0.7.28"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.28.tgz#8ba04e653f35ce210239c64661685bf9121dec31"
   integrity sha512-6Gurc1n//gjp9eQNXjD9O3M/sMwVtN5S8Lv9bvOYBfKfDNiIIhqiyi01vMBO45u4zkDE420w/e0se7Vs+sIg+g==

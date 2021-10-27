@@ -1,6 +1,6 @@
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import React, {useCallback, useEffect, useState} from 'react';
-import {View} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../redux/RootReducer';
 import {checkPermissions} from '../redux/NotificationsReducer';
@@ -46,7 +46,7 @@ function Authentication({children}: ChildrenProp) {
 
   if (!user) {
     return (
-      <View>
+      <View style={styles.container}>
         <GoogleSignInButton />
       </View>
     );
@@ -54,4 +54,13 @@ function Authentication({children}: ChildrenProp) {
 
   return <>{children}</>;
 }
+
+const styles = StyleSheet.create({
+  container: {
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 export default Authentication;

@@ -1,7 +1,7 @@
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import React, {useEffect} from 'react';
-import {Button} from 'react-native';
+import {GoogleSocialButton} from 'react-native-social-buttons';
 
 GoogleSignin.configure({
   webClientId:
@@ -26,8 +26,7 @@ function GoogleSignInButton() {
     );
   }, []);
   return (
-    <Button
-      title="Google Sign-In"
+    <GoogleSocialButton
       onPress={() =>
         onGoogleButtonPress().then(() => console.log('Signed in with Google!'))
       }
