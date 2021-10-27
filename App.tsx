@@ -20,6 +20,7 @@ import {persistor, store} from './redux/MainStore';
 import initTranslation from './translation/config';
 import {PersistGate} from 'redux-persist/integration/react';
 import firebase from '@react-native-firebase/app';
+import '@react-native-firebase/firestore';
 import {createFirestoreInstance} from 'redux-firestore';
 import {ReactReduxFirebaseProvider} from 'react-redux-firebase';
 const theme = {

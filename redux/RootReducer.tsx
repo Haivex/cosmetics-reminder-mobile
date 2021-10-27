@@ -27,12 +27,16 @@ interface Tasks {
 interface FirebaseSchema {
   tasks: Tasks;
   doneTasks: Tasks;
+  incomingTasks: FirestoreReducer.Entity<Tasks>;
+  currentTasks: FirestoreReducer.Entity<Tasks>;
   [name: string]: any;
 }
 
 interface FirestoreSchema {
   tasks: FirestoreReducer.Entity<Tasks>;
   doneTasks: FirestoreReducer.Entity<Tasks>;
+  incomingTasks: FirestoreReducer.Entity<Tasks>;
+  currentTasks: FirestoreReducer.Entity<Tasks>;
   [name: string]: any;
 }
 
