@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {List} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {useFirestoreConnect} from 'react-redux-firebase';
 import {Task} from '../components/Task';
@@ -44,10 +45,10 @@ export default function CurrentTasksScreen() {
       refreshControl={
         <RefreshControl refreshing={false} onRefresh={() => forceUpdate()} />
       }>
-      <Text style={styles.title}>
-        {translate('currentTasksScreen.currentTasksTitle')}
-      </Text>
-      <View>
+      <List.Section>
+        <List.Subheader>
+          {translate('currentTasksScreen.currentTasksTitle')}
+        </List.Subheader>
         {currentTasks &&
           currentTasks.map(task => (
             <Task
@@ -56,11 +57,11 @@ export default function CurrentTasksScreen() {
               menuActions={currentTaskActions}
             />
           ))}
-      </View>
-      <Text style={styles.title}>
-        {translate('currentTasksScreen.incomingTasksTitle')}
-      </Text>
-      <View>
+      </List.Section>
+      <List.Section>
+        <List.Subheader>
+          {translate('currentTasksScreen.incomingTasksTitle')}
+        </List.Subheader>
         {incomingTasks &&
           incomingTasks.map(task => (
             <Task
@@ -69,24 +70,24 @@ export default function CurrentTasksScreen() {
               menuActions={incomingTaskActions}
             />
           ))}
-      </View>
+      </List.Section>
     </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   title: {
+//     fontSize: 20,
+//     fontWeight: 'bold',
+//   },
+//   separator: {
+//     marginVertical: 30,
+//     height: 1,
+//     width: '80%',
+//   },
+// });

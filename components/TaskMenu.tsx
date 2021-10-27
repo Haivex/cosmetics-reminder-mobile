@@ -15,9 +15,9 @@ export type SingleAction = {
   callback: (task: Task, appState?: AppState) => unknown;
 };
 
-type TaskMenuProps = {size: number; task: Task; actions: SingleAction[]};
+type TaskMenuProps = {task: Task; actions: SingleAction[]};
 
-const TaskMenu = ({size, actions, task}: TaskMenuProps) => {
+const TaskMenu = ({actions, task}: TaskMenuProps) => {
   const [visibleMenu, setVisibleMenu] = React.useState(false);
   const openMenu = () => setVisibleMenu(true);
   const closeMenu = () => setVisibleMenu(false);
@@ -25,9 +25,7 @@ const TaskMenu = ({size, actions, task}: TaskMenuProps) => {
     <Menu
       visible={visibleMenu}
       onDismiss={closeMenu}
-      anchor={
-        <IconButton size={size} icon="dots-vertical" onPress={openMenu} />
-      }>
+      anchor={<IconButton icon="dots-vertical" onPress={openMenu} />}>
       {actions.map((singleAction, index) => (
         <TaskMenuItem
           key={index}

@@ -6,8 +6,7 @@ import i18n from 'i18n-js';
 import {Task as TaskData} from '../types';
 import TaskMenu, {SingleAction} from './TaskMenu';
 import {enUS} from 'date-fns/locale';
-import {View} from 'react-native';
-import {Avatar, Card} from 'react-native-paper';
+import {List} from 'react-native-paper';
 
 type TaskProps = {
   task: TaskData;
@@ -27,15 +26,11 @@ export const Task = ({task, menuActions}: TaskProps) => {
   );
 
   return (
-    <View>
-      <Card.Title
-        title={task.title}
-        subtitle={formattedTime}
-        left={props => <Avatar.Icon {...props} icon="folder" />}
-        right={props => (
-          <TaskMenu actions={menuActions} task={task} {...props} />
-        )}
-      />
-    </View>
+    <List.Item
+      title={task.title}
+      description={formattedTime}
+      left={props => <List.Icon {...props} icon="folder" />}
+      right={props => <TaskMenu actions={menuActions} task={task} {...props} />}
+    />
   );
 };

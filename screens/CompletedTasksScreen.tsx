@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {ScrollView} from 'react-native';
+import {List} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {useFirestoreConnect} from 'react-redux-firebase';
 import {Task} from '../components/Task';
@@ -26,14 +27,16 @@ export default function CompletedTasksScreen() {
 
   return (
     <ScrollView>
-      {todos &&
-        todos.map(task => (
-          <Task
-            key={task.id}
-            task={task as TaskType}
-            menuActions={completedTaskActions}
-          />
-        ))}
+      <List.Section>
+        {todos &&
+          todos.map(task => (
+            <Task
+              key={task.id}
+              task={task as TaskType}
+              menuActions={completedTaskActions}
+            />
+          ))}
+      </List.Section>
     </ScrollView>
   );
 }
