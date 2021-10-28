@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {RefreshControl, ScrollView} from 'react-native';
 import {List} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {useFirestoreConnect} from 'react-redux-firebase';
@@ -52,6 +52,7 @@ export default function CurrentTasksScreen() {
         {currentTasks &&
           currentTasks.map(task => (
             <Task
+              icon="alarm-check"
               key={task.id}
               task={task as TaskType}
               menuActions={currentTaskActions}
@@ -65,6 +66,7 @@ export default function CurrentTasksScreen() {
         {incomingTasks &&
           incomingTasks.map(task => (
             <Task
+              icon="alarm"
               key={task.id}
               task={task as TaskType}
               menuActions={incomingTaskActions}

@@ -9,11 +9,12 @@ import {enUS} from 'date-fns/locale';
 import {List} from 'react-native-paper';
 
 type TaskProps = {
+  icon: string;
   task: TaskData;
   menuActions: SingleAction[];
 };
 
-export const Task = ({task, menuActions}: TaskProps) => {
+export const Task = ({icon, task, menuActions}: TaskProps) => {
   const formattedTime = formatRelative(
     new firestore.Timestamp(
       task.date.seconds,
@@ -29,7 +30,7 @@ export const Task = ({task, menuActions}: TaskProps) => {
     <List.Item
       title={task.title}
       description={formattedTime}
-      left={props => <List.Icon {...props} icon="folder" />}
+      left={props => <List.Icon {...props} icon={icon} />}
       right={props => <TaskMenu actions={menuActions} task={task} {...props} />}
     />
   );

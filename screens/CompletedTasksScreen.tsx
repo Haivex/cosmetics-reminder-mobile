@@ -31,6 +31,7 @@ export default function CompletedTasksScreen() {
         {todos &&
           todos.map(task => (
             <Task
+              icon="checkbox-marked-circle"
               key={task.id}
               task={task as TaskType}
               menuActions={completedTaskActions}
