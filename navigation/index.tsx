@@ -15,6 +15,7 @@ import {
 } from '@react-navigation/stack';
 import * as React from 'react';
 import {ColorSchemeName} from 'react-native';
+import RenameDialog from '../components/RenameDialog';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import NotificationsSettings from '../screens/NotificationsSettings';
 import TaskEditionScreen from '../screens/TaskEditionScreen';
@@ -48,34 +49,39 @@ const Stack = createStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Root" component={BottomTabNavigator} />
-      <Stack.Screen
-        name="NotFound"
-        component={NotFoundScreen}
-        options={{title: 'Oops!'}}
-      />
-      <Stack.Screen
-        name="NotificationsSettings"
-        component={NotificationsSettings}
-        options={{
-          title: translate('appSettings.notificationsSettings'),
-          headerShown: true,
-          gestureEnabled: true,
-          gestureDirection: 'horizontal',
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-        }}
-      />
-      <Stack.Screen
-        name="TaskEdition"
-        component={TaskEditionScreen}
-        options={{
-          title: translate('editTaskScreen.title'),
-          headerShown: true,
-          gestureEnabled: true,
-          gestureDirection: 'horizontal',
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-        }}
-      />
+      <Stack.Group>
+        <Stack.Screen name="Root" component={BottomTabNavigator} />
+        <Stack.Screen
+          name="NotFound"
+          component={NotFoundScreen}
+          options={{title: 'Oops!'}}
+        />
+        <Stack.Screen
+          name="NotificationsSettings"
+          component={NotificationsSettings}
+          options={{
+            title: translate('appSettings.notificationsSettings'),
+            headerShown: true,
+            gestureEnabled: true,
+            gestureDirection: 'horizontal',
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          }}
+        />
+        <Stack.Screen
+          name="TaskEdition"
+          component={TaskEditionScreen}
+          options={{
+            title: translate('editTaskScreen.title'),
+            headerShown: true,
+            gestureEnabled: true,
+            gestureDirection: 'horizontal',
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          }}
+        />
+      </Stack.Group>
+      <Stack.Group screenOptions={{presentation: 'transparentModal'}}>
+        <Stack.Screen name="RenameTaskDialog" component={RenameDialog} />
+      </Stack.Group>
     </Stack.Navigator>
   );
 }
