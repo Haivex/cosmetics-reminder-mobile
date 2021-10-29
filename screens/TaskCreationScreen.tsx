@@ -16,6 +16,7 @@ import Notifications from 'react-native-push-notification';
 import {useDispatch} from 'react-redux';
 import CyclicTaskInputs, {CyclicInterval} from '../components/CyclicTaskInputs';
 import DatePickerInput from '../components/DatePickerInput';
+import ErrorDialog from '../components/ErrorDialog';
 import TimePickerInput, {Time} from '../components/TimePickerInput';
 import {TaskDocument} from '../firebase/firestoreTypes';
 import {saveTask} from '../firebase/saveTask';
@@ -49,6 +50,7 @@ const defaultTaskData: TaskData = {
 };
 
 export default function TaskCreationScreen() {
+  const [error, setError] = React.useState('');
   const navigation = useNavigation<NavigationProp>();
   const [isCyclicCheckboxChecked, setCyclic] = React.useState(false);
   const dateRef = React.createRef<TextInputType>();
@@ -79,16 +81,6 @@ export default function TaskCreationScreen() {
       .then(savedTask => {
         const id = savedTask.id;
         const dataFromDb = savedTask.data() as TaskDocument;
-        // dispatch(
-        //   addTodo({
-        //     ...dataFromDb,
-        //     timestamp: new firestore.Timestamp(
-        //       dataFromDb.date.seconds,
-        //       dataFromDb.date.nanoseconds,
-        //     ).toMillis(),
-        //     id,
-        //   } as SavedTask),
-        // );
         const notificationCreationTimestamp = Date.now();
         Notifications.localNotificationSchedule({
           channelId: 'main',
@@ -112,6 +104,10 @@ export default function TaskCreationScreen() {
         clearErrors();
         reset(defaultTaskData);
         navigation.navigate('TabTwo');
+      })
+      .catch(catchedError => {
+        console.error('Task Creation Error:', catchedError);
+        setError(catchedError);
       });
   };
 
@@ -228,6 +224,13 @@ export default function TaskCreationScreen() {
       <Button onPress={handleSubmit(onSubmit)} mode="outlined">
         {translate('createTaskScreen.createTaskButton')}
       </Button>
+      {Boolean(error) && (
+        <ErrorDialog
+          error={error}
+          title="Task Creation Error!"
+          description="Cannot create task! Try again later"
+        />
+      )}
     </ScrollView>
   );
 }

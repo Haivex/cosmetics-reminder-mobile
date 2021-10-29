@@ -13,6 +13,7 @@ import {
 import {CalendarDate} from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
 import CyclicTaskInputs, {CyclicInterval} from '../components/CyclicTaskInputs';
 import DatePickerInput from '../components/DatePickerInput';
+import ErrorDialog from '../components/ErrorDialog';
 import TimePickerInput, {Time} from '../components/TimePickerInput';
 import {editTask} from '../firebase/editTask';
 import {checkIfCyclicInterval} from '../helpers/intervalHelpers';
@@ -24,6 +25,7 @@ export default function TaskEditionScreen({
   route,
   navigation,
 }: NavigationProps) {
+  const [error, setError] = React.useState('');
   const task = route.params;
   const defaultTaskData: TaskData = {
     cyclicInterval: task.cyclicInterval,
@@ -60,11 +62,16 @@ export default function TaskEditionScreen({
       date: mergedDateAndTime,
       time: undefined,
     };
-    editTask(task.id, taskDataWithoutTime).then(() => {
-      clearErrors();
-      reset(defaultTaskData);
-      navigation.goBack();
-    });
+    editTask(task.id, taskDataWithoutTime)
+      .then(() => {
+        clearErrors();
+        reset(defaultTaskData);
+        navigation.goBack();
+      })
+      .catch(catchedError => {
+        console.error('Task Edition Error:', catchedError);
+        setError(catchedError);
+      });
   };
 
   return (
@@ -180,6 +187,13 @@ export default function TaskEditionScreen({
       <Button onPress={handleSubmit(onSubmit)} mode="outlined">
         {translate('editTaskScreen.confirmButton')}
       </Button>
+      {Boolean(error) && (
+        <ErrorDialog
+          error={error}
+          title="Task Edition Error!"
+          description="Cannot rename task! Try again later"
+        />
+      )}
     </ScrollView>
   );
 }

@@ -51,7 +51,7 @@ const NotificationsSettings = () => {
         mode="outlined"
         onPress={() => {
           storage.clearAll();
-          console.log('Storage cleared');
+          console.info('Storage cleared');
         }}>
         Clear storage
       </Button>
