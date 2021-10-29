@@ -12,6 +12,7 @@ export type RootStackParamList = {
   NotFound: undefined;
   NotificationsSettings: undefined;
   TaskEdition: Task;
+  RenameTaskDialog: Task;
   TabTwo: undefined;
 };
 
