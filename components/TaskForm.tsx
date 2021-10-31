@@ -38,7 +38,7 @@ export default function TaskForm({
   taskData,
   submitText,
   submitCallback,
-  navigateTo
+  navigateTo,
 }: TaskFormProps) {
   const [error, setError] = React.useState('');
   const defaultTaskData: Partial<TaskData> = {
