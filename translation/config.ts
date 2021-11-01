@@ -1,7 +1,8 @@
 import i18n from 'i18n-js';
-import enUS from './languages/en-US.json';
-import en from './languages/en.json';
-import pl from './languages/pl.json';
+import enUS from './languages/enUS';
+import en, {AppTranslation} from './languages/en';
+import pl from './languages/pl';
+import {DeepKeys, DeepKeysLighweight, GetDictValue} from '../types';
 
 const initTranslation = (): void => {
   i18n.translations = {
@@ -14,4 +15,17 @@ const initTranslation = (): void => {
   i18n.fallbacks = true;
   i18n.missingBehaviour = 'guess';
 };
+
+//IntelliSense show current keys
+export const translate = <P extends string>(
+  scope: DeepKeysLighweight<AppTranslation, P>,
+): GetDictValue<P, AppTranslation> => {
+  return i18n.translate(scope) as unknown as GetDictValue<P, AppTranslation>;
+};
+
+//IntelliSense show all object keys(with nested keys)
+export const translateHeavy = <P extends DeepKeys<AppTranslation>>(scope: P) => {
+  return i18n.translate(scope) as unknown as GetDictValue<P, AppTranslation>;
+};
+
 export default initTranslation;

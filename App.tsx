@@ -18,9 +18,9 @@ import Authentication from './authentication/Authentication';
 import Navigation from './navigation/index';
 import {persistor, store} from './redux/MainStore';
 import initTranslation from './translation/config';
-import {MMKV} from 'react-native-mmkv';
 import {PersistGate} from 'redux-persist/integration/react';
 import firebase from '@react-native-firebase/app';
+import '@react-native-firebase/firestore';
 import {createFirestoreInstance} from 'redux-firestore';
 import {ReactReduxFirebaseProvider} from 'react-redux-firebase';
 const theme = {
@@ -60,8 +60,6 @@ PushNotification.createChannel(
   },
   created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
 );
-
-export const storage = new MMKV();
 
 const rrfConfig = {
   userProfile: 'users',
