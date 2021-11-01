@@ -7,20 +7,25 @@ import {
   DarkTheme,
   DefaultTheme,
   NavigationContainer,
+  NavigationContainerRef,
 } from '@react-navigation/native';
 import {
   CardStyleInterpolators,
   createStackNavigator,
 } from '@react-navigation/stack';
-import i18n from 'i18n-js';
 import * as React from 'react';
 import {ColorSchemeName} from 'react-native';
+import RenameDialog from '../components/RenameDialog';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import NotificationsSettings from '../screens/NotificationsSettings';
 import TaskEditionScreen from '../screens/TaskEditionScreen';
+import {translate} from '../translation/config';
 import {RootStackParamList} from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 //import LinkingConfiguration from './LinkingConfiguration';
+
+export const navigationRef =
+  React.createRef<NavigationContainerRef<RootStackParamList>>();
 
 export default function Navigation({
   colorScheme,
@@ -29,6 +34,7 @@ export default function Navigation({
 }) {
   return (
     <NavigationContainer
+      ref={navigationRef}
       //linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <RootNavigator />
@@ -43,34 +49,39 @@ const Stack = createStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Root" component={BottomTabNavigator} />
-      <Stack.Screen
-        name="NotFound"
-        component={NotFoundScreen}
-        options={{title: 'Oops!'}}
-      />
-      <Stack.Screen
-        name="NotificationsSettings"
-        component={NotificationsSettings}
-        options={{
-          title: i18n.t('appSettings.notificationsSettings'),
-          headerShown: true,
-          gestureEnabled: true,
-          gestureDirection: 'horizontal',
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-        }}
-      />
-      <Stack.Screen
-        name="TaskEdition"
-        component={TaskEditionScreen}
-        options={{
-          title: i18n.t('editTaskScreen.title'),
-          headerShown: true,
-          gestureEnabled: true,
-          gestureDirection: 'horizontal',
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-        }}
-      />
+      <Stack.Group>
+        <Stack.Screen name="Root" component={BottomTabNavigator} />
+        <Stack.Screen
+          name="NotFound"
+          component={NotFoundScreen}
+          options={{title: 'Oops!'}}
+        />
+        <Stack.Screen
+          name="NotificationsSettings"
+          component={NotificationsSettings}
+          options={{
+            title: translate('appSettings.notificationsSettings'),
+            headerShown: true,
+            gestureEnabled: true,
+            gestureDirection: 'horizontal',
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          }}
+        />
+        <Stack.Screen
+          name="TaskEdition"
+          component={TaskEditionScreen}
+          options={{
+            title: translate('editTaskScreen.title'),
+            headerShown: true,
+            gestureEnabled: true,
+            gestureDirection: 'horizontal',
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          }}
+        />
+      </Stack.Group>
+      <Stack.Group screenOptions={{presentation: 'transparentModal'}}>
+        <Stack.Screen name="RenameTaskDialog" component={RenameDialog} />
+      </Stack.Group>
     </Stack.Navigator>
   );
 }

@@ -1,16 +1,16 @@
-import i18n from 'i18n-js';
 import React from 'react';
 import {ScrollView} from 'react-native';
 import {Button, List} from 'react-native-paper';
 import Notifications from 'react-native-push-notification';
-import {storage} from '../App';
+import {storage} from '../redux/MainStore';
 import NotificationsStatus from '../components/NotificationsStatus';
+import {translate} from '../translation/config';
 const NotificationsSettings = () => {
   return (
     <ScrollView>
       <List.Section>
         <List.Item
-          title={i18n.t('notificationsSettings.notificationsStatus')}
+          title={translate('notificationsSettings.notificationsStatus')}
           right={() => <NotificationsStatus />}
         />
       </List.Section>
@@ -51,7 +51,7 @@ const NotificationsSettings = () => {
         mode="outlined"
         onPress={() => {
           storage.clearAll();
-          console.log('Storage cleared');
+          console.info('Storage cleared');
         }}>
         Clear storage
       </Button>

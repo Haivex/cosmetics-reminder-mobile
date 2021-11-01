@@ -5,7 +5,6 @@
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
-import i18n from 'i18n-js';
 import * as React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppSettings from '../components/AppSettings';
@@ -14,12 +13,15 @@ import useColorScheme from '../hooks/useColorScheme';
 import CompletedTasksScreen from '../screens/CompletedTasksScreen';
 import CurrentTasksScreen from '../screens/CurrentTasksScreen';
 import TaskCreationScreen from '../screens/TaskCreationScreen';
+import {translate} from '../translation/config';
 import {
   BottomTabParamList,
   TabOneParamList,
   TabThreeParamList,
   TabTwoParamList,
 } from '../types';
+
+/* eslint-disable react-native/no-inline-styles */
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -40,7 +42,7 @@ export default function BottomTabNavigator() {
         header: () => null,
       }}>
       <BottomTab.Screen
-        name='TabOne'
+        name="TabOne"
         component={TabOneNavigator}
         options={{
           tabBarIcon: ({color}) => (
@@ -51,11 +53,11 @@ export default function BottomTabNavigator() {
               color={color}
             />
           ),
-          title: i18n.t('bottomNavigation.createTaskTitle'),
+          title: translate('bottomNavigation.createTaskTitle'),
         }}
       />
       <BottomTab.Screen
-        name='TabTwo'
+        name="TabTwo"
         component={TabTwoNavigator}
         options={{
           tabBarIcon: ({color}) => (
@@ -66,7 +68,7 @@ export default function BottomTabNavigator() {
               color={color}
             />
           ),
-          title: i18n.t('bottomNavigation.currentTasks'),
+          title: translate('bottomNavigation.currentTasks'),
         }}
       />
       <BottomTab.Screen
@@ -81,7 +83,7 @@ export default function BottomTabNavigator() {
               color={color}
             />
           ),
-          title: i18n.t('bottomNavigation.finishedTasks'),
+          title: translate('bottomNavigation.finishedTasks'),
         }}
       />
     </BottomTab.Navigator>
@@ -106,7 +108,7 @@ function TabOneNavigator() {
         component={TaskCreationScreen}
         options={{
           headerRight: () => <AppSettings />,
-          headerTitle: i18n.t('createTaskScreen.screenTitle'),
+          headerTitle: translate('createTaskScreen.screenTitle'),
         }}
       />
     </TabOneStack.Navigator>
@@ -123,7 +125,7 @@ function TabTwoNavigator() {
         component={CurrentTasksScreen}
         options={{
           headerRight: () => <AppSettings />,
-          headerTitle: i18n.t('currentTasksScreen.screenTitle'),
+          headerTitle: translate('currentTasksScreen.screenTitle'),
         }}
       />
     </TabTwoStack.Navigator>
@@ -140,7 +142,7 @@ function TabThreeNavigator() {
         component={CompletedTasksScreen}
         options={{
           headerRight: () => <AppSettings />,
-          headerTitle: i18n.t('finishedTasksScreen.screenTitle'),
+          headerTitle: translate('finishedTasksScreen.screenTitle'),
         }}
       />
     </TabThreeStack.Navigator>

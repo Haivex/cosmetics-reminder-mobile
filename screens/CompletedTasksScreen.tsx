@@ -1,10 +1,12 @@
 import * as React from 'react';
 import {ScrollView} from 'react-native';
+import {List} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {useFirestoreConnect} from 'react-redux-firebase';
-import {DoneTask} from '../components/DoneTask';
+import {Task} from '../components/Task';
+import completedTaskActions from '../components/taskMenuActions/completedTaskActions';
 import {RootState} from '../redux/RootReducer';
-import firestore from '@react-native-firebase/firestore';
+import {Task as TaskType} from '../types';
 
 export default function CompletedTasksScreen() {
   const user = useSelector((state: RootState) => state.currentUser.data);
@@ -15,6 +17,7 @@ export default function CompletedTasksScreen() {
         ['userUID', '==', user?.uid],
         ['completed', '==', true],
       ],
+      orderBy: ['date', 'desc'],
       storeAs: 'doneTasks',
     },
   ]);
@@ -22,27 +25,19 @@ export default function CompletedTasksScreen() {
     (state: RootState) => state.firestore.ordered,
   );
 
-  const getDoneTasks = () => {
-    return todos
-      .filter(task => task.completed)
-      .sort((previousTask, currentTask) => {
-        return (
-          new firestore.Timestamp(
-            currentTask.date.seconds,
-            currentTask.date.nanoseconds,
-          ).toMillis() -
-          new firestore.Timestamp(
-            previousTask.date.seconds,
-            previousTask.date.nanoseconds,
-          ).toMillis()
-        );
-      });
-  };
-
   return (
     <ScrollView>
-      {todos &&
-        getDoneTasks().map(task => <DoneTask key={task.id} task={task} />)}
+      <List.Section>
+        {todos &&
+          todos.map(task => (
+            <Task
+              icon="checkbox-marked-circle"
+              key={task.id}
+              task={task as TaskType}
+              menuActions={completedTaskActions}
+            />
+          ))}
+      </List.Section>
     </ScrollView>
   );
 }
