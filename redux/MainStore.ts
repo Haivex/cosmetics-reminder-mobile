@@ -3,6 +3,7 @@ import {persistStore, persistReducer, Storage} from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 import rootReducer from './RootReducer';
 import {MMKV} from 'react-native-mmkv';
+import {getFirebase} from 'react-redux-firebase';
 
 export const storage = new MMKV();
 
@@ -37,6 +38,7 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
+      thunk: {extraArgument: getFirebase},
       immutableCheck: false,
       serializableCheck: false,
     }),
