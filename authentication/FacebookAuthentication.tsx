@@ -37,7 +37,7 @@ function FacebookSignInButton() {
             });
         }}
       />
-      {error && (
+      {Boolean(error) && (
         <ErrorDialog
           title="Facebook Sign-in Error!"
           description="Facebook Sign-in Error! Try again later."

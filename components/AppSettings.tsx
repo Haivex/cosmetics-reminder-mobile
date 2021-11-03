@@ -49,7 +49,7 @@ const AppSettings = () => {
           icon="bell"
         />
       </Menu>
-      {error && (
+      {Boolean(error) && (
         <ErrorDialog
           error={error}
           title="Sign-out Error"
