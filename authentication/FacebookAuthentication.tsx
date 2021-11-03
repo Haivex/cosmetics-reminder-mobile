@@ -1,12 +1,9 @@
 import React from 'react';
 import auth from '@react-native-firebase/auth';
-import {Button, Dialog, Paragraph, Portal} from 'react-native-paper';
 import {AccessToken, LoginButton} from 'react-native-fbsdk-next';
+import ErrorDialog from '../components/ErrorDialog';
 
 function FacebookSignInButton() {
-  const [visible, setVisible] = React.useState(false);
-  const showDialog = () => setVisible(true);
-  const hideDialog = () => setVisible(false);
   const [error, setError] = React.useState('');
 
   return (
@@ -15,12 +12,10 @@ function FacebookSignInButton() {
         onLoginFinished={(catchedError, result) => {
           if (catchedError) {
             setError(catchedError);
-            showDialog();
             return;
           }
           if (result.isCancelled) {
             setError('Login is cancelled');
-            showDialog();
             return;
           }
           AccessToken.getCurrentAccessToken()
@@ -39,22 +34,16 @@ function FacebookSignInButton() {
             })
             .catch(catchedOtherError => {
               setError(catchedOtherError);
-              showDialog();
             });
         }}
       />
-      <Portal>
-        <Dialog visible={visible} onDismiss={hideDialog}>
-          <Dialog.Title>Alert</Dialog.Title>
-          <Dialog.Content>
-            <Paragraph>Facebook Sign-in Error! Try again later.</Paragraph>
-            <Paragraph>{error}</Paragraph>
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button onPress={hideDialog}>Done</Button>
-          </Dialog.Actions>
-        </Dialog>
-      </Portal>
+      {error && (
+        <ErrorDialog
+          title="Facebook Sign-in Error!"
+          description="Facebook Sign-in Error! Try again later."
+          error={error}
+        />
+      )}
     </>
   );
 }
