@@ -7,6 +7,7 @@ import {checkPermissions} from '../redux/NotificationsReducer';
 import {logIn} from '../redux/UserReducer';
 import {ChildrenProp} from '../types';
 import GoogleSignInButton from './GoogleAuthentication';
+import FacebookSignInButton from './FacebookAuthentication';
 
 let isCalledOnce = false;
 
@@ -48,6 +49,7 @@ function Authentication({children}: ChildrenProp) {
     return (
       <View style={styles.container}>
         <GoogleSignInButton />
+        <FacebookSignInButton />
       </View>
     );
   }

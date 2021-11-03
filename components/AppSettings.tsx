@@ -6,11 +6,13 @@ import {IconButton, Menu} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
 import {logOut} from '../redux/UserReducer';
 import {NavigationProp} from '../types';
+import ErrorDialog from './ErrorDialog';
 
 const AppSettings = () => {
   const navigation = useNavigation<NavigationProp>();
   const dispatch = useDispatch();
   const [visibleMenu, setVisibleMenu] = React.useState(false);
+  const [error, setError] = React.useState('');
 
   const openMenu = () => setVisibleMenu(true);
 
@@ -24,10 +26,16 @@ const AppSettings = () => {
         visible={visibleMenu}>
         <Menu.Item
           onPress={() => {
-            closeMenu();
             auth()
               .signOut()
-              .then(() => dispatch(logOut()));
+              .then(() => {
+                dispatch(logOut());
+                closeMenu();
+              })
+              .catch(catchedError => {
+                console.error(catchedError);
+                setError(catchedError);
+              });
           }}
           title={translate('appSettings.logOut')}
           icon="logout"
@@ -41,6 +49,13 @@ const AppSettings = () => {
           icon="bell"
         />
       </Menu>
+      {error && (
+        <ErrorDialog
+          error={error}
+          title="Sign-out Error"
+          description="Sign-out Error! Try again later"
+        />
+      )}
     </>
   );
 };
