@@ -30,7 +30,6 @@ const AppSettings = () => {
               .signOut()
               .then(() => {
                 dispatch(logOut());
-                closeMenu();
               })
               .catch(catchedError => {
                 console.error(catchedError);
@@ -42,8 +41,8 @@ const AppSettings = () => {
         />
         <Menu.Item
           onPress={() => {
-            closeMenu();
             navigation.navigate('NotificationsSettings');
+            closeMenu();
           }}
           title={translate('appSettings.notificationsSettings')}
           icon="bell"

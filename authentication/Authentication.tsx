@@ -1,13 +1,13 @@
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import React, {useCallback, useEffect, useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../redux/RootReducer';
 import {checkPermissions} from '../redux/NotificationsReducer';
+import {RootState} from '../redux/RootReducer';
 import {logIn} from '../redux/UserReducer';
 import {ChildrenProp} from '../types';
-import GoogleSignInButton from './GoogleAuthentication';
 import FacebookSignInButton from './FacebookAuthentication';
+import GoogleSignInButton from './GoogleAuthentication';
 
 let isCalledOnce = false;
 

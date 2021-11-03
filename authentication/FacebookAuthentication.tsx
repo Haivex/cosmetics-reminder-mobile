@@ -1,39 +1,44 @@
-import React from 'react';
 import auth from '@react-native-firebase/auth';
-import {AccessToken, LoginButton} from 'react-native-fbsdk-next';
+import React from 'react';
+import {AccessToken, LoginManager} from 'react-native-fbsdk-next';
+import {FacebookSocialButton} from 'react-native-social-buttons';
 import ErrorDialog from '../components/ErrorDialog';
 
 function FacebookSignInButton() {
   const [error, setError] = React.useState('');
 
+  const onButtonPress = async () => {
+    const result = await LoginManager.logInWithPermissions([
+      'public_profile',
+      'email',
+    ]);
+
+    if (result.isCancelled) {
+      throw new Error('Login is cancelled');
+    }
+
+    const data = await AccessToken.getCurrentAccessToken();
+
+    if (!data) {
+      throw new Error('Something went wrong obtaining access token');
+    }
+
+    const facebookCredential = auth.FacebookAuthProvider.credential(
+      data.accessToken,
+    );
+
+    return auth().signInWithCredential(facebookCredential);
+  };
+
   return (
     <>
-      <LoginButton
-        onLoginFinished={(catchedError, result) => {
-          if (catchedError) {
-            setError(catchedError);
-            return;
-          }
-          if (result.isCancelled) {
-            setError('Login is cancelled');
-            return;
-          }
-          AccessToken.getCurrentAccessToken()
-            .then(data => {
-              if (data) {
-                const accessToken = data.accessToken.toString();
-                const credential =
-                  auth.FacebookAuthProvider.credential(accessToken);
-
-                return credential;
-              }
-              throw new Error('Cannot get access token');
-            })
-            .then(credential => {
-              return auth().signInWithCredential(credential);
-            })
-            .catch(catchedOtherError => {
-              setError(catchedOtherError);
+      <FacebookSocialButton
+        onPress={() => {
+          onButtonPress()
+            .then(() => console.log('Signed in with Facebook!'))
+            .catch(catchedError => {
+              setError(catchedError);
+              console.error(catchedError);
             });
         }}
       />
