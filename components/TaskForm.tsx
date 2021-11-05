@@ -58,7 +58,7 @@ export default function TaskForm({
   const {
     control,
     handleSubmit,
-    formState: {errors},
+    formState: {errors, isSubmitting},
     clearErrors,
     reset,
     getValues,
@@ -193,7 +193,11 @@ export default function TaskForm({
         }>
         {translate('createTaskScreen.cyclicHelperText')}
       </HelperText>
-      <Button onPress={handleSubmit(onSubmit)} mode="outlined">
+      <Button
+        loading={isSubmitting}
+        disabled={isSubmitting}
+        onPress={handleSubmit(onSubmit)}
+        mode="outlined">
         {submitText}
       </Button>
       {Boolean(error) && (

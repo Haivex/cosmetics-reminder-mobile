@@ -3,11 +3,13 @@ import React from 'react';
 import {AccessToken, LoginManager} from 'react-native-fbsdk-next';
 import {FacebookSocialButton} from 'react-native-social-buttons';
 import ErrorDialog from '../components/ErrorDialog';
+import {AuthButtonProps} from './Authentication';
 
-function FacebookSignInButton() {
+function FacebookSignInButton({disabled, setLoading}: AuthButtonProps) {
   const [error, setError] = React.useState('');
 
   const onButtonPress = async () => {
+    setLoading(true);
     const result = await LoginManager.logInWithPermissions([
       'public_profile',
       'email',
@@ -33,12 +35,16 @@ function FacebookSignInButton() {
   return (
     <>
       <FacebookSocialButton
+        disabled={disabled}
         onPress={() => {
           onButtonPress()
             .then(() => console.log('Signed in with Facebook!'))
             .catch(catchedError => {
               setError(catchedError);
               console.error(catchedError);
+            })
+            .finally(() => {
+              setLoading(false);
             });
         }}
       />
