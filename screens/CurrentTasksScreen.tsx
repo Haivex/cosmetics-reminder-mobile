@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {RefreshControl, ScrollView} from 'react-native';
-import {List} from 'react-native-paper';
+import {List, Text} from 'react-native-paper';
 import {useSelector} from 'react-redux';
-import {useFirestoreConnect} from 'react-redux-firebase';
+import {useFirestoreConnect, isLoaded, isEmpty} from 'react-redux-firebase';
 import {Task} from '../components/Task';
 import currentTaskActions from '../components/taskMenuActions/currentTaskActions';
 import incomingTaskActions from '../components/taskMenuActions/incomingTaskActions';
@@ -40,6 +40,40 @@ export default function CurrentTasksScreen() {
   );
   const [, forceUpdate] = React.useReducer(x => x + 1, 0);
 
+  const renderCurrentTasks = (): JSX.Element | JSX.Element[] => {
+    if (!isLoaded(currentTasks)) {
+      return <Text>Loading...</Text>;
+    }
+    if (isEmpty(currentTasks)) {
+      return <Text>Empty</Text>;
+    }
+    return currentTasks.map(task => (
+      <Task
+        icon="alarm-check"
+        key={task.id}
+        task={task as TaskType}
+        menuActions={currentTaskActions}
+      />
+    ));
+  };
+
+  const renderIncomingTasks = (): JSX.Element | JSX.Element[] => {
+    if (!isLoaded(incomingTasks)) {
+      return <Text>Loading...</Text>;
+    }
+    if (isEmpty(incomingTasks)) {
+      return <Text>Empty</Text>;
+    }
+    return incomingTasks.map(task => (
+      <Task
+        icon="alarm"
+        key={task.id}
+        task={task as TaskType}
+        menuActions={incomingTaskActions}
+      />
+    ));
+  };
+
   return (
     <ScrollView
       refreshControl={
@@ -49,29 +83,13 @@ export default function CurrentTasksScreen() {
         <List.Subheader>
           {translate('currentTasksScreen.currentTasksTitle')}
         </List.Subheader>
-        {currentTasks &&
-          currentTasks.map(task => (
-            <Task
-              icon="alarm-check"
-              key={task.id}
-              task={task as TaskType}
-              menuActions={currentTaskActions}
-            />
-          ))}
+        {renderCurrentTasks()}
       </List.Section>
       <List.Section>
         <List.Subheader>
           {translate('currentTasksScreen.incomingTasksTitle')}
         </List.Subheader>
-        {incomingTasks &&
-          incomingTasks.map(task => (
-            <Task
-              icon="alarm"
-              key={task.id}
-              task={task as TaskType}
-              menuActions={incomingTaskActions}
-            />
-          ))}
+        {renderIncomingTasks()}
       </List.Section>
     </ScrollView>
   );

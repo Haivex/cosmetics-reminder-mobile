@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {ScrollView} from 'react-native';
-import {List} from 'react-native-paper';
+import {List, Text} from 'react-native-paper';
 import {useSelector} from 'react-redux';
-import {useFirestoreConnect} from 'react-redux-firebase';
+import {useFirestoreConnect, isEmpty, isLoaded} from 'react-redux-firebase';
 import {Task} from '../components/Task';
 import completedTaskActions from '../components/taskMenuActions/completedTaskActions';
 import {RootState} from '../redux/RootReducer';
@@ -25,19 +25,26 @@ export default function CompletedTasksScreen() {
     (state: RootState) => state.firestore.ordered,
   );
 
+  const renderDoneTasks = () => {
+    if (!isLoaded(todos)) {
+      return <Text>Loading...</Text>;
+    }
+    if (isEmpty(todos)) {
+      return <Text>Empty</Text>;
+    }
+    return todos.map(task => (
+      <Task
+        icon="checkbox-marked-circle"
+        key={task.id}
+        task={task as TaskType}
+        menuActions={completedTaskActions}
+      />
+    ));
+  };
+
   return (
     <ScrollView>
-      <List.Section>
-        {todos &&
-          todos.map(task => (
-            <Task
-              icon="checkbox-marked-circle"
-              key={task.id}
-              task={task as TaskType}
-              menuActions={completedTaskActions}
-            />
-          ))}
-      </List.Section>
+      <List.Section>{renderDoneTasks()}</List.Section>
     </ScrollView>
   );
 }
