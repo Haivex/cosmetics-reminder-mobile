@@ -1,6 +1,5 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import removeUndefinedKeys from '../helpers/removeUndefinedKeys';
 import {TaskData} from '../screens/TaskCreationScreen';
 
 export async function saveTask(task: Partial<TaskData>) {
@@ -8,11 +7,10 @@ export async function saveTask(task: Partial<TaskData>) {
 
   if (userUID) {
     const database = firestore();
-    const taskWithoutUndefinedKeys = removeUndefinedKeys(task);
     return (
       await database
         .collection('tasks')
-        .add({...taskWithoutUndefinedKeys, completed: false, userUID})
+        .add({...task, completed: false, userUID})
     ).get();
   }
 
