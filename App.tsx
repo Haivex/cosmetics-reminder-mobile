@@ -32,14 +32,20 @@ export const firebaseApp = firebase;
 export const db = firebaseApp.firestore();
 export const auth = firebaseApp.auth();
 
-db.settings({
-  cacheSizeBytes: firestore.CACHE_SIZE_UNLIMITED,
-  ignoreUndefinedProperties: true,
-});
 if (__DEV__) {
+  db.settings({
+    cacheSizeBytes: firestore.CACHE_SIZE_UNLIMITED,
+    ignoreUndefinedProperties: true,
+  });
   db.useEmulator('localhost', 8080);
   auth.useEmulator('http://localhost:9099');
   //functions().useFunctionsEmulator('http://localhost:5001');
+}
+else {
+  db.settings({
+    cacheSizeBytes: firestore.CACHE_SIZE_UNLIMITED,
+    ignoreUndefinedProperties: true,
+  });
 }
 
 const theme = {
