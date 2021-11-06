@@ -7,6 +7,7 @@ import {Task as TaskData} from '../types';
 import TaskMenu, {SingleAction} from './TaskMenu';
 import {enUS} from 'date-fns/locale';
 import {List} from 'react-native-paper';
+import {StyleSheet} from 'react-native';
 
 type TaskProps = {
   icon: string;
@@ -28,6 +29,7 @@ export const Task = ({icon, task, menuActions}: TaskProps) => {
 
   return (
     <List.Item
+      style={styles.item}
       title={task.title}
       description={formattedTime}
       left={props => <List.Icon {...props} icon={icon} />}
@@ -35,3 +37,12 @@ export const Task = ({icon, task, menuActions}: TaskProps) => {
     />
   );
 };
+
+const styles = StyleSheet.create({
+  item: {
+    padding: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 4,
+  },
+});
