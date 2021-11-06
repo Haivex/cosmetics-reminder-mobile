@@ -23,6 +23,20 @@ import firebase from '@react-native-firebase/app';
 import '@react-native-firebase/firestore';
 import {createFirestoreInstance} from 'redux-firestore';
 import {ReactReduxFirebaseProvider} from 'react-redux-firebase';
+import firestore from '@react-native-firebase/firestore';
+//import functions from '@react-native-firebase/functions';
+
+if (__DEV__) {
+  const firestoreInstance = firebase.firestore();
+  firestoreInstance.settings({
+    cacheSizeBytes: firestore.CACHE_SIZE_UNLIMITED,
+    ignoreUndefinedProperties: true,
+  });
+  firestoreInstance.useEmulator('localhost', 8080);
+  firebase.auth().useEmulator('http://localhost:9099');
+  //functions().useFunctionsEmulator('http://localhost:5001');
+}
+
 const theme = {
   ...DefaultTheme,
   colors: {
@@ -68,7 +82,7 @@ const rrfConfig = {
 };
 
 const rrfProps = {
-  firebase,
+  firebase: firebase.app(),
   config: rrfConfig,
   dispatch: store.dispatch,
   createFirestoreInstance, // <- needed if using firestore
