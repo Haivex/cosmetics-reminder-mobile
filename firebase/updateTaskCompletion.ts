@@ -1,6 +1,5 @@
-import firestore from '@react-native-firebase/firestore';
+import {db} from '../App';
 
 export async function updateTaskCompletion(taskId: string, completed: boolean) {
-  const database = firestore();
-  return database.collection('tasks').doc(taskId).update({completed});
+  return db.collection('tasks').doc(taskId).update({completed});
 }

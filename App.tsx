@@ -19,7 +19,6 @@ import Navigation from './navigation/index';
 import {persistor, store} from './redux/MainStore';
 import initTranslation from './translation/config';
 import {PersistGate} from 'redux-persist/integration/react';
-import '@react-native-firebase/firestore';
 import {createFirestoreInstance} from 'redux-firestore';
 import {ReactReduxFirebaseProvider} from 'react-redux-firebase';
 import firebase from '@react-native-firebase/app';
@@ -34,15 +33,16 @@ export const auth = firebaseApp.auth();
 
 if (__DEV__) {
   db.settings({
+    persistence: true,
     cacheSizeBytes: firestore.CACHE_SIZE_UNLIMITED,
     ignoreUndefinedProperties: true,
   });
   db.useEmulator('localhost', 8080);
   auth.useEmulator('http://localhost:9099');
   //functions().useFunctionsEmulator('http://localhost:5001');
-}
-else {
+} else {
   db.settings({
+    persistence: true,
     cacheSizeBytes: firestore.CACHE_SIZE_UNLIMITED,
     ignoreUndefinedProperties: true,
   });

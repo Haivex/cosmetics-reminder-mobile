@@ -1,4 +1,4 @@
-import auth from '@react-native-firebase/auth';
+import {auth, firebaseApp} from '../App';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import React, {useEffect} from 'react';
 import {GoogleSocialButton} from 'react-native-social-buttons';
@@ -25,10 +25,11 @@ function GoogleSignInButton({disabled, setLoading}: AuthButtonProps) {
     const {idToken} = await GoogleSignin.signIn();
 
     // Create a Google credential with the token
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    const googleCredential =
+      firebaseApp.auth.GoogleAuthProvider.credential(idToken);
 
     // Sign-in the user with the credential
-    return auth().signInWithCredential(googleCredential);
+    return auth.signInWithCredential(googleCredential);
   }
 
   return (

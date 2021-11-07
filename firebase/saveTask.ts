@@ -1,16 +1,12 @@
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
+import {auth, db} from '../App';
 import {TaskData} from '../screens/TaskCreationScreen';
 
 export async function saveTask(task: Partial<TaskData>) {
-  const userUID = auth().currentUser?.uid;
+  const userUID = auth.currentUser?.uid;
 
   if (userUID) {
-    const database = firestore();
     return (
-      await database
-        .collection('tasks')
-        .add({...task, completed: false, userUID})
+      await db.collection('tasks').add({...task, completed: false, userUID})
     ).get();
   }
 

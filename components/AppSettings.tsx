@@ -1,5 +1,5 @@
 import * as React from 'react';
-import auth from '@react-native-firebase/auth';
+import {auth} from '../App';
 import {useNavigation} from '@react-navigation/core';
 import {translate} from '../translation/config';
 import {IconButton, Menu} from 'react-native-paper';
@@ -26,7 +26,7 @@ const AppSettings = () => {
         visible={visibleMenu}>
         <Menu.Item
           onPress={() => {
-            auth()
+            auth
               .signOut()
               .then(() => {
                 dispatch(logOut());

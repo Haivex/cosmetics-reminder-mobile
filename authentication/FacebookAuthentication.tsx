@@ -1,4 +1,4 @@
-import auth from '@react-native-firebase/auth';
+import {auth, firebaseApp} from '../App';
 import React from 'react';
 import {AccessToken, LoginManager} from 'react-native-fbsdk-next';
 import {FacebookSocialButton} from 'react-native-social-buttons';
@@ -25,11 +25,11 @@ function FacebookSignInButton({disabled, setLoading}: AuthButtonProps) {
       throw new Error('Something went wrong obtaining access token');
     }
 
-    const facebookCredential = auth.FacebookAuthProvider.credential(
+    const facebookCredential = firebaseApp.auth.FacebookAuthProvider.credential(
       data.accessToken,
     );
 
-    return auth().signInWithCredential(facebookCredential);
+    return auth.signInWithCredential(facebookCredential);
   };
 
   return (
