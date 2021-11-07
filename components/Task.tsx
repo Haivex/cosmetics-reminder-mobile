@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {formatRelative} from 'date-fns';
-import firestore from '@react-native-firebase/firestore';
+import {firebaseApp} from '../App';
 import {localesMap} from '../constants/dateLocales';
 import i18n from 'i18n-js';
 import {Task as TaskData} from '../types';
@@ -17,7 +17,7 @@ type TaskProps = {
 
 export const Task = ({icon, task, menuActions}: TaskProps) => {
   const formattedTime = formatRelative(
-    new firestore.Timestamp(
+    new firebaseApp.firestore.Timestamp(
       task.date.seconds,
       task.date.nanoseconds,
     ).toMillis(),
@@ -44,5 +44,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 4,
+    backgroundColor: '#fff',
   },
 });
