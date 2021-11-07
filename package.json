@@ -9,8 +9,8 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "bundle:android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
-    "firebase:emulators:all": "firebase emulators:start",
-    "firebase:emulators": "firebase emulators:start --only firestore,auth"
+    "firebase:emulators:all": "firebase emulators:start --import=./seed --export-on-exit",
+    "firebase:emulators": "firebase emulators:start --only firestore,auth --import=./seed --export-on-exit"
   },
   "dependencies": {
     "@react-native-firebase/analytics": "^12.8.0",
