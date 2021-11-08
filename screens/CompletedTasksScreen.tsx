@@ -3,9 +3,11 @@ import {ScrollView} from 'react-native';
 import {List, Text} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {useFirestoreConnect, isEmpty, isLoaded} from 'react-redux-firebase';
+import NoTasksCard from '../components/NoTasksCard';
 import {Task} from '../components/Task';
 import completedTaskActions from '../components/taskMenuActions/completedTaskActions';
 import {RootState} from '../redux/RootReducer';
+import {translate} from '../translation/config';
 import {Task as TaskType} from '../types';
 
 export default function CompletedTasksScreen() {
@@ -30,7 +32,9 @@ export default function CompletedTasksScreen() {
       return <Text>Loading...</Text>;
     }
     if (isEmpty(todos)) {
-      return <Text>Empty</Text>;
+      return (
+        <NoTasksCard additionalText={translate('noTask.finishedTaskInfo')} />
+      );
     }
     return todos.map(task => (
       <Task
