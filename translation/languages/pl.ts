@@ -67,5 +67,12 @@ const pl: AppTranslation = {
     confirmButton: 'Zatwierdź',
     title: 'Edytuj zadanie',
   },
+  noTask: {
+    defaultText: 'Nie ma tu żadnych zadań.',
+    createProposition: 'Stwórz jedno!',
+    goodWork: 'Dobra robota! Wykonałeś wszystkie zadania',
+    finishedTaskInfo: 'Tutaj pojawią się zakończone zadania',
+  },
+  loadingTasks: 'Trwa wczytywanie zadań...',
 };
 export default pl;

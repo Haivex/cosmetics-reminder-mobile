@@ -65,6 +65,13 @@ const en = {
     confirmButton: 'Confirm',
     title: 'Edit task',
   },
+  noTask: {
+    defaultText: 'There are no tasks.',
+    createProposition: 'Create one!',
+    goodWork: "Good Work! You've done all tasks",
+    finishedTaskInfo: 'Finished tasks will appear here',
+  },
+  loadingTasks: 'Tasks are loading...',
 };
 export default en;
 export type AppTranslation = typeof en;

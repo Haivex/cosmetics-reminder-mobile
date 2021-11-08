@@ -1,11 +1,14 @@
 import * as React from 'react';
 import {ScrollView} from 'react-native';
-import {List, Text} from 'react-native-paper';
+import {List} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {useFirestoreConnect, isEmpty, isLoaded} from 'react-redux-firebase';
+import LoadingTasksCard from '../components/LoadingTasksCard';
+import NoTasksCard from '../components/NoTasksCard';
 import {Task} from '../components/Task';
 import completedTaskActions from '../components/taskMenuActions/completedTaskActions';
 import {RootState} from '../redux/RootReducer';
+import {translate} from '../translation/config';
 import {Task as TaskType} from '../types';
 
 export default function CompletedTasksScreen() {
@@ -27,10 +30,12 @@ export default function CompletedTasksScreen() {
 
   const renderDoneTasks = () => {
     if (!isLoaded(todos)) {
-      return <Text>Loading...</Text>;
+      return <LoadingTasksCard />;
     }
     if (isEmpty(todos)) {
-      return <Text>Empty</Text>;
+      return (
+        <NoTasksCard additionalText={translate('noTask.finishedTaskInfo')} />
+      );
     }
     return todos.map(task => (
       <Task

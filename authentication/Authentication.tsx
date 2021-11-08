@@ -1,4 +1,4 @@
-import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import React, {useCallback, useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
@@ -9,6 +9,7 @@ import {logIn} from '../redux/UserReducer';
 import {ChildrenProp} from '../types';
 import FacebookSignInButton from './FacebookAuthentication';
 import GoogleSignInButton from './GoogleAuthentication';
+import {auth} from '../App';
 
 export interface AuthButtonProps {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -44,7 +45,7 @@ function Authentication({children}: ChildrenProp) {
   ]);
 
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
   }, [onAuthStateChanged]);
 

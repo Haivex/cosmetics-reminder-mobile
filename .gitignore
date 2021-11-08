@@ -59,3 +59,6 @@ buck-out/
 /ios/Pods/
 android/app/src/main/res/values/strings.xml
 *.hprof
+firebase-debug.log
+firestore-debug.log
+seed/
