@@ -19,10 +19,35 @@ import Navigation from './navigation/index';
 import {persistor, store} from './redux/MainStore';
 import initTranslation from './translation/config';
 import {PersistGate} from 'redux-persist/integration/react';
-import firebase from '@react-native-firebase/app';
-import '@react-native-firebase/firestore';
 import {createFirestoreInstance} from 'redux-firestore';
 import {ReactReduxFirebaseProvider} from 'react-redux-firebase';
+import firebase from '@react-native-firebase/app';
+import '@react-native-firebase/firestore';
+import '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+//import functions from '@react-native-firebase/functions';
+
+export const firebaseApp = firebase;
+export const db = firebaseApp.firestore();
+export const auth = firebaseApp.auth();
+
+if (__DEV__) {
+  db.settings({
+    persistence: true,
+    cacheSizeBytes: firestore.CACHE_SIZE_UNLIMITED,
+    ignoreUndefinedProperties: true,
+  });
+  db.useEmulator('localhost', 8080);
+  auth.useEmulator('http://localhost:9099');
+  //functions().useFunctionsEmulator('http://localhost:5001');
+} else {
+  db.settings({
+    persistence: true,
+    cacheSizeBytes: firestore.CACHE_SIZE_UNLIMITED,
+    ignoreUndefinedProperties: true,
+  });
+}
+
 const theme = {
   ...DefaultTheme,
   colors: {
@@ -68,7 +93,7 @@ const rrfConfig = {
 };
 
 const rrfProps = {
-  firebase,
+  firebase: firebaseApp,
   config: rrfConfig,
   dispatch: store.dispatch,
   createFirestoreInstance, // <- needed if using firestore
