@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {RefreshControl, ScrollView} from 'react-native';
-import {List, Text} from 'react-native-paper';
+import {List} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {useFirestoreConnect, isLoaded, isEmpty} from 'react-redux-firebase';
+import LoadingTasksCard from '../components/LoadingTasksCard';
 import NoTasksCard from '../components/NoTasksCard';
 import {Task} from '../components/Task';
 import currentTaskActions from '../components/taskMenuActions/currentTaskActions';
@@ -43,7 +44,7 @@ export default function CurrentTasksScreen() {
 
   const renderCurrentTasks = (): JSX.Element | JSX.Element[] => {
     if (!isLoaded(currentTasks)) {
-      return <Text>Loading...</Text>;
+      return <LoadingTasksCard />;
     }
     if (isEmpty(currentTasks)) {
       return <NoTasksCard additionalText={translate('noTask.goodWork')} />;
@@ -60,7 +61,7 @@ export default function CurrentTasksScreen() {
 
   const renderIncomingTasks = (): JSX.Element | JSX.Element[] => {
     if (!isLoaded(incomingTasks)) {
-      return <Text>Loading...</Text>;
+      return <LoadingTasksCard />;
     }
     if (isEmpty(incomingTasks)) {
       return (

@@ -27,7 +27,6 @@ const persistConfig = {
   version: 1,
   storage: reduxStorage,
   stateReconciler: autoMergeLevel2,
-  blacklist: ['firebase', 'firestore'],
 };
 
 const persistedReducer = persistReducer(

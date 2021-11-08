@@ -71,7 +71,7 @@ const en = {
     goodWork: "Good Work! You've done all tasks",
     finishedTaskInfo: 'Finished tasks will appear here',
   },
-  loadingTasks: 'Task are loading...',
+  loadingTasks: 'Tasks are loading...',
 };
 export default en;
 export type AppTranslation = typeof en;
