@@ -10,7 +10,8 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "bundle:android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
     "firebase:emulators:all": "firebase emulators:start --import=./seed --export-on-exit",
-    "firebase:emulators": "firebase emulators:start --only firestore,auth --import=./seed --export-on-exit"
+    "firebase:emulators": "firebase emulators:start --only firestore,auth --import=./seed --export-on-exit",
+    "generate-splash-screen": "yarn react-native generate-bootsplash assets/images/icon.png --background-color=00BCD4 --logo-width=100 --assets-path=assets/images --flavor=main"
   },
   "dependencies": {
     "@react-native-firebase/analytics": "^12.8.0",
@@ -29,6 +30,7 @@
     "react": "17.0.2",
     "react-hook-form": "^7.15.4",
     "react-native": "0.65.1",
+    "react-native-bootsplash": "^3.2.6",
     "react-native-fbsdk-next": "^4.6.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-get-random-values": "^1.7.0",

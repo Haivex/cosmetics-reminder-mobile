@@ -22,6 +22,7 @@ import TaskEditionScreen from '../screens/TaskEditionScreen';
 import {translate} from '../translation/config';
 import {RootStackParamList} from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
+import RNBootSplash from 'react-native-bootsplash';
 //import LinkingConfiguration from './LinkingConfiguration';
 
 export const navigationRef =
@@ -34,6 +35,7 @@ export default function Navigation({
 }) {
   return (
     <NavigationContainer
+      onReady={() => RNBootSplash.hide()}
       ref={navigationRef}
       //linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
