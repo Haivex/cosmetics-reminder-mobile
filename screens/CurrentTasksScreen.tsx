@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {RefreshControl, ScrollView} from 'react-native';
-import {List} from 'react-native-paper';
+import {RefreshControl, View, StyleSheet} from 'react-native';
+import {List, Text, IconButton} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {useFirestoreConnect, isLoaded, isEmpty} from 'react-redux-firebase';
 import LoadingTasksCard from '../components/LoadingTasksCard';
@@ -11,6 +11,7 @@ import incomingTaskActions from '../components/taskMenuActions/incomingTaskActio
 import {RootState} from '../redux/RootReducer';
 import {translate} from '../translation/config';
 import {Task as TaskType} from '../types';
+import {SwipeListView} from 'react-native-swipe-list-view';
 
 export default function CurrentTasksScreen() {
   const currentDate = new Date();
@@ -49,14 +50,30 @@ export default function CurrentTasksScreen() {
     if (isEmpty(currentTasks)) {
       return <NoTasksCard additionalText={translate('noTask.goodWork')} />;
     }
-    return currentTasks.map(task => (
-      <Task
-        icon="alarm-check"
-        key={task.id}
-        task={task as TaskType}
-        menuActions={currentTaskActions}
+    return (
+      <SwipeListView
+        data={currentTasks.map(task => ({key: task.id, task: task}))}
+        renderItem={data => (
+          <Task
+            icon="alarm-check"
+            key={data.item.task.id}
+            task={data.item.task as TaskType}
+            menuActions={currentTaskActions}
+          />
+        )}
+        renderHiddenItem={() => (
+          <View style={styles.rowBack}>
+            <IconButton icon="check" style={styles.leftSwipeButton} />
+            <IconButton
+              icon="trash-can-outline"
+              style={styles.rightSwipeButton}
+            />
+          </View>
+        )}
+        leftOpenValue={75}
+        rightOpenValue={-75}
       />
-    ));
+    );
   };
 
   const renderIncomingTasks = (): JSX.Element | JSX.Element[] => {
@@ -68,21 +85,38 @@ export default function CurrentTasksScreen() {
         <NoTasksCard additionalText={translate('noTask.createProposition')} />
       );
     }
-    return incomingTasks.map(task => (
-      <Task
-        icon="alarm"
-        key={task.id}
-        task={task as TaskType}
-        menuActions={incomingTaskActions}
+    return (
+      <SwipeListView
+        data={incomingTasks.map(task => ({key: task.id, task: task}))}
+        renderItem={data => (
+          <Task
+            icon="alarm"
+            key={data.item.task.id}
+            task={data.item.task as TaskType}
+            menuActions={incomingTaskActions}
+          />
+        )}
+        renderHiddenItem={() => (
+          <View style={styles.rowBack}>
+            <IconButton icon="check" style={styles.leftSwipeButton} />
+            <IconButton
+              icon="trash-can-outline"
+              style={styles.rightSwipeButton}
+            />
+          </View>
+        )}
+        leftOpenValue={75}
+        rightOpenValue={-75}
       />
-    ));
+    );
   };
 
   return (
-    <ScrollView
-      refreshControl={
-        <RefreshControl refreshing={false} onRefresh={() => forceUpdate()} />
-      }>
+    // <ScrollView
+    //   refreshControl={
+    //     <RefreshControl refreshing={false} onRefresh={() => forceUpdate()} />
+    //   }>
+    <List.Section>
       <List.Section>
         <List.Subheader>
           {translate('currentTasksScreen.currentTasksTitle')}
@@ -95,23 +129,49 @@ export default function CurrentTasksScreen() {
         </List.Subheader>
         {renderIncomingTasks()}
       </List.Section>
-    </ScrollView>
+    </List.Section>
+    // </ScrollView>
   );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   title: {
-//     fontSize: 20,
-//     fontWeight: 'bold',
-//   },
-//   separator: {
-//     marginVertical: 30,
-//     height: 1,
-//     width: '80%',
-//   },
-// });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: '80%',
+  },
+  rowBack: {
+    alignItems: 'center',
+    backgroundColor: '#DDD',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 0,
+    margin: 0,
+  },
+  leftSwipeButton: {
+    backgroundColor: 'green',
+    width: '50%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  rightSwipeButton: {
+    backgroundColor: 'red',
+    width: '50%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 0,
+  },
+});
