@@ -1,8 +1,10 @@
 import * as React from 'react';
-import {RefreshControl, View, StyleSheet} from 'react-native';
-import {List, Text, IconButton} from 'react-native-paper';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {IconButton, List} from 'react-native-paper';
+import {SwipeListView} from 'react-native-swipe-list-view';
+import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSelector} from 'react-redux';
-import {useFirestoreConnect, isLoaded, isEmpty} from 'react-redux-firebase';
+import {isEmpty, isLoaded, useFirestoreConnect} from 'react-redux-firebase';
 import LoadingTasksCard from '../components/LoadingTasksCard';
 import NoTasksCard from '../components/NoTasksCard';
 import {Task} from '../components/Task';
@@ -11,7 +13,6 @@ import incomingTaskActions from '../components/taskMenuActions/incomingTaskActio
 import {RootState} from '../redux/RootReducer';
 import {translate} from '../translation/config';
 import {Task as TaskType} from '../types';
-import {SwipeListView} from 'react-native-swipe-list-view';
 
 export default function CurrentTasksScreen() {
   const currentDate = new Date();
@@ -63,11 +64,12 @@ export default function CurrentTasksScreen() {
         )}
         renderHiddenItem={() => (
           <View style={styles.rowBack}>
-            <IconButton icon="check" style={styles.leftSwipeButton} />
-            <IconButton
-              icon="trash-can-outline"
-              style={styles.rightSwipeButton}
-            />
+            <TouchableOpacity style={styles.leftSwipeButton}>
+              <MaterialIcon size={25} color="white" name="check" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.rightSwipeButton}>
+              <MaterialIcon size={25} color="white" name="trash-can-outline" />
+            </TouchableOpacity>
           </View>
         )}
         leftOpenValue={75}
@@ -112,11 +114,7 @@ export default function CurrentTasksScreen() {
   };
 
   return (
-    // <ScrollView
-    //   refreshControl={
-    //     <RefreshControl refreshing={false} onRefresh={() => forceUpdate()} />
-    //   }>
-    <List.Section>
+    <List.Section style={styles.container}>
       <List.Section>
         <List.Subheader>
           {translate('currentTasksScreen.currentTasksTitle')}
@@ -130,15 +128,13 @@ export default function CurrentTasksScreen() {
         {renderIncomingTasks()}
       </List.Section>
     </List.Section>
-    // </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   title: {
     fontSize: 20,
@@ -160,18 +156,24 @@ const styles = StyleSheet.create({
   },
   leftSwipeButton: {
     backgroundColor: 'green',
-    width: '50%',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  rightSwipeButton: {
-    backgroundColor: 'red',
-    width: '50%',
-    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
+    width: 75,
+    top: 0,
+    left: 0,
+    bottom: 0,
+    margin: 0,
+  },
+  rightSwipeButton: {
+    backgroundColor: 'red',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    width: 75,
+    top: 0,
     right: 0,
+    bottom: 0,
+    margin: 0,
   },
 });
