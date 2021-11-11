@@ -1,20 +1,32 @@
 import * as React from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {IconButton, List} from 'react-native-paper';
-import {SwipeListView} from 'react-native-swipe-list-view';
-import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {StyleSheet} from 'react-native';
+import {List} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {isEmpty, isLoaded, useFirestoreConnect} from 'react-redux-firebase';
 import LoadingTasksCard from '../components/LoadingTasksCard';
 import NoTasksCard from '../components/NoTasksCard';
-import {Task} from '../components/Task';
 import currentTaskActions from '../components/taskMenuActions/currentTaskActions';
 import incomingTaskActions from '../components/taskMenuActions/incomingTaskActions';
+import TasksSwipeList from '../components/TasksSwipeList';
 import {RootState} from '../redux/RootReducer';
 import {translate} from '../translation/config';
 import {Task as TaskType} from '../types';
+import {
+  completeAction,
+  deleteAction,
+} from '../components/taskMenuActions/taskActions';
+import {navigationRef} from '../navigation';
 
 export default function CurrentTasksScreen() {
+  const navigation = navigationRef;
+  const notificationsState = useSelector(
+    (state: RootState) => state.notifications,
+    (left, right) => JSON.stringify(left) === JSON.stringify(right),
+  );
+  const appState = {
+    navigation,
+    globalState: {notifications: notificationsState},
+  };
   const currentDate = new Date();
   const user = useSelector((state: RootState) => state.currentUser.data);
   useFirestoreConnect([
@@ -42,7 +54,6 @@ export default function CurrentTasksScreen() {
   const {currentTasks, incomingTasks} = useSelector(
     (state: RootState) => state.firestore.ordered,
   );
-  const [, forceUpdate] = React.useReducer(x => x + 1, 0);
 
   const renderCurrentTasks = (): JSX.Element | JSX.Element[] => {
     if (!isLoaded(currentTasks)) {
@@ -52,28 +63,20 @@ export default function CurrentTasksScreen() {
       return <NoTasksCard additionalText={translate('noTask.goodWork')} />;
     }
     return (
-      <SwipeListView
-        data={currentTasks.map(task => ({key: task.id, task: task}))}
-        renderItem={data => (
-          <Task
-            icon="alarm-check"
-            key={data.item.task.id}
-            task={data.item.task as TaskType}
-            menuActions={currentTaskActions}
-          />
-        )}
-        renderHiddenItem={() => (
-          <View style={styles.rowBack}>
-            <TouchableOpacity style={styles.leftSwipeButton}>
-              <MaterialIcon size={25} color="white" name="check" />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.rightSwipeButton}>
-              <MaterialIcon size={25} color="white" name="trash-can-outline" />
-            </TouchableOpacity>
-          </View>
-        )}
-        leftOpenValue={75}
-        rightOpenValue={-75}
+      <TasksSwipeList
+        taskIcon="clock-check"
+        tasks={currentTasks as TaskType[]}
+        taskMenuActions={currentTaskActions}
+        leftActionData={{
+          actionButtonColor: 'green',
+          actionIcon: 'check',
+          actionCallback: completeAction.callback,
+        }}
+        rightActionData={{
+          actionButtonColor: 'red',
+          actionIcon: 'trash-can-outline',
+          actionCallback: task => deleteAction.callback(task, appState),
+        }}
       />
     );
   };
@@ -88,27 +91,20 @@ export default function CurrentTasksScreen() {
       );
     }
     return (
-      <SwipeListView
-        data={incomingTasks.map(task => ({key: task.id, task: task}))}
-        renderItem={data => (
-          <Task
-            icon="alarm"
-            key={data.item.task.id}
-            task={data.item.task as TaskType}
-            menuActions={incomingTaskActions}
-          />
-        )}
-        renderHiddenItem={() => (
-          <View style={styles.rowBack}>
-            <IconButton icon="check" style={styles.leftSwipeButton} />
-            <IconButton
-              icon="trash-can-outline"
-              style={styles.rightSwipeButton}
-            />
-          </View>
-        )}
-        leftOpenValue={75}
-        rightOpenValue={-75}
+      <TasksSwipeList
+        taskIcon="clock"
+        tasks={incomingTasks as TaskType[]}
+        taskMenuActions={incomingTaskActions}
+        leftActionData={{
+          actionButtonColor: 'green',
+          actionIcon: 'check',
+          actionCallback: completeAction.callback,
+        }}
+        rightActionData={{
+          actionButtonColor: 'red',
+          actionIcon: 'trash-can-outline',
+          actionCallback: task => deleteAction.callback(task, appState),
+        }}
       />
     );
   };
