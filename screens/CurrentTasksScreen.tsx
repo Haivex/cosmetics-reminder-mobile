@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {StyleSheet} from 'react-native';
 import {List} from 'react-native-paper';
-import {useSelector} from 'react-redux';
+import {useSelector,shallowEqual} from 'react-redux';
 import {isEmpty, isLoaded, useFirestoreConnect} from 'react-redux-firebase';
 import LoadingTasksCard from '../components/LoadingTasksCard';
 import NoTasksCard from '../components/NoTasksCard';
@@ -21,7 +21,7 @@ export default function CurrentTasksScreen() {
   const navigation = navigationRef;
   const notificationsState = useSelector(
     (state: RootState) => state.notifications,
-    (left, right) => JSON.stringify(left) === JSON.stringify(right),
+    shallowEqual,
   );
   const appState = {
     navigation,
