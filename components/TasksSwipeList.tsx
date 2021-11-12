@@ -49,11 +49,15 @@ const HiddenItem = (props: HiddenItemProps) => {
     data,
     leftActionData: leftActionDataProp,
     rightActionData: rightActionDataProp,
+    rowMap,
   } = props;
   return (
     <View style={[styles.rowBack]}>
       <TouchableOpacity
-        onPress={() => leftActionDataProp.actionCallback(data.item.task)}
+        onPress={() => {
+          leftActionDataProp.actionCallback(data.item.task);
+          rowMap[data.index].closeRow();
+        }}
         style={[
           styles.leftSwipeButton,
           {
@@ -67,7 +71,10 @@ const HiddenItem = (props: HiddenItemProps) => {
         />
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => rightActionDataProp.actionCallback(data.item.task)}
+        onPress={() => {
+          rightActionDataProp.actionCallback(data.item.task);
+          rowMap[data.index].closeRow();
+        }}
         style={[
           styles.rightSwipeButton,
           {
@@ -107,6 +114,8 @@ const TasksSwipeList = ({
 
   return (
     <SwipeListView
+      closeOnRowPress={true}
+      closeOnScroll={true}
       data={tasks.map(task => ({key: task.id, task: task}))}
       renderItem={data => (
         <Task
@@ -119,6 +128,8 @@ const TasksSwipeList = ({
       renderHiddenItem={renderHiddenItem}
       leftOpenValue={75}
       rightOpenValue={-75}
+      stopLeftSwipe={75}
+      stopRightSwipe={-75}
     />
   );
 };
