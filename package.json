@@ -41,6 +41,7 @@
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.7.2",
     "react-native-social-buttons": "^1.2.0",
+    "react-native-swipe-list-view": "^3.2.9",
     "react-native-vector-icons": "^8.1.0",
     "react-redux": "^7.2.5",
     "react-redux-firebase": "^3.10.0",
