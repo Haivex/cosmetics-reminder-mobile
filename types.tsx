@@ -1,7 +1,7 @@
+import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
+import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import * as React from 'react';
-import {StackNavigationProp, StackScreenProps} from '@react-navigation/stack';
-import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
-import {CyclicInterval} from './components/CyclicTaskInputs';
+import { CyclicInterval } from './components/CyclicTaskInputs';
 /**
  * Learn more about using TypeScript with React Navigation:
  * https://reactnavigation.org/docs/typescript/
