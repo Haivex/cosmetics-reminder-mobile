@@ -1,5 +1,3 @@
-import {NavigationContainerRefContext} from '@react-navigation/core';
-import {NavigationContainerRef} from '@react-navigation/native';
 import * as React from 'react';
 import {Menu} from 'react-native-paper';
 import {useSelector} from 'react-redux';

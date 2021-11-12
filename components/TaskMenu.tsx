@@ -7,7 +7,7 @@ import TaskMenuItem from './TaskMenuItem';
 
 type AppState = {
   navigation: React.RefObject<NavigationContainerRef<RootStackParamList>>;
-  globalState: RootState;
+  globalState: Partial<RootState>;
 };
 
 export type SingleAction = {
