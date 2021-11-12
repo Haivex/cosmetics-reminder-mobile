@@ -46,25 +46,12 @@ interface HiddenItemProps extends RowItemProps<SwipeListData> {
 
 const HiddenItem = (props: HiddenItemProps) => {
   const {
-    //leftActionActivated,
-    //rightActionActivated,
-    leftActionState,
-    rightActionState,
     data,
     leftActionData: leftActionDataProp,
     rightActionData: rightActionDataProp,
   } = props;
   return (
-    <View
-      style={[
-        styles.rowBack,
-        leftActionState && {
-          backgroundColor: leftActionDataProp.actionButtonColor,
-        },
-        rightActionState && {
-          backgroundColor: rightActionDataProp.actionButtonColor,
-        },
-      ]}>
+    <View style={[styles.rowBack]}>
       <TouchableOpacity
         onPress={() => leftActionDataProp.actionCallback(data.item.task)}
         style={[
@@ -131,13 +118,7 @@ const TasksSwipeList = ({
       )}
       renderHiddenItem={renderHiddenItem}
       leftOpenValue={75}
-      leftActivationValue={120}
       rightOpenValue={-75}
-      rightActivationValue={-120}
-      onLeftActionStatusChange={actionState => console.log(actionState)}
-      onRightActionStatusChange={actionState => console.log(actionState)}
-      onLeftAction={rowItemKey => console.log('left action' + rowItemKey)}
-      onRightAction={rowItemKey => console.log('rigt action' + rowItemKey)}
     />
   );
 };
