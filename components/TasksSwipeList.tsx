@@ -55,8 +55,8 @@ const HiddenItem = (props: HiddenItemProps) => {
     <View style={[styles.rowBack]}>
       <TouchableOpacity
         onPress={() => {
+          rowMap[data.item.key].closeRow();
           leftActionDataProp.actionCallback(data.item.task);
-          rowMap[data.index].closeRow();
         }}
         style={[
           styles.leftSwipeButton,
@@ -72,8 +72,8 @@ const HiddenItem = (props: HiddenItemProps) => {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
+          rowMap[data.item.key].closeRow();
           rightActionDataProp.actionCallback(data.item.task);
-          rowMap[data.index].closeRow();
         }}
         style={[
           styles.rightSwipeButton,
