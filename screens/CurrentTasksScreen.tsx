@@ -1,34 +1,31 @@
 import * as React from 'react';
 import {StyleSheet} from 'react-native';
 import {List} from 'react-native-paper';
-import {useSelector, shallowEqual} from 'react-redux';
 import {isEmpty, isLoaded, useFirestoreConnect} from 'react-redux-firebase';
 import LoadingTasksCard from '../components/LoadingTasksCard';
 import NoTasksCard from '../components/NoTasksCard';
 import currentTaskActions from '../components/taskMenuActions/currentTaskActions';
 import incomingTaskActions from '../components/taskMenuActions/incomingTaskActions';
-import TasksSwipeList from '../components/TasksSwipeList';
-import {RootState} from '../redux/RootReducer';
-import {translate} from '../translation/config';
-import {Task as TaskType} from '../types';
 import {
   completeAction,
   deleteAction,
 } from '../components/taskMenuActions/taskActions';
+import TasksSwipeList from '../components/TasksSwipeList';
 import {navigationRef} from '../navigation';
+import {useTrackedSelector} from '../redux/RootReducer';
+import {
+  selectCurrentUser,
+  selectNotifications,
+  selectTasks,
+} from '../redux/selectors';
+import {translate} from '../translation/config';
+import {Task as TaskType} from '../types';
 
 export default function CurrentTasksScreen() {
-  const navigation = navigationRef;
-  const notificationsState = useSelector(
-    (state: RootState) => state.notifications,
-    shallowEqual,
-  );
-  const appState = {
-    navigation,
-    globalState: {notifications: notificationsState},
-  };
+  const state = useTrackedSelector();
+  const notificationsState = selectNotifications(state);
   const currentDate = new Date();
-  const user = useSelector((state: RootState) => state.currentUser.data);
+  const user = selectCurrentUser(state);
   useFirestoreConnect([
     {
       collection: 'tasks',
@@ -51,9 +48,12 @@ export default function CurrentTasksScreen() {
       storeAs: 'incomingTasks',
     },
   ]);
-  const {currentTasks, incomingTasks} = useSelector(
-    (state: RootState) => state.firestore.ordered,
-  );
+  const {currentTasks, incomingTasks} = selectTasks(state);
+  const navigation = navigationRef;
+  const appState = {
+    navigation,
+    globalState: {notifications: notificationsState},
+  };
 
   const renderCurrentTasks = (): JSX.Element | JSX.Element[] => {
     if (!isLoaded(currentTasks)) {

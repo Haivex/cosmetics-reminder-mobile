@@ -2,14 +2,15 @@ import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import React, {useCallback, useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
+import {auth} from '../App';
 import {checkPermissions} from '../redux/NotificationsReducer';
-import {RootState} from '../redux/RootReducer';
+import {useTrackedSelector} from '../redux/RootReducer';
+import {selectCurrentUser} from '../redux/selectors';
 import {logIn} from '../redux/UserReducer';
 import {ChildrenProp} from '../types';
 import FacebookSignInButton from './FacebookAuthentication';
 import GoogleSignInButton from './GoogleAuthentication';
-import {auth} from '../App';
 
 export interface AuthButtonProps {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,8 +23,9 @@ function Authentication({children}: ChildrenProp) {
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [loading, setLoading] = useState(false);
-  const user = useSelector((state: RootState) => state.currentUser.data);
   const dispatch = useDispatch();
+  const state = useTrackedSelector();
+  const user = selectCurrentUser(state);
 
   // Handle user state changes
   function onAuthStateChangedCallback(
