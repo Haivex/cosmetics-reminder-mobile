@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ScrollView} from 'react-native';
+import {View} from 'react-native';
 import {List} from 'react-native-paper';
 import {isEmpty, isLoaded, useFirestoreConnect} from 'react-redux-firebase';
 import LoadingTasksCard from '../components/LoadingTasksCard';
@@ -71,8 +71,8 @@ export default function CompletedTasksScreen() {
   };
 
   return (
-    <ScrollView>
+    <View>
       <List.Section>{renderDoneTasks()}</List.Section>
-    </ScrollView>
+    </View>
   );
 }
