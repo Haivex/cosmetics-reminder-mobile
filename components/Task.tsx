@@ -15,7 +15,7 @@ type TaskProps = {
   menuActions: SingleAction[];
 };
 
-export const Task = ({icon, task, menuActions}: TaskProps) => {
+export const Task = React.memo(({icon, task, menuActions}: TaskProps) => {
   const formattedTime = formatRelative(
     new firebaseApp.firestore.Timestamp(
       task.date.seconds,
@@ -36,7 +36,7 @@ export const Task = ({icon, task, menuActions}: TaskProps) => {
       right={props => <TaskMenu actions={menuActions} task={task} {...props} />}
     />
   );
-};
+});
 
 const styles = StyleSheet.create({
   item: {
