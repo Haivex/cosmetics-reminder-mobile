@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {StyleSheet} from 'react-native';
 import {List} from 'react-native-paper';
-import {useSelector,shallowEqual} from 'react-redux';
+import {useSelector, shallowEqual} from 'react-redux';
 import {isEmpty, isLoaded, useFirestoreConnect} from 'react-redux-firebase';
 import LoadingTasksCard from '../components/LoadingTasksCard';
 import NoTasksCard from '../components/NoTasksCard';
@@ -140,36 +140,5 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: '80%',
-  },
-  rowBack: {
-    alignItems: 'center',
-    backgroundColor: '#DDD',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 0,
-    margin: 0,
-  },
-  leftSwipeButton: {
-    backgroundColor: 'green',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    width: 75,
-    top: 0,
-    left: 0,
-    bottom: 0,
-    margin: 0,
-  },
-  rightSwipeButton: {
-    backgroundColor: 'red',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    width: 75,
-    top: 0,
-    right: 0,
-    bottom: 0,
-    margin: 0,
   },
 });
