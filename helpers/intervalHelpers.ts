@@ -1,4 +1,4 @@
-import {CyclicInterval} from '../components/CyclicTaskInputs';
+import {CyclicInterval} from '../components/taskFormInputs/CyclicTaskInputs';
 import {
   SECONDS_IN_DAY,
   SECONDS_IN_HOUR,

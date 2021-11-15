@@ -1,5 +1,5 @@
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
-import { CyclicInterval } from './components/CyclicTaskInputs';
+import { CyclicInterval } from './components/taskFormInputs/CyclicTaskInputs';
 /**
  * Learn more about using TypeScript with React Navigation:
  * https://reactnavigation.org/docs/typescript/
