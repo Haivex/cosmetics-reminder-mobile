@@ -2,7 +2,7 @@ import {
   StackScreenProps,
   StackNavigationProp,
 } from '@react-navigation/stack/lib/typescript/src/types';
-import {Task} from '../types';
+import {Task} from '../../types';
 
 export type RootStackParamList = {
   Root: undefined;

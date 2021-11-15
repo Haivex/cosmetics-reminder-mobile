@@ -17,7 +17,7 @@ import TimePickerInput, {Time} from '../components/TimePickerInput';
 import {checkIfCyclicInterval} from '../helpers/intervalHelpers';
 import '../translation/config';
 import {translate} from '../translation/config';
-import {NavigationProps, RootStackParamList} from '../navigation/types';
+import {NavigationProps, RootStackParamList} from './navigation/types';
 
 export type TaskData = {
   date: CalendarDate;

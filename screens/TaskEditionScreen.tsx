@@ -5,7 +5,7 @@ import TaskForm from '../components/TaskForm';
 import {editTask} from '../firebase/editTask';
 import '../translation/config';
 import {translate} from '../translation/config';
-import {NavigationProps} from '../navigation/types';
+import {NavigationProps} from '../components/navigation/types';
 import {TaskData} from './TaskCreationScreen';
 export default function TaskEditionScreen({
   route,

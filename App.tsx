@@ -15,7 +15,7 @@ import PushNotification from 'react-native-push-notification';
 //import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Provider} from 'react-redux';
 import Authentication from './components/authentication/Authentication';
-import Navigation from './navigation/index';
+import Navigation from './components/navigation/index';
 import {persistor, store} from './redux/MainStore';
 import initTranslation from './translation/config';
 import {PersistGate} from 'redux-persist/integration/react';

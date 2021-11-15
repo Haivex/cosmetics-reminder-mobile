@@ -5,7 +5,7 @@ import {translate} from '../translation/config';
 import {IconButton, Menu} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
 import {logOut} from '../redux/UserReducer';
-import {NavigationProp} from '../navigation/types';
+import {NavigationProp} from './navigation/types';
 import ErrorDialog from './ErrorDialog';
 
 const AppSettings = () => {

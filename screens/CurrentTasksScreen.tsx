@@ -11,7 +11,7 @@ import {
   deleteAction,
 } from '../components/taskMenuActions/taskActions';
 import TasksSwipeList from '../components/TasksSwipeList';
-import {navigationRef} from '../navigation';
+import {navigationRef} from '../components/navigation';
 import {useTrackedSelector} from '../redux/RootReducer';
 import {
   selectCurrentUser,

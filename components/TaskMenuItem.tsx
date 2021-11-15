@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Menu} from 'react-native-paper';
-import {navigationRef} from '../navigation';
+import {navigationRef} from './navigation';
 import {useTrackedSelector} from '../redux/RootReducer';
 import {Task} from '../types';
 import {SingleAction} from './TaskMenu';
