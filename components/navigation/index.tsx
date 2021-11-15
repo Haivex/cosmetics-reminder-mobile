@@ -17,7 +17,7 @@ import * as React from 'react';
 import {ColorSchemeName} from 'react-native';
 import RenameDialog from '../dialogs/RenameDialog';
 import NotFoundScreen from '../../screens/NotFoundScreen';
-import NotificationsSettings from '../../screens/NotificationsSettings';
+import NotificationsSettingsScreen from '../../screens/NotificationsSettings';
 import TaskEditionScreen from '../../screens/TaskEditionScreen';
 import {translate} from '../../translation/config';
 import {RootStackParamList} from './types';
@@ -60,7 +60,7 @@ function RootNavigator() {
         />
         <Stack.Screen
           name="NotificationsSettings"
-          component={NotificationsSettings}
+          component={NotificationsSettingsScreen}
           options={{
             title: translate('appSettings.notificationsSettings'),
             headerShown: true,
