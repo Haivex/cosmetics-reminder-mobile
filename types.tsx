@@ -13,11 +13,6 @@ export type Task = {
   cyclicInterval?: CyclicInterval | undefined;
 };
 
-export type RenameTaskPayload = {
-  task: Task;
-  title: string;
-};
-
 // https://stackoverflow.com/questions/58277973/how-to-type-check-i18n-dictionaries-with-typescript
 
 export type GetDictValue<
