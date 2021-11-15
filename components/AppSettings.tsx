@@ -6,7 +6,7 @@ import {IconButton, Menu} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
 import {logOut} from '../redux/UserReducer';
 import {NavigationProp} from './navigation/types';
-import ErrorDialog from './ErrorDialog';
+import ErrorDialog from './dialogs/ErrorDialog';
 
 const AppSettings = () => {
   const navigation = useNavigation<NavigationProp>();

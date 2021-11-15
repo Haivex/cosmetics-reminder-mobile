@@ -2,7 +2,7 @@ import {auth, firebaseApp} from '../../App';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import React, {useEffect} from 'react';
 import {GoogleSocialButton} from 'react-native-social-buttons';
-import ErrorDialog from '../ErrorDialog';
+import ErrorDialog from '../dialogs/ErrorDialog';
 import {AuthButtonProps} from './Authentication';
 
 GoogleSignin.configure({

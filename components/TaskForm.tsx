@@ -12,7 +12,7 @@ import {
 import {CalendarDate} from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
 import CyclicTaskInputs, {CyclicInterval} from './taskFormInputs/CyclicTaskInputs';
 import DatePickerInput from './taskFormInputs/DatePickerInput';
-import ErrorDialog from '../components/ErrorDialog';
+import ErrorDialog from './dialogs/ErrorDialog';
 import TimePickerInput, {Time} from './taskFormInputs/TimePickerInput';
 import {checkIfCyclicInterval} from '../helpers/intervalHelpers';
 import '../translation/config';

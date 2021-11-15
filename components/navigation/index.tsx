@@ -15,7 +15,7 @@ import {
 } from '@react-navigation/stack';
 import * as React from 'react';
 import {ColorSchemeName} from 'react-native';
-import RenameDialog from '../RenameDialog';
+import RenameDialog from '../dialogs/RenameDialog';
 import NotFoundScreen from '../../screens/NotFoundScreen';
 import NotificationsSettings from '../../screens/NotificationsSettings';
 import TaskEditionScreen from '../../screens/TaskEditionScreen';
