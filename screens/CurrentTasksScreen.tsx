@@ -4,12 +4,12 @@ import {List} from 'react-native-paper';
 import {isEmpty, isLoaded, useFirestoreConnect} from 'react-redux-firebase';
 import LoadingTasksCard from '../components/LoadingTasksCard';
 import NoTasksCard from '../components/NoTasksCard';
-import currentTaskActions from '../components/taskMenuActions/currentTaskActions';
-import incomingTaskActions from '../components/taskMenuActions/incomingTaskActions';
+import currentTaskActions from '../components/taskMenu/actions/currentTaskActions';
+import incomingTaskActions from '../components/taskMenu/actions/incomingTaskActions';
 import {
   completeAction,
   deleteAction,
-} from '../components/taskMenuActions/taskActions';
+} from '../components/taskMenu/actions/taskActions';
 import TasksSwipeList from '../components/TasksSwipeList';
 import {navigationRef} from '../components/navigation';
 import {useTrackedSelector} from '../redux/RootReducer';

@@ -9,7 +9,7 @@ import {RowMap, SwipeListView} from 'react-native-swipe-list-view';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Task as TaskType} from '../types';
 import {Task} from './Task';
-import {SingleAction} from './TaskMenu';
+import {SingleAction} from './taskMenu/TaskMenu';
 
 interface ActionData {
   actionIcon: string;
