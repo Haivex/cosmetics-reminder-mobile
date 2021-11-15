@@ -2,15 +2,15 @@ import * as React from 'react';
 import {StyleSheet} from 'react-native';
 import {List} from 'react-native-paper';
 import {isEmpty, isLoaded, useFirestoreConnect} from 'react-redux-firebase';
-import LoadingTasksCard from '../components/LoadingTasksCard';
-import NoTasksCard from '../components/NoTasksCard';
+import LoadingTasksCard from '../components/tasks/cards/LoadingTasksCard';
+import NoTasksCard from '../components/tasks/cards/NoTasksCard';
 import currentTaskActions from '../components/taskMenu/actions/currentTaskActions';
 import incomingTaskActions from '../components/taskMenu/actions/incomingTaskActions';
 import {
   completeAction,
   deleteAction,
 } from '../components/taskMenu/actions/taskActions';
-import TasksSwipeList from '../components/TasksSwipeList';
+import TasksSwipeList from '../components/tasks/TasksSwipeList';
 import {navigationRef} from '../components/navigation';
 import {useTrackedSelector} from '../redux/RootReducer';
 import {
