@@ -3,12 +3,12 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
-import {auth} from '../App';
-import {checkPermissions} from '../redux/NotificationsReducer';
-import {useTrackedSelector} from '../redux/RootReducer';
-import {selectCurrentUser} from '../redux/selectors';
-import {logIn} from '../redux/UserReducer';
-import {ChildrenProp} from '../components/types';
+import {auth} from '../../App';
+import {checkPermissions} from '../../redux/NotificationsReducer';
+import {useTrackedSelector} from '../../redux/RootReducer';
+import {selectCurrentUser} from '../../redux/selectors';
+import {logIn} from '../../redux/UserReducer';
+import {ChildrenProp} from '../types';
 import FacebookSignInButton from './FacebookAuthentication';
 import GoogleSignInButton from './GoogleAuthentication';
 
