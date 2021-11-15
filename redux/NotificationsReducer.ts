@@ -61,5 +61,6 @@ const notificationsSlice = createSlice({
     });
   },
 });
+
 export const {togglePermission, addNotification} = notificationsSlice.actions;
 export default notificationsSlice.reducer;
