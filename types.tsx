@@ -1,14 +1,9 @@
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
-import * as React from 'react';
 import { CyclicInterval } from './components/CyclicTaskInputs';
 /**
  * Learn more about using TypeScript with React Navigation:
  * https://reactnavigation.org/docs/typescript/
  */
-
-export type ChildrenProp = {
-  children: React.ReactChild | React.ReactChild[];
-};
 
 export type Task = {
   id: string;
