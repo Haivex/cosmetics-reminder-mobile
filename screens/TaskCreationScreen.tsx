@@ -7,7 +7,7 @@ import {useDispatch} from 'react-redux';
 import {CyclicInterval} from '../components/CyclicTaskInputs';
 import TaskForm from '../components/TaskForm';
 import {Time} from '../components/TimePickerInput';
-import {TaskDocument} from '../firebase/firestoreTypes';
+import {TaskDocument} from '../firebase/types';
 import {saveTask} from '../firebase/saveTask';
 import {convertCyclicIntervalToSeconds} from '../helpers/intervalHelpers';
 import {addNotification} from '../redux/NotificationsReducer';
