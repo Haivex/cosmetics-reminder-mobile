@@ -5,7 +5,7 @@ import 'intl/locale-data/jsonp/pl';
 import * as React from 'react';
 import {TextInput} from 'react-native-paper';
 import {TimePickerModal} from 'react-native-paper-dates';
-import {translate} from '../../translation/config';
+import {translate} from '../../../translation/config';
 
 export type Time = {
   hours: number | undefined;

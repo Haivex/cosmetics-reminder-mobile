@@ -1,6 +1,6 @@
 import {format} from 'date-fns';
 import i18n from 'i18n-js';
-import {translate} from '../../translation/config';
+import {translate} from '../../../translation/config';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 import 'intl/locale-data/jsonp/pl';

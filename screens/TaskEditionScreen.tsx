@@ -1,7 +1,7 @@
 import {set} from 'date-fns';
 import * as React from 'react';
 import 'react-native-get-random-values';
-import TaskForm from '../components/TaskForm';
+import TaskForm from '../components/taskForm/TaskForm';
 import {editTask} from '../firebase/editTask';
 import '../translation/config';
 import {translate} from '../translation/config';

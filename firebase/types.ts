@@ -1,5 +1,5 @@
 import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
-import {CyclicInterval} from '../components/taskFormInputs/CyclicTaskInputs';
+import {CyclicInterval} from '../components/taskForm/inputs/CyclicTaskInputs';
 
 export interface TaskDocument {
   date: FirebaseFirestoreTypes.Timestamp;

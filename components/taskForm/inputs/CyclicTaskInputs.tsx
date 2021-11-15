@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {translate} from '../../translation/config';
+import {translate} from '../../../translation/config';
 import {Text, View} from 'react-native';
 import {TextInput} from 'react-native-paper';
 
