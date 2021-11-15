@@ -9,8 +9,8 @@ import {useTrackedSelector} from '../../redux/RootReducer';
 import {selectCurrentUser} from '../../redux/selectors';
 import {logIn} from '../../redux/UserReducer';
 import {ChildrenProp} from '../types';
-import FacebookSignInButton from './FacebookAuthentication';
-import GoogleSignInButton from './GoogleAuthentication';
+import FacebookSignInButton from './FacebookAuthenticationButton';
+import GoogleSignInButton from './GoogleAuthenticationButton';
 
 export interface AuthButtonProps {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
