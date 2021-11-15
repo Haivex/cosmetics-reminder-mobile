@@ -20,7 +20,7 @@ import NotFoundScreen from '../screens/NotFoundScreen';
 import NotificationsSettings from '../screens/NotificationsSettings';
 import TaskEditionScreen from '../screens/TaskEditionScreen';
 import {translate} from '../translation/config';
-import {RootStackParamList} from '../types';
+import {RootStackParamList} from './types';
 import BottomTabNavigator from './BottomTabNavigator';
 import RNBootSplash from 'react-native-bootsplash';
 //import LinkingConfiguration from './LinkingConfiguration';

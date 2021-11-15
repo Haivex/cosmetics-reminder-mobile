@@ -19,7 +19,7 @@ import {
   TabOneParamList,
   TabThreeParamList,
   TabTwoParamList,
-} from '../types';
+} from './types';
 
 /* eslint-disable react-native/no-inline-styles */
 

@@ -13,7 +13,7 @@ import {convertCyclicIntervalToSeconds} from '../helpers/intervalHelpers';
 import {addNotification} from '../redux/NotificationsReducer';
 import '../translation/config';
 import {translate} from '../translation/config';
-import {NavigationProps} from '../types';
+import {NavigationProps} from '../navigation/types';
 export type TaskData = {
   date: CalendarDate;
   time: Time;

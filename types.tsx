@@ -1,5 +1,4 @@
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
-import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import * as React from 'react';
 import { CyclicInterval } from './components/CyclicTaskInputs';
 /**
@@ -7,43 +6,9 @@ import { CyclicInterval } from './components/CyclicTaskInputs';
  * https://reactnavigation.org/docs/typescript/
  */
 
-export type RootStackParamList = {
-  Root: undefined;
-  NotFound: undefined;
-  NotificationsSettings: undefined;
-  TaskEdition: Task;
-  RenameTaskDialog: Task;
-  TabTwo: undefined;
-};
-
-export type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
-  TabThree: undefined;
-};
-
-export type TabOneParamList = {
-  TabOneScreen: undefined;
-};
-
-export type TabTwoParamList = {
-  TabTwoScreen: undefined;
-};
-
-export type TabThreeParamList = {
-  TabThreeScreen: undefined;
-};
-
 export type ChildrenProp = {
   children: React.ReactChild | React.ReactChild[];
 };
-
-export type NavigationProps = StackScreenProps<
-  RootStackParamList,
-  'TaskEdition'
->;
-
-export type NavigationProp = StackNavigationProp<RootStackParamList, "TaskEdition" | 'TabTwo'>
 
 export type Task = {
   id: string;
