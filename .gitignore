@@ -62,3 +62,4 @@ android/app/src/main/res/values/strings.xml
 firebase-debug.log
 firestore-debug.log
 seed/
+firebase-export-*

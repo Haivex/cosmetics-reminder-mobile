@@ -7,19 +7,19 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import * as React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import AppSettings from '../components/AppSettings';
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
-import CompletedTasksScreen from '../screens/CompletedTasksScreen';
-import CurrentTasksScreen from '../screens/CurrentTasksScreen';
-import TaskCreationScreen from '../screens/TaskCreationScreen';
-import {translate} from '../translation/config';
+import AppSettings from '../AppSettings';
+import Colors from '../../constants/Colors';
+import useColorScheme from '../../hooks/useColorScheme';
+import CompletedTasksScreen from '../../screens/CompletedTasksScreen';
+import CurrentTasksScreen from '../../screens/CurrentTasksScreen';
+import TaskCreationScreen from '../../screens/TaskCreationScreen';
+import {translate} from '../../translation/config';
 import {
   BottomTabParamList,
   TabOneParamList,
   TabThreeParamList,
   TabTwoParamList,
-} from '../types';
+} from './types';
 
 /* eslint-disable react-native/no-inline-styles */
 
