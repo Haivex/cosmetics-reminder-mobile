@@ -46,12 +46,13 @@ const NotificationsStatus = () => {
     } else {
       incomingTasks.forEach(task => {
         const notificationCreationTimestamp = Date.now();
+        console.log(task);
         Notifications.localNotificationSchedule({
           channelId: 'main',
           id: notificationCreationTimestamp,
           title: 'Only You',
           message: task.title,
-          date: task.date.toDate(),
+          date: new Date(task.date.toDate()),
           allowWhileIdle: false,
           repeatType: task.cyclicInterval ? 'time' : undefined,
           repeatTime: task.cyclicInterval
