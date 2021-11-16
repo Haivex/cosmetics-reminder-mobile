@@ -41,11 +41,9 @@ const NotificationsStatus = () => {
 
   const onToggleSwitch = (newValue: boolean) => {
     if (!newValue) {
-      Notifications.abandonPermissions();
       Notifications.cancelAllLocalNotifications();
       dispatch(clearNotifications());
     } else {
-      Notifications.requestPermissions(['alert', 'badge', 'sound']);
       incomingTasks.forEach(task => {
         const notificationCreationTimestamp = Date.now();
         Notifications.localNotificationSchedule({
