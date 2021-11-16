@@ -1,5 +1,4 @@
-import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import Notifications from 'react-native-push-notification';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 interface StoredNotification {
   notificationId: number;
@@ -16,31 +15,6 @@ const initialState: NotificationState = {
   storedNotifications: [{notificationId: 1, taskId: '1'}],
 };
 
-export const toggleNotificationsStatus = createAsyncThunk(
-  'toggleNotificationsStatus',
-  (status: boolean) => {
-    if (status) {
-      Notifications.abandonPermissions();
-      return false;
-    }
-    return Notifications.requestPermissions(['alert']).then(
-      permission => {
-        return permission.alert || false;
-      },
-      () => false,
-    );
-  },
-);
-
-export const checkPermissions = createAsyncThunk(
-  'checkPermissions',
-  (_, api) => {
-    Notifications.checkPermissions(permissions => {
-      api.dispatch(togglePermission(permissions.alert || false));
-    });
-  },
-);
-
 const notificationsSlice = createSlice({
   initialState: initialState,
   name: 'notifications',
@@ -54,13 +28,11 @@ const notificationsSlice = createSlice({
         action.payload,
       ];
     },
-  },
-  extraReducers: builder => {
-    builder.addCase(toggleNotificationsStatus.fulfilled, (state, action) => {
-      state.notificationsStatus = action.payload;
-    });
+    clearNotifications(state) {
+      state.storedNotifications = [];
+    },
   },
 });
 
-export const {togglePermission, addNotification} = notificationsSlice.actions;
+export const {togglePermission, addNotification, clearNotifications} = notificationsSlice.actions;
 export default notificationsSlice.reducer;
