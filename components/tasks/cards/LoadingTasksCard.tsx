@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Card, Text} from 'react-native-paper';
-import {translate} from '../translation/config';
+import {translate} from '../../../translation/config';
 import {ActivityIndicator} from 'react-native-paper';
 
 const LoadingTasksCard = () => {

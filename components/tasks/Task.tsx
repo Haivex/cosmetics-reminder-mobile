@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {formatRelative} from 'date-fns';
-import {firebaseApp} from '../App';
-import {localesMap} from '../constants/dateLocales';
+import {firebaseApp} from '../../App';
+import {localesMap} from '../../constants/dateLocales';
 import i18n from 'i18n-js';
-import {Task as TaskData} from '../types';
-import TaskMenu, {SingleAction} from './TaskMenu';
+import {Task as TaskData} from '../../types';
+import TaskMenu, {SingleAction} from '../taskMenu/TaskMenu';
 import {enUS} from 'date-fns/locale';
 import {List} from 'react-native-paper';
 import {StyleSheet} from 'react-native';
@@ -15,7 +15,7 @@ type TaskProps = {
   menuActions: SingleAction[];
 };
 
-export const Task = ({icon, task, menuActions}: TaskProps) => {
+export const Task = React.memo(({icon, task, menuActions}: TaskProps) => {
   const formattedTime = formatRelative(
     new firebaseApp.firestore.Timestamp(
       task.date.seconds,
@@ -36,7 +36,7 @@ export const Task = ({icon, task, menuActions}: TaskProps) => {
       right={props => <TaskMenu actions={menuActions} task={task} {...props} />}
     />
   );
-};
+});
 
 const styles = StyleSheet.create({
   item: {

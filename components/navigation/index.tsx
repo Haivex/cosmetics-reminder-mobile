@@ -15,12 +15,12 @@ import {
 } from '@react-navigation/stack';
 import * as React from 'react';
 import {ColorSchemeName} from 'react-native';
-import RenameDialog from '../components/RenameDialog';
-import NotFoundScreen from '../screens/NotFoundScreen';
-import NotificationsSettings from '../screens/NotificationsSettings';
-import TaskEditionScreen from '../screens/TaskEditionScreen';
-import {translate} from '../translation/config';
-import {RootStackParamList} from '../types';
+import RenameDialog from '../dialogs/RenameDialog';
+import NotFoundScreen from '../../screens/NotFoundScreen';
+import NotificationsSettingsScreen from '../../screens/NotificationsSettings';
+import TaskEditionScreen from '../../screens/TaskEditionScreen';
+import {translate} from '../../translation/config';
+import {RootStackParamList} from './types';
 import BottomTabNavigator from './BottomTabNavigator';
 import RNBootSplash from 'react-native-bootsplash';
 //import LinkingConfiguration from './LinkingConfiguration';
@@ -60,7 +60,7 @@ function RootNavigator() {
         />
         <Stack.Screen
           name="NotificationsSettings"
-          component={NotificationsSettings}
+          component={NotificationsSettingsScreen}
           options={{
             title: translate('appSettings.notificationsSettings'),
             headerShown: true,

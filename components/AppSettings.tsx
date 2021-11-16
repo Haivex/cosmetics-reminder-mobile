@@ -5,8 +5,8 @@ import {translate} from '../translation/config';
 import {IconButton, Menu} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
 import {logOut} from '../redux/UserReducer';
-import {NavigationProp} from '../types';
-import ErrorDialog from './ErrorDialog';
+import {NavigationProp} from './navigation/types';
+import ErrorDialog from './dialogs/ErrorDialog';
 
 const AppSettings = () => {
   const navigation = useNavigation<NavigationProp>();
