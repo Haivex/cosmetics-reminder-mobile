@@ -36,7 +36,7 @@ const NotificationsSettingsScreen = () => {
             title: 'Only You',
             message: 'Scheduled message',
             date: new Date(Date.now() + 10 * 1000),
-            allowWhileIdle: false,
+            allowWhileIdle: true,
             repeatType: 'minute',
             repeatTime: 1,
           });

@@ -53,7 +53,7 @@ const NotificationsStatus = () => {
           title: 'Only You',
           message: task.title,
           date: new Date(task.date.toDate()),
-          allowWhileIdle: false,
+          allowWhileIdle: true,
           repeatType: task.cyclicInterval ? 'time' : undefined,
           repeatTime: task.cyclicInterval
             ? convertCyclicIntervalToSeconds(task.cyclicInterval) * 1000
