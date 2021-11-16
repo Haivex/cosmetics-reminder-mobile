@@ -4,6 +4,8 @@ import {FirebaseReducer, firebaseReducer} from 'react-redux-firebase';
 import {firestoreReducer, FirestoreReducer} from 'redux-firestore';
 import NotificationsReducer, {NotificationState} from './NotificationsReducer';
 import UserReducer, {CurrentUser} from './UserReducer';
+import {useSelector} from 'react-redux';
+import {createTrackedSelector} from 'react-tracked';
 
 interface Profile {
   name: string;
@@ -56,3 +58,4 @@ const rootReducer = combineReducers<CombinedReducersState>({
 
 export default rootReducer;
 export type RootState = ReturnType<typeof rootReducer>;
+export const useTrackedSelector = createTrackedSelector<RootState>(useSelector);

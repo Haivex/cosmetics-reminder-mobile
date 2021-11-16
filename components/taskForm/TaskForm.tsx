@@ -10,14 +10,14 @@ import {
   TextInput,
 } from 'react-native-paper';
 import {CalendarDate} from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
-import CyclicTaskInputs, {CyclicInterval} from '../components/CyclicTaskInputs';
-import DatePickerInput from '../components/DatePickerInput';
-import ErrorDialog from '../components/ErrorDialog';
-import TimePickerInput, {Time} from '../components/TimePickerInput';
-import {checkIfCyclicInterval} from '../helpers/intervalHelpers';
-import '../translation/config';
-import {translate} from '../translation/config';
-import {NavigationProps, RootStackParamList} from '../types';
+import CyclicTaskInputs, {CyclicInterval} from './inputs/CyclicTaskInputs';
+import DatePickerInput from './inputs/DatePickerInput';
+import ErrorDialog from '../dialogs/ErrorDialog';
+import TimePickerInput, {Time} from './inputs/TimePickerInput';
+import {checkIfCyclicInterval} from '../../helpers/intervalHelpers';
+import '../../translation/config';
+import {translate} from '../../translation/config';
+import {NavigationProps, RootStackParamList} from '../navigation/types';
 
 export type TaskData = {
   date: CalendarDate;

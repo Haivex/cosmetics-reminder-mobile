@@ -1,8 +1,8 @@
-import {auth, firebaseApp} from '../App';
+import {auth, firebaseApp} from '../../App';
 import React from 'react';
 import {AccessToken, LoginManager} from 'react-native-fbsdk-next';
 import {FacebookSocialButton} from 'react-native-social-buttons';
-import ErrorDialog from '../components/ErrorDialog';
+import ErrorDialog from '../dialogs/ErrorDialog';
 import {AuthButtonProps} from './Authentication';
 
 function FacebookSignInButton({disabled, setLoading}: AuthButtonProps) {

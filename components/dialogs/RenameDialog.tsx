@@ -1,8 +1,8 @@
 import React from 'react';
 import {Button, Dialog, Paragraph, Portal, TextInput} from 'react-native-paper';
-import {renameTask} from '../firebase/renameTask';
-import {translate} from '../translation/config';
-import {NavigationProps} from '../types';
+import {renameTask} from '../../firebase/renameTask';
+import {translate} from '../../translation/config';
+import {NavigationProps} from '../navigation/types';
 import ErrorDialog from './ErrorDialog';
 
 const RenameDialog = ({route}: NavigationProps) => {

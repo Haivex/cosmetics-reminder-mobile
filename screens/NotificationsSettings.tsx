@@ -5,7 +5,7 @@ import Notifications from 'react-native-push-notification';
 import {storage} from '../redux/MainStore';
 import NotificationsStatus from '../components/NotificationsStatus';
 import {translate} from '../translation/config';
-const NotificationsSettings = () => {
+const NotificationsSettingsScreen = () => {
   return (
     <ScrollView>
       <List.Section>
@@ -58,4 +58,4 @@ const NotificationsSettings = () => {
     </ScrollView>
   );
 };
-export default NotificationsSettings;
+export default NotificationsSettingsScreen;
