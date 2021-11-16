@@ -42,7 +42,32 @@ const NotificationsSettingsScreen = () => {
           });
         }}
         mode="outlined">
-        Scheduled notif
+        Scheduled notif repeating
+      </Button>
+      <Button
+        onPress={() => {
+          Notifications.localNotificationSchedule({
+            id: 1,
+            channelId: 'main',
+            title: 'Only You',
+            message: 'Scheduled message',
+            date: new Date(Date.now() + 10 * 1000),
+            allowWhileIdle: false,
+            repeatType: undefined,
+            repeatTime: 1,
+          });
+        }}
+        mode="outlined">
+        Scheduled notif single
+      </Button>
+      <Button
+        onPress={() => {
+          Notifications.getScheduledLocalNotifications(scheduled =>
+            console.log(scheduled),
+          );
+        }}
+        mode="outlined">
+        Console scheduled notifications
       </Button>
       <Button
         onPress={() => {
