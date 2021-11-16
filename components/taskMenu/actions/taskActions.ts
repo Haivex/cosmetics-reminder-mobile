@@ -1,7 +1,7 @@
 import Notifications from 'react-native-push-notification';
-import {deleteTask} from '../../firebase/deleteTask';
-import {updateTaskCompletion} from '../../firebase/updateTaskCompletion';
-import initTranslation, {translate} from '../../translation/config';
+import {deleteTask} from '../../../firebase/deleteTask';
+import {updateTaskCompletion} from '../../../firebase/updateTaskCompletion';
+import initTranslation, {translate} from '../../../translation/config';
 import {SingleAction} from '../TaskMenu';
 
 initTranslation();

@@ -7,9 +7,9 @@ import {
 } from 'react-native';
 import {RowMap, SwipeListView} from 'react-native-swipe-list-view';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Task as TaskType} from '../types';
+import {Task as TaskType} from '../../types';
 import {Task} from './Task';
-import {SingleAction} from './TaskMenu';
+import {SingleAction} from '../taskMenu/TaskMenu';
 
 interface ActionData {
   actionIcon: string;
@@ -46,27 +46,18 @@ interface HiddenItemProps extends RowItemProps<SwipeListData> {
 
 const HiddenItem = (props: HiddenItemProps) => {
   const {
-    //leftActionActivated,
-    //rightActionActivated,
-    leftActionState,
-    rightActionState,
     data,
     leftActionData: leftActionDataProp,
     rightActionData: rightActionDataProp,
+    rowMap,
   } = props;
   return (
-    <View
-      style={[
-        styles.rowBack,
-        leftActionState && {
-          backgroundColor: leftActionDataProp.actionButtonColor,
-        },
-        rightActionState && {
-          backgroundColor: rightActionDataProp.actionButtonColor,
-        },
-      ]}>
+    <View style={[styles.rowBack]}>
       <TouchableOpacity
-        onPress={() => leftActionDataProp.actionCallback(data.item.task)}
+        onPress={() => {
+          rowMap[data.item.key].closeRow();
+          leftActionDataProp.actionCallback(data.item.task);
+        }}
         style={[
           styles.leftSwipeButton,
           {
@@ -80,7 +71,10 @@ const HiddenItem = (props: HiddenItemProps) => {
         />
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => rightActionDataProp.actionCallback(data.item.task)}
+        onPress={() => {
+          rowMap[data.item.key].closeRow();
+          rightActionDataProp.actionCallback(data.item.task);
+        }}
         style={[
           styles.rightSwipeButton,
           {
@@ -120,6 +114,8 @@ const TasksSwipeList = ({
 
   return (
     <SwipeListView
+      closeOnRowPress={true}
+      closeOnScroll={true}
       data={tasks.map(task => ({key: task.id, task: task}))}
       renderItem={data => (
         <Task
@@ -131,13 +127,9 @@ const TasksSwipeList = ({
       )}
       renderHiddenItem={renderHiddenItem}
       leftOpenValue={75}
-      leftActivationValue={120}
       rightOpenValue={-75}
-      rightActivationValue={-120}
-      onLeftActionStatusChange={actionState => console.log(actionState)}
-      onRightActionStatusChange={actionState => console.log(actionState)}
-      onLeftAction={rowItemKey => console.log('left action' + rowItemKey)}
-      onRightAction={rowItemKey => console.log('rigt action' + rowItemKey)}
+      stopLeftSwipe={75}
+      stopRightSwipe={-75}
     />
   );
 };

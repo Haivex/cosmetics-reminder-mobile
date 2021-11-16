@@ -1,28 +1,30 @@
 import * as React from 'react';
-import {ScrollView} from 'react-native';
+import {View} from 'react-native';
 import {List} from 'react-native-paper';
-import {useSelector} from 'react-redux';
-import {useFirestoreConnect, isEmpty, isLoaded} from 'react-redux-firebase';
-import LoadingTasksCard from '../components/LoadingTasksCard';
-import NoTasksCard from '../components/NoTasksCard';
-import completedTaskActions from '../components/taskMenuActions/completedTaskActions';
+import {isEmpty, isLoaded, useFirestoreConnect} from 'react-redux-firebase';
+import LoadingTasksCard from '../components/tasks/cards/LoadingTasksCard';
+import NoTasksCard from '../components/tasks/cards/NoTasksCard';
+import completedTaskActions from '../components/taskMenu/actions/completedTaskActions';
 import {
   deleteAction,
   restoreAction,
-} from '../components/taskMenuActions/taskActions';
-import TasksSwipeList from '../components/TasksSwipeList';
-import {navigationRef} from '../navigation';
-import {RootState} from '../redux/RootReducer';
+} from '../components/taskMenu/actions/taskActions';
+import TasksSwipeList from '../components/tasks/TasksSwipeList';
+import {navigationRef} from '../components/navigation';
+import {useTrackedSelector} from '../redux/RootReducer';
+import {
+  selectCurrentUser,
+  selectNotifications,
+  selectTasks,
+} from '../redux/selectors';
 import {translate} from '../translation/config';
 import {Task as TaskType} from '../types';
 
 export default function CompletedTasksScreen() {
-  const user = useSelector((state: RootState) => state.currentUser.data);
+  const state = useTrackedSelector();
+  const user = selectCurrentUser(state);
   const navigation = navigationRef;
-  const notificationsState = useSelector(
-    (state: RootState) => state.notifications,
-    (left, right) => JSON.stringify(left) === JSON.stringify(right),
-  );
+  const notificationsState = selectNotifications(state);
   const appState = {
     navigation,
     globalState: {notifications: notificationsState},
@@ -38,9 +40,7 @@ export default function CompletedTasksScreen() {
       storeAs: 'doneTasks',
     },
   ]);
-  const {doneTasks: todos} = useSelector(
-    (state: RootState) => state.firestore.ordered,
-  );
+  const {doneTasks: todos} = selectTasks(state);
 
   const renderDoneTasks = () => {
     if (!isLoaded(todos)) {
@@ -71,8 +71,8 @@ export default function CompletedTasksScreen() {
   };
 
   return (
-    <ScrollView>
+    <View>
       <List.Section>{renderDoneTasks()}</List.Section>
-    </ScrollView>
+    </View>
   );
 }
