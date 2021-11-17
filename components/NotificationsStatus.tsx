@@ -9,7 +9,6 @@ import {
 import {useTrackedSelector} from '../redux/RootReducer';
 import {
   selectCurrentUser,
-  selectNotifications,
   selectNotificationsStatus,
   selectTasks,
 } from '../redux/selectors';
@@ -24,7 +23,6 @@ const NotificationsStatus = () => {
 
   const user = selectCurrentUser(state);
   const notificationsStatus = selectNotificationsStatus(state);
-  const cachedNotifications = selectNotifications(state);
   useFirestoreConnect([
     {
       collection: 'tasks',
