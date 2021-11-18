@@ -44,7 +44,7 @@ export default function TaskCreationScreen({
         title: 'Only You',
         message: dataFromDb.title,
         date: dataFromDb.date.toDate(),
-        allowWhileIdle: false,
+        allowWhileIdle: true,
         repeatType: dataFromDb.cyclicInterval ? 'time' : undefined,
         repeatTime: dataFromDb.cyclicInterval
           ? convertCyclicIntervalToSeconds(dataFromDb.cyclicInterval) * 1000
