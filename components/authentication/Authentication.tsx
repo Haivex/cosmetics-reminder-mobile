@@ -4,7 +4,6 @@ import {StyleSheet, View} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
 import {auth} from '../../App';
-import {checkPermissions} from '../../redux/NotificationsReducer';
 import {useTrackedSelector} from '../../redux/RootReducer';
 import {selectCurrentUser} from '../../redux/selectors';
 import {logIn} from '../../redux/UserReducer';
@@ -33,7 +32,6 @@ function Authentication({children}: ChildrenProp) {
   ) {
     dispatch(logIn(userOrNull));
     if (userOrNull && !isCalledOnce) {
-      dispatch(checkPermissions());
       isCalledOnce = true;
     }
     if (initializing) {
