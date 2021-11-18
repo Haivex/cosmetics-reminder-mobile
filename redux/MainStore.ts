@@ -1,7 +1,7 @@
 import {AnyAction, configureStore, Reducer} from '@reduxjs/toolkit';
 import {persistStore, persistReducer, Storage} from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
-import rootReducer from './RootReducer';
+import rootReducer, {RootState} from './RootReducer';
 import {MMKV} from 'react-native-mmkv';
 import {getFirebase} from 'react-redux-firebase';
 
@@ -30,9 +30,9 @@ const persistConfig = {
   blacklist: ['currentUser'],
 };
 
-const persistedReducer = persistReducer(
+const persistedReducer = persistReducer<RootState>(
   persistConfig,
-  rootReducer as Reducer<unknown, AnyAction>,
+  rootReducer as Reducer<RootState, AnyAction>,
 );
 
 export const store = configureStore({
