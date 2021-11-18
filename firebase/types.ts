@@ -5,7 +5,7 @@ export interface TaskDocument {
   date: FirebaseFirestoreTypes.Timestamp;
   title: string;
   completed: boolean;
-  cyclicInterval: CyclicInterval | undefined;
+  cyclicInterval?: CyclicInterval;
 }
 
 export interface TaskDocumentWithId extends TaskDocument {
