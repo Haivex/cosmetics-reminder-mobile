@@ -30,7 +30,9 @@ function Authentication({children}: ChildrenProp) {
   function onAuthStateChangedCallback(
     userOrNull: FirebaseAuthTypes.User | null,
   ) {
-    dispatch(logIn(userOrNull));
+    if (!user) {
+      dispatch(logIn(userOrNull));
+    }
     if (userOrNull && !isCalledOnce) {
       isCalledOnce = true;
     }
@@ -42,6 +44,7 @@ function Authentication({children}: ChildrenProp) {
   const onAuthStateChanged = useCallback(onAuthStateChangedCallback, [
     dispatch,
     initializing,
+    user,
   ]);
 
   useEffect(() => {
