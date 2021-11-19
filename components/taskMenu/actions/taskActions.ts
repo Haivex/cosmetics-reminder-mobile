@@ -3,13 +3,14 @@ import {updateTaskCompletion} from '../../../firebase/updateTaskCompletion';
 import TaskNotifications from '../../../shared/TaskNotifications';
 import initTranslation, {translate} from '../../../translation/config';
 import {SingleAction} from '../TaskMenu';
+import {navigationRef} from '../../navigation/index';
 
 initTranslation();
 
 export const renameAction: SingleAction = {
   title: translate('taskMenu.changeTitle'),
-  callback: (task, appState) => {
-    appState?.navigation.current?.navigate('RenameTaskDialog', task);
+  callback: task => {
+    navigationRef.current?.navigate('RenameTaskDialog', task);
   },
 };
 
@@ -48,7 +49,7 @@ export const restoreAction: SingleAction = {
 
 export const editAction: SingleAction = {
   title: translate('taskMenu.editTask'),
-  callback: (task, appState) => {
-    appState?.navigation.current?.navigate('TaskEdition', task);
+  callback: task => {
+    navigationRef.current?.navigate('TaskEdition', task);
   },
 };
