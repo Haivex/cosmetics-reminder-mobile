@@ -11,6 +11,8 @@ import '../translation/config';
 import {translate} from '../translation/config';
 import {NavigationProps} from '../components/navigation/types';
 import TaskNotifications from '../shared/TaskNotifications';
+import {useTrackedSelector} from '../redux/RootReducer';
+import {selectNotificationsStatus} from '../redux/selectors';
 export type TaskData = {
   date: CalendarDate;
   time: Time;
@@ -22,6 +24,8 @@ export default function TaskCreationScreen({
   route,
   navigation,
 }: NavigationProps) {
+  const state = useTrackedSelector();
+  const areNotificationsTurnedOn = selectNotificationsStatus(state);
   const onSubmit = (data: TaskData) => {
     data.cyclicInterval = data.cyclicInterval || undefined;
     const mergedDateAndTime = set(data.date as Date, data.time);
@@ -31,15 +35,17 @@ export default function TaskCreationScreen({
       time: undefined,
     };
     return saveTask(taskDataWithoutTime).then(taskDocumentFromDatabase => {
-      const id = taskDocumentFromDatabase.id;
-      const taskDataFromDatabase =
-        taskDocumentFromDatabase.data() as TaskDocument;
-      const task = {
-        id,
-        ...taskDataFromDatabase,
-      };
+      if (areNotificationsTurnedOn) {
+        const id = taskDocumentFromDatabase.id;
+        const taskDataFromDatabase =
+          taskDocumentFromDatabase.data() as TaskDocument;
+        const task = {
+          id,
+          ...taskDataFromDatabase,
+        };
 
-      TaskNotifications.createNotification(task);
+        TaskNotifications.createNotification(task);
+      }
     });
   };
 
