@@ -11,19 +11,13 @@ import {
   deleteAction,
 } from '../components/taskMenu/actions/taskActions';
 import TasksSwipeList from '../components/tasks/TasksSwipeList';
-import {navigationRef} from '../components/navigation';
 import {useTrackedSelector} from '../redux/RootReducer';
-import {
-  selectCurrentUser,
-  selectNotifications,
-  selectTasks,
-} from '../redux/selectors';
+import {selectCurrentUser, selectTasks} from '../redux/selectors';
 import {translate} from '../translation/config';
 import {Task as TaskType} from '../types';
 
 export default function CurrentTasksScreen() {
   const state = useTrackedSelector();
-  const notificationsState = selectNotifications(state);
   const currentDate = new Date();
   const user = selectCurrentUser(state);
   useFirestoreConnect([
@@ -49,11 +43,6 @@ export default function CurrentTasksScreen() {
     },
   ]);
   const {currentTasks, incomingTasks} = selectTasks(state);
-  const navigation = navigationRef;
-  const appState = {
-    navigation,
-    globalState: {notifications: notificationsState},
-  };
 
   const renderCurrentTasks = (): JSX.Element | JSX.Element[] => {
     if (!isLoaded(currentTasks)) {
@@ -75,7 +64,7 @@ export default function CurrentTasksScreen() {
         rightActionData={{
           actionButtonColor: 'red',
           actionIcon: 'trash-can-outline',
-          actionCallback: task => deleteAction.callback(task, appState),
+          actionCallback: task => deleteAction.callback(task),
         }}
       />
     );
@@ -103,7 +92,7 @@ export default function CurrentTasksScreen() {
         rightActionData={{
           actionButtonColor: 'red',
           actionIcon: 'trash-can-outline',
-          actionCallback: task => deleteAction.callback(task, appState),
+          actionCallback: task => deleteAction.callback(task),
         }}
       />
     );
