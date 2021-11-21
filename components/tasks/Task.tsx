@@ -3,7 +3,7 @@ import {formatRelative} from 'date-fns';
 import {firebaseApp} from '../../App';
 import {localesMap} from '../../constants/dateLocales';
 import i18n from 'i18n-js';
-import {Task as TaskData} from '../../types';
+import {Task as TaskType} from '../../types';
 import TaskMenu, {SingleAction} from '../taskMenu/TaskMenu';
 import {enUS} from 'date-fns/locale';
 import {List} from 'react-native-paper';
@@ -11,7 +11,7 @@ import {StyleSheet} from 'react-native';
 
 type TaskProps = {
   icon: string;
-  task: TaskData;
+  task: TaskType;
   menuActions: SingleAction[];
 };
 

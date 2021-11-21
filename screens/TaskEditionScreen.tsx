@@ -12,6 +12,10 @@ import {selectNotificationsStatus} from '../redux/selectors';
 import TaskNotifications from '../shared/TaskNotifications';
 import {Task} from '../types';
 import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
+import {
+  convertTaskCreationDataToUpdatedTask,
+  convertTaskFormDataToTaskCreationData,
+} from '../helpers/converters';
 
 export default function TaskEditionScreen({
   route,
@@ -31,21 +35,13 @@ export default function TaskEditionScreen({
   };
 
   const onSubmit = (data: TaskData) => {
-    data.cyclicInterval = data.cyclicInterval || undefined;
-    const mergedDateAndTime = set(data.date as Date, data.time);
-    const taskDataWithoutTime = {
-      ...data,
-      date: mergedDateAndTime,
-      time: undefined,
-    };
-    return editTask(task.id, taskDataWithoutTime).then(() => {
+    const taskCreationData = convertTaskFormDataToTaskCreationData(data);
+    return editTask(task.id, taskCreationData).then(() => {
       if (areNotificationsTurnedOn) {
-        const editedTask = {
-          id: task.id,
-          ...taskDataWithoutTime,
-          completed: task.completed,
-          date: FirebaseFirestoreTypes.Timestamp.fromDate(mergedDateAndTime),
-        } as Task;
+        const editedTask = convertTaskCreationDataToUpdatedTask(
+          taskCreationData,
+          task,
+        );
         TaskNotifications.cancelNotification(task);
         TaskNotifications.createNotification(editedTask);
       }
