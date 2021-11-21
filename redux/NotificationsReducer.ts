@@ -5,6 +5,10 @@ interface StoredNotification {
   taskId: string;
 }
 
+interface TaskId {
+  taskId: string;
+}
+
 export interface NotificationState {
   notificationsStatus: boolean;
   storedNotifications: StoredNotification[];
@@ -31,8 +35,19 @@ const notificationsSlice = createSlice({
     clearNotifications(state) {
       state.storedNotifications = [];
     },
+    cancelNotification(state, action: PayloadAction<TaskId>) {
+      const stateWithoutSelectedNotification = state.storedNotifications.filter(
+        notification => notification.taskId !== action.payload.taskId,
+      );
+      state.storedNotifications = [...stateWithoutSelectedNotification];
+    },
   },
 });
 
-export const {togglePermission, addNotification, clearNotifications} = notificationsSlice.actions;
+export const {
+  togglePermission,
+  addNotification,
+  clearNotifications,
+  cancelNotification,
+} = notificationsSlice.actions;
 export default notificationsSlice.reducer;

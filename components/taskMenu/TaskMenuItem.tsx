@@ -1,7 +1,5 @@
 import * as React from 'react';
 import {Menu} from 'react-native-paper';
-import {navigationRef} from '../navigation';
-import {useTrackedSelector} from '../../redux/RootReducer';
 import {Task} from '../../types';
 import {SingleAction} from './TaskMenu';
 
@@ -16,13 +14,10 @@ const TaskMenuItem = ({
   title,
   callback,
 }: TaskMenuItemProps) => {
-  const globalState = useTrackedSelector();
-  const navigation = navigationRef;
-  const appState = {navigation, globalState};
   return (
     <Menu.Item
       onPress={() => {
-        callback(task, appState);
+        callback(task);
         closeMenu();
       }}
       title={title}
