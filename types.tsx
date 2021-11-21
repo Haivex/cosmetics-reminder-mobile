@@ -10,7 +10,15 @@ export type Task = {
   title: string;
   date: FirebaseFirestoreTypes.Timestamp;
   completed: boolean;
-  cyclicInterval?: CyclicInterval | undefined;
+  cyclicInterval?: CyclicInterval;
+};
+
+export type TaskWithoutId = Omit<Task, 'id'>;
+
+export interface TaskCreationData {
+  date: Date;
+  title: string;
+  cyclicInterval?: CyclicInterval;
 };
 
 // https://stackoverflow.com/questions/58277973/how-to-type-check-i18n-dictionaries-with-typescript
