@@ -25,3 +25,17 @@ export function convertTaskFormDataToTaskCreationData(
   };
   return createdTaskCreationData;
 }
+
+export function convertTaskCreationDataToUpdatedTask(
+  taskCreationData: TaskCreationData,
+  task: Task,
+): Task {
+  const createdTask = {
+    id: task.id,
+    completed: task.completed,
+    title: taskCreationData.title,
+    cyclicInterval: taskCreationData.cyclicInterval,
+    date: FirebaseFirestoreTypes.Timestamp.fromDate(taskCreationData.date),
+  };
+  return createdTask;
+}
