@@ -7,6 +7,7 @@ import {useDispatch} from 'react-redux';
 import {logOut} from '../redux/UserReducer';
 import {NavigationProp} from './navigation/types';
 import ErrorDialog from './dialogs/ErrorDialog';
+import TaskNotifications from '../shared/TaskNotifications';
 
 const AppSettings = () => {
   const navigation = useNavigation<NavigationProp>();
@@ -29,6 +30,7 @@ const AppSettings = () => {
             auth
               .signOut()
               .then(() => {
+                TaskNotifications.cancelAllNotifications();
                 dispatch(logOut());
               })
               .catch(catchedError => {
