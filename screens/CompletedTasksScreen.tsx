@@ -10,25 +10,14 @@ import {
   restoreAction,
 } from '../components/taskMenu/actions/taskActions';
 import TasksSwipeList from '../components/tasks/TasksSwipeList';
-import {navigationRef} from '../components/navigation';
 import {useTrackedSelector} from '../redux/RootReducer';
-import {
-  selectCurrentUser,
-  selectNotifications,
-  selectTasks,
-} from '../redux/selectors';
+import {selectCurrentUser, selectTasks} from '../redux/selectors';
 import {translate} from '../translation/config';
 import {Task as TaskType} from '../types';
 
 export default function CompletedTasksScreen() {
   const state = useTrackedSelector();
   const user = selectCurrentUser(state);
-  const navigation = navigationRef;
-  const notificationsState = selectNotifications(state);
-  const appState = {
-    navigation,
-    globalState: {notifications: notificationsState},
-  };
   useFirestoreConnect([
     {
       collection: 'tasks',
@@ -64,7 +53,7 @@ export default function CompletedTasksScreen() {
         rightActionData={{
           actionButtonColor: 'red',
           actionIcon: 'trash-can-outline',
-          actionCallback: task => deleteAction.callback(task, appState),
+          actionCallback: task => deleteAction.callback(task),
         }}
       />
     );

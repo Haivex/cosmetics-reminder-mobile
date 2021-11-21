@@ -4,9 +4,14 @@ import {StyleSheet, View} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
 import {auth} from '../../App';
+import {getIncomingTasks} from '../../firebase/getIncomingTasks';
 import {useTrackedSelector} from '../../redux/RootReducer';
-import {selectCurrentUser} from '../../redux/selectors';
+import {
+  selectCurrentUser,
+  selectNotificationsStatus,
+} from '../../redux/selectors';
 import {logIn} from '../../redux/UserReducer';
+import TaskNotifications from '../../shared/TaskNotifications';
 import {ChildrenProp} from '../types';
 import FacebookSignInButton from './FacebookAuthenticationButton';
 import GoogleSignInButton from './GoogleAuthenticationButton';
@@ -25,14 +30,22 @@ function Authentication({children}: ChildrenProp) {
   const dispatch = useDispatch();
   const state = useTrackedSelector();
   const user = selectCurrentUser(state);
+  const areNotificationsTurnedOn = selectNotificationsStatus(state);
 
   // Handle user state changes
   function onAuthStateChangedCallback(
     userOrNull: FirebaseAuthTypes.User | null,
   ) {
-    dispatch(logIn(userOrNull));
+    if (!user) {
+      dispatch(logIn(userOrNull));
+    }
     if (userOrNull && !isCalledOnce) {
       isCalledOnce = true;
+      if (areNotificationsTurnedOn) {
+        getIncomingTasks().then(tasks =>
+          tasks.forEach(TaskNotifications.createNotification),
+        );
+      }
     }
     if (initializing) {
       setInitializing(false);
@@ -42,6 +55,8 @@ function Authentication({children}: ChildrenProp) {
   const onAuthStateChanged = useCallback(onAuthStateChangedCallback, [
     dispatch,
     initializing,
+    user,
+    areNotificationsTurnedOn,
   ]);
 
   useEffect(() => {

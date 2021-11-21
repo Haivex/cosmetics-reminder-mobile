@@ -1,20 +1,16 @@
 import React from 'react';
 import {Switch} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
-import {
-  addNotification,
-  clearNotifications,
-  togglePermission,
-} from '../redux/NotificationsReducer';
+import {togglePermission} from '../redux/NotificationsReducer';
 import {useTrackedSelector} from '../redux/RootReducer';
 import {
   selectCurrentUser,
   selectNotificationsStatus,
   selectTasks,
 } from '../redux/selectors';
-import Notifications from 'react-native-push-notification';
 import {useFirestoreConnect} from 'react-redux-firebase';
-import {convertCyclicIntervalToSeconds} from '../helpers/intervalHelpers';
+import TaskNotifications from '../shared/TaskNotifications';
+import {Task} from '../types';
 
 const NotificationsStatus = () => {
   const currentDate = new Date();
@@ -39,29 +35,10 @@ const NotificationsStatus = () => {
 
   const onToggleSwitch = (newValue: boolean) => {
     if (!newValue) {
-      Notifications.cancelAllLocalNotifications();
-      dispatch(clearNotifications());
+      TaskNotifications.cancelAllNotifications();
     } else {
       incomingTasks.forEach(task => {
-        const notificationCreationTimestamp = Date.now();
-        console.log(task);
-        Notifications.localNotificationSchedule({
-          channelId: 'main',
-          id: notificationCreationTimestamp,
-          title: 'Only You',
-          message: task.title,
-          date: new Date(task.date.toDate()),
-          allowWhileIdle: true,
-          repeatType: task.cyclicInterval ? 'time' : undefined,
-          repeatTime: task.cyclicInterval
-            ? convertCyclicIntervalToSeconds(task.cyclicInterval) * 1000
-            : 1,
-        });
-        const notificationToStore = {
-          taskId: task.id,
-          notificationId: notificationCreationTimestamp,
-        };
-        dispatch(addNotification(notificationToStore));
+        TaskNotifications.createNotification(task as Task);
       });
     }
     dispatch(togglePermission(newValue));
