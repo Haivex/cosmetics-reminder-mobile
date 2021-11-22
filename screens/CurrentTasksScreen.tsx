@@ -15,6 +15,7 @@ import {useTrackedSelector} from '../redux/RootReducer';
 import {selectCurrentUser, selectTasks} from '../redux/selectors';
 import {translate} from '../translation/config';
 import {Task as TaskType} from '../types';
+import Search from '../components/search/Search';
 
 export default function CurrentTasksScreen() {
   const state = useTrackedSelector();
@@ -100,6 +101,7 @@ export default function CurrentTasksScreen() {
 
   return (
     <List.Section style={styles.container}>
+      <Search onChangeText={text => console.log(text)} />
       <List.Section>
         <List.Subheader>
           {translate('currentTasksScreen.currentTasksTitle')}
