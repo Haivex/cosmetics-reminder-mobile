@@ -16,6 +16,7 @@ import {selectCurrentUser, selectTasks} from '../redux/selectors';
 import {translate} from '../translation/config';
 import {Task as TaskType} from '../types';
 import Search from '../components/search/Search';
+import searchTasks from '../shared/searchTasks';
 
 export default function CurrentTasksScreen() {
   const state = useTrackedSelector();
@@ -44,6 +45,10 @@ export default function CurrentTasksScreen() {
     },
   ]);
   const {currentTasks, incomingTasks} = selectTasks(state);
+  const [filteredCurrentTasks, setFilteredCurrentTasks] =
+    React.useState<TaskType[]>();
+  const [filteredIncomingTasks, setFilteredIncomingTasks] =
+    React.useState<TaskType[]>();
 
   const renderCurrentTasks = (): JSX.Element | JSX.Element[] => {
     if (!isLoaded(currentTasks)) {
@@ -55,7 +60,7 @@ export default function CurrentTasksScreen() {
     return (
       <TasksSwipeList
         taskIcon="clock-check"
-        tasks={currentTasks as TaskType[]}
+        tasks={filteredCurrentTasks || (currentTasks as TaskType[])}
         taskMenuActions={currentTaskActions}
         leftActionData={{
           actionButtonColor: 'green',
@@ -83,7 +88,7 @@ export default function CurrentTasksScreen() {
     return (
       <TasksSwipeList
         taskIcon="clock"
-        tasks={incomingTasks as TaskType[]}
+        tasks={filteredIncomingTasks || (incomingTasks as TaskType[])}
         taskMenuActions={incomingTaskActions}
         leftActionData={{
           actionButtonColor: 'green',
@@ -101,7 +106,16 @@ export default function CurrentTasksScreen() {
 
   return (
     <List.Section style={styles.container}>
-      <Search onChangeText={text => console.log(text)} />
+      <Search
+        onChangeText={text => {
+          setFilteredIncomingTasks(
+            searchTasks(incomingTasks as TaskType[], text),
+          );
+          setFilteredCurrentTasks(
+            searchTasks(currentTasks as TaskType[], text),
+          );
+        }}
+      />
       <List.Section>
         <List.Subheader>
           {translate('currentTasksScreen.currentTasksTitle')}
