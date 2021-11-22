@@ -19,6 +19,8 @@ const SearchBarTop = ({visible, onChangeText}: SearchBarTopProps) => {
     if (visible) {
       searchBarRef.current?.focus();
     } else {
+      onChangeText('');
+      setSearchQuery('');
       searchBarRef.current?.blur();
     }
   }, [visible]);
