@@ -35,9 +35,9 @@ const searchTasks = (tasks: Task[], query: string): Task[] => {
         case 'cyclic:':
           filteredTasks = filteredTasks.filter(task => {
             if (word === 'true') {
-              return typeof task.cyclicInterval !== undefined;
+              return typeof task.cyclicInterval !== 'undefined';
             }
-            return typeof task.cyclicInterval === undefined;
+            return typeof task.cyclicInterval === 'undefined';
           });
           break;
       }
