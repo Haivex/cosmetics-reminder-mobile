@@ -19,8 +19,6 @@ const searchTasks = (tasks: Task[], query: string): Task[] => {
       }
     }
     if (isFilterTurnedOn) {
-      console.log(foundedFilter);
-      console.log(word);
       switch (foundedFilter) {
         case 'before:':
           filteredTasks = filteredTasks.filter(
@@ -46,7 +44,9 @@ const searchTasks = (tasks: Task[], query: string): Task[] => {
     }
     searchedTitleWords.push(word);
   });
-  const searchedTitle = searchedTitleWords.join(' '); //space
-  return filteredTasks.filter(task => task.title.includes(searchedTitle));
+  const searchedTitle = searchedTitleWords.join(' ').toLowerCase(); //space
+  return filteredTasks.filter(task =>
+    task.title.toLowerCase().includes(searchedTitle),
+  );
 };
 export default searchTasks;
