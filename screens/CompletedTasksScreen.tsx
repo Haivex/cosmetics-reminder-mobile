@@ -32,8 +32,7 @@ export default function CompletedTasksScreen() {
     },
   ]);
   const {doneTasks: todos} = selectTasks(state);
-  const [filteredDoneTasks, setFilteredDoneTasks] =
-    React.useState<TaskType[]>();
+  const [query, setQuery] = React.useState('');
 
   const renderDoneTasks = () => {
     if (!isLoaded(todos)) {
@@ -47,7 +46,7 @@ export default function CompletedTasksScreen() {
     return (
       <TasksSwipeList
         taskIcon="checkbox-marked-circle"
-        tasks={filteredDoneTasks || (todos as TaskType[])}
+        tasks={searchTasks(todos as TaskType[], query)}
         taskMenuActions={completedTaskActions}
         leftActionData={{
           actionButtonColor: 'blue',
@@ -66,12 +65,9 @@ export default function CompletedTasksScreen() {
   return (
     <List.Section style={styles.container}>
       <Search
-        onChangeText={React.useCallback(
-          text => {
-            setFilteredDoneTasks(searchTasks(todos as TaskType[], text));
-          },
-          [todos],
-        )}
+        onChangeText={React.useCallback(text => {
+          setQuery(text);
+        }, [])}
       />
       <List.Section>{renderDoneTasks()}</List.Section>
     </List.Section>
