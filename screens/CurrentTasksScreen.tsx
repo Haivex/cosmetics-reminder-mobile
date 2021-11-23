@@ -107,14 +107,17 @@ export default function CurrentTasksScreen() {
   return (
     <List.Section style={styles.container}>
       <Search
-        onChangeText={text => {
-          setFilteredIncomingTasks(
-            searchTasks(incomingTasks as TaskType[], text),
-          );
-          setFilteredCurrentTasks(
-            searchTasks(currentTasks as TaskType[], text),
-          );
-        }}
+        onChangeText={React.useCallback(
+          text => {
+            setFilteredIncomingTasks(
+              searchTasks(incomingTasks as TaskType[], text),
+            );
+            setFilteredCurrentTasks(
+              searchTasks(currentTasks as TaskType[], text),
+            );
+          },
+          [currentTasks, incomingTasks],
+        )}
       />
       <List.Section>
         <List.Subheader>
