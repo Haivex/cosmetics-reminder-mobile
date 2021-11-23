@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {List} from 'react-native-paper';
 import {isEmpty, isLoaded, useFirestoreConnect} from 'react-redux-firebase';
 import LoadingTasksCard from '../components/tasks/cards/LoadingTasksCard';
@@ -14,6 +14,8 @@ import {useTrackedSelector} from '../redux/RootReducer';
 import {selectCurrentUser, selectTasks} from '../redux/selectors';
 import {translate} from '../translation/config';
 import {Task as TaskType} from '../types';
+import Search from '../components/search/Search';
+import searchTasks from '../shared/searchTasks';
 
 export default function CompletedTasksScreen() {
   const state = useTrackedSelector();
@@ -30,6 +32,8 @@ export default function CompletedTasksScreen() {
     },
   ]);
   const {doneTasks: todos} = selectTasks(state);
+  const [filteredDoneTasks, setFilteredDoneTasks] =
+    React.useState<TaskType[]>();
 
   const renderDoneTasks = () => {
     if (!isLoaded(todos)) {
@@ -43,7 +47,7 @@ export default function CompletedTasksScreen() {
     return (
       <TasksSwipeList
         taskIcon="checkbox-marked-circle"
-        tasks={todos as TaskType[]}
+        tasks={filteredDoneTasks || (todos as TaskType[])}
         taskMenuActions={completedTaskActions}
         leftActionData={{
           actionButtonColor: 'blue',
@@ -60,8 +64,23 @@ export default function CompletedTasksScreen() {
   };
 
   return (
-    <View>
+    <List.Section style={styles.container}>
+      <Search
+        onChangeText={React.useCallback(
+          text => {
+            setFilteredDoneTasks(searchTasks(todos as TaskType[], text));
+          },
+          [todos],
+        )}
+      />
       <List.Section>{renderDoneTasks()}</List.Section>
-    </View>
+    </List.Section>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    flex: 1,
+  },
+});
