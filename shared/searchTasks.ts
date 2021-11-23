@@ -1,6 +1,10 @@
 import {Task} from '../types';
 
 const searchTasks = (tasks: Task[], query: string): Task[] => {
+  if (!query) {
+    return tasks;
+  }
+
   let filteredTasks = [...tasks];
 
   const filters = ['before:', 'after:', 'cyclic:'];
