@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {memo, useState} from 'react';
 import SearchBar from './SearchBar';
 import SearchFAB from './SearchFAB';
 
@@ -10,9 +10,9 @@ const Search = ({onChangeText}: SearchProps) => {
   const [visible, setVisible] = useState(false);
   return (
     <>
-      <SearchBar visible={visible} onChangeText={onChangeText} />
+      {visible && <SearchBar onChangeText={onChangeText} />}
       <SearchFAB onPress={setVisible} />
     </>
   );
 };
-export default Search;
+export default memo(Search);
