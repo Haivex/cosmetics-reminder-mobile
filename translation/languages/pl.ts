@@ -74,5 +74,6 @@ const pl: AppTranslation = {
     finishedTaskInfo: 'Tutaj pojawią się zakończone zadania',
   },
   loadingTasks: 'Trwa wczytywanie zadań...',
+  search: 'Wyszukaj',
 };
 export default pl;
