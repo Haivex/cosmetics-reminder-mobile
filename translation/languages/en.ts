@@ -72,6 +72,7 @@ const en = {
     finishedTaskInfo: 'Finished tasks will appear here',
   },
   loadingTasks: 'Tasks are loading...',
+  search: 'Search',
 };
 export default en;
 export type AppTranslation = typeof en;

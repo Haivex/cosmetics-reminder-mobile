@@ -15,6 +15,8 @@ import {useTrackedSelector} from '../redux/RootReducer';
 import {selectCurrentUser, selectTasks} from '../redux/selectors';
 import {translate} from '../translation/config';
 import {Task as TaskType} from '../types';
+import Search from '../components/search/Search';
+import searchTasks from '../shared/searchTasks';
 
 export default function CurrentTasksScreen() {
   const state = useTrackedSelector();
@@ -43,6 +45,7 @@ export default function CurrentTasksScreen() {
     },
   ]);
   const {currentTasks, incomingTasks} = selectTasks(state);
+  const [query, setQuery] = React.useState('');
 
   const renderCurrentTasks = (): JSX.Element | JSX.Element[] => {
     if (!isLoaded(currentTasks)) {
@@ -54,7 +57,7 @@ export default function CurrentTasksScreen() {
     return (
       <TasksSwipeList
         taskIcon="clock-check"
-        tasks={currentTasks as TaskType[]}
+        tasks={searchTasks(currentTasks as TaskType[], query)}
         taskMenuActions={currentTaskActions}
         leftActionData={{
           actionButtonColor: 'green',
@@ -82,7 +85,7 @@ export default function CurrentTasksScreen() {
     return (
       <TasksSwipeList
         taskIcon="clock"
-        tasks={incomingTasks as TaskType[]}
+        tasks={searchTasks(incomingTasks as TaskType[], query)}
         taskMenuActions={incomingTaskActions}
         leftActionData={{
           actionButtonColor: 'green',
@@ -100,6 +103,11 @@ export default function CurrentTasksScreen() {
 
   return (
     <List.Section style={styles.container}>
+      <Search
+        onChangeText={React.useCallback(text => {
+          setQuery(text);
+        }, [])}
+      />
       <List.Section>
         <List.Subheader>
           {translate('currentTasksScreen.currentTasksTitle')}
