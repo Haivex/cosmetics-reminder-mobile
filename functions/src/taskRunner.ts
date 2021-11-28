@@ -17,6 +17,7 @@ export const taskRunner = functions
       .collection("tasks")
       .where("date", "<=", now)
       .where("originTaskId", "==", null)
+      .orderBy("date")
       .orderBy("cyclicInterval");
 
     const tasks = await query.get();
