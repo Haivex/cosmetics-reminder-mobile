@@ -1,32 +1,36 @@
-// import * as functions from "firebase-functions";
-// import * as admin from "firebase-admin";
-// import {onCyclicTaskScheduledDate} from "./onCyclicTaskScheduledDate";
+import * as admin from "firebase-admin";
+import * as functions from "firebase-functions";
+import {onCyclicTaskScheduledDate} from "./onCyclicTaskScheduledDate";
 
-// const db = admin.firestore();
+export const taskRunner = functions
+  .runWith({memory: "2GB"})
+  .pubsub.schedule("* * * * *")
+  .onRun(async () => {
+    functions.logger.info("Running pub sub function...");
+    // Consistent timestamp
+    const now = admin.firestore.Timestamp.now();
 
-// export const taskRunner = functions.runWith( {memory: "256MB"}).pubsub
+    const db = admin.firestore();
 
-//     .schedule("* * * * *").onRun(async () => {
-//       // Consistent timestamp
-//       const now = admin.firestore.Timestamp.now();
+    // Query all documents ready to perform
+    const query = db
+      .collection("tasks")
+      .where("date", "<=", now)
+      .where("originTaskId", "==", null)
+      .orderBy("cyclicInterval");
 
-//       // Query all documents ready to perform
-//       const query = db.collection("tasks")
-//           .where("beginningDate", "<=", now).orderBy("cyclicInterval");
+    const tasks = await query.get();
 
-//       const tasks = await query.get();
+    // Jobs to execute concurrently.
+    const jobs: Promise<unknown>[] = [];
 
+    // Loop over documents and push job.
+    tasks.forEach((snapshot) => {
+      const job = onCyclicTaskScheduledDate(snapshot);
 
-//       // Jobs to execute concurrently.
-//       const jobs: Promise<unknown>[] = [];
+      jobs.push(job);
+    });
 
-//       // Loop over documents and push job.
-//       tasks.forEach((snapshot) => {
-//         const job = onCyclicTaskScheduledDate(snapshot);
-
-//         jobs.push(job);
-//       });
-
-//       // Execute all jobs concurrently
-//       return await Promise.all(jobs);
-//     });
+    // Execute all jobs concurrently
+    return await Promise.all(jobs);
+  });

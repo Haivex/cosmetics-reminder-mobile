@@ -1,10 +1,11 @@
-// import * as functions from "firebase-functions";
-// import {firestore} from "firebase-admin";
+import * as functions from "firebase-functions";
+import {firestore} from "firebase-admin";
 
-// // TODO: add property original cyclic task (not created via task runner)
-
-// export const onCyclicTaskCreation = functions.firestore.
-//     document("tasks/{taskId}")
-//     .onCreate(() => {
-//       // add property to cyclic task
-//     });
+export const onCyclicTaskCreation = functions.firestore.
+    document("tasks/{taskId}")
+    .onCreate((snapshot) => {
+      const task = snapshot.data();
+      if (!task.originTaskId) {
+          firestore().doc(`tasks/${snapshot.id}`).update({originTaskId: null});
+      }
+    });
