@@ -35,6 +35,20 @@
           "order": "DESCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "tasks",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "date",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "cyclicInterval",
+          "order": "ASCENDING"
+        }
+      ]
     }
   ],
   "fieldOverrides": []
