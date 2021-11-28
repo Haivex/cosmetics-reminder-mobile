@@ -6,7 +6,7 @@ export const onCyclicTaskScheduledDate = (
 ): Promise<firestore.DocumentReference<firestore.DocumentData>> => {
   const task = snapshot.data();
   const nextDate =
-    Date.now() + convertCyclicIntervalToSeconds(task.cyclicInterval) * 10000;
+    Date.now() + convertCyclicIntervalToSeconds(task.cyclicInterval) * 1000;
   return snapshot.ref.update({originTaskId: snapshot.id}).then(() => {
     return firestore()
       .collection("tasks")
