@@ -7,6 +7,9 @@ export const onCyclicTaskUpdate = functions.firestore
     const {before, after} = documentChange;
     const oldTask = before.data();
     const newTask = after.data();
+    if (JSON.stringify(oldTask) === JSON.stringify(newTask)) {
+      return null;
+    }
     if (oldTask.cyclicInterval && newTask.cyclicInterval) {
       firestore()
         .collection("tasks")
