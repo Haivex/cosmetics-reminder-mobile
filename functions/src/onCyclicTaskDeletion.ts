@@ -6,9 +6,10 @@ export const onCyclicTaskDeletion = functions.firestore
   .onDelete((snapshot) => {
     const task = snapshot.data();
     if (task.cyclicInterval) {
+      const originTaskIdFromPropertyOrDocumentId = task.originTaskId ? task.originTaskId : snapshot.id;
       return firestore()
         .collection("tasks")
-        .where("originTaskId", "==", snapshot.id)
+        .where("originTaskId", "==", originTaskIdFromPropertyOrDocumentId)
         .get()
         .then((snapshots) =>
           snapshots.forEach((otherSnapshot) => otherSnapshot.ref.delete({exists: true}))
