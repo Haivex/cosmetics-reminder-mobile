@@ -16,7 +16,7 @@ export const onCyclicTaskUpdate = functions.firestore
         .where("originTaskId", "==", oldTask.originTaskId)
         .get()
         .then((snapshots) =>
-          snapshots.forEach((snapshot) => snapshot.ref.update({...newTask}))
+          snapshots.forEach((otherSnapshot) => otherSnapshot.ref.update({...newTask}))
         );
       return null;
     }
@@ -26,7 +26,7 @@ export const onCyclicTaskUpdate = functions.firestore
         .where("originTaskId", "==", oldTask.originTaskId)
         .get()
         .then((snapshots) =>
-          snapshots.forEach((snapshot) => snapshot.ref.delete())
+          snapshots.forEach((otherSnapshot) => otherSnapshot.ref.delete())
         );
       return null;
     }
