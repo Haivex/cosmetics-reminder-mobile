@@ -11,7 +11,7 @@ export const onCyclicTaskDeletion = functions.firestore
         .where("originTask", "==", snapshot.id)
         .get()
         .then((snapshots) =>
-          snapshots.forEach((snapshot) => snapshot.ref.delete())
+          snapshots.forEach((snapshot) => snapshot.ref.delete({exists: true}))
         );
     }
     return null;
