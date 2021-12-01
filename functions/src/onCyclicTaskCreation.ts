@@ -6,6 +6,7 @@ export const onCyclicTaskCreation = functions.firestore.
     .onCreate((snapshot) => {
       const task = snapshot.data();
       if (!task.originTaskId) {
-          firestore().doc(`tasks/${snapshot.id}`).update({originTaskId: null});
+          return firestore().doc(`tasks/${snapshot.id}`).update({originTaskId: null});
       }
+      return null;
     });

@@ -3,10 +3,10 @@ import * as functions from "firebase-functions";
 
 export const onCyclicTaskDeletion = functions.firestore
   .document("tasks/{taskId}")
-  .onDelete((snapshot) => {
+  .onDelete((snapshot, context) => {
     const task = snapshot.data();
     if (task.cyclicInterval) {
-      firestore()
+      return firestore()
         .collection("tasks")
         .where("originTask", "==", snapshot.id)
         .get()
@@ -14,4 +14,5 @@ export const onCyclicTaskDeletion = functions.firestore
           snapshots.forEach((snapshot) => snapshot.ref.delete())
         );
     }
+    return null;
   });

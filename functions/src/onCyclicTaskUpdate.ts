@@ -15,7 +15,7 @@ export const onCyclicTaskUpdate = functions.firestore
         .then((snapshots) =>
           snapshots.forEach((snapshot) => snapshot.ref.update({...newTask}))
         );
-      return;
+      return null;
     }
     if (oldTask.cyclicInterval && !newTask.cyclicInterval) {
       firestore()
@@ -25,7 +25,7 @@ export const onCyclicTaskUpdate = functions.firestore
         .then((snapshots) =>
           snapshots.forEach((snapshot) => snapshot.ref.delete())
         );
-      return;
+      return null;
     }
-    return;
+    return null;
   });
