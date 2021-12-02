@@ -44,7 +44,9 @@ class TaskNotifications {
     const storedNotification = this.store
       .getState()
       .notifications.storedNotifications.find(
-        notification => notification.taskId === task.id,
+        notification =>
+          notification.taskId === task.originTaskId ||
+          notification.taskId === task.id,
       );
 
     if (storedNotification) {
