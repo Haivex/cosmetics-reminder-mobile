@@ -25,7 +25,7 @@ import firebase from '@react-native-firebase/app';
 import '@react-native-firebase/firestore';
 import '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-//import functions from '@react-native-firebase/functions';
+import functions from '@react-native-firebase/functions';
 
 export const firebaseApp = firebase;
 export const db = firebaseApp.firestore();
@@ -39,7 +39,7 @@ if (__DEV__) {
   });
   db.useEmulator('localhost', 8080);
   auth.useEmulator('http://localhost:9099');
-  //functions().useFunctionsEmulator('http://localhost:5001');
+  functions().useFunctionsEmulator('http://localhost:5001');
 } else {
   db.settings({
     persistence: true,
