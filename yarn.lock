@@ -2723,6 +2723,11 @@ colorette@^1.0.7, colorette@^1.3.0:
   resolved "https://registry.yarnpkg.com/colorette/-/colorette-1.4.0.tgz#5190fbb87276259a86ad700bff2c6d6faa3fca40"
   integrity sha512-Y2oEozpomLn7Q3HFP7dpww7AtMJplbM9lGZP6RDfHqmbeRjiwRg4n6VM6j4KLmRke85uWEI7JqF17f3pqdRA0g==
 
+colors.ts@^1.0.20:
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/colors.ts/-/colors.ts-1.0.20.tgz#bb00bacbe10ecd5dad8867816a1f03fd7d78f05e"
+  integrity sha512-MnVQgqGe3S7KLlK0v7rsLQciRgB4NzfRPZ4OZuu8SWNgyJuV651pMqCq7LvJ7eQO586RVspwYvK2ere7xX/m1A==
+
 colors@^1.1.2:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.4.0.tgz#c50491479d4c1bdaed2c9ced32cf7c7dc2360f78"
