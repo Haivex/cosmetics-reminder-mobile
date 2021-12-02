@@ -11,6 +11,7 @@ export type Task = {
   date: FirebaseFirestoreTypes.Timestamp;
   completed: boolean;
   cyclicInterval?: CyclicInterval;
+  originTaskId?: null | string;
 };
 
 export type TaskWithoutId = Omit<Task, 'id'>;
