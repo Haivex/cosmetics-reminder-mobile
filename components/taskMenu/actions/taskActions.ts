@@ -4,7 +4,8 @@ import TaskNotifications from '../../../shared/TaskNotifications';
 import initTranslation, {translate} from '../../../translation/config';
 import {SingleAction} from '../TaskMenu';
 import {navigationRef} from '../../navigation/index';
-
+import {convertCyclicIntervalToSeconds} from '../../../helpers/intervalHelpers';
+import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 initTranslation();
 
 export const renameAction: SingleAction = {
@@ -19,6 +20,19 @@ export const completeAction: SingleAction = {
   callback: task => {
     updateTaskCompletion(task.id, true)
       .then(() => TaskNotifications.cancelNotification(task))
+      .then(() => {
+        if (task.cyclicInterval) {
+          const nextDate = new Date(
+            task.date.toMillis() +
+              convertCyclicIntervalToSeconds(task.cyclicInterval) * 1000,
+          );
+          const nextTimestampDate =
+            FirebaseFirestoreTypes.Timestamp.fromDate(nextDate);
+          const nextTask = Object.assign({}, task);
+          nextTask.date = nextTimestampDate;
+          TaskNotifications.createNotification(nextTask);
+        }
+      })
       .catch(error => {
         console.error('Complete task error: ', error);
       });
