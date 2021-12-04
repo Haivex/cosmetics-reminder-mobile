@@ -14,6 +14,8 @@ target 'cosmeticsReminderMobileClear' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'RNOS', :path => '../node_modules/react-native-os'
+
   target 'cosmeticsReminderMobileClearTests' do
     inherit! :complete
     # Pods for testing

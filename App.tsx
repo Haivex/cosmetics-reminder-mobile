@@ -26,12 +26,14 @@ import '@react-native-firebase/firestore';
 import '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import functions from '@react-native-firebase/functions';
+import Logger from './shared/Logger';
 
 export const firebaseApp = firebase;
 export const db = firebaseApp.firestore();
 export const auth = firebaseApp.auth();
 
 if (__DEV__) {
+  Logger.info('Emulators are starting...');
   db.settings({
     persistence: true,
     cacheSizeBytes: firestore.CACHE_SIZE_UNLIMITED,
