@@ -6,12 +6,14 @@ export enum MESSAGE_TYPE {
   INFO = 'INFO',
   WARN = 'WARN',
   ERROR = 'ERROR',
+  ASSERT = 'ASSERTION FAILED',
 }
 
 enum TERMINAL_COLOR {
   CYAN = '\x1b[36m',
   YELLOW = '\x1b[33m',
   RED = '\x1b[31m',
+  MAGENTA = '\x1b[35m',
 }
 
 const RESET_ATTRIBUTE = '\x1b[0m';
@@ -75,6 +77,19 @@ export default class Logger {
     );
   }
 
+  static assert(condition: boolean, message: string) {
+    const formattedMessage = this.prepareMessageToLog(
+      MESSAGE_TYPE.ASSERT,
+      message,
+    );
+    this.logColoredMessage(
+      TERMINAL_COLOR.MAGENTA,
+      MESSAGE_TYPE.ASSERT,
+      formattedMessage,
+      condition,
+    );
+  }
+
   private static prepareMessageToLog(
     messageType: MESSAGE_TYPE,
     message: string,
@@ -89,26 +104,34 @@ export default class Logger {
     color: TERMINAL_COLOR,
     messageType: MESSAGE_TYPE,
     message: string,
-    data?: unknown,
+    dataOrCondition?: unknown | boolean,
     error?: unknown,
   ) {
+    if (messageType === MESSAGE_TYPE.ASSERT) {
+      return console.assert(
+        dataOrCondition,
+        `${color}%s${RESET_ATTRIBUTE}`,
+        message,
+      );
+    }
+
     const consoleFunctionNameToInvoke =
       messageType.toLowerCase() as CONSOLE_METHOD_KEY;
 
-    if (data && error) {
+    if (dataOrCondition && error) {
       return console.error(
         `${color}%s${RESET_ATTRIBUTE}`,
         message,
-        data,
+        dataOrCondition,
         error,
       );
     }
 
-    if (data) {
+    if (dataOrCondition) {
       return console[consoleFunctionNameToInvoke](
         `${color}%s${RESET_ATTRIBUTE}`,
         message,
-        data,
+        dataOrCondition,
       );
     }
 
