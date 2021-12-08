@@ -1,5 +1,7 @@
 import {format} from 'date-fns';
 
+export type CONSOLE_METHOD_KEY = 'info' | 'warn' | 'error';
+
 export enum MESSAGE_TYPE {
   INFO = 'INFO',
   WARN = 'WARN',
@@ -90,7 +92,8 @@ export default class Logger {
     data?: unknown,
     error?: unknown,
   ) {
-    const consoleFunctionNameToInvoke = messageType.toLowerCase();
+    const consoleFunctionNameToInvoke =
+      messageType.toLowerCase() as CONSOLE_METHOD_KEY;
 
     if (data && error) {
       return console.error(
