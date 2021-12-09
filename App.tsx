@@ -49,6 +49,10 @@ if (__DEV__) {
   auth.useEmulator('http://localhost:9099');
   functions().useFunctionsEmulator('http://localhost:5001');
 } else {
+  global.console.log = () => {};
+  global.console.warn = () => {};
+  global.console.error = () => {};
+
   db.settings({
     persistence: true,
     cacheSizeBytes: firestore.CACHE_SIZE_UNLIMITED,
