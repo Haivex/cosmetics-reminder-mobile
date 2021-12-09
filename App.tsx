@@ -8,25 +8,25 @@
  * @format
  */
 
+import firebase from '@react-native-firebase/app';
+import '@react-native-firebase/auth';
+import '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
+import functions from '@react-native-firebase/functions';
 import React from 'react';
 //import {useColorScheme} from 'react-native';
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 import PushNotification from 'react-native-push-notification';
 //import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Provider} from 'react-redux';
+import {ReactReduxFirebaseProvider} from 'react-redux-firebase';
+import {createFirestoreInstance} from 'redux-firestore';
+import {PersistGate} from 'redux-persist/integration/react';
 import Authentication from './components/authentication/Authentication';
 import Navigation from './components/navigation/index';
 import {persistor, store} from './redux/MainStore';
-import initTranslation from './translation/config';
-import {PersistGate} from 'redux-persist/integration/react';
-import {createFirestoreInstance} from 'redux-firestore';
-import {ReactReduxFirebaseProvider} from 'react-redux-firebase';
-import firebase from '@react-native-firebase/app';
-import '@react-native-firebase/firestore';
-import '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
-import functions from '@react-native-firebase/functions';
 import Logger from './shared/Logger';
+import initTranslation from './translation/config';
 
 export const firebaseApp = firebase;
 export const db = firebaseApp.firestore();
@@ -34,6 +34,12 @@ export const auth = firebaseApp.auth();
 
 if (__DEV__) {
   Logger.info('Emulators are starting...');
+  Logger.warn('Example warn with data', {john: 'Doe', age: 32});
+  Logger.error(
+    'Example error',
+    {something: 'wrong', age: null},
+    new Error('Something gone wrong'),
+  );
   db.settings({
     persistence: true,
     cacheSizeBytes: firestore.CACHE_SIZE_UNLIMITED,
