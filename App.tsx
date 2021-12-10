@@ -34,12 +34,7 @@ export const auth = firebaseApp.auth();
 
 if (__DEV__) {
   Logger.info('Emulators are starting...');
-  Logger.warn('Example warn with data', {john: 'Doe', age: 32});
-  Logger.error(
-    'Example error',
-    {something: 'wrong', age: null},
-    new Error('Something gone wrong'),
-  );
+
   db.settings({
     persistence: true,
     cacheSizeBytes: firestore.CACHE_SIZE_UNLIMITED,
@@ -71,10 +66,10 @@ const theme = {
 
 PushNotification.configure({
   onRegister: function (token) {
-    console.log('TOKEN:', token);
+    Logger.info('Push notification token:', token);
   },
   onNotification: function (notification) {
-    console.log('NOTIFICATION:', notification);
+    Logger.info('Received notification:', notification);
 
     // process the notification
 
@@ -82,8 +77,8 @@ PushNotification.configure({
     notification.finish('');
   },
   onAction: function (notification) {
-    console.log('ACTION:', notification.action);
-    console.log('NOTIFICATION:', notification);
+    Logger.info('Called action:', notification.action);
+    Logger.info('Action called for notification:', notification);
 
     // process the action
   },
@@ -95,7 +90,7 @@ PushNotification.createChannel(
     channelName: 'Main', // (required)
     channelDescription: 'Main channel for notifications', // (optional) default: undefined.
   },
-  created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+  created => Logger.info('PushNotification.createChannel returned:', created), // (optional) callback returns whether the channel was created, false means it already existed.
 );
 
 const rrfConfig = {
