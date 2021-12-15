@@ -43,7 +43,10 @@ export default function TaskCreationScreen({
         }
       })
       .catch(catchedError =>
-        Logger.warn('Failed to create task', catchedError),
+        Logger.warn(
+          `Failed to create task with data ${JSON.stringify(taskCreationData)}`,
+          catchedError,
+        ),
       );
   };
 
