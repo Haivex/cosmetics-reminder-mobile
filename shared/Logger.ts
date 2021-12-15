@@ -57,10 +57,6 @@ export default class Logger {
   }
 
   static error(message: string, data?: unknown, error?: unknown) {
-    if (!this.shouldShowWarn) {
-      return;
-    }
-
     const formattedMessage = this.prepareMessageToLog(
       MESSAGE_TYPE.ERROR,
       message,
