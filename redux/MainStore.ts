@@ -4,6 +4,7 @@ import {getFirebase} from 'react-redux-firebase';
 import {persistReducer, persistStore, Storage} from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 import rootReducer, {RootState} from './RootReducer';
+import loggerMiddleware from './loggerMiddleware';
 
 export const storage = new MMKV();
 
@@ -39,7 +40,7 @@ export const store = configureStore({
       thunk: {extraArgument: getFirebase},
       immutableCheck: false,
       serializableCheck: false,
-    }),
+    }).concat(loggerMiddleware),
 });
 
 export const persistor = persistStore(store);
