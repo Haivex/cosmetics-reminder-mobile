@@ -23,6 +23,7 @@ import {translate} from '../../translation/config';
 import {RootStackParamList} from './types';
 import BottomTabNavigator from './BottomTabNavigator';
 import RNBootSplash from 'react-native-bootsplash';
+import AppDevSettingsScreen from '../../screens/AppDevSettingsScreen';
 //import LinkingConfiguration from './LinkingConfiguration';
 
 export const navigationRef =
@@ -53,6 +54,17 @@ function RootNavigator() {
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Group>
         <Stack.Screen name="Root" component={BottomTabNavigator} />
+        <Stack.Screen
+          name="AppDevSettings"
+          component={AppDevSettingsScreen}
+          options={{
+            title: 'App Dev Settings',
+            headerShown: true,
+            gestureEnabled: true,
+            gestureDirection: 'horizontal',
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          }}
+        />
         <Stack.Screen
           name="NotFound"
           component={NotFoundScreen}
