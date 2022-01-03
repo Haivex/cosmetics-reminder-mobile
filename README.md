@@ -33,9 +33,13 @@ Install dependencies
 ```
 
 To run this project, you will need to add the following environment variables and files
+
 `google-services.json` - Firebase Configuration
+
 `strings.xml` - Facebook Credentials
+
 `Android Manifest` - Facebook App ID
+
 `Firebase Web Token` - .env
 
 Start Firebase Emulator
