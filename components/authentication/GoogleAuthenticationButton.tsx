@@ -4,6 +4,7 @@ import React, {useEffect} from 'react';
 import {GoogleSocialButton} from 'react-native-social-buttons';
 import ErrorDialog from '../dialogs/ErrorDialog';
 import {AuthButtonProps} from './Authentication';
+import Logger from '../../shared/Logger';
 
 GoogleSignin.configure({
   webClientId:
@@ -40,7 +41,7 @@ function GoogleSignInButton({disabled, setLoading}: AuthButtonProps) {
           onGoogleButtonPress()
             .then(() => console.info('Signed in with Google!'))
             .catch(catchedError => {
-              console.error('Google Sign-in Error:', catchedError);
+              Logger.warn('Google Sign-in Error:', catchedError);
               setError(catchedError);
             })
             .finally(() => {
