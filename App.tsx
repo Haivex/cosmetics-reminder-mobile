@@ -8,30 +8,33 @@
  * @format
  */
 
+import firebase from '@react-native-firebase/app';
+import '@react-native-firebase/auth';
+import '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
+import functions from '@react-native-firebase/functions';
 import React from 'react';
 //import {useColorScheme} from 'react-native';
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 import PushNotification from 'react-native-push-notification';
 //import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Provider} from 'react-redux';
+import {ReactReduxFirebaseProvider} from 'react-redux-firebase';
+import {createFirestoreInstance} from 'redux-firestore';
+import {PersistGate} from 'redux-persist/integration/react';
 import Authentication from './components/authentication/Authentication';
 import Navigation from './components/navigation/index';
 import {persistor, store} from './redux/MainStore';
+import Logger from './shared/Logger';
 import initTranslation from './translation/config';
-import {PersistGate} from 'redux-persist/integration/react';
-import {createFirestoreInstance} from 'redux-firestore';
-import {ReactReduxFirebaseProvider} from 'react-redux-firebase';
-import firebase from '@react-native-firebase/app';
-import '@react-native-firebase/firestore';
-import '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
-import functions from '@react-native-firebase/functions';
 
 export const firebaseApp = firebase;
 export const db = firebaseApp.firestore();
 export const auth = firebaseApp.auth();
 
 if (__DEV__) {
+  Logger.info('Emulators are starting...');
+
   db.settings({
     persistence: true,
     cacheSizeBytes: firestore.CACHE_SIZE_UNLIMITED,
@@ -41,6 +44,10 @@ if (__DEV__) {
   auth.useEmulator('http://localhost:9099');
   functions().useFunctionsEmulator('http://localhost:5001');
 } else {
+  global.console.log = () => {};
+  global.console.warn = () => {};
+  global.console.error = () => {};
+
   db.settings({
     persistence: true,
     cacheSizeBytes: firestore.CACHE_SIZE_UNLIMITED,
@@ -59,10 +66,10 @@ const theme = {
 
 PushNotification.configure({
   onRegister: function (token) {
-    console.log('TOKEN:', token);
+    Logger.info('Push notification token:', token);
   },
   onNotification: function (notification) {
-    console.log('NOTIFICATION:', notification);
+    Logger.info('Received notification:', notification);
 
     // process the notification
 
@@ -70,8 +77,8 @@ PushNotification.configure({
     notification.finish('');
   },
   onAction: function (notification) {
-    console.log('ACTION:', notification.action);
-    console.log('NOTIFICATION:', notification);
+    Logger.info('Called action:', notification.action);
+    Logger.info('Action called for notification:', notification);
 
     // process the action
   },
@@ -83,7 +90,7 @@ PushNotification.createChannel(
     channelName: 'Main', // (required)
     channelDescription: 'Main channel for notifications', // (optional) default: undefined.
   },
-  created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+  created => Logger.info('PushNotification.createChannel returned:', created), // (optional) callback returns whether the channel was created, false means it already existed.
 );
 
 const rrfConfig = {
