@@ -11,6 +11,7 @@ export type RootStackParamList = {
   TaskEdition: Task;
   RenameTaskDialog: Task;
   TabTwo: undefined;
+  AppDevSettings: undefined;
 };
 
 export type BottomTabParamList = {

@@ -1,13 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
 import firebase from '@react-native-firebase/app';
 import '@react-native-firebase/auth';
 import '@react-native-firebase/firestore';
@@ -17,7 +7,6 @@ import React from 'react';
 //import {useColorScheme} from 'react-native';
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 import PushNotification from 'react-native-push-notification';
-//import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Provider} from 'react-redux';
 import {ReactReduxFirebaseProvider} from 'react-redux-firebase';
 import {createFirestoreInstance} from 'redux-firestore';
@@ -25,6 +14,7 @@ import {PersistGate} from 'redux-persist/integration/react';
 import Authentication from './components/authentication/Authentication';
 import Navigation from './components/navigation/index';
 import {persistor, store} from './redux/MainStore';
+import initializeAppDevSettings from './shared/devSettings';
 import Logger from './shared/Logger';
 import initTranslation from './translation/config';
 
@@ -106,6 +96,7 @@ const rrfProps = {
   createFirestoreInstance, // <- needed if using firestore
 };
 
+initializeAppDevSettings();
 initTranslation();
 
 const App = () => {
