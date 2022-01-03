@@ -3,6 +3,7 @@ import enUS from './languages/enUS';
 import en, {AppTranslation} from './languages/en';
 import pl from './languages/pl';
 import {DeepKeys, DeepKeysLighweight, GetDictValue} from '../types';
+import Logger from '../shared/Logger';
 
 const initTranslation = (): void => {
   i18n.translations = {
@@ -14,6 +15,7 @@ const initTranslation = (): void => {
   i18n.locale = 'en';
   i18n.fallbacks = true;
   i18n.missingBehaviour = 'guess';
+  Logger.info('App is translating in ', i18n.currentLocale());
 };
 
 //IntelliSense show current keys

@@ -1,11 +1,14 @@
-import PushNotifications from 'react-native-push-notification';
+import PushNotifications, {
+  PushNotificationScheduleObject,
+} from 'react-native-push-notification';
+import {convertCyclicIntervalToSeconds} from '../helpers/intervalHelpers';
+import {store} from '../redux/MainStore';
 import {
   addNotification,
   cancelNotification,
   clearNotifications,
 } from '../redux/NotificationsReducer';
-import {store} from '../redux/MainStore';
-import {convertCyclicIntervalToSeconds} from '../helpers/intervalHelpers';
+import Logger from '../shared/Logger';
 import {Task} from '../types';
 
 class TaskNotifications {
@@ -14,13 +17,14 @@ class TaskNotifications {
 
   static cancelAllNotifications() {
     PushNotifications.cancelAllLocalNotifications();
+    Logger.warn('Cancelled all notifications');
     this.dispatch(clearNotifications());
   }
 
   static createNotification(task: Task) {
     const notificationCreationTimestamp = Date.now();
 
-    PushNotifications.localNotificationSchedule({
+    const notification: PushNotificationScheduleObject = {
       channelId: 'main',
       id: notificationCreationTimestamp,
       title: 'Only You',
@@ -31,12 +35,15 @@ class TaskNotifications {
       repeatTime: task.cyclicInterval
         ? convertCyclicIntervalToSeconds(task.cyclicInterval) * 1000
         : 1,
-    });
+    };
+
+    PushNotifications.localNotificationSchedule(notification);
 
     const notificationToStore = {
       taskId: task.id,
-      notificationId: notificationCreationTimestamp,
+      notificationId: notification.id as number,
     };
+    Logger.info('Created notification for given task', notification);
     this.dispatch(addNotification(notificationToStore));
   }
 
@@ -52,6 +59,10 @@ class TaskNotifications {
     if (storedNotification) {
       PushNotifications.cancelLocalNotification(
         storedNotification.notificationId.toString(),
+      );
+      Logger.info(
+        'Cancelled notification for task with id',
+        storedNotification.taskId,
       );
       this.dispatch(cancelNotification({taskId: storedNotification?.taskId}));
     }

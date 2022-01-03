@@ -1,11 +1,12 @@
+import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 import {deleteTask} from '../../../firebase/deleteTask';
 import {updateTaskCompletion} from '../../../firebase/updateTaskCompletion';
+import {convertCyclicIntervalToSeconds} from '../../../helpers/intervalHelpers';
+import Logger from '../../../shared/Logger';
 import TaskNotifications from '../../../shared/TaskNotifications';
 import initTranslation, {translate} from '../../../translation/config';
-import {SingleAction} from '../TaskMenu';
 import {navigationRef} from '../../navigation/index';
-import {convertCyclicIntervalToSeconds} from '../../../helpers/intervalHelpers';
-import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
+import {SingleAction} from '../TaskMenu';
 initTranslation();
 
 export const renameAction: SingleAction = {
@@ -33,6 +34,7 @@ export const completeAction: SingleAction = {
           TaskNotifications.createNotification(nextTask);
         }
       })
+      .then(() => Logger.info('Task completed successfully', task))
       .catch(error => {
         console.error('Complete task error: ', error);
       });
@@ -46,6 +48,7 @@ export const deleteAction: SingleAction = {
       .then(() => {
         TaskNotifications.cancelNotification(task);
       })
+      .then(() => Logger.info('Task deleted successfully', task))
       .catch(error => {
         console.error('Delete task error: ', error);
       });
@@ -55,9 +58,11 @@ export const deleteAction: SingleAction = {
 export const restoreAction: SingleAction = {
   title: translate('taskMenu.restoreTask'),
   callback: task => {
-    updateTaskCompletion(task.id, false).catch(error => {
-      console.error('Update task error: ', error);
-    });
+    updateTaskCompletion(task.id, false)
+      .then(() => Logger.info('Task restored successfully', task))
+      .catch(error => {
+        console.error('Update task error: ', error);
+      });
   },
 };
 
