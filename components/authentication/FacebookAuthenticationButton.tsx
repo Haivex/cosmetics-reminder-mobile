@@ -4,6 +4,7 @@ import {AccessToken, LoginManager} from 'react-native-fbsdk-next';
 import {FacebookSocialButton} from 'react-native-social-buttons';
 import ErrorDialog from '../dialogs/ErrorDialog';
 import {AuthButtonProps} from './Authentication';
+import Logger from '../../shared/Logger';
 
 function FacebookSignInButton({disabled, setLoading}: AuthButtonProps) {
   const [error, setError] = React.useState('');
@@ -38,10 +39,10 @@ function FacebookSignInButton({disabled, setLoading}: AuthButtonProps) {
         disabled={disabled}
         onPress={() => {
           onButtonPress()
-            .then(() => console.log('Signed in with Facebook!'))
+            .then(() => Logger.info('Signed in with Facebook!'))
             .catch(catchedError => {
               setError(catchedError);
-              console.error(catchedError);
+              Logger.warn('Facebook Sign-in Error', catchedError);
             })
             .finally(() => {
               setLoading(false);
