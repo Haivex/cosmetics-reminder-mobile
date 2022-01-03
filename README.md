@@ -12,14 +12,6 @@ About project...
 
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
-## Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file
-
-`API_KEY`
-
-`ANOTHER_API_KEY`
-
 ## Run Locally
 
 Clone the project
@@ -40,9 +32,19 @@ Install dependencies
   npm install
 ```
 
-Start the server
+To run this project, you will need to add the following environment variables and files
+`google-services.json` - Firebase Configuration
+`strings.xml` - Facebook Credentials
+`Android Manifest` - Facebook App ID
+`Firebase Web Token` - .env
+
+Start Firebase Emulator
+```bash
+  npm run firebase:emulators:all
+```
+
+Prepare device or emulator and start the server
 
 ```bash
   npm run start
 ```
-
