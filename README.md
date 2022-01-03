@@ -40,7 +40,7 @@ To run this project, you will need to add the following environment variables an
 
 `Android Manifest` - Facebook App ID
 
-`Firebase Web Token` - .env
+`GOOGLE_SIGN_IN_WEB_CLIENT_ID` - .env
 
 Start Firebase Emulator
 ```bash
