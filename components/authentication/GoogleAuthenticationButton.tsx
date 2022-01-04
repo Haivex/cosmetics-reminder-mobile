@@ -1,14 +1,13 @@
-import {auth, firebaseApp} from '../../App';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import React, {useEffect} from 'react';
 import {GoogleSocialButton} from 'react-native-social-buttons';
+import {auth, firebaseApp} from '../../App';
+import Logger from '../../shared/Logger';
 import ErrorDialog from '../dialogs/ErrorDialog';
 import {AuthButtonProps} from './Authentication';
-import Logger from '../../shared/Logger';
 
 GoogleSignin.configure({
-  webClientId:
-    '231511460067-mdt6l95v5id047d7dhngmo8lprmelpah.apps.googleusercontent.com',
+  webClientId: process.env.GOOGLE_SIGN_IN_WEB_CLIENT_ID,
 });
 
 function GoogleSignInButton({disabled, setLoading}: AuthButtonProps) {
