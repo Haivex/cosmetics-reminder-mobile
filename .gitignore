@@ -63,3 +63,5 @@ firebase-debug.log
 firestore-debug.log
 seed/
 firebase-export-*
+.env
+android\app\google-services.json
