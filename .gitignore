@@ -64,3 +64,4 @@ firebase-export-*
 .env
 android\app\google-services.json
 *.log
+android/app/google-services.json
