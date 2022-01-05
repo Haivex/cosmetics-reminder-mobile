@@ -121,7 +121,7 @@ const TasksSwipeList = ({
         <Task
           icon={taskIcon}
           key={data.item.task.id}
-          task={data.item.task as TaskType}
+          task={data.item.task}
           menuActions={taskMenuActions}
         />
       )}

@@ -1,9 +1,5 @@
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import { CyclicInterval } from './components/taskForm/inputs/CyclicTaskInputs';
-/**
- * Learn more about using TypeScript with React Navigation:
- * https://reactnavigation.org/docs/typescript/
- */
 
 export type Task = {
   id: string;
@@ -20,7 +16,7 @@ export interface TaskCreationData {
   date: Date;
   title: string;
   cyclicInterval?: CyclicInterval;
-};
+}
 
 // https://stackoverflow.com/questions/58277973/how-to-type-check-i18n-dictionaries-with-typescript
 

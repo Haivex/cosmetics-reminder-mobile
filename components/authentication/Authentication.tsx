@@ -24,7 +24,6 @@ export interface AuthButtonProps {
 let isCalledOnce = false;
 
 function Authentication({children}: ChildrenProp) {
-  // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -32,7 +31,6 @@ function Authentication({children}: ChildrenProp) {
   const user = selectCurrentUser(state);
   const areNotificationsTurnedOn = selectNotificationsStatus(state);
 
-  // Handle user state changes
   function onAuthStateChangedCallback(
     userOrNull: FirebaseAuthTypes.User | null,
   ) {
@@ -61,7 +59,7 @@ function Authentication({children}: ChildrenProp) {
 
   useEffect(() => {
     const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
+    return subscriber;
   }, [onAuthStateChanged]);
 
   if (initializing) {

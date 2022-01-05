@@ -1,14 +1,16 @@
 import firebase from '@react-native-firebase/app';
 import '@react-native-firebase/auth';
-import '@react-native-firebase/firestore';
 import firestore from '@react-native-firebase/firestore';
 import functions from '@react-native-firebase/functions';
 import React from 'react';
-//import {useColorScheme} from 'react-native';
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 import PushNotification from 'react-native-push-notification';
 import {Provider} from 'react-redux';
-import {ReactReduxFirebaseProvider} from 'react-redux-firebase';
+import {
+  ReactReduxFirebaseConfig,
+  ReactReduxFirebaseProvider,
+  ReactReduxFirebaseProviderProps,
+} from 'react-redux-firebase';
 import {createFirestoreInstance} from 'redux-firestore';
 import {PersistGate} from 'redux-persist/integration/react';
 import Authentication from './components/authentication/Authentication';
@@ -19,33 +21,39 @@ import Logger from './shared/Logger';
 import initTranslation from './translation/config';
 
 export const firebaseApp = firebase;
-export const db = firebaseApp.firestore();
+export const database = firebaseApp.firestore();
 export const auth = firebaseApp.auth();
 
 if (__DEV__) {
   Logger.info('Emulators are starting...');
 
-  db.settings({
+  database.settings({
     persistence: true,
     cacheSizeBytes: firestore.CACHE_SIZE_UNLIMITED,
     ignoreUndefinedProperties: true,
   });
-  db.useEmulator('localhost', 8080);
+  database.useEmulator('localhost', 8080);
   auth.useEmulator('http://localhost:9099');
   functions().useFunctionsEmulator('http://localhost:5001');
 } else {
-  global.console.log = () => {};
-  global.console.warn = () => {};
-  global.console.error = () => {};
+  global.console.log = () => {
+    /* Empty console log in production */
+  };
+  global.console.warn = () => {
+    /* Empty console log in production */
+  };
+  global.console.error = () => {
+    /* Empty console log in production */
+  };
 
-  db.settings({
+  database.settings({
     persistence: true,
     cacheSizeBytes: firestore.CACHE_SIZE_UNLIMITED,
     ignoreUndefinedProperties: true,
   });
 }
 
-const theme = {
+const theme: ReactNativePaper.Theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
@@ -61,61 +69,49 @@ PushNotification.configure({
   onNotification: function (notification) {
     Logger.info('Received notification:', notification);
 
-    // process the notification
-
     // (required) Called when a remote is received or opened, or local notification is opened
     notification.finish('');
   },
   onAction: function (notification) {
     Logger.info('Called action:', notification.action);
     Logger.info('Action called for notification:', notification);
-
-    // process the action
   },
 });
 
 PushNotification.createChannel(
   {
-    channelId: 'main', // (required)
-    channelName: 'Main', // (required)
-    channelDescription: 'Main channel for notifications', // (optional) default: undefined.
+    channelId: 'main',
+    channelName: 'Main',
+    channelDescription: 'Main channel for notifications',
   },
-  created => Logger.info('PushNotification.createChannel returned:', created), // (optional) callback returns whether the channel was created, false means it already existed.
+  created => Logger.info('PushNotification.createChannel returned:', created),
 );
 
-const rrfConfig = {
+const reactReduxFirebaseConfig: Partial<ReactReduxFirebaseConfig> = {
   userProfile: 'users',
-  useFirestoreForProfile: true, // Firestore for Profile instead of Realtime DB
-  // enableClaims: true // Get custom claims along with the profile
+  useFirestoreForProfile: true,
+  logErrors: true,
 };
 
-const rrfProps = {
+const reactReduxFirebaseProviderProps: ReactReduxFirebaseProviderProps = {
   firebase: firebaseApp,
-  config: rrfConfig,
+  config: reactReduxFirebaseConfig,
   dispatch: store.dispatch,
-  createFirestoreInstance, // <- needed if using firestore
+  createFirestoreInstance,
 };
 
 initializeAppDevSettings();
 initTranslation();
 
 const App = () => {
-  // const isDarkMode = useColorScheme() === 'dark';
-
-  // const backgroundStyle = {
-  //   backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  // };
-
   return (
-    // <SafeAreaView style={backgroundStyle}>
     <Provider store={store}>
-      <ReactReduxFirebaseProvider {...rrfProps}>
+      <ReactReduxFirebaseProvider {...reactReduxFirebaseProviderProps}>
         <PersistGate loading={null} persistor={persistor}>
           <PaperProvider theme={theme}>
             <Authentication>
               <Navigation colorScheme="light" />
             </Authentication>
-            {/* <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} /> */}
           </PaperProvider>
         </PersistGate>
       </ReactReduxFirebaseProvider>

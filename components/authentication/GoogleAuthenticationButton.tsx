@@ -21,14 +21,12 @@ function GoogleSignInButton({disabled, setLoading}: AuthButtonProps) {
 
   async function onGoogleButtonPress() {
     setLoading(true);
-    // Get the users ID token
+
     const {idToken} = await GoogleSignin.signIn();
 
-    // Create a Google credential with the token
     const googleCredential =
       firebaseApp.auth.GoogleAuthProvider.credential(idToken);
 
-    // Sign-in the user with the credential
     return auth.signInWithCredential(googleCredential);
   }
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {formatRelative} from 'date-fns';
 import {firebaseApp} from '../../App';
-import {localesMap} from '../../constants/dateLocales';
+import {localesMap} from '../../constants/DateLocales';
 import i18n from 'i18n-js';
 import {Task as TaskType} from '../../types';
 import TaskMenu, {SingleAction} from '../taskMenu/TaskMenu';

@@ -1,11 +1,11 @@
-import {auth, db, firebaseApp} from '../App';
+import {auth, database, firebaseApp} from '../App';
 import {TaskData} from '../screens/TaskCreationScreen';
 
 export async function editTask(taskId: string, taskData: Partial<TaskData>) {
   const userUID = auth.currentUser?.uid;
 
   if (userUID) {
-    return db
+    return database
       .collection('tasks')
       .doc(taskId)
       .update({

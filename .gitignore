@@ -28,6 +28,8 @@ build/
 .gradle
 local.properties
 *.iml
+android/app/src/main/res/values/strings.xml
+android/app/google-services.json
 
 # node.js
 #
@@ -57,11 +59,15 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
-android/app/src/main/res/values/strings.xml
-*.hprof
+
+# Firebase
+#
 seed/
 firebase-export-*
+
+# Other
+#
+*.hprof
 .env
-android\app\google-services.json
 *.log
-android/app/google-services.json
+
