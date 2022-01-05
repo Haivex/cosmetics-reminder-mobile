@@ -11,24 +11,22 @@ export const onCyclicTaskUpdate = functions.firestore
       return null;
     }
     if (oldTask.cyclicInterval && newTask.cyclicInterval) {
-      firestore()
+      return firestore()
         .collection("tasks")
         .where("originTaskId", "==", oldTask.originTaskId)
         .get()
         .then((snapshots) =>
           snapshots.forEach((otherSnapshot) => otherSnapshot.ref.update({...newTask}))
         );
-      return null;
     }
     if (oldTask.cyclicInterval && !newTask.cyclicInterval) {
-      firestore()
+      return firestore()
         .collection("tasks")
         .where("originTaskId", "==", oldTask.originTaskId)
         .get()
         .then((snapshots) =>
           snapshots.forEach((otherSnapshot) => otherSnapshot.ref.delete())
         );
-      return null;
     }
     return null;
   });
