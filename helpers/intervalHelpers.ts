@@ -12,11 +12,11 @@ export function convertCyclicIntervalToSeconds(
   const hours = cyclicInterval?.hours ? cyclicInterval.hours : 0;
   const minutes = cyclicInterval?.minutes ? cyclicInterval.minutes : 0;
 
-  const seconds =
+  return (
     days * SECONDS_IN_DAY +
     hours * SECONDS_IN_HOUR +
-    minutes * SECONDS_IN_MINUTE;
-  return seconds;
+    minutes * SECONDS_IN_MINUTE
+  );
 }
 
 export function checkIfCyclicInterval(
