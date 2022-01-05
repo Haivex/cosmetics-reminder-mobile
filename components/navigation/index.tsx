@@ -1,8 +1,3 @@
-/**
- * If you are not familiar with React Navigation, check out the "Fundamentals" guide:
- * https://reactnavigation.org/docs/getting-started
- *
- */
 import {
   DarkTheme,
   DefaultTheme,
@@ -24,7 +19,6 @@ import {RootStackParamList} from './types';
 import BottomTabNavigator from './BottomTabNavigator';
 import RNBootSplash from 'react-native-bootsplash';
 import AppDevSettingsScreen from '../../screens/AppDevSettingsScreen';
-//import LinkingConfiguration from './LinkingConfiguration';
 
 export const navigationRef =
   React.createRef<NavigationContainerRef<RootStackParamList>>();
@@ -38,15 +32,12 @@ export default function Navigation({
     <NavigationContainer
       onReady={() => RNBootSplash.hide()}
       ref={navigationRef}
-      //linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <RootNavigator />
     </NavigationContainer>
   );
 }
 
-// A root stack navigator is often used for displaying modals on top of all other content
-// Read more here: https://reactnavigation.org/docs/modal
 const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
