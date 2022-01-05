@@ -1,11 +1,11 @@
-import {auth, db} from '../App';
+import {auth, database} from '../App';
 import {Task} from '../types';
 export async function getIncomingTasks() {
   const userUID = auth.currentUser?.uid;
 
   if (userUID) {
     const currentDate = new Date();
-    return db
+    return database
       .collection('tasks')
       .where('userUID', '==', userUID)
       .where('completed', '==', false)

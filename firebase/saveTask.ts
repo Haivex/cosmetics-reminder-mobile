@@ -1,10 +1,10 @@
-import {auth, db} from '../App';
+import {auth, database} from '../App';
 import {TaskData} from '../screens/TaskCreationScreen';
 
 export async function saveTask(task: Partial<TaskData>) {
   const userUID = auth.currentUser?.uid;
   if (userUID) {
-    return db
+    return database
       .collection('tasks')
       .add({...task, completed: false, userUID})
       .then(doc => doc.get());
