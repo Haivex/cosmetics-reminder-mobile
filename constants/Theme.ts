@@ -1,4 +1,7 @@
 import {DefaultTheme} from 'react-native-paper';
+import Colors from './Colors';
+
+type Theme = typeof DefaultTheme;
 
 // declare global {
 //     namespace ReactNativePaper {
@@ -11,24 +14,22 @@ import {DefaultTheme} from 'react-native-paper';
 //     }
 //   }
 
-export const darkTheme = {
+export const darkTheme: Theme = {
   ...DefaultTheme,
   dark: true,
   roundness: 2,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#72c4d6',
-    accent: '#f1c40f',
+    ...Colors.dark,
   },
 };
 
-export const lightTheme = {
+export const lightTheme: Theme = {
   ...DefaultTheme,
   dark: false,
   roundness: 2,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#72c4d6',
-    accent: '#f1c40f',
+    ...Colors.light,
   },
 };
