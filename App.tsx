@@ -19,6 +19,7 @@ import {persistor, store} from './redux/MainStore';
 import initializeAppDevSettings from './shared/devSettings';
 import Logger from './shared/Logger';
 import initTranslation from './translation/config';
+import useTheme from './hooks/useTheme';
 
 export const firebaseApp = firebase;
 export const database = firebaseApp.firestore();
@@ -52,15 +53,6 @@ if (__DEV__) {
     ignoreUndefinedProperties: true,
   });
 }
-
-const theme: ReactNativePaper.Theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: 'tomato',
-    accent: 'yellow',
-  },
-};
 
 PushNotification.configure({
   onRegister: function (token) {
@@ -104,11 +96,12 @@ initializeAppDevSettings();
 initTranslation();
 
 const App = () => {
+  const currentTheme = useTheme();
   return (
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...reactReduxFirebaseProviderProps}>
         <PersistGate loading={null} persistor={persistor}>
-          <PaperProvider theme={theme}>
+          <PaperProvider theme={currentTheme}>
             <Authentication>
               <Navigation colorScheme="light" />
             </Authentication>
