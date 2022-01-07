@@ -3,7 +3,7 @@ const tintColorDark = '#fff';
 
 export default {
   light: {
-    primary: '#72c4d6',
+    primary: '#00bcd4',
     accent: '#f1c40f',
     text: '#000',
     background: '#fff',
@@ -13,7 +13,7 @@ export default {
     error: '#F14A16',
   },
   dark: {
-    primary: '#72c4d6',
+    primary: '#00bcd4',
     accent: '#f1c40f',
     text: '#fff',
     background: '#000',
