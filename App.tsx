@@ -3,7 +3,7 @@ import '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import functions from '@react-native-firebase/functions';
 import React from 'react';
-import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
+import {Provider as PaperProvider} from 'react-native-paper';
 import PushNotification from 'react-native-push-notification';
 import {Provider} from 'react-redux';
 import {
@@ -15,6 +15,7 @@ import {createFirestoreInstance} from 'redux-firestore';
 import {PersistGate} from 'redux-persist/integration/react';
 import Authentication from './components/authentication/Authentication';
 import Navigation from './components/navigation/index';
+import useTheme from './hooks/useTheme';
 import {persistor, store} from './redux/MainStore';
 import initializeAppDevSettings from './shared/devSettings';
 import Logger from './shared/Logger';
@@ -52,15 +53,6 @@ if (__DEV__) {
     ignoreUndefinedProperties: true,
   });
 }
-
-const theme: ReactNativePaper.Theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: 'tomato',
-    accent: 'yellow',
-  },
-};
 
 PushNotification.configure({
   onRegister: function (token) {
@@ -104,13 +96,16 @@ initializeAppDevSettings();
 initTranslation();
 
 const App = () => {
+  const currentTheme = useTheme();
   return (
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...reactReduxFirebaseProviderProps}>
         <PersistGate loading={null} persistor={persistor}>
-          <PaperProvider theme={theme}>
+          <PaperProvider theme={currentTheme}>
             <Authentication>
-              <Navigation colorScheme="light" />
+              <Navigation
+                colorScheme={currentTheme.dark === true ? 'dark' : 'light'}
+              />
             </Authentication>
           </PaperProvider>
         </PersistGate>
