@@ -197,7 +197,7 @@ export default function TaskForm({
         loading={isSubmitting}
         disabled={isSubmitting}
         onPress={handleSubmit(onSubmit)}
-        mode="outlined">
+        mode="contained">
         {submitText}
       </Button>
       {Boolean(error) && (
@@ -215,6 +215,7 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'column',
+    padding: 24,
   },
   title: {
     fontSize: 20,
