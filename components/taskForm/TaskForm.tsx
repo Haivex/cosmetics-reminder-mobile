@@ -44,10 +44,13 @@ export default function TaskForm({
   const defaultTaskData: Partial<TaskData> = {
     cyclicInterval: taskData?.cyclicInterval,
     date: taskData?.date,
-    time: {
-      hours: taskData?.date?.getHours(),
-      minutes: taskData?.date?.getMinutes(),
-    },
+    time:
+      taskData?.date?.getHours() && taskData?.date?.getMinutes()
+        ? {
+            hours: taskData?.date?.getHours(),
+            minutes: taskData?.date?.getMinutes(),
+          }
+        : undefined,
     title: taskData?.title,
   };
   const [isCyclicCheckboxChecked, setCyclic] = React.useState(
@@ -161,7 +164,7 @@ export default function TaskForm({
       />
       <HelperText
         type="error"
-        visible={errors.time?.hours || errors.time?.minutes ? true : false}>
+        visible={!errors.time?.hours || !errors.time?.minutes ? true : false}>
         {translate('createTaskScreen.timeHelperText')}
       </HelperText>
       <Checkbox.Item
