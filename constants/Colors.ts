@@ -3,18 +3,18 @@ const tintColorDark = '#fff';
 
 export default {
   light: {
-    accent: '#72c4d6',
-    primary: '#f1c40f',
+    primary: '#72c4d6',
+    accent: '#f1c40f',
     text: '#000',
-    background: '#00bcd4',
+    background: '#fff',
     tint: tintColorLight,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorLight,
     error: '#F14A16',
   },
   dark: {
-    accent: '#72c4d6',
-    primary: '#f1c40f',
+    primary: '#72c4d6',
+    accent: '#f1c40f',
     text: '#fff',
     background: '#000',
     tint: tintColorDark,
