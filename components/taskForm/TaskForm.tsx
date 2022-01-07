@@ -10,14 +10,14 @@ import {
   TextInput,
 } from 'react-native-paper';
 import {CalendarDate} from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
-import CyclicTaskInputs, {CyclicInterval} from './inputs/CyclicTaskInputs';
-import DatePickerInput from './inputs/DatePickerInput';
-import ErrorDialog from '../dialogs/ErrorDialog';
-import TimePickerInput, {Time} from './inputs/TimePickerInput';
 import {checkIfCyclicInterval} from '../../helpers/intervalHelpers';
 import '../../translation/config';
 import {translate} from '../../translation/config';
+import ErrorDialog from '../dialogs/ErrorDialog';
 import {NavigationProps, RootStackParamList} from '../navigation/types';
+import CyclicTaskInputs, {CyclicInterval} from './inputs/CyclicTaskInputs';
+import DatePickerInput from './inputs/DatePickerInput';
+import TimePickerInput, {Time} from './inputs/TimePickerInput';
 
 export type TaskData = {
   date: CalendarDate;
@@ -159,7 +159,9 @@ export default function TaskForm({
         )}
         name="time"
       />
-      <HelperText type="error" visible={errors.time ? true : false}>
+      <HelperText
+        type="error"
+        visible={errors.time?.hours || errors.time?.minutes ? true : false}>
         {translate('createTaskScreen.timeHelperText')}
       </HelperText>
       <Checkbox.Item
