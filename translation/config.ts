@@ -8,13 +8,14 @@ import pl from './languages/pl';
 
 const initTranslation = (): void => {
   i18n.translations = {
-    en_US: enUS,
+    'en-US': enUS,
     en,
     pl,
-    pl_PL: pl,
+    'pl-PL': pl,
   };
   i18n.defaultLocale = 'en';
-  i18n.locale = I18nManager.getConstants().localeIdentifier || 'en';
+  i18n.locale =
+    I18nManager.getConstants().localeIdentifier?.replace('_', '-') || 'en';
   i18n.fallbacks = true;
   i18n.missingBehaviour = 'guess';
   Logger.info('App is translating in ', i18n.currentLocale());
