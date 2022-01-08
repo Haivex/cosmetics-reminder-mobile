@@ -1,18 +1,20 @@
 import i18n from 'i18n-js';
-import enUS from './languages/enUS';
-import en, {AppTranslation} from './languages/en';
-import pl from './languages/pl';
-import {DeepKeys, DeepKeysLighweight, GetDictValue} from '../types';
+import {I18nManager} from 'react-native';
 import Logger from '../shared/Logger';
+import {DeepKeys, DeepKeysLighweight, GetDictValue} from '../types';
+import en, {AppTranslation} from './languages/en';
+import enUS from './languages/enUS';
+import pl from './languages/pl';
 
 const initTranslation = (): void => {
   i18n.translations = {
-    'en-US': enUS,
+    en_US: enUS,
     en,
     pl,
+    pl_PL: pl,
   };
   i18n.defaultLocale = 'en';
-  i18n.locale = 'en';
+  i18n.locale = I18nManager.getConstants().localeIdentifier || 'en';
   i18n.fallbacks = true;
   i18n.missingBehaviour = 'guess';
   Logger.info('App is translating in ', i18n.currentLocale());
@@ -26,7 +28,9 @@ export const translate = <P extends string>(
 };
 
 //IntelliSense show all object keys(with nested keys)
-export const translateHeavy = <P extends DeepKeys<AppTranslation>>(scope: P) => {
+export const translateHeavy = <P extends DeepKeys<AppTranslation>>(
+  scope: P,
+) => {
   return i18n.translate(scope) as unknown as GetDictValue<P, AppTranslation>;
 };
 
