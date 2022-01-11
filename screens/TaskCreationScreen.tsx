@@ -14,7 +14,6 @@ import {useTrackedSelector} from '../redux/RootReducer';
 import {selectNotificationsStatus} from '../redux/selectors';
 import Logger from '../shared/Logger';
 import TaskNotifications from '../shared/TaskNotifications';
-import '../translation/config';
 import {translate} from '../translation/config';
 
 export type TaskData = {

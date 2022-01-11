@@ -11,7 +11,6 @@ import {
 } from 'react-native-paper';
 import {CalendarDate} from 'react-native-paper-dates/lib/typescript/src/Date/Calendar';
 import {checkIfCyclicInterval} from '../../helpers/intervalHelpers';
-import '../../translation/config';
 import {translate} from '../../translation/config';
 import ErrorDialog from '../dialogs/ErrorDialog';
 import {NavigationProps, RootStackParamList} from '../navigation/types';
