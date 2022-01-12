@@ -198,6 +198,7 @@ export default function TaskForm({
         {translate('createTaskScreen.cyclicHelperText')}
       </HelperText>
       <Button
+        style={styles.submit}
         loading={isSubmitting}
         disabled={isSubmitting}
         onPress={handleSubmit(onSubmit)}
@@ -225,9 +226,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  submit: {
+    position: 'relative',
+    marginTop: '100%',
   },
 });
