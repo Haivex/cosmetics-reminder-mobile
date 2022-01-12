@@ -75,5 +75,6 @@ const pl: AppTranslation = {
   },
   loadingTasks: 'Trwa wczytywanie zadań...',
   search: 'Wyszukaj',
+  signIn: 'Zaloguj się aby kontynuować!',
 };
 export default pl;

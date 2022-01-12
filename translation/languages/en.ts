@@ -73,6 +73,7 @@ const en = {
   },
   loadingTasks: 'Tasks are loading...',
   search: 'Search',
+  signIn: 'Sign-in to continue!',
 };
 export default en;
 export type AppTranslation = typeof en;

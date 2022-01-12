@@ -1,6 +1,6 @@
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import React, {useCallback, useEffect, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Text, Appearance} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
 import {auth} from '../../App';
@@ -15,6 +15,8 @@ import TaskNotifications from '../../shared/TaskNotifications';
 import {ChildrenProp} from '../types';
 import FacebookSignInButton from './FacebookAuthenticationButton';
 import GoogleSignInButton from './GoogleAuthenticationButton';
+import Colors from '../../constants/Colors';
+import {translate} from '../../translation/config';
 
 export interface AuthButtonProps {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -77,6 +79,7 @@ function Authentication({children}: ChildrenProp) {
   if (!user) {
     return (
       <View style={styles.container}>
+        <Text>{translate('signIn')}</Text>
         <GoogleSignInButton disabled={loading} setLoading={setLoading} />
         <FacebookSignInButton disabled={loading} setLoading={setLoading} />
       </View>
@@ -86,12 +89,15 @@ function Authentication({children}: ChildrenProp) {
   return <>{children}</>;
 }
 
+const schemeName = Appearance.getColorScheme() || 'light';
+
 const styles = StyleSheet.create({
   container: {
     height: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: Colors[schemeName].primary,
   },
 });
 export default Authentication;
