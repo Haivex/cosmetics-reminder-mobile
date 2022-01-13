@@ -18,11 +18,11 @@ const NoTasksCard = ({additionalText}: NoTaskProps) => {
           name="card-bulleted-off-outline"
         />
         <View>
-          <Text style={[styles.text, styles.greyText]}>{translate('noTask.defaultText')}</Text>
+          <Text style={[styles.text, styles.greyText]}>
+            {translate('noTask.defaultText')}
+          </Text>
           {additionalText && (
-            <Text style={[styles.text, styles.greyText]}>
-              {additionalText}
-            </Text>
+            <Text style={[styles.text, styles.greyText]}>{additionalText}</Text>
           )}
         </View>
       </Card.Content>

@@ -2,9 +2,9 @@ import * as React from 'react';
 import {Controller, useForm, Validate} from 'react-hook-form';
 import {
   ScrollView,
-  View,
   StyleSheet,
   TextInput as TextInputType,
+  View,
 } from 'react-native';
 import 'react-native-get-random-values';
 import {
@@ -208,6 +208,8 @@ export default function TaskForm({
       </View>
       <View>
         <Button
+          theme={{colors: {text: 'white'}}}
+          contentStyle={styles.buttonSize}
           style={styles.submit}
           loading={isSubmitting}
           disabled={isSubmitting}
@@ -249,4 +251,5 @@ const styles = StyleSheet.create({
     left: 0,
     marginBottom: 32,
   },
+  buttonSize: {padding: 8},
 });
