@@ -6,7 +6,7 @@ import ErrorDialog from '../dialogs/ErrorDialog';
 import {AuthButtonProps} from './Authentication';
 import Logger from '../../shared/Logger';
 
-function FacebookSignInButton({disabled, setLoading}: AuthButtonProps) {
+function FacebookSignInButton({disabled, setLoading, style}: AuthButtonProps) {
   const [error, setError] = React.useState('');
 
   const onButtonPress = async () => {
@@ -36,6 +36,7 @@ function FacebookSignInButton({disabled, setLoading}: AuthButtonProps) {
   return (
     <>
       <FacebookSocialButton
+        buttonViewStyle={style}
         disabled={disabled}
         onPress={() => {
           onButtonPress()
