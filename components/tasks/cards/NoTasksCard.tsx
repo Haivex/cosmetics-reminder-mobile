@@ -12,10 +12,18 @@ const NoTasksCard = ({additionalText}: NoTaskProps) => {
   return (
     <Card style={styles.card}>
       <Card.Content style={styles.content}>
-        <MaterialIcon size={50} name="card-bulleted-off-outline" />
+        <MaterialIcon
+          size={50}
+          style={styles.greyText}
+          name="card-bulleted-off-outline"
+        />
         <View>
-          <Text style={styles.text}>{translate('noTask.defaultText')}</Text>
-          {additionalText && <Text style={styles.text}>{additionalText}</Text>}
+          <Text style={[styles.text, styles.greyText]}>{translate('noTask.defaultText')}</Text>
+          {additionalText && (
+            <Text style={[styles.text, styles.greyText]}>
+              {additionalText}
+            </Text>
+          )}
         </View>
       </Card.Content>
     </Card>
@@ -38,6 +46,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
   },
+  greyText: {color: '#333'},
 });
 
 export default NoTasksCard;
