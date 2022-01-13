@@ -125,8 +125,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginBottom: 64,
-    scaleX: 2,
-    scaleY: 2,
+    transform: [{scale: 2}],
   },
 });
 export default Authentication;
