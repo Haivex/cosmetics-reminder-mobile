@@ -140,7 +140,7 @@ export default function TaskForm({
               onBlur={onBlur}
               onChange={params => {
                 onChange(params);
-                !getValues().time.hours && timeRef?.current?.focus();
+                !getValues()?.time?.hours && timeRef?.current?.focus();
               }}
               value={value as CalendarDate}
             />
@@ -171,7 +171,11 @@ export default function TaskForm({
         />
         <HelperText
           type="error"
-          visible={!errors.time?.hours || !errors.time?.minutes ? true : false}>
+          visible={
+            errors.time || errors.time?.hours || errors.time?.minutes
+              ? true
+              : false
+          }>
           {translate('createTaskScreen.timeHelperText')}
         </HelperText>
         <Checkbox.Item
