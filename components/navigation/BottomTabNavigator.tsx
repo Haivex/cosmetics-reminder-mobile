@@ -105,6 +105,7 @@ function TabOneNavigator() {
                 alignItems: 'center',
               }}>
               <Icon
+                color={theme.colors.text}
                 size={24}
                 name="file-plus"
                 style={{marginRight: 8, marginBottom: 0}}
@@ -140,6 +141,7 @@ function TabTwoNavigator() {
                 alignItems: 'center',
               }}>
               <Icon
+                color={theme.colors.text}
                 size={24}
                 name="file-clock"
                 style={{marginRight: 8, marginBottom: 0}}
@@ -175,6 +177,7 @@ function TabThreeNavigator() {
                 alignItems: 'center',
               }}>
               <Icon
+                color={theme.colors.text}
                 size={24}
                 name="file-check"
                 style={{marginRight: 8, marginBottom: 0}}

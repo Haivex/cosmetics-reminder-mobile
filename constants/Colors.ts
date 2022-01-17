@@ -1,11 +1,25 @@
+import {DeepPartial} from '@reduxjs/toolkit';
+import {ExtendedTheme} from './Theme';
+
 const tintColorLight = '#00bcd4';
 const tintColorDark = '#fff';
 
-export default {
+type ColorsProps = ExtendedTheme['colors'] & {
+  tint: string;
+  tabIconDefault: string;
+  tabIconSelected: string;
+};
+
+interface Colors {
+  light: Partial<ColorsProps>;
+  dark: Partial<ColorsProps>;
+}
+
+const COLORS: Colors = {
   light: {
     primary: '#00bcd4',
     accent: '#f1c40f',
-    text: '#000',
+    text: '#000957',
     background: '#fff',
     tint: tintColorLight,
     tabIconDefault: '#ccc',
@@ -23,3 +37,5 @@ export default {
     error: '#F14A16',
   },
 };
+
+export default COLORS;
