@@ -1,6 +1,4 @@
 import {
-  DarkTheme,
-  DefaultTheme,
   NavigationContainer,
   NavigationContainerRef,
 } from '@react-navigation/native';
@@ -19,6 +17,7 @@ import {RootStackParamList} from './types';
 import BottomTabNavigator from './BottomTabNavigator';
 import RNBootSplash from 'react-native-bootsplash';
 import AppDevSettingsScreen from '../../screens/AppDevSettingsScreen';
+import {darkTheme, lightTheme} from '../../constants/Theme';
 
 export const navigationRef =
   React.createRef<NavigationContainerRef<RootStackParamList>>();
@@ -32,7 +31,7 @@ export default function Navigation({
     <NavigationContainer
       onReady={() => RNBootSplash.hide()}
       ref={navigationRef}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      theme={colorScheme === 'dark' ? darkTheme : lightTheme}>
       <RootNavigator />
     </NavigationContainer>
   );
