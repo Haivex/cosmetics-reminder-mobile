@@ -5,6 +5,7 @@ import {View} from 'react-native';
 import {Text} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '../../constants/Colors';
+import useTheme from '../../hooks/useTheme';
 import CompletedTasksScreen from '../../screens/CompletedTasksScreen';
 import CurrentTasksScreen from '../../screens/CurrentTasksScreen';
 import TaskCreationScreen from '../../screens/TaskCreationScreen';
@@ -87,12 +88,14 @@ export default function BottomTabNavigator() {
 const TabOneStack = createStackNavigator<TabOneParamList>();
 
 function TabOneNavigator() {
+  const theme = useTheme();
   return (
     <TabOneStack.Navigator>
       <TabOneStack.Screen
         name="TabOneScreen"
         component={TaskCreationScreen}
         options={{
+          headerStyle: {backgroundColor: theme.colors.primary},
           headerRight: () => <AppSettings />,
           headerTitle: () => (
             <View
@@ -120,12 +123,14 @@ function TabOneNavigator() {
 const TabTwoStack = createStackNavigator<TabTwoParamList>();
 
 function TabTwoNavigator() {
+  const theme = useTheme();
   return (
     <TabTwoStack.Navigator>
       <TabTwoStack.Screen
         name="TabTwoScreen"
         component={CurrentTasksScreen}
         options={{
+          headerStyle: {backgroundColor: theme.colors.primary},
           headerRight: () => <AppSettings />,
           headerTitle: () => (
             <View
@@ -153,12 +158,14 @@ function TabTwoNavigator() {
 const TabThreeStack = createStackNavigator<TabThreeParamList>();
 
 function TabThreeNavigator() {
+  const theme = useTheme();
   return (
     <TabThreeStack.Navigator>
       <TabThreeStack.Screen
         name="TabThreeScreen"
         component={CompletedTasksScreen}
         options={{
+          headerStyle: {backgroundColor: theme.colors.primary},
           headerRight: () => <AppSettings />,
           headerTitle: () => (
             <View
