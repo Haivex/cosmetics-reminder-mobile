@@ -1,13 +1,15 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import * as React from 'react';
+import {View} from 'react-native';
+import {Text} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import AppSettings from '../AppSettings';
 import Colors from '../../constants/Colors';
 import CompletedTasksScreen from '../../screens/CompletedTasksScreen';
 import CurrentTasksScreen from '../../screens/CurrentTasksScreen';
 import TaskCreationScreen from '../../screens/TaskCreationScreen';
 import {translate} from '../../translation/config';
+import AppSettings from '../AppSettings';
 import {
   BottomTabParamList,
   TabOneParamList,
@@ -92,7 +94,23 @@ function TabOneNavigator() {
         component={TaskCreationScreen}
         options={{
           headerRight: () => <AppSettings />,
-          headerTitle: translate('createTaskScreen.screenTitle'),
+          headerTitle: () => (
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Icon
+                size={24}
+                name="file-plus"
+                style={{marginRight: 8, marginBottom: 0}}
+              />
+              <Text style={{fontSize: 24}}>
+                {translate('createTaskScreen.screenTitle')}
+              </Text>
+            </View>
+          ),
         }}
       />
     </TabOneStack.Navigator>
@@ -109,7 +127,23 @@ function TabTwoNavigator() {
         component={CurrentTasksScreen}
         options={{
           headerRight: () => <AppSettings />,
-          headerTitle: translate('currentTasksScreen.screenTitle'),
+          headerTitle: () => (
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Icon
+                size={24}
+                name="file-clock"
+                style={{marginRight: 8, marginBottom: 0}}
+              />
+              <Text style={{fontSize: 24}}>
+                {translate('currentTasksScreen.screenTitle')}
+              </Text>
+            </View>
+          ),
         }}
       />
     </TabTwoStack.Navigator>
@@ -126,7 +160,23 @@ function TabThreeNavigator() {
         component={CompletedTasksScreen}
         options={{
           headerRight: () => <AppSettings />,
-          headerTitle: translate('finishedTasksScreen.screenTitle'),
+          headerTitle: () => (
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Icon
+                size={24}
+                name="file-check"
+                style={{marginRight: 8, marginBottom: 0}}
+              />
+              <Text style={{fontSize: 24}}>
+                {translate('finishedTasksScreen.screenTitle')}
+              </Text>
+            </View>
+          ),
         }}
       />
     </TabThreeStack.Navigator>
