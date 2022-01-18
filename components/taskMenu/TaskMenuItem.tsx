@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {Menu} from 'react-native-paper';
+import TextTicker from 'react-native-text-ticker';
 import {Task} from '../../types';
 import {SingleAction} from './TaskMenu';
 
@@ -13,14 +14,20 @@ const TaskMenuItem = ({
   closeMenu,
   title,
   callback,
+  icon,
 }: TaskMenuItemProps) => {
   return (
     <Menu.Item
+      icon={icon}
       onPress={() => {
         callback(task);
         closeMenu();
       }}
-      title={title}
+      title={
+        <TextTicker loop marqueeDelay={1000}>
+          {title}
+        </TextTicker>
+      }
     />
   );
 };

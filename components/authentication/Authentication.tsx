@@ -1,9 +1,17 @@
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import React, {useCallback, useEffect, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {
+  Appearance,
+  StyleProp,
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
 import {auth} from '../../App';
+import Colors from '../../constants/Colors';
 import {getIncomingTasks} from '../../firebase/getIncomingTasks';
 import {useTrackedSelector} from '../../redux/RootReducer';
 import {
@@ -12,6 +20,7 @@ import {
 } from '../../redux/selectors';
 import {logIn} from '../../redux/UserReducer';
 import TaskNotifications from '../../shared/TaskNotifications';
+import {translate} from '../../translation/config';
 import {ChildrenProp} from '../types';
 import FacebookSignInButton from './FacebookAuthenticationButton';
 import GoogleSignInButton from './GoogleAuthenticationButton';
@@ -19,6 +28,7 @@ import GoogleSignInButton from './GoogleAuthenticationButton';
 export interface AuthButtonProps {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   disabled: boolean;
+  style: StyleProp<ViewStyle>;
 }
 
 let isCalledOnce = false;
@@ -77,8 +87,17 @@ function Authentication({children}: ChildrenProp) {
   if (!user) {
     return (
       <View style={styles.container}>
-        <GoogleSignInButton disabled={loading} setLoading={setLoading} />
-        <FacebookSignInButton disabled={loading} setLoading={setLoading} />
+        <Text style={styles.signInInfo}>{translate('signIn')}</Text>
+        <GoogleSignInButton
+          style={styles.button}
+          disabled={loading}
+          setLoading={setLoading}
+        />
+        <FacebookSignInButton
+          style={styles.button}
+          disabled={loading}
+          setLoading={setLoading}
+        />
       </View>
     );
   }
@@ -86,12 +105,27 @@ function Authentication({children}: ChildrenProp) {
   return <>{children}</>;
 }
 
+const schemeName = Appearance.getColorScheme() || 'light';
+
 const styles = StyleSheet.create({
   container: {
     height: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: Colors[schemeName].primary,
+    padding: 16,
+  },
+  signInInfo: {
+    textAlign: 'center',
+    fontSize: 32,
+    fontWeight: 'bold',
+    marginBottom: 32,
+    color: 'white',
+  },
+  button: {
+    marginBottom: 64,
+    transform: [{scale: 2}],
   },
 });
 export default Authentication;

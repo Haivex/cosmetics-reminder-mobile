@@ -1,13 +1,14 @@
-import * as React from 'react';
-import {auth} from '../App';
 import {useNavigation} from '@react-navigation/core';
-import {translate} from '../translation/config';
+import * as React from 'react';
 import {IconButton, Menu} from 'react-native-paper';
+import TextTicker from 'react-native-text-ticker';
 import {useDispatch} from 'react-redux';
+import {auth} from '../App';
 import {logOut} from '../redux/UserReducer';
-import {NavigationProp} from './navigation/types';
-import ErrorDialog from './dialogs/ErrorDialog';
 import TaskNotifications from '../shared/TaskNotifications';
+import {translate} from '../translation/config';
+import ErrorDialog from './dialogs/ErrorDialog';
+import {NavigationProp} from './navigation/types';
 
 const AppSettings = () => {
   const navigation = useNavigation<NavigationProp>();
@@ -38,7 +39,11 @@ const AppSettings = () => {
                 setError(catchedError);
               });
           }}
-          title={translate('appSettings.logOut')}
+          title={
+            <TextTicker loop marqueeDelay={1000}>
+              {translate('appSettings.logOut')}
+            </TextTicker>
+          }
           icon="logout"
         />
         <Menu.Item
@@ -46,7 +51,11 @@ const AppSettings = () => {
             navigation.navigate('NotificationsSettings');
             closeMenu();
           }}
-          title={translate('appSettings.notificationsSettings')}
+          title={
+            <TextTicker loop>
+              {translate('appSettings.notificationsSettings')}
+            </TextTicker>
+          }
           icon="bell"
         />
       </Menu>

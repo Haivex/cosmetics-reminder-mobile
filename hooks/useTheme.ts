@@ -1,6 +1,6 @@
-import {lightTheme, darkTheme} from '../constants/Theme';
+import {lightTheme, darkTheme, ExtendedTheme} from '../constants/Theme';
 import {Appearance} from 'react-native';
-const useTheme = () => {
+const useTheme = (): ExtendedTheme => {
   return Appearance.getColorScheme() === 'dark' ? darkTheme : lightTheme;
 };
 

@@ -109,13 +109,13 @@ export default function CurrentTasksScreen() {
         }, [])}
       />
       <List.Section>
-        <List.Subheader>
+        <List.Subheader style={styles.title}>
           {translate('currentTasksScreen.currentTasksTitle')}
         </List.Subheader>
         {renderCurrentTasks()}
       </List.Section>
       <List.Section>
-        <List.Subheader>
+        <List.Subheader style={styles.title}>
           {translate('currentTasksScreen.incomingTasksTitle')}
         </List.Subheader>
         {renderIncomingTasks()}
@@ -131,7 +131,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
   },
   separator: {
     marginVertical: 30,

@@ -1,13 +1,16 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import * as React from 'react';
+import {View} from 'react-native';
+import {Text} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import AppSettings from '../AppSettings';
 import Colors from '../../constants/Colors';
+import useTheme from '../../hooks/useTheme';
 import CompletedTasksScreen from '../../screens/CompletedTasksScreen';
 import CurrentTasksScreen from '../../screens/CurrentTasksScreen';
 import TaskCreationScreen from '../../screens/TaskCreationScreen';
 import {translate} from '../../translation/config';
+import AppSettings from '../AppSettings';
 import {
   BottomTabParamList,
   TabOneParamList,
@@ -85,14 +88,33 @@ export default function BottomTabNavigator() {
 const TabOneStack = createStackNavigator<TabOneParamList>();
 
 function TabOneNavigator() {
+  const theme = useTheme();
   return (
     <TabOneStack.Navigator>
       <TabOneStack.Screen
         name="TabOneScreen"
         component={TaskCreationScreen}
         options={{
+          headerStyle: {backgroundColor: theme.colors.primary},
           headerRight: () => <AppSettings />,
-          headerTitle: translate('createTaskScreen.screenTitle'),
+          headerTitle: () => (
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Icon
+                color={theme.colors.text}
+                size={24}
+                name="file-plus"
+                style={{marginRight: 8, marginBottom: 0}}
+              />
+              <Text style={{fontSize: 24}}>
+                {translate('createTaskScreen.screenTitle')}
+              </Text>
+            </View>
+          ),
         }}
       />
     </TabOneStack.Navigator>
@@ -102,14 +124,33 @@ function TabOneNavigator() {
 const TabTwoStack = createStackNavigator<TabTwoParamList>();
 
 function TabTwoNavigator() {
+  const theme = useTheme();
   return (
     <TabTwoStack.Navigator>
       <TabTwoStack.Screen
         name="TabTwoScreen"
         component={CurrentTasksScreen}
         options={{
+          headerStyle: {backgroundColor: theme.colors.primary},
           headerRight: () => <AppSettings />,
-          headerTitle: translate('currentTasksScreen.screenTitle'),
+          headerTitle: () => (
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Icon
+                color={theme.colors.text}
+                size={24}
+                name="file-clock"
+                style={{marginRight: 8, marginBottom: 0}}
+              />
+              <Text style={{fontSize: 24}}>
+                {translate('currentTasksScreen.screenTitle')}
+              </Text>
+            </View>
+          ),
         }}
       />
     </TabTwoStack.Navigator>
@@ -119,14 +160,33 @@ function TabTwoNavigator() {
 const TabThreeStack = createStackNavigator<TabThreeParamList>();
 
 function TabThreeNavigator() {
+  const theme = useTheme();
   return (
     <TabThreeStack.Navigator>
       <TabThreeStack.Screen
         name="TabThreeScreen"
         component={CompletedTasksScreen}
         options={{
+          headerStyle: {backgroundColor: theme.colors.primary},
           headerRight: () => <AppSettings />,
-          headerTitle: translate('finishedTasksScreen.screenTitle'),
+          headerTitle: () => (
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Icon
+                color={theme.colors.text}
+                size={24}
+                name="file-check"
+                style={{marginRight: 8, marginBottom: 0}}
+              />
+              <Text style={{fontSize: 24}}>
+                {translate('finishedTasksScreen.screenTitle')}
+              </Text>
+            </View>
+          ),
         }}
       />
     </TabThreeStack.Navigator>

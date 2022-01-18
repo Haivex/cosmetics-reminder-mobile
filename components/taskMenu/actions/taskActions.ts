@@ -7,9 +7,11 @@ import TaskNotifications from '../../../shared/TaskNotifications';
 import initTranslation, {translate} from '../../../translation/config';
 import {navigationRef} from '../../navigation/index';
 import {SingleAction} from '../TaskMenu';
+
 initTranslation();
 
 export const renameAction: SingleAction = {
+  icon: 'alphabetical-variant',
   title: translate('taskMenu.changeTitle'),
   callback: task => {
     navigationRef.current?.navigate('RenameTaskDialog', task);
@@ -18,6 +20,7 @@ export const renameAction: SingleAction = {
 
 export const completeAction: SingleAction = {
   title: translate('taskMenu.finishTask'),
+  icon: 'flag',
   callback: task => {
     updateTaskCompletion(task.id, true)
       .then(() => TaskNotifications.cancelNotification(task))
@@ -43,6 +46,7 @@ export const completeAction: SingleAction = {
 
 export const deleteAction: SingleAction = {
   title: translate('taskMenu.deleteTask'),
+  icon: 'trash-can',
   callback: task => {
     deleteTask(task.id)
       .then(() => {
@@ -57,6 +61,7 @@ export const deleteAction: SingleAction = {
 
 export const restoreAction: SingleAction = {
   title: translate('taskMenu.restoreTask'),
+  icon: 'undo',
   callback: task => {
     updateTaskCompletion(task.id, false)
       .then(() => Logger.info('Task restored successfully', task))
@@ -68,6 +73,7 @@ export const restoreAction: SingleAction = {
 
 export const editAction: SingleAction = {
   title: translate('taskMenu.editTask'),
+  icon: 'pencil',
   callback: task => {
     navigationRef.current?.navigate('TaskEdition', task);
   },

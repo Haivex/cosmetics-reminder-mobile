@@ -52,7 +52,7 @@ const TimePickerInput = React.forwardRef<TextInput, TimePickerInputProps>(
           mode="outlined"
           placeholder={translate('timePicker.label')}
           ref={ref}>
-          {value.hours !== undefined && value.minutes !== undefined
+          {value?.hours !== undefined && value?.minutes !== undefined
             ? `${format(
                 new Date(1, 1, 2000, value.hours, value.minutes),
                 getTimePattern(),
@@ -63,8 +63,8 @@ const TimePickerInput = React.forwardRef<TextInput, TimePickerInputProps>(
           visible={visible}
           onDismiss={onDismiss}
           onConfirm={onConfirm}
-          hours={value.hours}
-          minutes={value.minutes}
+          hours={value?.hours}
+          minutes={value?.minutes}
           label={translate('timePicker.label')}
           cancelLabel={translate('timePicker.cancelButton')}
           confirmLabel={translate('timePicker.acceptButton')}

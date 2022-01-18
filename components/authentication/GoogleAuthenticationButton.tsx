@@ -5,12 +5,13 @@ import {auth, firebaseApp} from '../../App';
 import Logger from '../../shared/Logger';
 import ErrorDialog from '../dialogs/ErrorDialog';
 import {AuthButtonProps} from './Authentication';
+import {GOOGLE_SIGN_IN_WEB_CLIENT_ID} from '@env';
 
 GoogleSignin.configure({
-  webClientId: process.env.GOOGLE_SIGN_IN_WEB_CLIENT_ID,
+  webClientId: GOOGLE_SIGN_IN_WEB_CLIENT_ID,
 });
 
-function GoogleSignInButton({disabled, setLoading}: AuthButtonProps) {
+function GoogleSignInButton({disabled, setLoading, style}: AuthButtonProps) {
   const [error, setError] = React.useState('');
 
   useEffect(() => {
@@ -34,6 +35,7 @@ function GoogleSignInButton({disabled, setLoading}: AuthButtonProps) {
     <>
       <GoogleSocialButton
         disabled={disabled}
+        buttonViewStyle={style}
         onPress={() =>
           onGoogleButtonPress()
             .then(() => console.info('Signed in with Google!'))

@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
+    color: '#333',
   },
 });
 export default LoadingTasksCard;

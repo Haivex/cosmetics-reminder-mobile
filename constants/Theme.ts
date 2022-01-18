@@ -1,35 +1,36 @@
-import {DefaultTheme} from 'react-native-paper';
+import {
+  DarkTheme as DarkThemeNavigation,
+  DefaultTheme as DefaultThemeNavigation,
+} from '@react-navigation/native';
+import {
+  DarkTheme as DarkThemePaper,
+  DefaultTheme as DefaultThemePaper,
+} from 'react-native-paper';
 import Colors from './Colors';
 
-type Theme = typeof DefaultTheme;
+type Theme = typeof DefaultThemePaper;
+export type ExtendedTheme = Theme & typeof DefaultThemeNavigation;
 
-// declare global {
-//     namespace ReactNativePaper {
-//       interface ThemeColors {
-//         myOwnColor: string;
-//       }
-//       interface Theme {
-//         myOwnProperty: boolean;
-//       }
-//     }
-//   }
-
-export const darkTheme: Theme = {
-  ...DefaultTheme,
+export const darkTheme: ExtendedTheme = {
+  ...DarkThemeNavigation,
+  ...DarkThemePaper,
   dark: true,
   roundness: 2,
   colors: {
-    ...DefaultTheme.colors,
+    ...DarkThemeNavigation.colors,
+    ...DarkThemePaper.colors,
     ...Colors.dark,
   },
 };
 
-export const lightTheme: Theme = {
-  ...DefaultTheme,
+export const lightTheme: ExtendedTheme = {
+  ...DefaultThemeNavigation,
+  ...DefaultThemePaper,
   dark: false,
   roundness: 2,
   colors: {
-    ...DefaultTheme.colors,
+    ...DefaultThemeNavigation.colors,
+    ...DefaultThemePaper.colors,
     ...Colors.light,
   },
 };
