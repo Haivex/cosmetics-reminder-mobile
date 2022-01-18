@@ -1,4 +1,3 @@
-import {DeepPartial} from '@reduxjs/toolkit';
 import {ExtendedTheme} from './Theme';
 
 const tintColorLight = '#00bcd4';
