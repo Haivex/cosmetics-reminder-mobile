@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/core';
 import * as React from 'react';
-import {Appbar, Menu} from 'react-native-paper';
+import {Appbar, Menu, useTheme} from 'react-native-paper';
 import TextTicker from 'react-native-text-ticker';
 import {useDispatch} from 'react-redux';
 import {auth} from '../App';
@@ -15,15 +15,21 @@ const AppSettings = () => {
   const dispatch = useDispatch();
   const [visibleMenu, setVisibleMenu] = React.useState(false);
   const [error, setError] = React.useState('');
+  const theme = useTheme();
 
   const openMenu = () => setVisibleMenu(true);
-
   const closeMenu = () => setVisibleMenu(false);
 
   return (
     <>
       <Menu
-        anchor={<Appbar.Action icon="cog" onPress={openMenu} />}
+        anchor={
+          <Appbar.Action
+            color={theme.colors.text}
+            icon="cog"
+            onPress={openMenu}
+          />
+        }
         onDismiss={closeMenu}
         visible={visibleMenu}>
         <Menu.Item
@@ -40,11 +46,11 @@ const AppSettings = () => {
               });
           }}
           title={
-            <TextTicker loop marqueeDelay={1000}>
+            <TextTicker style={{color: theme.colors.text}} loop marqueeDelay={1000}>
               {translate('appSettings.logOut')}
             </TextTicker>
           }
-          icon="logout"
+          icon="logout"     
         />
         <Menu.Item
           onPress={() => {
@@ -52,7 +58,7 @@ const AppSettings = () => {
             closeMenu();
           }}
           title={
-            <TextTicker loop>
+            <TextTicker style={{color: theme.colors.text}} loop>
               {translate('appSettings.notificationsSettings')}
             </TextTicker>
           }
