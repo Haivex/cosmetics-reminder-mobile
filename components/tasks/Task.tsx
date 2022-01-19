@@ -1,13 +1,13 @@
-import * as React from 'react';
 import {formatRelative} from 'date-fns';
+import {enUS} from 'date-fns/locale';
+import i18n from 'i18n-js';
+import * as React from 'react';
+import {StyleSheet} from 'react-native';
+import {List, useTheme} from 'react-native-paper';
 import {firebaseApp} from '../../App';
 import {localesMap} from '../../constants/dateLocales';
-import i18n from 'i18n-js';
 import {Task as TaskType} from '../../types';
 import TaskMenu, {SingleAction} from '../taskMenu/TaskMenu';
-import {enUS} from 'date-fns/locale';
-import {List} from 'react-native-paper';
-import {StyleSheet} from 'react-native';
 
 type TaskProps = {
   icon: string;
@@ -16,6 +16,7 @@ type TaskProps = {
 };
 
 export const Task = React.memo(({icon, task, menuActions}: TaskProps) => {
+  const theme = useTheme();
   const formattedTime = formatRelative(
     new firebaseApp.firestore.Timestamp(
       task.date.seconds,
@@ -27,9 +28,15 @@ export const Task = React.memo(({icon, task, menuActions}: TaskProps) => {
     },
   );
 
+  const background = StyleSheet.create({
+    color: {
+      backgroundColor: theme.colors.background,
+    },
+  });
+
   return (
     <List.Item
-      style={styles.item}
+      style={[styles.item, background.color]}
       title={task.title}
       description={formattedTime}
       left={props => <List.Icon {...props} icon={icon} />}
@@ -44,6 +51,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 4,
-    backgroundColor: '#fff',
   },
 });
