@@ -6,3 +6,4 @@ export const selectNotificationsStatus = (state: RootState) =>
 export const selectGlobalState = (state: RootState) => state;
 export const selectNotifications = (state: RootState) => state.notifications;
 export const selectTasks = (state: RootState) => state.firestore.ordered;
+export const selectTheme = (state: RootState) => state.themes.theme;

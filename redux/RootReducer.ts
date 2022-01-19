@@ -6,6 +6,7 @@ import NotificationsReducer, {NotificationState} from './NotificationsReducer';
 import UserReducer, {CurrentUser} from './UserReducer';
 import {useSelector} from 'react-redux';
 import {createTrackedSelector} from 'react-tracked';
+import ThemeReducer, { ThemeState } from './ThemeReducer';
 
 interface Profile {
   name: string;
@@ -47,6 +48,7 @@ interface CombinedReducersState {
   notifications: NotificationState;
   firebase: FirebaseReducer.Reducer<{}, FirebaseSchema>;
   firestore: FirestoreReducer.Reducer<FirestoreSchema>;
+  themes: ThemeState;
 }
 
 const rootReducer = combineReducers<CombinedReducersState>({
@@ -54,6 +56,7 @@ const rootReducer = combineReducers<CombinedReducersState>({
   notifications: NotificationsReducer,
   firebase: firebaseReducer,
   firestore: firestoreReducer,
+  themes: ThemeReducer,
 });
 
 export default rootReducer;

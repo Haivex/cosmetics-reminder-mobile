@@ -1,7 +1,11 @@
-import {lightTheme, darkTheme, ExtendedTheme} from '../constants/Theme';
-import {Appearance} from 'react-native';
+import {darkTheme, ExtendedTheme, lightTheme} from '../constants/Theme';
+import {store} from '../redux/MainStore';
+import {selectTheme} from '../redux/selectors';
+
 const useTheme = (): ExtendedTheme => {
-  return Appearance.getColorScheme() === 'dark' ? darkTheme : lightTheme;
+  const state = store.getState();
+  const theme = selectTheme(state);
+  return theme === 'dark' ? darkTheme : lightTheme;
 };
 
 export default useTheme;

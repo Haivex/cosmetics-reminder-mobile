@@ -57,6 +57,7 @@ const en = {
   appSettings: {
     logOut: 'Log out',
     notificationsSettings: 'Manage notifications',
+    appearanceSettings: 'Customize appearance',
   },
   notificationsSettings: {
     notificationsStatus: 'Turn on/off notifications',
@@ -74,6 +75,9 @@ const en = {
   loadingTasks: 'Tasks are loading...',
   search: 'Search',
   signIn: 'Sign-in to continue!',
+  appearanceSettings: {
+    changeTheme: 'Ciemny / Jasny motyw',
+  },
 };
 export default en;
 export type AppTranslation = typeof en;

@@ -64,6 +64,18 @@ const AppSettings = () => {
           }
           icon="bell"
         />
+        <Menu.Item
+          onPress={() => {
+            navigation.navigate('AppearanceSettings');
+            closeMenu();
+          }}
+          title={
+            <ThemedMarqueeText theme={theme}>
+              {translate('appSettings.appearanceSettings')}
+            </ThemedMarqueeText>
+          }
+          icon="palette"
+        />
       </Menu>
       {Boolean(error) && (
         <ErrorDialog

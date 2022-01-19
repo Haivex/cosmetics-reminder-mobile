@@ -11,6 +11,7 @@ import {ColorSchemeName} from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import {darkTheme, lightTheme} from '../../constants/Theme';
 import AppDevSettingsScreen from '../../screens/AppDevSettingsScreen';
+import AppearanceSettingsScreen from '../../screens/AppearanceSettingsScreen';
 import NotFoundScreen from '../../screens/NotFoundScreen';
 import NotificationsSettingsScreen from '../../screens/NotificationsSettings';
 import TaskEditionScreen from '../../screens/TaskEditionScreen';
@@ -91,6 +92,17 @@ function RootNavigator() {
       <Stack.Group screenOptions={{presentation: 'transparentModal'}}>
         <Stack.Screen name="RenameTaskDialog" component={RenameDialog} />
       </Stack.Group>
+      <Stack.Screen
+        name="AppearanceSettings"
+        component={AppearanceSettingsScreen}
+        options={{
+          header: props => <AppBar {...props} />,
+          title: translate('appSettings.notificationsSettings'),
+          gestureEnabled: true,
+          gestureDirection: 'horizontal',
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
     </Stack.Navigator>
   );
 }
