@@ -1,7 +1,6 @@
 import {useNavigation} from '@react-navigation/core';
 import * as React from 'react';
 import {Appbar, Menu, useTheme} from 'react-native-paper';
-import TextTicker from 'react-native-text-ticker';
 import {useDispatch} from 'react-redux';
 import {auth} from '../App';
 import {logOut} from '../redux/UserReducer';
@@ -9,6 +8,7 @@ import TaskNotifications from '../shared/TaskNotifications';
 import {translate} from '../translation/config';
 import ErrorDialog from './dialogs/ErrorDialog';
 import {NavigationProp} from './navigation/types';
+import ThemedMarqueeText from './ThemedMarqueeText';
 
 const AppSettings = () => {
   const navigation = useNavigation<NavigationProp>();
@@ -46,11 +46,11 @@ const AppSettings = () => {
               });
           }}
           title={
-            <TextTicker style={{color: theme.colors.text}} loop marqueeDelay={1000}>
+            <ThemedMarqueeText theme={theme}>
               {translate('appSettings.logOut')}
-            </TextTicker>
+            </ThemedMarqueeText>
           }
-          icon="logout"     
+          icon="logout"
         />
         <Menu.Item
           onPress={() => {
@@ -58,9 +58,9 @@ const AppSettings = () => {
             closeMenu();
           }}
           title={
-            <TextTicker style={{color: theme.colors.text}} loop>
+            <ThemedMarqueeText theme={theme}>
               {translate('appSettings.notificationsSettings')}
-            </TextTicker>
+            </ThemedMarqueeText>
           }
           icon="bell"
         />
