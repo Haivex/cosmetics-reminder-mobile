@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/core';
 import * as React from 'react';
-import {IconButton, Menu} from 'react-native-paper';
+import {Appbar, Menu} from 'react-native-paper';
 import TextTicker from 'react-native-text-ticker';
 import {useDispatch} from 'react-redux';
 import {auth} from '../App';
@@ -23,7 +23,7 @@ const AppSettings = () => {
   return (
     <>
       <Menu
-        anchor={<IconButton icon="cog-outline" onPress={openMenu} />}
+        anchor={<Appbar.Action icon="cog" onPress={openMenu} />}
         onDismiss={closeMenu}
         visible={visibleMenu}>
         <Menu.Item
