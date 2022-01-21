@@ -7,9 +7,9 @@ import {
   createStackNavigator,
 } from '@react-navigation/stack';
 import * as React from 'react';
-import {ColorSchemeName} from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import {darkTheme, lightTheme} from '../../constants/Theme';
+import useTheme from '../../hooks/useTheme';
 import AppDevSettingsScreen from '../../screens/AppDevSettingsScreen';
 import AppearanceSettingsScreen from '../../screens/AppearanceSettingsScreen';
 import NotFoundScreen from '../../screens/NotFoundScreen';
@@ -24,16 +24,13 @@ import {RootStackParamList} from './types';
 export const navigationRef =
   React.createRef<NavigationContainerRef<RootStackParamList>>();
 
-export default function Navigation({
-  colorScheme,
-}: {
-  colorScheme: ColorSchemeName;
-}) {
+export default function Navigation() {
+  const currentTheme = useTheme();
   return (
     <NavigationContainer
       onReady={() => RNBootSplash.hide()}
       ref={navigationRef}
-      theme={colorScheme === 'dark' ? darkTheme : lightTheme}>
+      theme={currentTheme}>
       <RootNavigator />
     </NavigationContainer>
   );
