@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {Menu} from 'react-native-paper';
-import TextTicker from 'react-native-text-ticker';
+import {Menu, useTheme} from 'react-native-paper';
 import {Task} from '../../types';
+import ThemedMarqueeText from '../ThemedMarqueeText';
 import {SingleAction} from './TaskMenu';
 
 interface TaskMenuItemProps extends SingleAction {
@@ -16,6 +16,7 @@ const TaskMenuItem = ({
   callback,
   icon,
 }: TaskMenuItemProps) => {
+  const theme = useTheme();
   return (
     <Menu.Item
       icon={icon}
@@ -23,11 +24,7 @@ const TaskMenuItem = ({
         callback(task);
         closeMenu();
       }}
-      title={
-        <TextTicker loop marqueeDelay={1000}>
-          {title}
-        </TextTicker>
-      }
+      title={<ThemedMarqueeText theme={theme}>{title}</ThemedMarqueeText>}
     />
   );
 };

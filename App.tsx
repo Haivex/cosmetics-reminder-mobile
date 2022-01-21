@@ -3,7 +3,6 @@ import '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import functions from '@react-native-firebase/functions';
 import React from 'react';
-import {Provider as PaperProvider} from 'react-native-paper';
 import PushNotification from 'react-native-push-notification';
 import {Provider} from 'react-redux';
 import {
@@ -15,7 +14,7 @@ import {createFirestoreInstance} from 'redux-firestore';
 import {PersistGate} from 'redux-persist/integration/react';
 import Authentication from './components/authentication/Authentication';
 import Navigation from './components/navigation/index';
-import useTheme from './hooks/useTheme';
+import ThemeProvider from './components/ThemeProvider';
 import {persistor, store} from './redux/MainStore';
 import initializeAppDevSettings from './shared/devSettings';
 import Logger from './shared/Logger';
@@ -96,22 +95,18 @@ initializeAppDevSettings();
 initTranslation();
 
 const App = () => {
-  const currentTheme = useTheme();
   return (
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...reactReduxFirebaseProviderProps}>
         <PersistGate loading={null} persistor={persistor}>
-          <PaperProvider theme={currentTheme}>
+          <ThemeProvider>
             <Authentication>
-              <Navigation
-                colorScheme={currentTheme.dark === true ? 'dark' : 'light'}
-              />
+              <Navigation />
             </Authentication>
-          </PaperProvider>
+          </ThemeProvider>
         </PersistGate>
       </ReactReduxFirebaseProvider>
     </Provider>
-    // </SafeAreaView>
   );
 };
 

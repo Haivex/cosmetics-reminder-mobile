@@ -7,31 +7,30 @@ import {
   createStackNavigator,
 } from '@react-navigation/stack';
 import * as React from 'react';
-import {ColorSchemeName} from 'react-native';
-import RenameDialog from '../dialogs/RenameDialog';
+import RNBootSplash from 'react-native-bootsplash';
+import {darkTheme, lightTheme} from '../../constants/Theme';
+import useTheme from '../../hooks/useTheme';
+import AppDevSettingsScreen from '../../screens/AppDevSettingsScreen';
+import AppearanceSettingsScreen from '../../screens/AppearanceSettingsScreen';
 import NotFoundScreen from '../../screens/NotFoundScreen';
 import NotificationsSettingsScreen from '../../screens/NotificationsSettings';
 import TaskEditionScreen from '../../screens/TaskEditionScreen';
 import {translate} from '../../translation/config';
-import {RootStackParamList} from './types';
+import RenameDialog from '../dialogs/RenameDialog';
+import AppBar from './AppBar';
 import BottomTabNavigator from './BottomTabNavigator';
-import RNBootSplash from 'react-native-bootsplash';
-import AppDevSettingsScreen from '../../screens/AppDevSettingsScreen';
-import {darkTheme, lightTheme} from '../../constants/Theme';
+import {RootStackParamList} from './types';
 
 export const navigationRef =
   React.createRef<NavigationContainerRef<RootStackParamList>>();
 
-export default function Navigation({
-  colorScheme,
-}: {
-  colorScheme: ColorSchemeName;
-}) {
+export default function Navigation() {
+  const currentTheme = useTheme();
   return (
     <NavigationContainer
       onReady={() => RNBootSplash.hide()}
       ref={navigationRef}
-      theme={colorScheme === 'dark' ? darkTheme : lightTheme}>
+      theme={currentTheme}>
       <RootNavigator />
     </NavigationContainer>
   );
@@ -41,15 +40,19 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator>
       <Stack.Group>
-        <Stack.Screen name="Root" component={BottomTabNavigator} />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Root"
+          component={BottomTabNavigator}
+        />
         <Stack.Screen
           name="AppDevSettings"
           component={AppDevSettingsScreen}
           options={{
+            header: props => <AppBar {...props} />,
             title: 'App Dev Settings',
-            headerShown: true,
             gestureEnabled: true,
             gestureDirection: 'horizontal',
             cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
@@ -64,8 +67,8 @@ function RootNavigator() {
           name="NotificationsSettings"
           component={NotificationsSettingsScreen}
           options={{
+            header: props => <AppBar {...props} />,
             title: translate('appSettings.notificationsSettings'),
-            headerShown: true,
             gestureEnabled: true,
             gestureDirection: 'horizontal',
             cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
@@ -75,8 +78,8 @@ function RootNavigator() {
           name="TaskEdition"
           component={TaskEditionScreen}
           options={{
+            header: props => <AppBar {...props} />,
             title: translate('editTaskScreen.title'),
-            headerShown: true,
             gestureEnabled: true,
             gestureDirection: 'horizontal',
             cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
@@ -86,6 +89,17 @@ function RootNavigator() {
       <Stack.Group screenOptions={{presentation: 'transparentModal'}}>
         <Stack.Screen name="RenameTaskDialog" component={RenameDialog} />
       </Stack.Group>
+      <Stack.Screen
+        name="AppearanceSettings"
+        component={AppearanceSettingsScreen}
+        options={{
+          header: props => <AppBar {...props} />,
+          title: translate('appSettings.notificationsSettings'),
+          gestureEnabled: true,
+          gestureDirection: 'horizontal',
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
     </Stack.Navigator>
   );
 }

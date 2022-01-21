@@ -20,7 +20,7 @@ const TaskMenu = ({actions, task}: TaskMenuProps) => {
     <Menu
       visible={visibleMenu}
       onDismiss={closeMenu}
-      anchor={<IconButton icon="dots-vertical" onPress={openMenu} />}>
+      anchor={<IconButton  icon="dots-vertical" onPress={openMenu} />}>
       {actions.map((singleAction, index) => (
         <TaskMenuItem
           key={index}

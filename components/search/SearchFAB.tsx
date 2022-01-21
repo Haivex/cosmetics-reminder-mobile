@@ -10,6 +10,7 @@ const SearchFAB = ({onPress}: SearchFABProps) => {
   let [opened, setOpened] = React.useState(false);
   return (
     <FAB
+      color="#000"
       animated={true}
       style={styles.fab}
       icon="magnify"
@@ -24,8 +25,9 @@ const SearchFAB = ({onPress}: SearchFABProps) => {
 const styles = StyleSheet.create({
   fab: {
     position: 'absolute',
-    right: 16,
-    bottom: 16,
+    right: 32,
+    bottom: 24,
+    transform: [{scale: 1.25}],
   },
 });
 
