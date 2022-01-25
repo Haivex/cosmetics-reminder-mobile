@@ -23,7 +23,9 @@ const LanguageRadioButton = ({
         value={value}
         labelStyle={styles.label}
       />
-      <Icon name={flagName} width="32" height="32" style={styles.icon} />
+      {value !== 'auto' && (
+        <Icon name={flagName} width="32" height="32" style={styles.icon} />
+      )}
     </View>
   );
 };

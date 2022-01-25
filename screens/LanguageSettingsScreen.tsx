@@ -8,8 +8,13 @@ const LanguageSettingsScreen = () => {
   return (
     <ScrollView>
       <RadioButton.Group onValueChange={value => setValue(value)} value={value}>
+        <LanguageRadioButton value="auto" label="auto" flagName="" />
         <LanguageRadioButton value="polish" label="polski" flagName="poland" />
-        <LanguageRadioButton value="english" label="english" flagName="united-states-of-america" />
+        <LanguageRadioButton
+          value="english"
+          label="english"
+          flagName="united-states-of-america"
+        />
       </RadioButton.Group>
     </ScrollView>
   );
