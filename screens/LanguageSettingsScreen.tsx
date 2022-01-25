@@ -1,14 +1,16 @@
 import React from 'react';
 import {ScrollView} from 'react-native';
-import {List} from 'react-native-paper';
-import ThemeStatus from '../components/ThemeStatus';
+import {RadioButton} from 'react-native-paper';
+import LanguageRadioButton from '../components/LanguageRadioButton';
 
 const LanguageSettingsScreen = () => {
+  const [value, setValue] = React.useState('first');
   return (
     <ScrollView>
-      <List.Section>
-        <List.Item title="Change language" right={() => <ThemeStatus />} />
-      </List.Section>
+      <RadioButton.Group onValueChange={value => setValue(value)} value={value}>
+        <LanguageRadioButton value="polish" label="polski" flagName="poland" />
+        <LanguageRadioButton value="english" label="english" flagName="united-states-of-america" />
+      </RadioButton.Group>
     </ScrollView>
   );
 };
