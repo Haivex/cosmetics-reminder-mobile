@@ -1,13 +1,23 @@
 import React from 'react';
 import {ScrollView} from 'react-native';
 import {RadioButton} from 'react-native-paper';
+import { useDispatch } from 'react-redux';
 import LanguageRadioButton from '../components/LanguageRadioButton';
+import {changeLanguage, Language} from '../redux/LanguageReducer';
+import {useTrackedSelector} from '../redux/RootReducer';
+import {selectLanguage} from '../redux/selectors';
 
 const LanguageSettingsScreen = () => {
-  const [value, setValue] = React.useState('first');
+  const state = useTrackedSelector();
+  const currentLanguage = selectLanguage(state);
+  const dispatch = useDispatch();
   return (
     <ScrollView>
-      <RadioButton.Group onValueChange={value => setValue(value)} value={value}>
+      <RadioButton.Group
+        onValueChange={changedValue => {
+          dispatch(changeLanguage(changedValue as Language['currentLanguage']));
+        }}
+        value={currentLanguage}>
         <LanguageRadioButton value="auto" label="auto" flagName="" />
         <LanguageRadioButton value="polish" label="polski" flagName="poland" />
         <LanguageRadioButton
