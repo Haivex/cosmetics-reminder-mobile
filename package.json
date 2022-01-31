@@ -29,7 +29,7 @@
     "@types/react-native-dotenv": "^0.2.0",
     "colors.ts": "^1.0.20",
     "date-fns": "^2.24.0",
-    "i18n-js": "^3.8.0",
+    "i18n-js": "^4.0.0-alpha.14",
     "intl": "^1.2.5",
     "node-libs-react-native": "^1.2.1",
     "react": "17.0.2",
