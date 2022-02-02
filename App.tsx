@@ -2,7 +2,6 @@ import firebase from '@react-native-firebase/app';
 import '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import functions from '@react-native-firebase/functions';
-import {I18n} from 'i18n-js';
 import React from 'react';
 import PushNotification from 'react-native-push-notification';
 import {Provider} from 'react-redux';

@@ -1,11 +1,10 @@
 import {format} from 'date-fns';
-import i18n from 'i18n-js';
+import {i18n, translate} from '../../../translation/config';
 import 'intl';
 import 'intl/locale-data/jsonp/pl';
 import * as React from 'react';
 import {TextInput} from 'react-native-paper';
 import {TimePickerModal} from 'react-native-paper-dates';
-import {translate} from '../../../translation/config';
 
 export type Time = {
   hours: number | undefined;
@@ -19,7 +18,7 @@ interface TimePickerInputProps {
 }
 
 function getTimePattern() {
-  const currentLocale = i18n.currentLocale();
+  const currentLocale = i18n.locale;
   if (currentLocale.startsWith('en')) {
     return 'hh:mm aa';
   }
@@ -69,7 +68,7 @@ const TimePickerInput = React.forwardRef<TextInput, TimePickerInputProps>(
           cancelLabel={translate('timePicker.cancelButton')}
           confirmLabel={translate('timePicker.acceptButton')}
           animationType="fade"
-          locale={i18n.currentLocale()}
+          locale={i18n.locale}
         />
       </>
     );
