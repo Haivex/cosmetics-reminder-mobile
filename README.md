@@ -8,7 +8,9 @@ About project...
 
 **Server:** Firebase
 
-## Screenshots
+## Features & Screenshots
+
+**Notifications and Repeating Tasks**
 
 **Calendar and Time Input**
 
@@ -39,6 +41,7 @@ About project...
 ![Search2](../readme-assets/screenshots/Screenshot_2022.02.02_17.28.15.186.png?raw=true)
 
 **Translation**
+
 ![PL](../readme-assets/screenshots/Screenshot_2022.02.02_17.21.51.219.png?raw=true)
 ![EN](../readme-assets/screenshots/Screenshot_2022.02.02_17.23.06.070.png?raw=true)
 
