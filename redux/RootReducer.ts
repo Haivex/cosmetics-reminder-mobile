@@ -1,12 +1,13 @@
 import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 import {combineReducers} from '@reduxjs/toolkit';
-import {FirebaseReducer, firebaseReducer} from 'react-redux-firebase';
-import {firestoreReducer, FirestoreReducer} from 'redux-firestore';
-import NotificationsReducer, {NotificationState} from './NotificationsReducer';
-import UserReducer, {CurrentUser} from './UserReducer';
 import {useSelector} from 'react-redux';
+import {FirebaseReducer, firebaseReducer} from 'react-redux-firebase';
 import {createTrackedSelector} from 'react-tracked';
-import ThemeReducer, { ThemeState } from './ThemeReducer';
+import {firestoreReducer, FirestoreReducer} from 'redux-firestore';
+import LanguageReducer, {Language} from './LanguageReducer';
+import NotificationsReducer, {NotificationState} from './NotificationsReducer';
+import ThemeReducer, {ThemeState} from './ThemeReducer';
+import UserReducer, {CurrentUser} from './UserReducer';
 
 interface Profile {
   name: string;
@@ -49,6 +50,7 @@ interface CombinedReducersState {
   firebase: FirebaseReducer.Reducer<{}, FirebaseSchema>;
   firestore: FirestoreReducer.Reducer<FirestoreSchema>;
   themes: ThemeState;
+  languages: Language;
 }
 
 const rootReducer = combineReducers<CombinedReducersState>({
@@ -57,6 +59,7 @@ const rootReducer = combineReducers<CombinedReducersState>({
   firebase: firebaseReducer,
   firestore: firestoreReducer,
   themes: ThemeReducer,
+  languages: LanguageReducer,
 });
 
 export default rootReducer;

@@ -1,6 +1,6 @@
 import {formatRelative} from 'date-fns';
 import {enUS} from 'date-fns/locale';
-import i18n from 'i18n-js';
+import {i18n} from '../../translation/config';
 import * as React from 'react';
 import {StyleSheet} from 'react-native';
 import {List, useTheme} from 'react-native-paper';
@@ -24,7 +24,7 @@ export const Task = React.memo(({icon, task, menuActions}: TaskProps) => {
     ).toMillis(),
     new Date(),
     {
-      locale: localesMap.get(i18n.currentLocale()) || enUS,
+      locale: localesMap.get(i18n.locale) || enUS,
     },
   );
 

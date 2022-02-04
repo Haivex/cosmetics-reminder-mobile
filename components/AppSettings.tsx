@@ -76,6 +76,18 @@ const AppSettings = () => {
           }
           icon="palette"
         />
+        <Menu.Item
+          onPress={() => {
+            navigation.navigate('LanguageSettings');
+            closeMenu();
+          }}
+          title={
+            <ThemedMarqueeText theme={theme}>
+              {translate('appSettings.languageSettings')}
+            </ThemedMarqueeText>
+          }
+          icon="earth"
+        />
       </Menu>
       {Boolean(error) && (
         <ErrorDialog

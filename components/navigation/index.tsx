@@ -8,10 +8,10 @@ import {
 } from '@react-navigation/stack';
 import * as React from 'react';
 import RNBootSplash from 'react-native-bootsplash';
-import {darkTheme, lightTheme} from '../../constants/Theme';
 import useTheme from '../../hooks/useTheme';
 import AppDevSettingsScreen from '../../screens/AppDevSettingsScreen';
 import AppearanceSettingsScreen from '../../screens/AppearanceSettingsScreen';
+import LanguageSettingsScreen from '../../screens/LanguageSettingsScreen';
 import NotFoundScreen from '../../screens/NotFoundScreen';
 import NotificationsSettingsScreen from '../../screens/NotificationsSettings';
 import TaskEditionScreen from '../../screens/TaskEditionScreen';
@@ -95,6 +95,17 @@ function RootNavigator() {
         options={{
           header: props => <AppBar {...props} />,
           title: translate('appSettings.notificationsSettings'),
+          gestureEnabled: true,
+          gestureDirection: 'horizontal',
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+      <Stack.Screen
+        name="LanguageSettings"
+        component={LanguageSettingsScreen}
+        options={{
+          header: props => <AppBar {...props} />,
+          title: translate('appSettings.languageSettings'),
           gestureEnabled: true,
           gestureDirection: 'horizontal',
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,

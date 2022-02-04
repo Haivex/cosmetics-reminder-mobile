@@ -58,6 +58,7 @@ const en = {
     logOut: 'Log out',
     notificationsSettings: 'Manage notifications',
     appearanceSettings: 'Customize appearance',
+    languageSettings: 'Change language',
   },
   notificationsSettings: {
     notificationsStatus: 'Turn on/off notifications',
@@ -77,6 +78,9 @@ const en = {
   signIn: 'Sign-in to continue!',
   appearanceSettings: {
     changeTheme: 'Ciemny / Jasny motyw',
+  },
+  languageSettings: {
+    changeLanguage: 'Choose a language',
   },
 };
 export default en;

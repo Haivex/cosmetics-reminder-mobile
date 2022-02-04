@@ -1,6 +1,5 @@
 import {format} from 'date-fns';
-import i18n from 'i18n-js';
-import {translate} from '../../../translation/config';
+import {i18n, translate} from '../../../translation/config';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 import 'intl/locale-data/jsonp/pl';
@@ -17,7 +16,7 @@ interface DatePickerInputProps {
 }
 
 function getDatePattern() {
-  const currentLocale = i18n.currentLocale();
+  const currentLocale = i18n.locale;
   if (currentLocale === 'en-US') {
     return 'LL-dd-uu';
   }
@@ -53,7 +52,7 @@ const DatePickerInput = React.forwardRef<TextInputType, DatePickerInputProps>(
           {value ? format(value, getDatePattern()) : ''}
         </TextInput>
         <DatePickerModal
-          locale={i18n.currentLocale()}
+          locale={i18n.locale}
           mode="single"
           visible={open}
           onDismiss={onDismissSingle}

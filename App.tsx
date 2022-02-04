@@ -13,6 +13,7 @@ import {
 import {createFirestoreInstance} from 'redux-firestore';
 import {PersistGate} from 'redux-persist/integration/react';
 import Authentication from './components/authentication/Authentication';
+import LanguageProvider from './components/LanguageProvider';
 import Navigation from './components/navigation/index';
 import ThemeProvider from './components/ThemeProvider';
 import {persistor, store} from './redux/MainStore';
@@ -91,19 +92,21 @@ const reactReduxFirebaseProviderProps: ReactReduxFirebaseProviderProps = {
   createFirestoreInstance,
 };
 
-initializeAppDevSettings();
 initTranslation();
+initializeAppDevSettings();
 
 const App = () => {
   return (
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...reactReduxFirebaseProviderProps}>
         <PersistGate loading={null} persistor={persistor}>
-          <ThemeProvider>
-            <Authentication>
-              <Navigation />
-            </Authentication>
-          </ThemeProvider>
+          <LanguageProvider>
+            <ThemeProvider>
+              <Authentication>
+                <Navigation />
+              </Authentication>
+            </ThemeProvider>
+          </LanguageProvider>
         </PersistGate>
       </ReactReduxFirebaseProvider>
     </Provider>

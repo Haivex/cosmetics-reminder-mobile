@@ -60,6 +60,7 @@ const pl: AppTranslation = {
     logOut: 'Wyloguj się',
     notificationsSettings: 'Zarządzaj powiadomieniami',
     appearanceSettings: 'Dostosuj wygląd',
+    languageSettings: 'Zmień język',
   },
   notificationsSettings: {
     notificationsStatus: 'Włącz/Wyłącz powiadomienia',
@@ -79,6 +80,9 @@ const pl: AppTranslation = {
   signIn: 'Zaloguj się aby kontynuować!',
   appearanceSettings: {
     changeTheme: 'Dark / Light Theme',
+  },
+  languageSettings: {
+    changeLanguage: 'Wybierz język',
   },
 };
 export default pl;
