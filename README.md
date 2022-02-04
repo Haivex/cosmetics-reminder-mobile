@@ -21,6 +21,7 @@ About project...
 ![Dark Theme](../readme-assets/screenshots/Screenshot_2022.02.02_17.27.05.136.png?raw=true)
 
 **App Settings**
+
 ![Settings Menu](../readme-assets/screenshots/Screenshot_2022.02.02_17.22.03.420.png?raw=true)
 ![Language Settings](../readme-assets/screenshots/Screenshot_2022.02.02_17.22.15.437.png?raw=true)
 
@@ -40,6 +41,11 @@ About project...
 **Translation**
 ![PL](../readme-assets/screenshots/Screenshot_2022.02.02_17.21.51.219.png?raw=true)
 ![EN](../readme-assets/screenshots/Screenshot_2022.02.02_17.23.06.070.png?raw=true)
+
+**Loading Indicator and No Task Message**
+
+![Loading Task](../readme-assets/screenshots/Screenshot_2022.02.02_17.22.37.803.png?raw=true)
+![No Task](../readme-assets/screenshots/Screenshot_2022.02.02_17.23.01.103.png?raw=true)
 
 ## Run Locally
 
