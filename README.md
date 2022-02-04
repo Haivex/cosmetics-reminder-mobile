@@ -4,6 +4,9 @@
 
 In this repository I learned React Native Basices. I learned how React Native links JavaScript, how native modules work, basic Android and iOS file structure and operations. This was first try how to build mobile applications and how much it's different from a web development. The hardest things to learn were connect Firebase (and config), create notifications and repeating tasks (CRON job, Google Cloud).
 
+## Description
+
+This is a simple to-do app with minor improvements. When we create a scheduled task it creates a notification, we can also create repeating task with given interval ( notification is also repeating). We can change language: auto (based on device language), polish, english; theme and turn off notifications. We can also switch between accounts ( tasks are saved in database ).
 
 ## Tech Stack
 
@@ -15,19 +18,29 @@ In this repository I learned React Native Basices. I learned how React Native li
 
 **Notifications and Repeating Tasks**
 
+Task/Notification with given interval (days, hours and minutes)
+
 **Relative Time Task**
 
+Time for every task is printed relative e.g tomorrow, yesterday, last Sunday etc. 
+
 **Calendar and Time Input**
+
+Choose date and time with beautiful modals
 
 ![Calendar Input](../readme-assets/screenshots/Screenshot_2022.02.02_17.20.34.505.png?raw=true)
 ![Time Input](../readme-assets/screenshots/Screenshot_2022.02.02_17.25.24.820.png?raw=true)
 
 **Light and Dark Theme**
 
+Switch between light and dark theme
+
 ![Light Theme](../readme-assets/screenshots/Screenshot_2022.02.02_17.21.51.219.png?raw=true)
 ![Dark Theme](../readme-assets/screenshots/Screenshot_2022.02.02_17.27.05.136.png?raw=true)
 
 **App Settings**
+
+Customize your preferences
 
 ![Settings Menu](../readme-assets/screenshots/Screenshot_2022.02.02_17.22.03.420.png?raw=true)
 ![Language Settings](../readme-assets/screenshots/Screenshot_2022.02.02_17.22.15.437.png?raw=true)
