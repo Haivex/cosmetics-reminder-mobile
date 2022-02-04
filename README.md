@@ -16,8 +16,21 @@ About project...
 ![Time Input](../readme-assets/screenshots/Screenshot_2022.02.02_17.25.24.820.png?raw=true)
 
 **Light and Dark Theme**
+
 ![Light Theme](../readme-assets/screenshots/Screenshot_2022.02.02_17.21.51.219.png?raw=true)
 ![Dark Theme](../readme-assets/screenshots/Screenshot_2022.02.02_17.27.05.136.png?raw=true)
+
+**App Settings**
+![Settings Menu](../readme-assets/screenshots/Screenshot_2022.02.02_17.22.03.420.png?raw=true)
+![Language Settings](../readme-assets/screenshots/Screenshot_2022.02.02_17.22.15.437.png?raw=true)
+
+**App Developer Settings**
+
+![Dev Settings](../readme-assets/screenshots/Screenshot_2022.02.02_17.24.15.553.png?raw=true)
+
+**Swipe to complete/restore/delete task**
+
+![Swipe Actions](../readme-assets/screenshots/Screenshot_2022.02.02_17.27.25.787.png?raw=true)
 
 ## Run Locally
 
