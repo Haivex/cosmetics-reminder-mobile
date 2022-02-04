@@ -22,7 +22,7 @@ Task/Notification with given interval (days, hours and minutes)
 
 **Relative Time Task**
 
-Time for every task is printed relative e.g tomorrow, yesterday, last Sunday etc. 
+Time for every task is printed relative e.g `tomorrow`, `yesterday`, `last Sunday` etc. 
 
 **Calendar and Time Input**
 
@@ -59,7 +59,7 @@ Swipe left/right and touch to make basic task actions
 
 **Search Tasks**
 
-Search by task title or date e.g test before: 2022-01-04 after: 2022-01-01 search for tasks including title 'test' with scheduled time between 1st and 4th January
+Search by task title or date e.g `test before: 2022-01-04 after: 2022-01-01` search for tasks including title 'test' with scheduled time between 1st and 4th January
 
 ![Search1](../readme-assets/screenshots/Screenshot_2022.02.02_17.28.01.554.png?raw=true)
 ![Search2](../readme-assets/screenshots/Screenshot_2022.02.02_17.28.15.186.png?raw=true)
