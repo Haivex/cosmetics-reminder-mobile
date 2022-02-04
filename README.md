@@ -32,6 +32,15 @@ About project...
 
 ![Swipe Actions](../readme-assets/screenshots/Screenshot_2022.02.02_17.27.25.787.png?raw=true)
 
+**Search Tasks**
+
+![Search1](../readme-assets/screenshots/Screenshot_2022.02.02_17.28.01.554.png?raw=true)
+![Search2](../readme-assets/screenshots/Screenshot_2022.02.02_17.28.15.186.png?raw=true)
+
+**Translation**
+![PL](../readme-assets/screenshots/Screenshot_2022.02.02_17.21.51.219.png?raw=true)
+![EN](../readme-assets/screenshots/Screenshot_2022.02.02_17.23.06.070.png?raw=true)
+
 ## Run Locally
 
 Clone the project
