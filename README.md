@@ -12,6 +12,8 @@ About project...
 
 **Notifications and Repeating Tasks**
 
+**Relative Time Task**
+
 **Calendar and Time Input**
 
 ![Calendar Input](../readme-assets/screenshots/Screenshot_2022.02.02_17.20.34.505.png?raw=true)
