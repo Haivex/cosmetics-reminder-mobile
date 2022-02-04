@@ -9,8 +9,15 @@ About project...
 **Server:** Firebase
 
 ## Screenshots
-**Calendar Input**
+
+**Calendar and Time Input**
+
 ![Calendar Input](../readme-assets/screenshots/Screenshot_2022.02.02_17.20.34.505.png?raw=true)
+![Time Input](../readme-assets/screenshots/Screenshot_2022.02.02_17.25.24.820.png?raw=true)
+
+**Light and Dark Theme**
+![Light Theme](../readme-assets/screenshots/Screenshot_2022.02.02_17.21.51.219.png?raw=true)
+![Dark Theme](../readme-assets/screenshots/Screenshot_2022.02.02_17.27.05.136.png?raw=true)
 
 ## Run Locally
 
