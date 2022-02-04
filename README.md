@@ -9,8 +9,8 @@ About project...
 **Server:** Firebase
 
 ## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+**Calendar Input**
+![Calendar Input](../readme-assets/screenshots/Screenshot_2022.02.02_17.20.34.505.png?raw=true)
 
 ## Run Locally
 
