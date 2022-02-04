@@ -10,9 +10,9 @@ This is a simple to-do app with minor improvements. When we create a scheduled t
 
 ## Tech Stack
 
-**Client:** React Native, Redux, React Native Paper
+**Client:** React Native, Redux (store and MMKV for persistence), React Native Paper (UI)
 
-**Server:** Firebase
+**Server:** Firebase (Database, Authentication), Google Cloud (CRON jobs for repeating tasks)
 
 ## Features & Screenshots
 
@@ -47,28 +47,38 @@ Customize your preferences
 
 **App Developer Settings**
 
+Test application features inside custom developer settings
+
 ![Dev Settings](../readme-assets/screenshots/Screenshot_2022.02.02_17.24.15.553.png?raw=true)
 
 **Swipe to complete/restore/delete task**
 
+Swipe left/right and touch to make basic task actions
+
 ![Swipe Actions](../readme-assets/screenshots/Screenshot_2022.02.02_17.27.25.787.png?raw=true)
 
 **Search Tasks**
+
+Search by task title or date e.g test before: 2022-01-04 after: 2022-01-01 search for tasks including title 'test' with scheduled time between 1st and 4th January
 
 ![Search1](../readme-assets/screenshots/Screenshot_2022.02.02_17.28.01.554.png?raw=true)
 ![Search2](../readme-assets/screenshots/Screenshot_2022.02.02_17.28.15.186.png?raw=true)
 
 **Translation**
 
+Use app in your language
+
 ![PL](../readme-assets/screenshots/Screenshot_2022.02.02_17.21.51.219.png?raw=true)
 ![EN](../readme-assets/screenshots/Screenshot_2022.02.02_17.23.06.070.png?raw=true)
 
 **Loading Indicator and No Task Message**
 
+Show custom message when tasks are loading or there are no tasks
+
 ![Loading Task](../readme-assets/screenshots/Screenshot_2022.02.02_17.22.37.803.png?raw=true)
 ![No Task](../readme-assets/screenshots/Screenshot_2022.02.02_17.23.01.103.png?raw=true)
 
-## Run Locally
+## Run Locally ( Work in progress )
 
 Clone the project
 
