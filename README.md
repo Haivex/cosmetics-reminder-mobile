@@ -1,5 +1,5 @@
-# Learning React Native Basics
-About project...
+# Purpose of the project - learning React Native Basics
+In this repository I learned React Native Basices. I learned how React Native links JavaScript, how native modules work, basic Android and iOS file structure and operations. This was first try how to build mobile applications and how much it's different from a web development.
 
 
 ## Tech Stack
