@@ -1,5 +1,8 @@
-# Purpose of the project - learning React Native Basics
-In this repository I learned React Native Basices. I learned how React Native links JavaScript, how native modules work, basic Android and iOS file structure and operations. This was first try how to build mobile applications and how much it's different from a web development.
+# Cosmetics Reminder Mobile - Learning React Native Basics
+
+## Purpose of the project
+
+In this repository I learned React Native Basices. I learned how React Native links JavaScript, how native modules work, basic Android and iOS file structure and operations. This was first try how to build mobile applications and how much it's different from a web development. The hardest things to learn were connect Firebase (and config), create notifications and repeating tasks (CRON job, Google Cloud).
 
 
 ## Tech Stack
