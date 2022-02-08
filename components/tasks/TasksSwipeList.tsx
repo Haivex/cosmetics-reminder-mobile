@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo, useCallback} from 'react';
 import {
   ListRenderItemInfo,
   StyleSheet,
@@ -8,8 +8,8 @@ import {
 import {RowMap, SwipeListView} from 'react-native-swipe-list-view';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Task as TaskType} from '../../types';
-import {Task} from './Task';
 import {SingleAction} from '../taskMenu/TaskMenu';
+import {Task} from './Task';
 
 interface ActionData {
   actionIcon: string;
@@ -51,13 +51,21 @@ const HiddenItem = (props: HiddenItemProps) => {
     rightActionData: rightActionDataProp,
     rowMap,
   } = props;
+
+  const doLeftAction = useCallback(() => {
+    rowMap[data.item.key].closeRow();
+    leftActionDataProp.actionCallback(data.item.task);
+  }, [data.item.key, data.item.task, leftActionDataProp, rowMap]);
+
+  const doRightAction = useCallback(() => {
+    rowMap[data.item.key].closeRow();
+    rightActionDataProp.actionCallback(data.item.task);
+  }, [data.item.key, data.item.task, rightActionDataProp, rowMap]);
+
   return (
     <View style={[styles.rowBack]}>
       <TouchableOpacity
-        onPress={() => {
-          rowMap[data.item.key].closeRow();
-          leftActionDataProp.actionCallback(data.item.task);
-        }}
+        onPress={doLeftAction}
         style={[
           styles.leftSwipeButton,
           {
@@ -71,10 +79,7 @@ const HiddenItem = (props: HiddenItemProps) => {
         />
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => {
-          rowMap[data.item.key].closeRow();
-          rightActionDataProp.actionCallback(data.item.task);
-        }}
+        onPress={doRightAction}
         style={[
           styles.rightSwipeButton,
           {
@@ -91,48 +96,58 @@ const HiddenItem = (props: HiddenItemProps) => {
   );
 };
 
-const TasksSwipeList = ({
-  tasks,
-  taskMenuActions,
-  leftActionData,
-  rightActionData,
-  taskIcon,
-}: TasksSwipeListProps) => {
-  const renderHiddenItem = (
-    data: ListRenderItemInfo<SwipeListData>,
-    rowMap: RowMap<SwipeListData>,
-  ) => {
-    return (
-      <HiddenItem
-        leftActionData={leftActionData}
-        rightActionData={rightActionData}
-        data={data}
-        rowMap={rowMap}
-      />
+const TasksSwipeList = memo(
+  ({
+    tasks,
+    taskMenuActions,
+    leftActionData,
+    rightActionData,
+    taskIcon,
+  }: TasksSwipeListProps) => {
+    const renderHiddenItem = useCallback(
+      (
+        data: ListRenderItemInfo<SwipeListData>,
+        rowMap: RowMap<SwipeListData>,
+      ) => {
+        return (
+          <HiddenItem
+            leftActionData={leftActionData}
+            rightActionData={rightActionData}
+            data={data}
+            rowMap={rowMap}
+          />
+        );
+      },
+      [leftActionData, rightActionData],
     );
-  };
 
-  return (
-    <SwipeListView
-      closeOnRowPress={true}
-      closeOnScroll={true}
-      data={tasks.map(task => ({key: task.id, task: task}))}
-      renderItem={data => (
+    const renderItem = useCallback(
+      data => (
         <Task
           icon={taskIcon}
           key={data.item.task.id}
           task={data.item.task}
           menuActions={taskMenuActions}
         />
-      )}
-      renderHiddenItem={renderHiddenItem}
-      leftOpenValue={75}
-      rightOpenValue={-75}
-      stopLeftSwipe={75}
-      stopRightSwipe={-75}
-    />
-  );
-};
+      ),
+      [taskIcon, taskMenuActions],
+    );
+
+    return (
+      <SwipeListView
+        closeOnRowPress={true}
+        closeOnScroll={true}
+        data={tasks.map(task => ({key: task.id, task: task}))}
+        renderItem={renderItem}
+        renderHiddenItem={renderHiddenItem}
+        leftOpenValue={75}
+        rightOpenValue={-75}
+        stopLeftSwipe={75}
+        stopRightSwipe={-75}
+      />
+    );
+  },
+);
 
 const styles = StyleSheet.create({
   rowBack: {
