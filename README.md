@@ -108,6 +108,9 @@ To run this project, you will need to add the following environment variables an
 
 `GOOGLE_SIGN_IN_WEB_CLIENT_ID` - .env
 
+Optional:
+`REACT_DEBUGGER=rndebugger-open --open --port 8081` for React Native Debugger
+
 Start Firebase Emulator
 ```bash
   npm run firebase:emulators:all
