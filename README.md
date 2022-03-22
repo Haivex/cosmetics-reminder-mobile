@@ -83,7 +83,7 @@ Show custom message when tasks are loading or there are no tasks
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/Haivex/cosmetics-reminder-mobile.git
 ```
 
 Go to the project directory
