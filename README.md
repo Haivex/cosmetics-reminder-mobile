@@ -98,13 +98,13 @@ Install dependencies
   npm install
 ```
 
-# To run this project, you will need to add the following environment variables and files
+ **To run this project, you will need to add the following environment variables and files**
 
-`google-services.json` - Firebase Configuration
+- `google-services.json` - Firebase Configuration
 
 Download `google-services.json` from Firebase Project and paste to `android/app`
 
-`strings.xml` - Facebook Credentials
+- `strings.xml` - Facebook Credentials
 
 Create Facebook application and copy Facebook App Id and Client Token.
 Create `string.xml` in `android/app/src/main/res/values` and paste:
@@ -116,9 +116,9 @@ Create `string.xml` in `android/app/src/main/res/values` and paste:
 </resources>
 ```
 
-`GOOGLE_SIGN_IN_WEB_CLIENT_ID` - .env
+- `GOOGLE_SIGN_IN_WEB_CLIENT_ID` - .env
 
-Optional:
+- (optional):
 `REACT_DEBUGGER=rndebugger-open --open --port 8081` for React Native Debugger
 
 Build Android Apk for Development
