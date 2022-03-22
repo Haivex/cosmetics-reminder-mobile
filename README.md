@@ -116,10 +116,16 @@ Create `string.xml` in `android/app/src/main/res/values` and paste:
 </resources>
 ```
 
-- `GOOGLE_SIGN_IN_WEB_CLIENT_ID` - .env
+- `GOOGLE_SIGN_IN_WEB_CLIENT_ID` - copy Client ID from `google-services.json` to `.env` file
+```json
+ {
+          "client_id": "<randomString>.apps.googleusercontent.com", // <-- copy this
+          "client_type": 3
+ }
+```
 
 - (optional):
-`REACT_DEBUGGER=rndebugger-open --open --port 8081` for React Native Debugger
+`REACT_DEBUGGER=rndebugger-open --open --port 8081` - add this to `.env` file for React Native Debugger
 
 Build Android Apk for Development
 ```bash
