@@ -78,7 +78,7 @@ Show custom message when tasks are loading or there are no tasks
 ![Loading Task](../readme-assets/screenshots/Screenshot_2022.02.02_17.22.37.803.png?raw=true)
 ![No Task](../readme-assets/screenshots/Screenshot_2022.02.02_17.23.01.103.png?raw=true)
 
-## Run Locally ( Work in progress )
+## Run Locally
 
 Clone the project
 
