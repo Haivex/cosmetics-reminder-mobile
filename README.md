@@ -111,6 +111,11 @@ To run this project, you will need to add the following environment variables an
 Optional:
 `REACT_DEBUGGER=rndebugger-open --open --port 8081` for React Native Debugger
 
+Build Android Apk for Development
+```bash
+  npm run android
+```
+
 Start Firebase Emulator
 ```bash
   npm run firebase:emulators:all
