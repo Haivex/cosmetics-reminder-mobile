@@ -98,13 +98,23 @@ Install dependencies
   npm install
 ```
 
-To run this project, you will need to add the following environment variables and files
+# To run this project, you will need to add the following environment variables and files
 
 `google-services.json` - Firebase Configuration
 
+Download `google-services.json` from Firebase Project and paste to `android/app`
+
 `strings.xml` - Facebook Credentials
 
-`Android Manifest` - Facebook App ID
+Create Facebook application and copy Facebook App Id and Client Token.
+Create `string.xml` in `android/app/src/main/res/values` and paste:
+```
+<resources>
+    <string name="app_name">Only You</string>
+    <string name="facebook_app_id">Your Facebook APP ID here</string>
+    <string name="facebook_client_token">Your Facebook Client Token Here </string>
+</resources>
+```
 
 `GOOGLE_SIGN_IN_WEB_CLIENT_ID` - .env
 
